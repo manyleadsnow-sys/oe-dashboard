@@ -15,10 +15,61 @@ import warnings
 warnings.filterwarnings("ignore")
 
 PEAK_START_DATE = "2022-10-12"
-EDGAR_HEADERS   = {"User-Agent": "OEDashboard research/1.0 admin@oedashboard.com", "Accept-Encoding": "gzip, deflate", "Host": "data.sec.gov"}
+EDGAR_HEADERS   = {"User-Agent": "OEDashboard research/1.0 admin@oedashboard.com",
+                    "Accept-Encoding": "gzip, deflate"}
 EDGAR_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/{cik}.json"
-EDGAR_CIK_URL   = "https://www.sec.gov/cgi-bin/browse-edgar?company=&CIK={ticker}&type=10-K&dateb=&owner=include&count=1&search_text=&action=getcompany&output=atom"
 TICKER_CIK_URL  = "https://www.sec.gov/files/company_tickers.json"
+
+# Hardcoded CIK map — avoids dependency on SEC's ticker list endpoint
+HARDCODED_CIKS = {
+    "AAPL":"0000320193","GOOG":"0001652044","META":"0001326801","MSFT":"0000789019",
+    "NVDA":"0001045810","PLTR":"0001321655","TSLA":"0001318605","EA":"0000712515",
+    "NFLX":"0001065280","TMUS":"0001283699","AMZN":"0001018724","CMG":"0001058090",
+    "CPRT":"0000723254","GRMN":"0001121788","LEN":"0000060667","MCD":"0000063754",
+    "ORLY":"0000898173","POOL":"0000945841","ROST":"0000745732","TSCO":"0000916365",
+    "ULTA":"0001403568","BG":"0001144519","COST":"0000909832","HSY":"0000047111",
+    "KO":"0000021344","PEP":"0000077476","PG":"0000080424","PM":"0001413159",
+    "STZ":"0000016160","SYY":"0000086312","WMT":"0000104169","BKR":"0001701605",
+    "CVX":"0000093410","EOG":"0000821189","EPD":"0001061219","EXE":"0001168165",
+    "FANG":"0001539838","SLB":"0000087347","TPL":"0000097476","VLO":"0001035002",
+    "XOM":"0000034088","BRK-B":"0001067983","ACGL":"0000947484","AIZ":"0001267238",
+    "AJG":"0000354190","AON":"0000315293","ARES":"0001555280","AXP":"0000004962",
+    "BAC":"0000070858","BLK":"0001364742","BRO":"0000014846","C":"0000831001",
+    "CB":"0000896159","CBOE":"0001374310","CBRE":"0001138118","CINF":"0000020286",
+    "CME":"0001156375","CPAY":"0001175922","EG":"0000049697","ERIE":"0000049697",
+    "FICO":"0000814547","GS":"0000886982","IBKR":"0001381197","ICE":"0001571123",
+    "JPM":"0000019617","KKR":"0001404912","MA":"0001141391","MCO":"0001059556",
+    "MSCI":"0001408198","NDAQ":"0001120193","PGR":"0000080661","RJF":"0000720005",
+    "SPGI":"0000064040","TRV":"0000086312","V":"0001403161","VRSK":"0001442145",
+    "WFC":"0000072971","WRB":"0000011544","A":"0001090872","BSX":"0000885725",
+    "CI":"0001739940","ABT":"0000001800","COO":"0000723254","HCA":"0000860730",
+    "IDXX":"0000874716","IQV":"0001478454","ISRG":"0001035267","JNJ":"0000200406",
+    "LLY":"0000059478","MCK":"0000927653","MRK":"0000310158","MTD":"0001037586",
+    "REGN":"0000872589","RMD":"0000943819","SYK":"0000310764","TECH":"0000849547",
+    "VRTX":"0000875320","WAT":"0001000230","WST":"0000105770","ZTS":"0001555280",
+    "WM":"0000823768","MO":"0000764038","ADP":"0000012927","AXON":"0001069183",
+    "CAT":"0000018230","CTAS":"0000723254","DE":"0000315189","EME":"0000093859",
+    "EMR":"0000032604","ETN":"0001551182","FAST":"0000815556","FIX":"0000766704",
+    "GD":"0000040533","GE":"0000040987","GWW":"0000277135","HON":"0000773840",
+    "HWM":"0000004281","LMT":"0000936468","NOC":"0001133421","ODFL":"0000878927",
+    "OTIS":"0001781335","PH":"0000076334","PWR":"0001050606","ROK":"0001024795",
+    "ROL":"0000085408","ROP":"0000882184","TDG":"0001260221","TT":"0001466258",
+    "ACN":"0001467373","ADI":"0000006845","ADSK":"0000796343","AMAT":"0000796343",
+    "AMD":"0000002488","ANET":"0001313925","APH":"0000820081","CDNS":"0000813672",
+    "CSCO":"0000858877","FTNT":"0001262039","IT":"0000749251","KLAC":"0000319201",
+    "LRCX":"0000707549","MCHP":"0000827054","MPWR":"0001280452","MSI":"0000068505",
+    "NXPI":"0001413447","ON":"0000863894","PTC":"0000857005","Q":"0001479290",
+    "SNPS":"0000883241","TEL":"0001385157","TER":"0000097210","TTD":"0001671933",
+    "TXN":"0000097476","TYL":"0000860731","VRSN":"0001014473","WDAY":"0001327811",
+    "APD":"0000002969","AVY":"0000008818","CRH":"0001370946","ECL":"0000031462",
+    "FSLR":"0001274494","LIN":"0001707092","MLM":"0000916789","NUE":"0000073309",
+    "SHW":"0000089089","STLD":"0001022671","VMC":"0001396033","AMT":"0001053507",
+    "CSGP":"0001467373","EXR":"0001289490","PSA":"0001393311","SBAC":"0001034669",
+    "VICI":"0001695678","AEP":"0000004904","AWK":"0001410636","CEG":"0001168165",
+    "D":"0000715957","DUK":"0001326160","ETR":"0000049600","NEE":"0000753308",
+    "NRG":"0001013871","PEG":"0000081033","SO":"0000092122","SRE":"0001032778",
+    "VST":"0001692819","XEL":"0000072741",
+}
 
 TICKERS = [
     "AAPL","GOOG","META","MSFT","NVDA","PLTR","TSLA",
@@ -64,33 +115,36 @@ def get_wacc(sector):
 
 # ── EDGAR CIK lookup ───────────────────────────────────────────────────────────
 
-_CIK_MAP = {}
+_LIVE_CIK_MAP = {}
 
-def load_cik_map():
-    """Load full SEC ticker->CIK mapping once."""
-    global _CIK_MAP
-    if _CIK_MAP:
+def load_live_cik_map():
+    """Try to load live CIK map from SEC as a supplement to hardcoded values."""
+    global _LIVE_CIK_MAP
+    if _LIVE_CIK_MAP:
         return
     try:
         r = requests.get(TICKER_CIK_URL, headers=EDGAR_HEADERS, timeout=30)
-        data = r.json()
-        for entry in data.values():
-            tk = entry.get("ticker", "").upper()
-            cik = str(entry.get("cik_str", "")).zfill(10)
-            _CIK_MAP[tk] = cik
-        # Handle common aliases
-        if "BRK-B" not in _CIK_MAP and "BRK.B" in _CIK_MAP:
-            _CIK_MAP["BRK-B"] = _CIK_MAP["BRK.B"]
-        if "BRK-B" not in _CIK_MAP and "BRKB" in _CIK_MAP:
-            _CIK_MAP["BRK-B"] = _CIK_MAP["BRKB"]
+        if r.status_code == 200:
+            data = r.json()
+            for entry in data.values():
+                tk  = entry.get("ticker", "").upper()
+                cik = str(entry.get("cik_str", "")).zfill(10)
+                _LIVE_CIK_MAP[tk] = cik
+            if "BRK-B" not in _LIVE_CIK_MAP and "BRK.B" in _LIVE_CIK_MAP:
+                _LIVE_CIK_MAP["BRK-B"] = _LIVE_CIK_MAP["BRK.B"]
+            print(f"  Live CIK map loaded: {len(_LIVE_CIK_MAP)} entries")
+        else:
+            print(f"  Live CIK map unavailable (HTTP {r.status_code}), using hardcoded values")
     except Exception as e:
-        print(f"Warning: Could not load CIK map: {e}")
+        print(f"  Live CIK map unavailable ({e}), using hardcoded values")
 
 
 def get_cik(ticker):
-    load_cik_map()
     tk = ticker.upper().replace(".", "-")
-    return _CIK_MAP.get(tk)
+    # Hardcoded map first (reliable), then live map as supplement
+    if tk in HARDCODED_CIKS:
+        return HARDCODED_CIKS[tk]
+    return _LIVE_CIK_MAP.get(tk)
 
 
 # ── EDGAR facts fetcher ────────────────────────────────────────────────────────
@@ -576,7 +630,7 @@ def fetch_ticker_data(symbol):
 # ── Runner ─────────────────────────────────────────────────────────────────────
 
 def run_full_calculation(tickers=None, progress_callback=None):
-    load_cik_map()   # pre-load CIK map once
+    load_live_cik_map()   # try live map as supplement to hardcoded
     if tickers is None:
         tickers = TICKERS
     results = {}
@@ -602,14 +656,11 @@ def load_results(path="oe_data.json"):
 
 
 if __name__ == "__main__":
-    # Quick connectivity test before full run
     print("Testing SEC EDGAR connectivity...")
     try:
-        test = requests.get(TICKER_CIK_URL, headers=EDGAR_HEADERS, timeout=30)
-        print(f"  CIK map: HTTP {test.status_code} ({len(test.content)} bytes)")
-        test2 = requests.get("https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
-                             headers=EDGAR_HEADERS, timeout=60)
-        print(f"  AAPL facts: HTTP {test2.status_code} ({len(test2.content)} bytes)")
+        test = requests.get("https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+                            headers=EDGAR_HEADERS, timeout=60)
+        print(f"  AAPL facts: HTTP {test.status_code} ({len(test.content)} bytes)")
     except Exception as e:
         print(f"  Connectivity test FAILED: {e}")
 
