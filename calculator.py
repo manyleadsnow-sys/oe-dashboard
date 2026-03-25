@@ -7,7 +7,7 @@ Metrics: OE, OE Yield, OE Multiple (EV/OE), OE Growth Rate (10yr CAGR),
 import yfinance as yf
 import numpy as np
 import pandas as pd
-from datetime import datetime, date
+from datetime import datetime
 import json
 import warnings
 warnings.filterwarnings("ignore")
@@ -15,140 +15,209 @@ warnings.filterwarnings("ignore")
 PEAK_START_DATE = "2022-10-12"
 
 TICKERS = [
-    # AI & Technology
     "AAPL","GOOG","META","MSFT","NVDA","PLTR","TSLA",
-    # Communication Services
     "EA","NFLX","TMUS",
-    # Consumer Discretionary
     "AMZN","CMG","CPRT","GRMN","LEN","MCD","ORLY","POOL","ROST","TSCO","ULTA",
-    # Consumer Staples
     "BG","COST","HSY","KO","PEP","PG","PM","STZ","SYY","WMT",
-    # Energy
     "BKR","CVX","EOG","EPD","EXE","FANG","SLB","TPL","VLO","XOM",
-    # Financials
     "BRK-B","ACGL","AIZ","AJG","AON","ARES","AXP","BAC","BLK","BRO",
     "C","CB","CBOE","CBRE","CINF","CME","CPAY","EG","ERIE","FICO",
     "GS","IBKR","ICE","JPM","KKR","MA","MCO","MSCI","NDAQ","PGR",
     "RJF","SPGI","TRV","V","VRSK","WFC","WRB",
-    # Health Care
     "A","BSX","CI","ABT","COO","HCA","IDXX","IQV","ISRG","JNJ",
     "LLY","MCK","MRK","MTD","REGN","RMD","SYK","TECH","VRTX","WAT","WST","ZTS",
-    # Industrials
     "WM","MO","ADP","AXON","CAT","CTAS","DE","EME","EMR","ETN",
     "FAST","FIX","GD","GE","GWW","HON","HWM","LMT","NOC","ODFL",
     "OTIS","PH","PWR","ROK","ROL","ROP","TDG","TT",
-    # Information Technology
     "ACN","ADI","ADSK","AMAT","AMD","ANET","APH","CDNS","CSCO","FTNT",
     "IT","KLAC","LRCX","MCHP","MPWR","MSI","NXPI","ON","PTC","Q",
     "SNPS","TEL","TER","TTD","TXN","TYL","VRSN","WDAY",
-    # Materials
     "APD","AVY","CRH","ECL","FSLR","LIN","MLM","NUE","SHW","STLD","VMC",
-    # Real Estate
     "AMT","CSGP","EXR","PSA","SBAC","VICI",
-    # Utilities
     "AEP","AWK","CEG","D","DUK","ETR","NEE","NRG","PEG","SO","SRE","VST","XEL"
 ]
 
-# Industry WACC mapping (approximate industry-adjusted rates)
 INDUSTRY_WACC = {
-    "Technology":           0.090,
+    "Technology":            0.090,
     "Communication Services":0.085,
-    "Consumer Cyclical":    0.085,
-    "Consumer Defensive":   0.075,
-    "Energy":               0.095,
-    "Financial Services":   0.090,
-    "Healthcare":           0.085,
-    "Industrials":          0.085,
-    "Real Estate":          0.075,
-    "Basic Materials":      0.090,
-    "Utilities":            0.065,
-    "default":              0.085,
+    "Consumer Cyclical":     0.085,
+    "Consumer Defensive":    0.075,
+    "Energy":                0.095,
+    "Financial Services":    0.090,
+    "Healthcare":            0.085,
+    "Industrials":           0.085,
+    "Real Estate":           0.075,
+    "Basic Materials":       0.090,
+    "Utilities":             0.065,
+    "default":               0.085,
 }
 
-def get_wacc(sector: str) -> float:
+def get_wacc(sector):
     return INDUSTRY_WACC.get(sector, INDUSTRY_WACC["default"])
 
 
-def safe_get(d: dict, *keys, default=None):
-    for k in keys:
-        if d and k in d:
-            return d[k]
-    return default
+def find_row(df, *candidates):
+    if df is None or df.empty:
+        return None
+    index_str   = [str(i) for i in df.index]
+    index_lower = [s.lower() for s in index_str]
+    for c in candidates:
+        c_lower = c.lower()
+        if c in df.index:
+            return df.loc[c]
+        for i, lbl in enumerate(index_lower):
+            if lbl == c_lower:
+                return df.iloc[i]
+        for i, lbl in enumerate(index_lower):
+            if c_lower in lbl:
+                return df.iloc[i]
+    return None
 
 
-def compute_owner_earnings(cf: dict, bs_curr: dict, bs_prev: dict) -> float | None:
-    """
-    OE = Net Income + D&A - CapEx ± Working Capital changes
-    WC change = (Current Assets - Cash) - (Current Liabilities - Short-term Debt)  [curr] minus [prev]
-    """
-    net_income = safe_get(cf, "Net Income", "NetIncome")
-    da = safe_get(cf, "Depreciation & Amortization", "Reconciled Depreciation",
-                  "DepreciationAndAmortization", "Depreciation")
-    capex = safe_get(cf, "Capital Expenditure", "CapitalExpenditures")
+def row_ttm(df, *candidates):
+    row = find_row(df, *candidates)
+    if row is None:
+        return None
+    vals = pd.to_numeric(row, errors='coerce').dropna()
+    if len(vals) == 0:
+        return None
+    return float(vals.iloc[:4].sum())
+
+
+def compute_oe_ttm(cf_q, bs_q):
+    net_income = row_ttm(cf_q,
+        "Net Income", "NetIncome",
+        "Net Income Common Stockholders",
+        "Net Income From Continuing Operations",
+        "Net Income Including Noncontrolling Interests")
+
+    da = row_ttm(cf_q,
+        "Depreciation & Amortization",
+        "Depreciation And Amortization",
+        "Reconciled Depreciation",
+        "DepreciationAndAmortization",
+        "Depreciation Amortization Depletion",
+        "Depreciation And Amortization In Income Statement",
+        "Depreciation")
+
+    capex = row_ttm(cf_q,
+        "Capital Expenditure",
+        "Capital Expenditures",
+        "CapitalExpenditures",
+        "Purchase Of Property Plant And Equipment",
+        "Capital Expenditures Reported",
+        "Purchases Of Property And Equipment")
 
     if net_income is None or da is None or capex is None:
         return None
 
-    # CapEx is usually negative in yfinance cash flow
     capex_val = abs(capex)
 
-    # Working capital change
-    def wc(bs):
-        if bs is None:
+    def get_wc(col_idx):
+        if bs_q is None or bs_q.empty or col_idx >= bs_q.shape[1]:
             return None
-        ca = safe_get(bs, "Current Assets", "TotalCurrentAssets")
-        cash = safe_get(bs, "Cash And Cash Equivalents", "Cash", "CashAndCashEquivalents")
-        cl = safe_get(bs, "Current Liabilities", "TotalCurrentLiabilities")
-        std = safe_get(bs, "Short Long Term Debt", "CurrentDebt", "ShortTermDebt") or 0
-        if ca is None or cl is None:
+        ca_row  = find_row(bs_q, "Current Assets", "Total Current Assets", "TotalCurrentAssets")
+        cl_row  = find_row(bs_q, "Current Liabilities", "Total Current Liabilities", "TotalCurrentLiabilities")
+        csh_row = find_row(bs_q, "Cash And Cash Equivalents", "Cash", "CashAndCashEquivalents",
+                           "Cash Cash Equivalents And Short Term Investments",
+                           "Cash And Short Term Investments")
+        std_row = find_row(bs_q, "Current Debt", "Short Term Debt", "CurrentDebt",
+                           "Current Portion Of Long Term Debt", "Short Long Term Debt")
+        if ca_row is None or cl_row is None:
             return None
-        return (ca - (cash or 0)) - (cl - std)
+        def v(row):
+            if row is None: return 0.0
+            try:
+                val = pd.to_numeric(row, errors='coerce').iloc[col_idx]
+                return float(val) if not pd.isna(val) else 0.0
+            except Exception:
+                return 0.0
+        return (v(ca_row) - v(csh_row)) - (v(cl_row) - v(std_row))
 
-    wc_curr = wc(bs_curr)
-    wc_prev = wc(bs_prev)
-
-    if wc_curr is not None and wc_prev is not None:
-        delta_wc = wc_curr - wc_prev
-    else:
-        delta_wc = 0
+    wc_curr  = get_wc(0)
+    wc_prev  = get_wc(4)
+    delta_wc = (wc_curr - wc_prev) if (wc_curr is not None and wc_prev is not None) else 0.0
 
     return net_income + da - capex_val - delta_wc
 
 
-def compute_epv(ticker_obj, sector: str, shares: float) -> float | None:
-    """
-    EPV = Adjusted EBIT × (1 - tax_rate) / WACC
-    """
+def compute_oe_annual_series(t):
     try:
-        inc = ticker_obj.financials
+        cf_a = t.cashflow
+        if cf_a is None or cf_a.empty:
+            return pd.Series(dtype=float)
+        results = {}
+        for i in range(cf_a.shape[1]):
+            cf_col = cf_a.iloc[:, i:i+1]
+            ni  = row_ttm(cf_col, "Net Income", "NetIncome",
+                          "Net Income Common Stockholders",
+                          "Net Income From Continuing Operations")
+            da  = row_ttm(cf_col, "Depreciation & Amortization",
+                          "Depreciation And Amortization",
+                          "Reconciled Depreciation", "DepreciationAndAmortization",
+                          "Depreciation Amortization Depletion", "Depreciation")
+            cap = row_ttm(cf_col, "Capital Expenditure", "Capital Expenditures",
+                          "CapitalExpenditures",
+                          "Purchase Of Property Plant And Equipment",
+                          "Purchases Of Property And Equipment")
+            if ni is None or da is None or cap is None:
+                continue
+            try:
+                yr = pd.to_datetime(cf_a.columns[i]).year
+                results[yr] = ni + da - abs(cap)
+            except Exception:
+                pass
+        return pd.Series(results).sort_index()
+    except Exception:
+        return pd.Series(dtype=float)
+
+
+def compute_oe_growth_10yr(oe_series):
+    if len(oe_series) < 2:
+        return None
+    years  = oe_series.index.tolist()
+    oldest = oe_series.iloc[0]
+    newest = oe_series.iloc[-1]
+    n      = years[-1] - years[0]
+    if n <= 0 or oldest <= 0 or newest <= 0:
+        return None
+    return (newest / oldest) ** (1.0 / n) - 1
+
+
+def compute_epv(t, sector, shares):
+    try:
+        inc = t.financials
         if inc is None or inc.empty:
             return None
-        row_ebit = None
-        for label in ["EBIT", "Ebit", "Operating Income"]:
-            if label in inc.index:
-                row_ebit = inc.loc[label]
-                break
-        if row_ebit is None:
+        ebit_row = find_row(inc, "EBIT", "Ebit", "Operating Income",
+                            "Operating Income Loss", "Operating Profit")
+        if ebit_row is None:
             return None
-
-        # Average EBIT over available years (normalise)
-        ebit_vals = row_ebit.dropna().values
+        ebit_vals = pd.to_numeric(ebit_row, errors='coerce').dropna().values
         if len(ebit_vals) == 0:
             return None
-        avg_ebit = np.mean(ebit_vals)
+        avg_ebit = float(np.mean(ebit_vals))
 
-        # Tax rate
-        tax_row = None
-        for label in ["Tax Rate For Calcs", "Effective Tax Rate"]:
-            if label in inc.index:
-                tax_row = inc.loc[label]
-                break
+        tax_row = find_row(inc, "Tax Rate For Calcs", "Effective Tax Rate",
+                           "Tax Provision", "Income Tax Expense")
+        tax_rate = 0.21
         if tax_row is not None:
-            tax_rate = tax_row.dropna().mean()
-            if np.isnan(tax_rate) or tax_rate <= 0 or tax_rate >= 1:
-                tax_rate = 0.21
-        else:
-            tax_rate = 0.21
+            tax_vals = pd.to_numeric(tax_row, errors='coerce').dropna()
+            if tax_vals.abs().mean() > 1:
+                pretax_row = find_row(inc, "Pretax Income", "Income Before Tax",
+                                      "Earnings Before Income Taxes")
+                if pretax_row is not None:
+                    pretax_vals = pd.to_numeric(pretax_row, errors='coerce').dropna()
+                    valid = pretax_vals[pretax_vals.abs() > 0]
+                    if len(valid) > 0:
+                        rates = tax_vals.reindex(valid.index) / valid
+                        r = float(rates.dropna().mean())
+                        if 0 < r < 0.6:
+                            tax_rate = r
+            else:
+                r = float(tax_vals.mean())
+                if 0 < r < 0.6:
+                    tax_rate = r
 
         wacc = get_wacc(sector)
         epv_total = avg_ebit * (1 - tax_rate) / wacc
@@ -159,302 +228,163 @@ def compute_epv(ticker_obj, sector: str, shares: float) -> float | None:
         return None
 
 
-def get_historical_oe_series(ticker_obj) -> pd.Series:
-    """
-    Returns annual OE values indexed by year for up to 10 years.
-    """
-    try:
-        cf_annual = ticker_obj.cashflow        # columns = dates
-        bs_annual = ticker_obj.balance_sheet
-        if cf_annual is None or cf_annual.empty:
-            return pd.Series(dtype=float)
-
-        results = {}
-        cols = cf_annual.columns.tolist()
-        bs_cols = bs_annual.columns.tolist() if (bs_annual is not None and not bs_annual.empty) else []
-
-        for i, col in enumerate(cols):
-            cf_dict = cf_annual[col].to_dict()
-            bs_curr = bs_annual[bs_cols[i]].to_dict() if i < len(bs_cols) else None
-            bs_prev = bs_annual[bs_cols[i+1]].to_dict() if (i+1) < len(bs_cols) else None
-            oe = compute_owner_earnings(cf_dict, bs_curr, bs_prev)
-            if oe is not None:
-                yr = pd.to_datetime(col).year
-                results[yr] = oe
-
-        return pd.Series(results).sort_index()
-    except Exception:
-        return pd.Series(dtype=float)
-
-
-def compute_oe_growth_10yr(oe_series: pd.Series) -> float | None:
-    """10-year CAGR of Owner Earnings"""
-    if len(oe_series) < 2:
-        return None
-    years = oe_series.index.tolist()
-    oldest = oe_series.iloc[0]
-    newest = oe_series.iloc[-1]
-    n = years[-1] - years[0]
-    if n <= 0 or oldest <= 0 or newest <= 0:
-        return None
-    return (newest / oldest) ** (1 / n) - 1
-
-
-def detect_bear_markets(price_series: pd.Series, threshold=0.20, top_n=10):
-    """
-    Auto-detect bear market troughs: drawdowns > threshold from a rolling peak.
-    Returns list of dicts: {peak_date, trough_date, peak_price, trough_price, drawdown_pct}
-    """
+def detect_bear_markets(price_series, threshold=0.20, top_n=10):
     if price_series.empty:
         return []
-
     rolling_max = price_series.expanding().max()
-    drawdown = (price_series - rolling_max) / rolling_max
-
-    bears = []
-    in_bear = False
-    peak_date = None
-    peak_price = None
-    trough_date = None
-    trough_price = None
+    drawdown    = (price_series - rolling_max) / rolling_max
+    bears, in_bear = [], False
+    peak_date = peak_price = trough_date = trough_price = None
 
     for dt, dd in drawdown.items():
-        price = price_series[dt]
+        price    = price_series[dt]
         roll_max = rolling_max[dt]
-
         if not in_bear and dd <= -threshold:
-            in_bear = True
-            # find the actual peak (last time price == rolling max before this)
-            peak_idx = (price_series[:dt] == roll_max)
-            peak_date = peak_idx[peak_idx].index[-1] if peak_idx.any() else dt
-            peak_price = roll_max
-            trough_date = dt
+            in_bear      = True
+            mask         = price_series[:dt] == roll_max
+            peak_date    = mask[mask].index[-1] if mask.any() else dt
+            peak_price   = roll_max
+            trough_date  = dt
             trough_price = price
-
         elif in_bear:
             if price < trough_price:
-                trough_date = dt
+                trough_date  = dt
                 trough_price = price
-            elif dd > -threshold / 2:  # recovery
-                bears.append({
-                    "peak_date": peak_date,
-                    "trough_date": trough_date,
-                    "peak_price": float(peak_price),
-                    "trough_price": float(trough_price),
-                    "drawdown_pct": float((trough_price - peak_price) / peak_price * 100)
-                })
+            elif dd > -threshold / 2:
+                bears.append({"peak_date": peak_date, "trough_date": trough_date,
+                               "peak_price": float(peak_price), "trough_price": float(trough_price),
+                               "drawdown_pct": float((trough_price - peak_price) / peak_price * 100)})
                 in_bear = False
 
     if in_bear and trough_date is not None:
-        bears.append({
-            "peak_date": peak_date,
-            "trough_date": trough_date,
-            "peak_price": float(peak_price),
-            "trough_price": float(trough_price),
-            "drawdown_pct": float((trough_price - peak_price) / peak_price * 100)
-        })
+        bears.append({"peak_date": peak_date, "trough_date": trough_date,
+                       "peak_price": float(peak_price), "trough_price": float(trough_price),
+                       "drawdown_pct": float((trough_price - peak_price) / peak_price * 100)})
 
-    # Sort by drawdown depth, return top N
     bears.sort(key=lambda x: x["drawdown_pct"])
     return bears[:top_n]
 
 
 def pct_diff(a, b):
-    """Percentage difference from b to a: (a - b) / |b| * 100"""
     if a is None or b is None or b == 0:
         return None
     return round((a - b) / abs(b) * 100, 2)
 
 
-def compute_metrics_at_price(oe_ttm, ev_at_price, market_cap_at_price, shares,
-                              oe_growth, epv_per_share, price):
-    """
-    Given OE (TTM) and price-adjusted EV/market cap, compute all 6 metrics.
-    OE itself doesn't change with price — it's fundamental.
-    OE yield, multiple, PEG, EPV margin of safety do.
-    """
-    oe_yield = (oe_ttm / market_cap_at_price * 100) if (market_cap_at_price and market_cap_at_price != 0) else None
-    oe_multiple = (ev_at_price / oe_ttm) if (oe_ttm and oe_ttm != 0 and ev_at_price) else None
-    oe_peg = (oe_multiple / (oe_growth * 100)) if (oe_multiple and oe_growth and oe_growth != 0) else None
-    epv = epv_per_share  # EPV per share is fundamental, compare to price
+def metrics_at_price(oe_ttm, ev, mc, oe_growth, epv_per_share):
+    oe_yield    = (oe_ttm / mc * 100)             if (mc and mc != 0 and oe_ttm) else None
+    oe_multiple = (ev / oe_ttm)                   if (oe_ttm and oe_ttm != 0 and ev) else None
+    oe_peg      = (oe_multiple / (oe_growth * 100)) if (oe_multiple and oe_growth and oe_growth != 0) else None
     return {
-        "oe": round(oe_ttm / 1e9, 4) if oe_ttm else None,           # in $B
-        "oe_yield": round(oe_yield, 4) if oe_yield else None,        # %
-        "oe_multiple": round(oe_multiple, 4) if oe_multiple else None,
-        "oe_growth": round(oe_growth * 100, 4) if oe_growth else None, # %
-        "oe_peg": round(oe_peg, 4) if oe_peg else None,
-        "epv": round(epv, 4) if epv else None,                       # per share $
+        "oe":          round(oe_ttm / 1e9, 4)      if oe_ttm          is not None else None,
+        "oe_yield":    round(oe_yield, 4)           if oe_yield        is not None else None,
+        "oe_multiple": round(oe_multiple, 4)        if oe_multiple     is not None else None,
+        "oe_growth":   round(oe_growth * 100, 4)   if oe_growth       is not None else None,
+        "oe_peg":      round(oe_peg, 4)             if oe_peg          is not None else None,
+        "epv":         round(epv_per_share, 4)      if epv_per_share   is not None else None,
     }
 
 
-def fetch_ticker_data(symbol: str) -> dict:
-    """
-    Main function: fetch all data and compute all metrics for one ticker.
-    Returns structured dict ready for JSON serialisation.
-    """
-    result = {
-        "ticker": symbol,
-        "error": None,
-        "sector": None,
-        "current": {},
-        "peak_since_oct2022": {},
-        "bear_markets": [],
-        "last_updated": datetime.now().isoformat(),
-    }
+def diff_block(curr, peak):
+    return {k: pct_diff(curr.get(k), peak.get(k))
+            for k in ("oe","oe_yield","oe_multiple","oe_growth","oe_peg","epv")}
 
+
+def fetch_ticker_data(symbol):
+    result = {"ticker": symbol, "error": None, "sector": None,
+              "current": {}, "peak_since_oct2022": {},
+              "bear_markets": [], "last_updated": datetime.now().isoformat()}
     try:
-        t = yf.Ticker(symbol)
+        t    = yf.Ticker(symbol)
         info = t.info or {}
 
         sector = info.get("sector", "default")
         result["sector"] = sector
-        shares = info.get("sharesOutstanding") or info.get("impliedSharesOutstanding")
+        shares   = info.get("sharesOutstanding") or info.get("impliedSharesOutstanding")
         net_debt = (info.get("totalDebt") or 0) - (info.get("totalCash") or 0)
 
-        # ── Price history ───────────────────────────────────────────────
-        hist_full = t.history(period="max", interval="1d")["Close"].dropna()
-        # Strip timezone from index to avoid comparison errors
-        hist_full.index = hist_full.index.tz_localize(None) if hist_full.index.tz is None else hist_full.index.tz_convert(None)
-        hist_post_oct22 = hist_full[hist_full.index >= pd.Timestamp(PEAK_START_DATE)]
+        hist = t.history(period="max", interval="1d")["Close"].dropna()
+        hist.index = hist.index.tz_convert(None) if hist.index.tz is not None else hist.index.tz_localize(None)
 
-        current_price = float(hist_full.iloc[-1]) if not hist_full.empty else None
-        if current_price is None:
-            result["error"] = "No price data"
-            return result
+        if hist.empty:
+            result["error"] = "No price data"; return result
 
-        # Peak since Oct 12 2022
-        if hist_post_oct22.empty:
-            result["error"] = "No price data since Oct 2022"
-            return result
-        peak_price = float(hist_post_oct22.max())
-        peak_date  = hist_post_oct22.idxmax()
+        current_price = float(hist.iloc[-1])
+        hist_post     = hist[hist.index >= pd.Timestamp(PEAK_START_DATE)]
 
-        # ── Financials ──────────────────────────────────────────────────
-        cf_q  = t.quarterly_cashflow
-        bs_q  = t.quarterly_balance_sheet
+        if hist_post.empty:
+            result["error"] = "No price data since Oct 2022"; return result
 
-        # TTM cash flow (sum last 4 quarters)
-        def ttm_sum(df, *labels):
-            for lbl in labels:
-                if df is not None and not df.empty and lbl in df.index:
-                    vals = df.loc[lbl].dropna().iloc[:4]
-                    if len(vals) >= 2:
-                        return vals.sum()
-            return None
+        peak_price = float(hist_post.max())
+        peak_date  = hist_post.idxmax()
 
-        net_income = ttm_sum(cf_q, "Net Income", "NetIncome")
-        da         = ttm_sum(cf_q, "Depreciation & Amortization",
-                             "Reconciled Depreciation", "DepreciationAndAmortization")
-        capex      = ttm_sum(cf_q, "Capital Expenditure", "CapitalExpenditures")
+        cf_q = t.quarterly_cashflow
+        bs_q = t.quarterly_balance_sheet
 
-        bs_curr_dict = bs_q.iloc[:, 0].to_dict() if (bs_q is not None and not bs_q.empty) else None
-        bs_prev_dict = bs_q.iloc[:, 1].to_dict() if (bs_q is not None and bs_q.shape[1] > 1) else None
-
-        oe_cf = {"Net Income": net_income, "Depreciation & Amortization": da,
-                 "Capital Expenditure": capex}
-        oe_ttm = compute_owner_earnings(oe_cf, bs_curr_dict, bs_prev_dict)
-
-        # Historical annual OE for growth rate
-        oe_series = get_historical_oe_series(t)
-        oe_growth = compute_oe_growth_10yr(oe_series)
-
-        # EPV per share
+        oe_ttm        = compute_oe_ttm(cf_q, bs_q)
+        oe_series     = compute_oe_annual_series(t)
+        oe_growth     = compute_oe_growth_10yr(oe_series)
         epv_per_share = compute_epv(t, sector, shares)
 
-        # ── Helper: EV and Market Cap at any price ──────────────────────
-        def ev_at(price_val):
-            if shares is None:
-                return None, None
-            mc = price_val * shares
-            ev = mc + net_debt
-            return ev, mc
+        def ev_mc(price):
+            if not shares: return None, None
+            mc = price * shares
+            return mc + net_debt, mc
 
-        # ── Current metrics ─────────────────────────────────────────────
-        ev_curr, mc_curr = ev_at(current_price)
-        if oe_ttm and mc_curr:
-            result["current"] = compute_metrics_at_price(
-                oe_ttm, ev_curr, mc_curr, shares, oe_growth, epv_per_share, current_price)
-            result["current"]["price"] = round(current_price, 2)
+        ev_c, mc_c = ev_mc(current_price)
+        if oe_ttm and mc_c:
+            m = metrics_at_price(oe_ttm, ev_c, mc_c, oe_growth, epv_per_share)
+            m["price"] = round(current_price, 2)
+            result["current"] = m
 
-        # ── Peak metrics ────────────────────────────────────────────────
-        ev_peak, mc_peak = ev_at(peak_price)
-        if oe_ttm and mc_peak:
-            result["peak_since_oct2022"] = compute_metrics_at_price(
-                oe_ttm, ev_peak, mc_peak, shares, oe_growth, epv_per_share, peak_price)
-            result["peak_since_oct2022"]["price"] = round(peak_price, 2)
-            result["peak_since_oct2022"]["date"]  = str(peak_date.date())
+        ev_p, mc_p = ev_mc(peak_price)
+        if oe_ttm and mc_p:
+            m = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share)
+            m["price"] = round(peak_price, 2)
+            m["date"]  = str(peak_date.date())
+            result["peak_since_oct2022"] = m
 
-        # ── Diffs: current vs peak ───────────────────────────────────────
         if result["current"] and result["peak_since_oct2022"]:
-            curr = result["current"]
-            peak = result["peak_since_oct2022"]
-            result["vs_peak_diff"] = {
-                "oe":         pct_diff(curr.get("oe"),         peak.get("oe")),
-                "oe_yield":   pct_diff(curr.get("oe_yield"),   peak.get("oe_yield")),
-                "oe_multiple":pct_diff(curr.get("oe_multiple"),peak.get("oe_multiple")),
-                "oe_growth":  pct_diff(curr.get("oe_growth"),  peak.get("oe_growth")),
-                "oe_peg":     pct_diff(curr.get("oe_peg"),     peak.get("oe_peg")),
-                "epv":        pct_diff(curr.get("epv"),        peak.get("epv")),
-            }
+            result["vs_peak_diff"] = diff_block(result["current"], result["peak_since_oct2022"])
 
-        # ── Bear markets ────────────────────────────────────────────────
-        bears = detect_bear_markets(hist_full)
-        for bear in bears:
-            bprice = bear["trough_price"]
-            ev_b, mc_b = ev_at(bprice)
-            if oe_ttm and mc_b:
-                metrics_b = compute_metrics_at_price(
-                    oe_ttm, ev_b, mc_b, shares, oe_growth, epv_per_share, bprice)
-                metrics_b["price"]         = round(bprice, 2)
-                metrics_b["peak_price"]    = round(bear["peak_price"], 2)
-                metrics_b["peak_date"]     = str(bear["peak_date"].date()) if hasattr(bear["peak_date"], "date") else str(bear["peak_date"])
-                metrics_b["trough_date"]   = str(bear["trough_date"].date()) if hasattr(bear["trough_date"], "date") else str(bear["trough_date"])
-                metrics_b["drawdown_pct"]  = round(bear["drawdown_pct"], 2)
-                # diff vs that bear's peak
-                ev_bp, mc_bp = ev_at(bear["peak_price"])
-                metrics_peak = compute_metrics_at_price(
-                    oe_ttm, ev_bp, mc_bp, shares, oe_growth, epv_per_share, bear["peak_price"])
-                metrics_b["vs_bear_peak_diff"] = {
-                    "oe":         pct_diff(metrics_b.get("oe"),         metrics_peak.get("oe")),
-                    "oe_yield":   pct_diff(metrics_b.get("oe_yield"),   metrics_peak.get("oe_yield")),
-                    "oe_multiple":pct_diff(metrics_b.get("oe_multiple"),metrics_peak.get("oe_multiple")),
-                    "oe_growth":  pct_diff(metrics_b.get("oe_growth"),  metrics_peak.get("oe_growth")),
-                    "oe_peg":     pct_diff(metrics_b.get("oe_peg"),     metrics_peak.get("oe_peg")),
-                    "epv":        pct_diff(metrics_b.get("epv"),        metrics_peak.get("epv")),
-                }
-                result["bear_markets"].append(metrics_b)
+        for bear in detect_bear_markets(hist):
+            bp = bear["trough_price"]
+            ev_b, mc_b = ev_mc(bp)
+            if not (oe_ttm and mc_b): continue
+            mb = metrics_at_price(oe_ttm, ev_b, mc_b, oe_growth, epv_per_share)
+            mb["price"]       = round(bp, 2)
+            mb["peak_price"]  = round(bear["peak_price"], 2)
+            mb["peak_date"]   = str(bear["peak_date"].date()) if hasattr(bear["peak_date"], "date") else str(bear["peak_date"])
+            mb["trough_date"] = str(bear["trough_date"].date()) if hasattr(bear["trough_date"], "date") else str(bear["trough_date"])
+            mb["drawdown_pct"]= round(bear["drawdown_pct"], 2)
+            ev_bp, mc_bp = ev_mc(bear["peak_price"])
+            mp = metrics_at_price(oe_ttm, ev_bp, mc_bp, oe_growth, epv_per_share)
+            mb["vs_bear_peak_diff"] = diff_block(mb, mp)
+            result["bear_markets"].append(mb)
 
     except Exception as e:
         result["error"] = str(e)
-
     return result
 
 
-def run_full_calculation(tickers=None, progress_callback=None) -> dict:
-    """
-    Run calculations for all tickers. Returns dict keyed by ticker.
-    progress_callback(ticker, i, total) called after each ticker.
-    """
+def run_full_calculation(tickers=None, progress_callback=None):
     if tickers is None:
         tickers = TICKERS
-
     results = {}
-    total = len(tickers)
     for i, sym in enumerate(tickers):
         results[sym] = fetch_ticker_data(sym)
         if progress_callback:
-            progress_callback(sym, i + 1, total)
-
+            progress_callback(sym, i + 1, len(tickers))
     return results
 
 
-def save_results(results: dict, path="oe_data.json"):
+def save_results(results, path="oe_data.json"):
     with open(path, "w") as f:
         json.dump(results, f, indent=2, default=str)
-    print(f"Saved {len(results)} tickers → {path}")
+    print(f"Saved {len(results)} tickers -> {path}")
 
 
-def load_results(path="oe_data.json") -> dict:
+def load_results(path="oe_data.json"):
     try:
         with open(path) as f:
             return json.load(f)
@@ -469,4 +399,4 @@ if __name__ == "__main__":
     )
     save_results(results)
     errors = [s for s, d in results.items() if d.get("error")]
-    print(f"\nDone. Errors on: {errors if errors else 'none'}")
+    print(f"\nDone. Errors: {errors if errors else 'none'}")
