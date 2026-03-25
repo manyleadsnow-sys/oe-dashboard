@@ -1,1676 +1,1676 @@
 {
   "AAPL": {
     "ticker": "AAPL",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:26.867304"
+    "last_updated": "2026-03-25T00:58:06.156353"
   },
   "GOOG": {
     "ticker": "GOOG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Communication Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:28.528776"
+    "last_updated": "2026-03-25T00:58:08.081503"
   },
   "META": {
     "ticker": "META",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Communication Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:29.232553"
+    "last_updated": "2026-03-25T00:58:09.419623"
   },
   "MSFT": {
     "ticker": "MSFT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:29.954403"
+    "last_updated": "2026-03-25T00:58:10.706675"
   },
   "NVDA": {
     "ticker": "NVDA",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:30.831936"
+    "last_updated": "2026-03-25T00:58:12.273803"
   },
   "PLTR": {
     "ticker": "PLTR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:31.622878"
+    "last_updated": "2026-03-25T00:58:13.698880"
   },
   "TSLA": {
     "ticker": "TSLA",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:32.320837"
+    "last_updated": "2026-03-25T00:58:14.937059"
   },
   "EA": {
     "ticker": "EA",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Communication Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:32.884973"
+    "last_updated": "2026-03-25T00:58:16.446691"
   },
   "NFLX": {
     "ticker": "NFLX",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Communication Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:33.998743"
+    "last_updated": "2026-03-25T00:58:17.960427"
   },
   "TMUS": {
     "ticker": "TMUS",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Communication Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:34.776978"
+    "last_updated": "2026-03-25T00:58:19.240265"
   },
   "AMZN": {
     "ticker": "AMZN",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:35.580371"
+    "last_updated": "2026-03-25T00:58:20.521352"
   },
   "CMG": {
     "ticker": "CMG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:36.492040"
+    "last_updated": "2026-03-25T00:58:21.883207"
   },
   "CPRT": {
     "ticker": "CPRT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:37.228933"
+    "last_updated": "2026-03-25T00:58:23.169094"
   },
   "GRMN": {
     "ticker": "GRMN",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:38.065218"
+    "last_updated": "2026-03-25T00:58:24.561847"
   },
   "LEN": {
     "ticker": "LEN",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:38.751894"
+    "last_updated": "2026-03-25T00:58:25.926316"
   },
   "MCD": {
     "ticker": "MCD",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:39.635733"
+    "last_updated": "2026-03-25T00:58:27.628498"
   },
   "ORLY": {
     "ticker": "ORLY",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:40.833575"
+    "last_updated": "2026-03-25T00:58:29.349732"
   },
   "POOL": {
     "ticker": "POOL",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:41.767734"
+    "last_updated": "2026-03-25T00:58:30.761488"
   },
   "ROST": {
     "ticker": "ROST",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:42.594311"
+    "last_updated": "2026-03-25T00:58:32.228595"
   },
   "TSCO": {
     "ticker": "TSCO",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:43.392467"
+    "last_updated": "2026-03-25T00:58:33.751413"
   },
   "ULTA": {
     "ticker": "ULTA",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:44.058312"
+    "last_updated": "2026-03-25T00:58:35.296467"
   },
   "BG": {
     "ticker": "BG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:44.682206"
+    "last_updated": "2026-03-25T00:58:36.622963"
   },
   "COST": {
     "ticker": "COST",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:45.551493"
+    "last_updated": "2026-03-25T00:58:38.039037"
   },
   "HSY": {
     "ticker": "HSY",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:46.403177"
+    "last_updated": "2026-03-25T00:58:39.490031"
   },
   "KO": {
     "ticker": "KO",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:47.506296"
+    "last_updated": "2026-03-25T00:58:41.147309"
   },
   "PEP": {
     "ticker": "PEP",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:48.749682"
+    "last_updated": "2026-03-25T00:58:43.027722"
   },
   "PG": {
     "ticker": "PG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:49.829090"
+    "last_updated": "2026-03-25T00:58:44.781532"
   },
   "PM": {
     "ticker": "PM",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:50.969547"
+    "last_updated": "2026-03-25T00:58:46.565853"
   },
   "STZ": {
     "ticker": "STZ",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:51.640613"
+    "last_updated": "2026-03-25T00:58:47.979193"
   },
   "SYY": {
     "ticker": "SYY",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:52.345172"
+    "last_updated": "2026-03-25T00:58:49.301228"
   },
   "WMT": {
     "ticker": "WMT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:53.312232"
+    "last_updated": "2026-03-25T00:58:50.815886"
   },
   "BKR": {
     "ticker": "BKR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Energy",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:54.560033"
+    "last_updated": "2026-03-25T00:58:52.654854"
   },
   "CVX": {
     "ticker": "CVX",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Energy",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:55.372303"
+    "last_updated": "2026-03-25T00:58:54.203248"
   },
   "EOG": {
     "ticker": "EOG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Energy",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:56.505145"
+    "last_updated": "2026-03-25T00:58:56.097901"
   },
   "EPD": {
     "ticker": "EPD",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Energy",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:57.434435"
+    "last_updated": "2026-03-25T00:58:57.602149"
   },
   "EXE": {
     "ticker": "EXE",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Energy",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:58.250980"
+    "last_updated": "2026-03-25T00:58:59.162981"
   },
   "FANG": {
     "ticker": "FANG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Energy",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:58.748948"
+    "last_updated": "2026-03-25T00:59:00.376277"
   },
   "SLB": {
     "ticker": "SLB",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Energy",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:50:59.309378"
+    "last_updated": "2026-03-25T00:59:02.150196"
   },
   "TPL": {
     "ticker": "TPL",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Energy",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:00.172705"
+    "last_updated": "2026-03-25T00:59:03.809993"
   },
   "VLO": {
     "ticker": "VLO",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Energy",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:00.940318"
+    "last_updated": "2026-03-25T00:59:05.347545"
   },
   "XOM": {
     "ticker": "XOM",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Energy",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:01.817552"
+    "last_updated": "2026-03-25T00:59:07.145150"
   },
   "BRK-B": {
     "ticker": "BRK-B",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:03.029090"
+    "last_updated": "2026-03-25T00:59:09.044810"
   },
   "ACGL": {
     "ticker": "ACGL",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:03.770822"
+    "last_updated": "2026-03-25T00:59:10.402273"
   },
   "AIZ": {
     "ticker": "AIZ",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:04.441861"
+    "last_updated": "2026-03-25T00:59:11.804686"
   },
   "AJG": {
     "ticker": "AJG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:05.185409"
+    "last_updated": "2026-03-25T00:59:13.124274"
   },
   "AON": {
     "ticker": "AON",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:06.278272"
+    "last_updated": "2026-03-25T00:59:14.768353"
   },
   "ARES": {
     "ticker": "ARES",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:07.105383"
+    "last_updated": "2026-03-25T00:59:16.401784"
   },
   "AXP": {
     "ticker": "AXP",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:07.641965"
+    "last_updated": "2026-03-25T00:59:17.688466"
   },
   "BAC": {
     "ticker": "BAC",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:08.629600"
+    "last_updated": "2026-03-25T00:59:19.397210"
   },
   "BLK": {
     "ticker": "BLK",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:09.653603"
+    "last_updated": "2026-03-25T00:59:21.131023"
   },
   "BRO": {
     "ticker": "BRO",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:10.479326"
+    "last_updated": "2026-03-25T00:59:22.485218"
   },
   "C": {
     "ticker": "C",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:11.364325"
+    "last_updated": "2026-03-25T00:59:24.168761"
   },
   "CB": {
     "ticker": "CB",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:12.286486"
+    "last_updated": "2026-03-25T00:59:25.815264"
   },
   "CBOE": {
     "ticker": "CBOE",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:13.202459"
+    "last_updated": "2026-03-25T00:59:27.301579"
   },
   "CBRE": {
     "ticker": "CBRE",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Real Estate",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:14.028514"
+    "last_updated": "2026-03-25T00:59:28.692282"
   },
   "CINF": {
     "ticker": "CINF",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:14.730065"
+    "last_updated": "2026-03-25T00:59:30.094486"
   },
   "CME": {
     "ticker": "CME",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:15.869188"
+    "last_updated": "2026-03-25T00:59:31.663665"
   },
   "CPAY": {
     "ticker": "CPAY",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:16.644478"
+    "last_updated": "2026-03-25T00:59:33.181377"
   },
   "EG": {
     "ticker": "EG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:17.307806"
+    "last_updated": "2026-03-25T00:59:34.452887"
   },
   "ERIE": {
     "ticker": "ERIE",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:18.152454"
+    "last_updated": "2026-03-25T00:59:35.888819"
   },
   "FICO": {
     "ticker": "FICO",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:19.298202"
+    "last_updated": "2026-03-25T00:59:37.297229"
   },
   "GS": {
     "ticker": "GS",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:20.229541"
+    "last_updated": "2026-03-25T00:59:38.800070"
   },
   "IBKR": {
     "ticker": "IBKR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:20.954811"
+    "last_updated": "2026-03-25T00:59:40.115065"
   },
   "ICE": {
     "ticker": "ICE",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:21.610380"
+    "last_updated": "2026-03-25T00:59:41.428736"
   },
   "JPM": {
     "ticker": "JPM",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:22.418723"
+    "last_updated": "2026-03-25T00:59:42.805820"
   },
   "KKR": {
     "ticker": "KKR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:23.200000"
+    "last_updated": "2026-03-25T00:59:44.332798"
   },
   "MA": {
     "ticker": "MA",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:23.758026"
+    "last_updated": "2026-03-25T00:59:45.736127"
   },
   "MCO": {
     "ticker": "MCO",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:24.709148"
+    "last_updated": "2026-03-25T00:59:47.135327"
   },
   "MSCI": {
     "ticker": "MSCI",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:25.520584"
+    "last_updated": "2026-03-25T00:59:48.506802"
   },
   "NDAQ": {
     "ticker": "NDAQ",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:26.079671"
+    "last_updated": "2026-03-25T00:59:49.871211"
   },
   "PGR": {
     "ticker": "PGR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:26.975774"
+    "last_updated": "2026-03-25T00:59:51.343252"
   },
   "RJF": {
     "ticker": "RJF",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:27.935462"
+    "last_updated": "2026-03-25T00:59:53.019581"
   },
   "SPGI": {
     "ticker": "SPGI",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:28.856911"
+    "last_updated": "2026-03-25T00:59:54.658094"
   },
   "TRV": {
     "ticker": "TRV",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:29.793954"
+    "last_updated": "2026-03-25T00:59:56.270034"
   },
   "V": {
     "ticker": "V",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:30.717790"
+    "last_updated": "2026-03-25T00:59:57.928658"
   },
   "VRSK": {
     "ticker": "VRSK",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:31.565476"
+    "last_updated": "2026-03-25T00:59:59.332081"
   },
   "WFC": {
     "ticker": "WFC",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:32.160948"
+    "last_updated": "2026-03-25T01:00:00.662907"
   },
   "WRB": {
     "ticker": "WRB",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Financial Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:33.227870"
+    "last_updated": "2026-03-25T01:00:02.457756"
   },
   "A": {
     "ticker": "A",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:34.412559"
+    "last_updated": "2026-03-25T01:00:04.205673"
   },
   "BSX": {
     "ticker": "BSX",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:35.135809"
+    "last_updated": "2026-03-25T01:00:05.650703"
   },
   "CI": {
     "ticker": "CI",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:36.036684"
+    "last_updated": "2026-03-25T01:00:07.139284"
   },
   "ABT": {
     "ticker": "ABT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:37.153677"
+    "last_updated": "2026-03-25T01:00:08.736796"
   },
   "COO": {
     "ticker": "COO",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:38.057327"
+    "last_updated": "2026-03-25T01:00:10.373767"
   },
   "HCA": {
     "ticker": "HCA",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:39.025530"
+    "last_updated": "2026-03-25T01:00:11.910548"
   },
   "IDXX": {
     "ticker": "IDXX",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:39.740002"
+    "last_updated": "2026-03-25T01:00:13.169728"
   },
   "IQV": {
     "ticker": "IQV",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:40.366096"
+    "last_updated": "2026-03-25T01:00:14.527959"
   },
   "ISRG": {
     "ticker": "ISRG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:41.207312"
+    "last_updated": "2026-03-25T01:00:15.845488"
   },
   "JNJ": {
     "ticker": "JNJ",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:41.868481"
+    "last_updated": "2026-03-25T01:00:17.316441"
   },
   "LLY": {
     "ticker": "LLY",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:42.880392"
+    "last_updated": "2026-03-25T01:00:19.102806"
   },
   "MCK": {
     "ticker": "MCK",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:44.003906"
+    "last_updated": "2026-03-25T01:00:21.421671"
   },
   "MRK": {
     "ticker": "MRK",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:44.890732"
+    "last_updated": "2026-03-25T01:00:22.972344"
   },
   "MTD": {
     "ticker": "MTD",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:45.961957"
+    "last_updated": "2026-03-25T01:00:24.855230"
   },
   "REGN": {
     "ticker": "REGN",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:46.874116"
+    "last_updated": "2026-03-25T01:00:26.500180"
   },
   "RMD": {
     "ticker": "RMD",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:47.625454"
+    "last_updated": "2026-03-25T01:00:27.929856"
   },
   "SYK": {
     "ticker": "SYK",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:48.407793"
+    "last_updated": "2026-03-25T01:00:29.351251"
   },
   "TECH": {
     "ticker": "TECH",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:49.559213"
+    "last_updated": "2026-03-25T01:00:30.979538"
   },
   "VRTX": {
     "ticker": "VRTX",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:50.387906"
+    "last_updated": "2026-03-25T01:00:32.492172"
   },
   "WAT": {
     "ticker": "WAT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:51.057440"
+    "last_updated": "2026-03-25T01:00:33.901991"
   },
   "WST": {
     "ticker": "WST",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:51.778222"
+    "last_updated": "2026-03-25T01:00:35.364363"
   },
   "ZTS": {
     "ticker": "ZTS",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Healthcare",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:52.821703"
+    "last_updated": "2026-03-25T01:00:36.990986"
   },
   "WM": {
     "ticker": "WM",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:53.663287"
+    "last_updated": "2026-03-25T01:00:38.403393"
   },
   "MO": {
     "ticker": "MO",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Defensive",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:54.793539"
+    "last_updated": "2026-03-25T01:00:39.846466"
   },
   "ADP": {
     "ticker": "ADP",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:55.850789"
+    "last_updated": "2026-03-25T01:00:41.837630"
   },
   "AXON": {
     "ticker": "AXON",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:57.280833"
+    "last_updated": "2026-03-25T01:00:43.591893"
   },
   "CAT": {
     "ticker": "CAT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:58.058708"
+    "last_updated": "2026-03-25T01:00:45.060324"
   },
   "CTAS": {
     "ticker": "CTAS",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:51:59.413606"
+    "last_updated": "2026-03-25T01:00:47.594081"
   },
   "DE": {
     "ticker": "DE",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:00.391305"
+    "last_updated": "2026-03-25T01:00:49.330262"
   },
   "EME": {
     "ticker": "EME",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:01.486184"
+    "last_updated": "2026-03-25T01:00:51.090799"
   },
   "EMR": {
     "ticker": "EMR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:02.349409"
+    "last_updated": "2026-03-25T01:00:52.682406"
   },
   "ETN": {
     "ticker": "ETN",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:03.776944"
+    "last_updated": "2026-03-25T01:00:54.406785"
   },
   "FAST": {
     "ticker": "FAST",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:04.825071"
+    "last_updated": "2026-03-25T01:00:56.157339"
   },
   "FIX": {
     "ticker": "FIX",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:05.650173"
+    "last_updated": "2026-03-25T01:00:58.128606"
   },
   "GD": {
     "ticker": "GD",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:06.591221"
+    "last_updated": "2026-03-25T01:01:00.103190"
   },
   "GE": {
     "ticker": "GE",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:07.913879"
+    "last_updated": "2026-03-25T01:01:01.919476"
   },
   "GWW": {
     "ticker": "GWW",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:09.159833"
+    "last_updated": "2026-03-25T01:01:04.073537"
   },
   "HON": {
     "ticker": "HON",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:10.197304"
+    "last_updated": "2026-03-25T01:01:05.685178"
   },
   "HWM": {
     "ticker": "HWM",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:11.448549"
+    "last_updated": "2026-03-25T01:01:07.612201"
   },
   "LMT": {
     "ticker": "LMT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:12.271380"
+    "last_updated": "2026-03-25T01:01:08.919076"
   },
   "NOC": {
     "ticker": "NOC",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:13.357630"
+    "last_updated": "2026-03-25T01:01:10.720664"
   },
   "ODFL": {
     "ticker": "ODFL",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:14.345366"
+    "last_updated": "2026-03-25T01:01:12.299641"
   },
   "OTIS": {
     "ticker": "OTIS",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:15.311822"
+    "last_updated": "2026-03-25T01:01:13.698764"
   },
   "PH": {
     "ticker": "PH",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:15.936745"
+    "last_updated": "2026-03-25T01:01:14.872040"
   },
   "PWR": {
     "ticker": "PWR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:17.066062"
+    "last_updated": "2026-03-25T01:01:16.371083"
   },
   "ROK": {
     "ticker": "ROK",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:17.933059"
+    "last_updated": "2026-03-25T01:01:17.828286"
   },
   "ROL": {
     "ticker": "ROL",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:18.926528"
+    "last_updated": "2026-03-25T01:01:19.479996"
   },
   "ROP": {
     "ticker": "ROP",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:19.975402"
+    "last_updated": "2026-03-25T01:01:20.993393"
   },
   "TDG": {
     "ticker": "TDG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:21.003857"
+    "last_updated": "2026-03-25T01:01:22.638293"
   },
   "TT": {
     "ticker": "TT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Industrials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:21.914028"
+    "last_updated": "2026-03-25T01:01:23.968907"
   },
   "ACN": {
     "ticker": "ACN",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:22.957601"
+    "last_updated": "2026-03-25T01:01:25.746507"
   },
   "ADI": {
     "ticker": "ADI",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:23.786288"
+    "last_updated": "2026-03-25T01:01:27.150515"
   },
   "ADSK": {
     "ticker": "ADSK",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:24.792483"
+    "last_updated": "2026-03-25T01:01:28.771829"
   },
   "AMAT": {
     "ticker": "AMAT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:25.880397"
+    "last_updated": "2026-03-25T01:01:30.354836"
   },
   "AMD": {
     "ticker": "AMD",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:26.759939"
+    "last_updated": "2026-03-25T01:01:31.822696"
   },
   "ANET": {
     "ticker": "ANET",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:27.586111"
+    "last_updated": "2026-03-25T01:01:33.473897"
   },
   "APH": {
     "ticker": "APH",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:28.420502"
+    "last_updated": "2026-03-25T01:01:34.792536"
   },
   "CDNS": {
     "ticker": "CDNS",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:29.241525"
+    "last_updated": "2026-03-25T01:01:36.361773"
   },
   "CSCO": {
     "ticker": "CSCO",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:29.999266"
+    "last_updated": "2026-03-25T01:01:38.171066"
   },
   "FTNT": {
     "ticker": "FTNT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:31.002768"
+    "last_updated": "2026-03-25T01:01:39.774277"
   },
   "IT": {
     "ticker": "IT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:31.692673"
+    "last_updated": "2026-03-25T01:01:41.203286"
   },
   "KLAC": {
     "ticker": "KLAC",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:32.422098"
+    "last_updated": "2026-03-25T01:01:42.509296"
   },
   "LRCX": {
     "ticker": "LRCX",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:33.452344"
+    "last_updated": "2026-03-25T01:01:44.136358"
   },
   "MCHP": {
     "ticker": "MCHP",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:34.281125"
+    "last_updated": "2026-03-25T01:01:45.728397"
   },
   "MPWR": {
     "ticker": "MPWR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:35.123460"
+    "last_updated": "2026-03-25T01:01:47.359924"
   },
   "MSI": {
     "ticker": "MSI",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:36.032506"
+    "last_updated": "2026-03-25T01:01:48.686999"
   },
   "NXPI": {
     "ticker": "NXPI",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:37.109244"
+    "last_updated": "2026-03-25T01:01:50.669457"
   },
   "ON": {
     "ticker": "ON",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:37.979450"
+    "last_updated": "2026-03-25T01:01:52.012689"
   },
   "PTC": {
     "ticker": "PTC",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:38.751941"
+    "last_updated": "2026-03-25T01:01:53.396326"
   },
   "Q": {
     "ticker": "Q",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:39.689854"
+    "last_updated": "2026-03-25T01:01:54.813695"
   },
   "SNPS": {
     "ticker": "SNPS",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:40.272451"
+    "last_updated": "2026-03-25T01:01:55.995799"
   },
   "TEL": {
     "ticker": "TEL",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:41.122885"
+    "last_updated": "2026-03-25T01:01:57.397332"
   },
   "TER": {
     "ticker": "TER",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:41.838729"
+    "last_updated": "2026-03-25T01:01:58.766311"
   },
   "TTD": {
     "ticker": "TTD",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Communication Services",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:42.644416"
+    "last_updated": "2026-03-25T01:02:00.409812"
   },
   "TXN": {
     "ticker": "TXN",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:43.439254"
+    "last_updated": "2026-03-25T01:02:01.671576"
   },
   "TYL": {
     "ticker": "TYL",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:44.491321"
+    "last_updated": "2026-03-25T01:02:03.473263"
   },
   "VRSN": {
     "ticker": "VRSN",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:45.359819"
+    "last_updated": "2026-03-25T01:02:05.136043"
   },
   "WDAY": {
     "ticker": "WDAY",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:46.244084"
+    "last_updated": "2026-03-25T01:02:06.652541"
   },
   "APD": {
     "ticker": "APD",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Basic Materials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:46.924812"
+    "last_updated": "2026-03-25T01:02:07.912497"
   },
   "AVY": {
     "ticker": "AVY",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Consumer Cyclical",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:48.116018"
+    "last_updated": "2026-03-25T01:02:09.604752"
   },
   "CRH": {
     "ticker": "CRH",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Basic Materials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:49.024443"
+    "last_updated": "2026-03-25T01:02:11.239387"
   },
   "ECL": {
     "ticker": "ECL",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Basic Materials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:49.856333"
+    "last_updated": "2026-03-25T01:02:12.873937"
   },
   "FSLR": {
     "ticker": "FSLR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Technology",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:50.912434"
+    "last_updated": "2026-03-25T01:02:14.696429"
   },
   "LIN": {
     "ticker": "LIN",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Basic Materials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:51.575754"
+    "last_updated": "2026-03-25T01:02:16.007348"
   },
   "MLM": {
     "ticker": "MLM",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Basic Materials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:52.396288"
+    "last_updated": "2026-03-25T01:02:17.507737"
   },
   "NUE": {
     "ticker": "NUE",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Basic Materials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:53.492298"
+    "last_updated": "2026-03-25T01:02:18.932561"
   },
   "SHW": {
     "ticker": "SHW",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Basic Materials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:54.573862"
+    "last_updated": "2026-03-25T01:02:20.652653"
   },
   "STLD": {
     "ticker": "STLD",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Basic Materials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:55.573353"
+    "last_updated": "2026-03-25T01:02:22.457903"
   },
   "VMC": {
     "ticker": "VMC",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Basic Materials",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:56.379905"
+    "last_updated": "2026-03-25T01:02:24.049081"
   },
   "AMT": {
     "ticker": "AMT",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Real Estate",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:57.467038"
+    "last_updated": "2026-03-25T01:02:25.725275"
   },
   "CSGP": {
     "ticker": "CSGP",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Real Estate",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:58.434429"
+    "last_updated": "2026-03-25T01:02:27.165640"
   },
   "EXR": {
     "ticker": "EXR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Real Estate",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:52:59.273726"
+    "last_updated": "2026-03-25T01:02:28.532064"
   },
   "PSA": {
     "ticker": "PSA",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Real Estate",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:00.224317"
+    "last_updated": "2026-03-25T01:02:29.906072"
   },
   "SBAC": {
     "ticker": "SBAC",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Real Estate",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:01.364340"
+    "last_updated": "2026-03-25T01:02:31.516962"
   },
   "VICI": {
     "ticker": "VICI",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Real Estate",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:02.279121"
+    "last_updated": "2026-03-25T01:02:32.989250"
   },
   "AEP": {
     "ticker": "AEP",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:03.053772"
+    "last_updated": "2026-03-25T01:02:34.407893"
   },
   "AWK": {
     "ticker": "AWK",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:04.314288"
+    "last_updated": "2026-03-25T01:02:36.315245"
   },
   "CEG": {
     "ticker": "CEG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:05.154869"
+    "last_updated": "2026-03-25T01:02:37.634065"
   },
   "D": {
     "ticker": "D",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:05.955014"
+    "last_updated": "2026-03-25T01:02:38.867957"
   },
   "DUK": {
     "ticker": "DUK",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:06.924476"
+    "last_updated": "2026-03-25T01:02:40.486750"
   },
   "ETR": {
     "ticker": "ETR",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:08.070680"
+    "last_updated": "2026-03-25T01:02:42.124367"
   },
   "NEE": {
     "ticker": "NEE",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:09.283468"
+    "last_updated": "2026-03-25T01:02:43.863529"
   },
   "NRG": {
     "ticker": "NRG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:10.328375"
+    "last_updated": "2026-03-25T01:02:45.606935"
   },
   "PEG": {
     "ticker": "PEG",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:11.033289"
+    "last_updated": "2026-03-25T01:02:47.036471"
   },
   "SO": {
     "ticker": "SO",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:12.095543"
+    "last_updated": "2026-03-25T01:02:48.807871"
   },
   "SRE": {
     "ticker": "SRE",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:13.123952"
+    "last_updated": "2026-03-25T01:02:50.550664"
   },
   "VST": {
     "ticker": "VST",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:13.906309"
+    "last_updated": "2026-03-25T01:02:52.106887"
   },
   "XEL": {
     "ticker": "XEL",
-    "error": "Invalid comparison between dtype=datetime64[ns, America/New_York] and Timestamp",
+    "error": null,
     "sector": "Utilities",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T00:53:14.616350"
+    "last_updated": "2026-03-25T01:02:53.391823"
   }
 }
