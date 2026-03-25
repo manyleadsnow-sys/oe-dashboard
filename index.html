@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Owner Earnings Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,300;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #09090e;
+    --bg2:       #0f0f18;
+    --bg3:       #15151f;
+    --border:    #1e1e2e;
+    --border2:   #2a2a3e;
+    --text:      #cdd6f4;
+    --muted:     #585b70;
+    --accent:    #89b4fa;
+    --green:     #a6e3a1;
+    --red:       #f38ba8;
+    --yellow:    #f9e2af;
+    --teal:      #94e2d5;
+    --mauve:     #cba6f7;
+    --peach:     #fab387;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 40px 48px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .logo span {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .meta {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  .meta strong { color: var(--text); }
+
+  /* ── Controls ── */
+  .controls {
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  label {
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  select, input[type="text"] {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  select:hover, input[type="text"]:hover,
+  select:focus, input[type="text"]:focus {
+    border-color: var(--accent);
+  }
+
+  input[type="text"] { width: 140px; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .pill:hover { border-color: var(--accent); color: var(--accent); }
+  .pill.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+  .spacer { flex: 1; }
+
+  #last-updated {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── Stats bar ── */
+  .stats-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .stat {
+    flex: 1;
+    padding: 14px 24px;
+    border-right: 1px solid var(--border);
+    min-width: 0;
+  }
+  .stat:last-child { border-right: none; }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  /* ── Table ── */
+  .table-wrap {
+    overflow-x: auto;
+    padding: 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1100px;
+  }
+
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg2);
+  }
+
+  th {
+    padding: 12px 14px;
+    text-align: right;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+  }
+
+  th:first-child, th:nth-child(2) { text-align: left; }
+  th:hover { color: var(--accent); }
+  th.sorted { color: var(--accent); }
+  th .sort-icon { margin-left: 4px; opacity: 0.5; }
+  th.sorted .sort-icon { opacity: 1; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+    animation: fadeIn 0.3s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  tbody tr:hover { background: var(--bg3); }
+
+  td {
+    padding: 11px 14px;
+    text-align: right;
+    white-space: nowrap;
+    color: var(--text);
+    font-size: 12px;
+  }
+
+  td:first-child { text-align: left; }
+  td:nth-child(2) { text-align: left; }
+
+  /* Ticker cell */
+  .ticker-sym {
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    font-size: 13px;
+  }
+
+  /* Sector badge */
+  .sector-badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    background: var(--bg3);
+    color: var(--muted);
+    border: 1px solid var(--border2);
+    white-space: nowrap;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Diff cells */
+  .pos { color: var(--green); }
+  .neg { color: var(--red); }
+  .neu { color: var(--muted); }
+
+  .diff-pill {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .diff-pill.pos { background: rgba(166,227,161,0.1); color: var(--green); }
+  .diff-pill.neg { background: rgba(243,139,168,0.1); color: var(--red); }
+  .diff-pill.neu { color: var(--muted); }
+
+  /* Price cells */
+  .price-now  { color: var(--text); }
+  .price-peak { color: var(--yellow); font-size: 11px; }
+
+  /* Error row */
+  .error-row td { color: var(--muted); font-style: italic; }
+
+  /* ── Empty state ── */
+  .empty {
+    padding: 80px 48px;
+    text-align: center;
+    color: var(--muted);
+    line-height: 2;
+  }
+  .empty h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 1.6rem;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .empty code {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: var(--accent);
+    font-size: 12px;
+  }
+
+  /* ── Loading ── */
+  #loading {
+    padding: 60px 48px;
+    text-align: center;
+    color: var(--muted);
+  }
+  .spinner {
+    display: inline-block;
+    width: 24px; height: 24px;
+    border: 2px solid var(--border2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Column group separators ── */
+  .col-sep { border-left: 1px solid var(--border) !important; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    header, .controls { padding: 20px 16px; }
+    .logo { font-size: 1.6rem; }
+    .stat { padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">Owner <span>Earnings</span></div>
+    <div style="margin-top:6px; font-size:11px; color:var(--muted);">
+      6 metrics · ~170 tickers · industry-adjusted WACC · auto bear detection
+    </div>
+  </div>
+  <div class="meta">
+    <div>Peak reference: <strong>Oct 12, 2022 → present</strong></div>
+    <div>OE = Net Income + D&A − CapEx ± ΔWC (TTM)</div>
+    <div>EPV = Avg EBIT × (1−tax) / Industry WACC</div>
+    <div id="last-updated">Loading…</div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="control-group">
+    <label>Sector</label>
+    <select id="sector-filter">
+      <option value="">All sectors</option>
+    </select>
+  </div>
+  <div class="control-group">
+    <label>Search</label>
+    <input type="text" id="search" placeholder="e.g. AAPL">
+  </div>
+  <div class="control-group">
+    <label>Sort by</label>
+    <select id="sort-select">
+      <option value="ticker">Ticker A→Z</option>
+      <option value="oe_multiple">OE Multiple ↑</option>
+      <option value="oe_yield_desc">OE Yield ↓</option>
+      <option value="oe_growth_desc">OE Growth ↓</option>
+      <option value="oe_peg">OE-PEG ↑</option>
+    </select>
+  </div>
+  <div class="spacer"></div>
+  <span id="row-count" style="color:var(--muted);font-size:11px;"></span>
+</div>
+
+<div class="stats-bar" id="stats-bar">
+  <div class="stat"><div class="stat-label">Tickers loaded</div><div class="stat-value" id="s-total">—</div></div>
+  <div class="stat"><div class="stat-label">Avg OE Yield</div><div class="stat-value" id="s-yield">—</div></div>
+  <div class="stat"><div class="stat-label">Avg OE Multiple</div><div class="stat-value" id="s-multiple">—</div></div>
+  <div class="stat"><div class="stat-label">Avg OE Growth</div><div class="stat-value" id="s-growth">—</div></div>
+  <div class="stat"><div class="stat-label">Tickers cheaper than peak</div><div class="stat-value" id="s-cheaper">—</div></div>
+</div>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <div>Loading data…</div>
+</div>
+
+<div class="table-wrap" id="table-wrap" style="display:none">
+  <table id="main-table">
+    <thead>
+      <tr>
+        <th data-col="ticker">Ticker <span class="sort-icon">↕</span></th>
+        <th data-col="sector">Sector <span class="sort-icon">↕</span></th>
+        <th data-col="price" class="col-sep">Price <span class="sort-icon">↕</span></th>
+        <th data-col="peak_price">Peak Price <span class="sort-icon">↕</span></th>
+        <th data-col="oe" class="col-sep">OE ($B) <span class="sort-icon">↕</span></th>
+        <th data-col="oe_diff">vs Peak <span class="sort-icon">↕</span></th>
+        <th data-col="oe_yield" class="col-sep">OE Yield % <span class="sort-icon">↕</span></th>
+        <th data-col="oe_yield_diff">vs Peak <span class="sort-icon">↕</span></th>
+        <th data-col="oe_multiple" class="col-sep">OE Multiple <span class="sort-icon">↕</span></th>
+        <th data-col="oe_multiple_diff">vs Peak <span class="sort-icon">↕</span></th>
+        <th data-col="oe_growth" class="col-sep">OE Growth % <span class="sort-icon">↕</span></th>
+        <th data-col="oe_growth_diff">vs Peak <span class="sort-icon">↕</span></th>
+        <th data-col="oe_peg" class="col-sep">OE-PEG <span class="sort-icon">↕</span></th>
+        <th data-col="oe_peg_diff">vs Peak <span class="sort-icon">↕</span></th>
+        <th data-col="epv" class="col-sep">EPV $/sh <span class="sort-icon">↕</span></th>
+        <th data-col="epv_diff">vs Peak <span class="sort-icon">↕</span></th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+</div>
+
+<div class="empty" id="empty" style="display:none">
+  <h2>No data file found</h2>
+  <p>The GitHub Action hasn't run yet, or <code>oe_data.json</code> is missing.</p>
+  <p style="margin-top:12px;">Trigger it manually in the <strong>Actions</strong> tab on GitHub.</p>
+</div>
+
+<script>
+let RAW = {};
+let ROWS = [];
+let sortCol = 'ticker';
+let sortAsc = true;
+
+const fmt = {
+  price:  v => v != null ? `$${v.toFixed(2)}` : '—',
+  oe:     v => v != null ? `$${v.toFixed(2)}B` : '—',
+  yield:  v => v != null ? `${v.toFixed(2)}%` : '—',
+  mult:   v => v != null ? `${v.toFixed(2)}x` : '—',
+  growth: v => v != null ? `${v.toFixed(2)}%` : '—',
+  peg:    v => v != null ? `${v.toFixed(2)}x` : '—',
+  epv:    v => v != null ? `$${v.toFixed(2)}` : '—',
+};
+
+function diffPill(d) {
+  if (d == null) return '<span class="diff-pill neu">—</span>';
+  const sign = d > 0 ? '▲' : '▼';
+  const cls  = d > 0 ? 'pos' : 'neg';
+  return `<span class="diff-pill ${cls}">${sign}${Math.abs(d).toFixed(1)}%</span>`;
+}
+
+function buildRows(data) {
+  return Object.entries(data).map(([ticker, d]) => {
+    const c = d.current || {};
+    const p = d.peak_since_oct2022 || {};
+    const diff = d.vs_peak_diff || {};
+    return {
+      ticker,
+      sector:           d.sector || '—',
+      error:            d.error,
+      price:            c.price,
+      peak_price:       p.price,
+      peak_date:        p.date,
+      oe:               c.oe,
+      oe_diff:          diff.oe,
+      oe_yield:         c.oe_yield,
+      oe_yield_diff:    diff.oe_yield,
+      oe_multiple:      c.oe_multiple,
+      oe_multiple_diff: diff.oe_multiple,
+      oe_growth:        c.oe_growth,
+      oe_growth_diff:   diff.oe_growth,
+      oe_peg:           c.oe_peg,
+      oe_peg_diff:      diff.oe_peg,
+      epv:              c.epv,
+      epv_diff:         diff.epv,
+    };
+  });
+}
+
+function sortRows(rows) {
+  return [...rows].sort((a, b) => {
+    let av = a[sortCol], bv = b[sortCol];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === 'string') av = av.toLowerCase(), bv = bv.toLowerCase();
+    const cmp = av < bv ? -1 : av > bv ? 1 : 0;
+    return sortAsc ? cmp : -cmp;
+  });
+}
+
+function filterRows(rows) {
+  const sector = document.getElementById('sector-filter').value;
+  const search = document.getElementById('search').value.trim().toUpperCase();
+  return rows.filter(r => {
+    if (sector && r.sector !== sector) return false;
+    if (search && !r.ticker.includes(search)) return false;
+    return true;
+  });
+}
+
+function renderTable(rows) {
+  const tbody = document.getElementById('table-body');
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="16" style="text-align:center;padding:40px;color:var(--muted)">No tickers match your filters</td></tr>`;
+    document.getElementById('row-count').textContent = '0 tickers';
+    return;
+  }
+
+  document.getElementById('row-count').textContent = `${rows.length} tickers`;
+
+  tbody.innerHTML = rows.map((r, i) => {
+    if (r.error && !r.price) {
+      return `<tr class="error-row" style="animation-delay:${i*8}ms">
+        <td class="ticker-sym">${r.ticker}</td>
+        <td colspan="15" style="color:var(--muted);font-size:11px;">⚠ ${r.error}</td>
+      </tr>`;
+    }
+    return `<tr style="animation-delay:${Math.min(i,40)*8}ms">
+      <td><span class="ticker-sym">${r.ticker}</span></td>
+      <td><span class="sector-badge" title="${r.sector}">${r.sector}</span></td>
+      <td class="col-sep">
+        <div class="price-now">${fmt.price(r.price)}</div>
+      </td>
+      <td>
+        <div class="price-peak">${fmt.price(r.peak_price)}</div>
+        ${r.peak_date ? `<div style="font-size:10px;color:var(--muted)">${r.peak_date}</div>` : ''}
+      </td>
+      <td class="col-sep">${fmt.oe(r.oe)}</td>
+      <td>${diffPill(r.oe_diff)}</td>
+      <td class="col-sep">${fmt.yield(r.oe_yield)}</td>
+      <td>${diffPill(r.oe_yield_diff)}</td>
+      <td class="col-sep">${fmt.mult(r.oe_multiple)}</td>
+      <td>${diffPill(r.oe_multiple_diff)}</td>
+      <td class="col-sep">${fmt.growth(r.oe_growth)}</td>
+      <td>${diffPill(r.oe_growth_diff)}</td>
+      <td class="col-sep">${fmt.peg(r.oe_peg)}</td>
+      <td>${diffPill(r.oe_peg_diff)}</td>
+      <td class="col-sep">${fmt.epv(r.epv)}</td>
+      <td>${diffPill(r.epv_diff)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function updateStats(rows) {
+  const valid = rows.filter(r => r.price);
+  document.getElementById('s-total').textContent = valid.length;
+
+  const avg = (key) => {
+    const vals = valid.map(r => r[key]).filter(v => v != null);
+    return vals.length ? vals.reduce((a,b) => a+b, 0) / vals.length : null;
+  };
+
+  const avgYield = avg('oe_yield');
+  const avgMult  = avg('oe_multiple');
+  const avgGrowth= avg('oe_growth');
+
+  document.getElementById('s-yield').textContent   = avgYield  != null ? `${avgYield.toFixed(2)}%` : '—';
+  document.getElementById('s-multiple').textContent = avgMult   != null ? `${avgMult.toFixed(2)}x`  : '—';
+  document.getElementById('s-growth').textContent  = avgGrowth != null ? `${avgGrowth.toFixed(2)}%`: '—';
+
+  const cheaper = valid.filter(r => r.oe_multiple_diff != null && r.oe_multiple_diff < 0).length;
+  document.getElementById('s-cheaper').textContent = `${cheaper} / ${valid.length}`;
+}
+
+function populateSectors(rows) {
+  const sectors = [...new Set(rows.map(r => r.sector).filter(s => s && s !== '—'))].sort();
+  const sel = document.getElementById('sector-filter');
+  sectors.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s; o.textContent = s;
+    sel.appendChild(o);
+  });
+}
+
+function refresh() {
+  const filtered = filterRows(ROWS);
+  const sorted   = sortRows(filtered);
+  renderTable(sorted);
+  updateStats(sorted);
+}
+
+// Sort on header click
+document.querySelectorAll('th[data-col]').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (sortCol === col) sortAsc = !sortAsc;
+    else { sortCol = col; sortAsc = true; }
+    document.querySelectorAll('th').forEach(t => t.classList.remove('sorted'));
+    th.classList.add('sorted');
+    th.querySelector('.sort-icon').textContent = sortAsc ? '↑' : '↓';
+    refresh();
+  });
+});
+
+document.getElementById('sector-filter').addEventListener('change', refresh);
+document.getElementById('search').addEventListener('input', refresh);
+document.getElementById('sort-select').addEventListener('change', e => {
+  const v = e.target.value;
+  const map = {
+    'ticker':        ['ticker', true],
+    'oe_multiple':   ['oe_multiple', true],
+    'oe_yield_desc': ['oe_yield', false],
+    'oe_growth_desc':['oe_growth', false],
+    'oe_peg':        ['oe_peg', true],
+  };
+  [sortCol, sortAsc] = map[v] || ['ticker', true];
+  refresh();
+});
+
+// Load data
+async function loadData() {
+  try {
+    const res = await fetch('oe_data.json?nocache=' + Date.now());
+    if (!res.ok) throw new Error('not found');
+    RAW = await res.json();
+
+    ROWS = buildRows(RAW);
+    populateSectors(ROWS);
+
+    // Last updated
+    const dates = Object.values(RAW).map(d => d.last_updated).filter(Boolean).sort();
+    if (dates.length) {
+      const d = new Date(dates[dates.length - 1]);
+      document.getElementById('last-updated').textContent =
+        'Updated: ' + d.toLocaleDateString('en-US', {weekday:'short', year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
+    }
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('table-wrap').style.display = 'block';
+    refresh();
+
+  } catch(e) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('empty').style.display = 'block';
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>
