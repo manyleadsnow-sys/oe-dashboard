@@ -15,7 +15,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 PEAK_START_DATE = "2022-10-12"
-EDGAR_HEADERS   = {"User-Agent": "OEDashboard contact@example.com"}
+EDGAR_HEADERS   = {"User-Agent": "OEDashboard research/1.0 admin@oedashboard.com", "Accept-Encoding": "gzip, deflate", "Host": "data.sec.gov"}
 EDGAR_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/{cik}.json"
 EDGAR_CIK_URL   = "https://www.sec.gov/cgi-bin/browse-edgar?company=&CIK={ticker}&type=10-K&dateb=&owner=include&count=1&search_text=&action=getcompany&output=atom"
 TICKER_CIK_URL  = "https://www.sec.gov/files/company_tickers.json"
@@ -96,15 +96,30 @@ def get_cik(ticker):
 # ── EDGAR facts fetcher ────────────────────────────────────────────────────────
 
 def fetch_edgar_facts(cik):
-    """Fetch all XBRL company facts from EDGAR. Returns dict or None."""
-    try:
-        url = EDGAR_FACTS_URL.format(cik=cik)
-        r   = requests.get(url, headers=EDGAR_HEADERS, timeout=60)
-        if r.status_code != 200:
-            return None
-        return r.json()
-    except Exception:
-        return None
+    """Fetch all XBRL company facts from EDGAR with retries. Returns dict or None."""
+    url = EDGAR_FACTS_URL.format(cik=cik)
+    for attempt in range(4):
+        try:
+            r = requests.get(url, headers=EDGAR_HEADERS, timeout=90)
+            if r.status_code == 200:
+                return r.json()
+            elif r.status_code == 429:
+                wait = 30 * (attempt + 1)
+                print(f"  EDGAR rate limited, waiting {wait}s...")
+                time.sleep(wait)
+            elif r.status_code == 403:
+                print(f"  EDGAR 403 for CIK {cik} — check User-Agent header")
+                return None
+            else:
+                print(f"  EDGAR HTTP {r.status_code} for CIK {cik}")
+                time.sleep(5 * (attempt + 1))
+        except requests.exceptions.Timeout:
+            print(f"  EDGAR timeout for CIK {cik}, attempt {attempt+1}/4")
+            time.sleep(10 * (attempt + 1))
+        except Exception as e:
+            print(f"  EDGAR error for CIK {cik}: {e}")
+            time.sleep(5)
+    return None
 
 
 def get_concept(facts, *concept_names, unit="USD", form_filter=None):
@@ -504,7 +519,7 @@ def fetch_ticker_data(symbol):
 
         facts = fetch_edgar_facts(cik)
         if facts is None:
-            result["error"] = "Could not fetch EDGAR facts"
+            result["error"] = f"Could not fetch EDGAR facts for CIK {cik}"
             return result
 
         time.sleep(0.12)   # EDGAR rate limit: ~10 req/sec max
@@ -587,6 +602,17 @@ def load_results(path="oe_data.json"):
 
 
 if __name__ == "__main__":
+    # Quick connectivity test before full run
+    print("Testing SEC EDGAR connectivity...")
+    try:
+        test = requests.get(TICKER_CIK_URL, headers=EDGAR_HEADERS, timeout=30)
+        print(f"  CIK map: HTTP {test.status_code} ({len(test.content)} bytes)")
+        test2 = requests.get("https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+                             headers=EDGAR_HEADERS, timeout=60)
+        print(f"  AAPL facts: HTTP {test2.status_code} ({len(test2.content)} bytes)")
+    except Exception as e:
+        print(f"  Connectivity test FAILED: {e}")
+
     print(f"Running OE calculations for {len(TICKERS)} tickers...")
     results = run_full_calculation(
         progress_callback=lambda sym, i, n: print(f"  [{i}/{n}] {sym}")
