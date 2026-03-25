@@ -313,6 +313,8 @@ def fetch_ticker_data(symbol: str) -> dict:
 
         # ── Price history ───────────────────────────────────────────────
         hist_full = t.history(period="max", interval="1d")["Close"].dropna()
+        # Strip timezone from index to avoid comparison errors
+        hist_full.index = hist_full.index.tz_localize(None) if hist_full.index.tz is None else hist_full.index.tz_convert(None)
         hist_post_oct22 = hist_full[hist_full.index >= pd.Timestamp(PEAK_START_DATE)]
 
         current_price = float(hist_full.iloc[-1]) if not hist_full.empty else None
