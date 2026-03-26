@@ -26,7 +26,7 @@ EDGAR_HEADERS   = {
     "User-Agent": "OEDashboard research/1.0 admin@oedashboard.com",
     "Accept-Encoding": "gzip, deflate",
 }
-EDGAR_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/{cik}.json"
+EDGAR_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
 EDGAR_CACHE     = "edgar_cache.json"
 OE_DATA         = "oe_data.json"
 
