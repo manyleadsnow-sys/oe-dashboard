@@ -1,0 +1,99 @@
+name: OE Dashboard
+
+on:
+  schedule:
+    # ── Daily price update: Mon-Fri at 11:00 UTC (7am EST) ──
+    - cron: '0 11 * * 1-5'
+    # ── EDGAR financials refresh: Tuesday + Thursday at 02:00 UTC (10pm EST) ──
+    - cron: '0 2 * * 2,4'
+  workflow_dispatch:
+    inputs:
+      force_edgar:
+        description: 'Force EDGAR refresh (yes/no)'
+        required: false
+        default: 'no'
+
+jobs:
+  calculate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Determine run mode
+        id: mode
+        run: |
+          # Check if this is a Tue/Thu EDGAR run or a forced refresh
+          DAY=$(date +%u)   # 1=Mon ... 7=Sun
+          HOUR=$(date +%H)  # UTC hour
+          FORCE="${{ github.event.inputs.force_edgar }}"
+
+          if [ "$FORCE" = "yes" ]; then
+            echo "mode=edgar_and_prices" >> $GITHUB_OUTPUT
+            echo "Running: FORCED full EDGAR + prices refresh"
+          elif [ "$DAY" = "2" ] && [ "$HOUR" = "02" ]; then
+            echo "mode=edgar_and_prices" >> $GITHUB_OUTPUT
+            echo "Running: Tuesday EDGAR + prices refresh"
+          elif [ "$DAY" = "4" ] && [ "$HOUR" = "02" ]; then
+            echo "mode=edgar_and_prices" >> $GITHUB_OUTPUT
+            echo "Running: Thursday EDGAR + prices refresh"
+          else
+            echo "mode=prices_only" >> $GITHUB_OUTPUT
+            echo "Running: Daily prices-only update"
+          fi
+
+      - name: Run calculation
+        env:
+          RUN_MODE: ${{ steps.mode.outputs.mode }}
+        run: python calculator.py
+
+      - name: Copy dashboard files for Pages
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp oe_data.json _site/
+
+      - name: Commit updated data to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add oe_data.json
+          # Also commit edgar_cache.json if it changed
+          git add edgar_cache.json 2>/dev/null || true
+          git commit -m "OE update $(date +'%Y-%m-%d %H:%M') [${RUN_MODE}]" || echo "No changes"
+          git push
+        env:
+          RUN_MODE: ${{ steps.mode.outputs.mode }}
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: calculate
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
