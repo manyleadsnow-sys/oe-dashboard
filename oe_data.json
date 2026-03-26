@@ -1,1862 +1,1862 @@
 {
   "AAPL": {
     "ticker": "AAPL",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000320193",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:26:59.565997"
+    "last_updated": "2026-03-25T23:44:18.360755"
   },
   "GOOG": {
     "ticker": "GOOG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001652044",
     "sector": "Communication Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:00.481997"
+    "last_updated": "2026-03-25T23:45:09.555811"
   },
   "META": {
     "ticker": "META",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001326801",
     "sector": "Communication Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:00.952745"
+    "last_updated": "2026-03-25T23:46:00.409927"
   },
   "MSFT": {
     "ticker": "MSFT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000789019",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:01.338880"
+    "last_updated": "2026-03-25T23:46:51.200588"
   },
   "NVDA": {
     "ticker": "NVDA",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001045810",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:01.908591"
+    "last_updated": "2026-03-25T23:47:42.101014"
   },
   "PLTR": {
     "ticker": "PLTR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001321655",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:02.400278"
+    "last_updated": "2026-03-25T23:48:32.949600"
   },
   "TSLA": {
     "ticker": "TSLA",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001318605",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:02.768268"
+    "last_updated": "2026-03-25T23:49:23.653000"
   },
   "EA": {
     "ticker": "EA",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000712515",
     "sector": "Communication Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:03.168137"
+    "last_updated": "2026-03-25T23:50:14.336907"
   },
   "NFLX": {
     "ticker": "NFLX",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001065280",
     "sector": "Communication Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:03.769255"
+    "last_updated": "2026-03-25T23:51:05.236111"
   },
   "TMUS": {
     "ticker": "TMUS",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001283699",
     "sector": "Communication Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:04.261690"
+    "last_updated": "2026-03-25T23:51:56.153851"
   },
   "AMZN": {
     "ticker": "AMZN",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001018724",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:04.747186"
+    "last_updated": "2026-03-25T23:52:46.876909"
   },
   "CMG": {
     "ticker": "CMG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001058090",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:05.184613"
+    "last_updated": "2026-03-25T23:53:37.672540"
   },
   "CPRT": {
     "ticker": "CPRT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000723254",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:05.640438"
+    "last_updated": "2026-03-25T23:54:28.516877"
   },
   "GRMN": {
     "ticker": "GRMN",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001121788",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:06.215810"
+    "last_updated": "2026-03-25T23:55:19.606347"
   },
   "LEN": {
     "ticker": "LEN",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000060667",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:06.917155"
+    "last_updated": "2026-03-25T23:56:10.567870"
   },
   "MCD": {
     "ticker": "MCD",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000063754",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:07.617855"
+    "last_updated": "2026-03-25T23:57:01.766270"
   },
   "ORLY": {
     "ticker": "ORLY",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000898173",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:08.472817"
+    "last_updated": "2026-03-25T23:57:53.063244"
   },
   "POOL": {
     "ticker": "POOL",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000945841",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:08.940761"
+    "last_updated": "2026-03-25T23:58:43.855826"
   },
   "ROST": {
     "ticker": "ROST",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000745732",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:09.512548"
+    "last_updated": "2026-03-25T23:59:34.703981"
   },
   "TSCO": {
     "ticker": "TSCO",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000916365",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:10.123506"
+    "last_updated": "2026-03-26T00:00:25.639708"
   },
   "ULTA": {
     "ticker": "ULTA",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001403568",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:10.643464"
+    "last_updated": "2026-03-26T00:01:16.624254"
   },
   "BG": {
     "ticker": "BG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001144519",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:11.066672"
+    "last_updated": "2026-03-26T00:02:07.313917"
   },
   "COST": {
     "ticker": "COST",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000909832",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:11.571382"
+    "last_updated": "2026-03-26T00:02:58.251562"
   },
   "HSY": {
     "ticker": "HSY",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000047111",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:12.256692"
+    "last_updated": "2026-03-26T00:03:49.248699"
   },
   "KO": {
     "ticker": "KO",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000021344",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:12.906675"
+    "last_updated": "2026-03-26T00:04:40.252902"
   },
   "PEP": {
     "ticker": "PEP",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000077476",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:13.776484"
+    "last_updated": "2026-03-26T00:05:31.516413"
   },
   "PG": {
     "ticker": "PG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000080424",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:14.623431"
+    "last_updated": "2026-03-26T00:06:22.646929"
   },
   "PM": {
     "ticker": "PM",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001413159",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:15.641147"
+    "last_updated": "2026-03-26T00:07:13.935342"
   },
   "STZ": {
     "ticker": "STZ",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000016160",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:16.191199"
+    "last_updated": "2026-03-26T00:08:04.686414"
   },
   "SYY": {
     "ticker": "SYY",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000086312",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:16.724839"
+    "last_updated": "2026-03-26T00:08:55.710758"
   },
   "WMT": {
     "ticker": "WMT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000104169",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:17.421452"
+    "last_updated": "2026-03-26T00:09:46.636792"
   },
   "BKR": {
     "ticker": "BKR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001701605",
     "sector": "Energy",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:18.176877"
+    "last_updated": "2026-03-26T00:10:37.792840"
   },
   "CVX": {
     "ticker": "CVX",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000093410",
     "sector": "Energy",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:18.842607"
+    "last_updated": "2026-03-26T00:11:28.757289"
   },
   "EOG": {
     "ticker": "EOG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000821189",
     "sector": "Energy",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:19.765862"
+    "last_updated": "2026-03-26T00:12:19.820134"
   },
   "EPD": {
     "ticker": "EPD",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001061219",
     "sector": "Energy",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:20.360019"
+    "last_updated": "2026-03-26T00:13:10.732141"
   },
   "EXE": {
     "ticker": "EXE",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001168165",
     "sector": "Energy",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:20.890017"
+    "last_updated": "2026-03-26T00:14:01.829646"
   },
   "FANG": {
     "ticker": "FANG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001539838",
     "sector": "Energy",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:21.245924"
+    "last_updated": "2026-03-26T00:14:52.615895"
   },
   "SLB": {
     "ticker": "SLB",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000087347",
     "sector": "Energy",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:21.699291"
+    "last_updated": "2026-03-26T00:15:43.348722"
   },
   "TPL": {
     "ticker": "TPL",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000097476",
     "sector": "Energy",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:22.360622"
+    "last_updated": "2026-03-26T00:16:34.639221"
   },
   "VLO": {
     "ticker": "VLO",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001035002",
     "sector": "Energy",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:22.990937"
+    "last_updated": "2026-03-26T00:17:25.839629"
   },
   "XOM": {
     "ticker": "XOM",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000034088",
     "sector": "Energy",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:23.639029"
+    "last_updated": "2026-03-26T00:18:17.024048"
   },
   "BRK-B": {
     "ticker": "BRK-B",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001067983",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:24.502466"
+    "last_updated": "2026-03-26T00:19:08.387373"
   },
   "ACGL": {
     "ticker": "ACGL",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000947484",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:24.928932"
+    "last_updated": "2026-03-26T00:19:59.244694"
   },
   "AIZ": {
     "ticker": "AIZ",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001267238",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:25.390133"
+    "last_updated": "2026-03-26T00:20:50.223542"
   },
   "AJG": {
     "ticker": "AJG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000354190",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:25.857834"
+    "last_updated": "2026-03-26T00:21:41.086688"
   },
   "AON": {
     "ticker": "AON",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000315293",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:26.455486"
+    "last_updated": "2026-03-26T00:22:32.078845"
   },
   "ARES": {
     "ticker": "ARES",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001555280",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:27.176496"
+    "last_updated": "2026-03-26T00:23:23.177649"
   },
   "AXP": {
     "ticker": "AXP",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000004962",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:27.591342"
+    "last_updated": "2026-03-26T00:24:13.881996"
   },
   "BAC": {
     "ticker": "BAC",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000070858",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:28.347985"
+    "last_updated": "2026-03-26T00:25:05.132411"
   },
   "BLK": {
     "ticker": "BLK",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001364742",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:29.073050"
+    "last_updated": "2026-03-26T00:25:56.192605"
   },
   "BRO": {
     "ticker": "BRO",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000014846",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:29.555239"
+    "last_updated": "2026-03-26T00:26:47.043569"
   },
   "C": {
     "ticker": "C",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000831001",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:30.195155"
+    "last_updated": "2026-03-26T00:27:38.185447"
   },
   "CB": {
     "ticker": "CB",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000896159",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:30.906841"
+    "last_updated": "2026-03-26T00:28:29.174092"
   },
   "CBOE": {
     "ticker": "CBOE",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001374310",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:31.493001"
+    "last_updated": "2026-03-26T00:29:20.247317"
   },
   "CBRE": {
     "ticker": "CBRE",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001138118",
     "sector": "Real Estate",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:31.906697"
+    "last_updated": "2026-03-26T00:30:11.053612"
   },
   "CINF": {
     "ticker": "CINF",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000020286",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:32.320560"
+    "last_updated": "2026-03-26T00:31:01.950401"
   },
   "CME": {
     "ticker": "CME",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001156375",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:32.996544"
+    "last_updated": "2026-03-26T00:31:53.054720"
   },
   "CPAY": {
     "ticker": "CPAY",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001175922",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:33.705808"
+    "last_updated": "2026-03-26T00:32:43.965914"
   },
   "EG": {
     "ticker": "EG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000049697",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:34.174733"
+    "last_updated": "2026-03-26T00:33:34.766130"
   },
   "ERIE": {
     "ticker": "ERIE",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000049697",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:34.730359"
+    "last_updated": "2026-03-26T00:34:25.658286"
   },
   "FICO": {
     "ticker": "FICO",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000814547",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:35.262364"
+    "last_updated": "2026-03-26T00:35:16.639628"
   },
   "GS": {
     "ticker": "GS",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000886982",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:35.816917"
+    "last_updated": "2026-03-26T00:36:07.868879"
   },
   "IBKR": {
     "ticker": "IBKR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001381197",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:36.360008"
+    "last_updated": "2026-03-26T00:36:58.751695"
   },
   "ICE": {
     "ticker": "ICE",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001571123",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:36.857566"
+    "last_updated": "2026-03-26T00:37:49.504516"
   },
   "JPM": {
     "ticker": "JPM",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000019617",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:37.339499"
+    "last_updated": "2026-03-26T00:38:40.300444"
   },
   "KKR": {
     "ticker": "KKR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001404912",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:38.018103"
+    "last_updated": "2026-03-26T00:39:31.649883"
   },
   "MA": {
     "ticker": "MA",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001141391",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:38.487813"
+    "last_updated": "2026-03-26T00:40:22.384558"
   },
   "MCO": {
     "ticker": "MCO",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001059556",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:38.954257"
+    "last_updated": "2026-03-26T00:41:13.293606"
   },
   "MSCI": {
     "ticker": "MSCI",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001408198",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:39.460115"
+    "last_updated": "2026-03-26T00:42:04.442260"
   },
   "NDAQ": {
     "ticker": "NDAQ",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001120193",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:39.966799"
+    "last_updated": "2026-03-26T00:42:55.351758"
   },
   "PGR": {
     "ticker": "PGR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000080661",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:40.483412"
+    "last_updated": "2026-03-26T00:43:46.199141"
   },
   "RJF": {
     "ticker": "RJF",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000720005",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:41.102810"
+    "last_updated": "2026-03-26T00:44:37.194140"
   },
   "SPGI": {
     "ticker": "SPGI",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000064040",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:41.795165"
+    "last_updated": "2026-03-26T00:45:28.372847"
   },
   "TRV": {
     "ticker": "TRV",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000086312",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:42.512599"
+    "last_updated": "2026-03-26T00:46:19.931726"
   },
   "V": {
     "ticker": "V",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001403161",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:43.199997"
+    "last_updated": "2026-03-26T00:47:10.998490"
   },
   "VRSK": {
     "ticker": "VRSK",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001442145",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:43.720677"
+    "last_updated": "2026-03-26T00:48:01.884172"
   },
   "WFC": {
     "ticker": "WFC",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000072971",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:44.129205"
+    "last_updated": "2026-03-26T00:48:52.691083"
   },
   "WRB": {
     "ticker": "WRB",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000011544",
     "sector": "Financial Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:44.884935"
+    "last_updated": "2026-03-26T00:49:43.853421"
   },
   "A": {
     "ticker": "A",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001090872",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:45.583855"
+    "last_updated": "2026-03-26T00:50:34.998430"
   },
   "BSX": {
     "ticker": "BSX",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000885725",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:46.095341"
+    "last_updated": "2026-03-26T00:51:25.923281"
   },
   "CI": {
     "ticker": "CI",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001739940",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:46.699440"
+    "last_updated": "2026-03-26T00:52:16.984937"
   },
   "ABT": {
     "ticker": "ABT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000001800",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:47.441253"
+    "last_updated": "2026-03-26T00:53:08.138694"
   },
   "COO": {
     "ticker": "COO",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000723254",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:48.111668"
+    "last_updated": "2026-03-26T00:53:59.406788"
   },
   "HCA": {
     "ticker": "HCA",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000860730",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:48.823159"
+    "last_updated": "2026-03-26T00:54:50.506013"
   },
   "IDXX": {
     "ticker": "IDXX",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000874716",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:49.281270"
+    "last_updated": "2026-03-26T00:55:41.310269"
   },
   "IQV": {
     "ticker": "IQV",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001478454",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:49.779775"
+    "last_updated": "2026-03-26T00:56:32.136005"
   },
   "ISRG": {
     "ticker": "ISRG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001035267",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:50.175251"
+    "last_updated": "2026-03-26T00:57:22.992037"
   },
   "JNJ": {
     "ticker": "JNJ",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000200406",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:50.597448"
+    "last_updated": "2026-03-26T00:58:13.870275"
   },
   "LLY": {
     "ticker": "LLY",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000059478",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:51.453321"
+    "last_updated": "2026-03-26T00:59:05.094130"
   },
   "MCK": {
     "ticker": "MCK",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000927653",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:52.176782"
+    "last_updated": "2026-03-26T00:59:56.196363"
   },
   "MRK": {
     "ticker": "MRK",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000310158",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:52.796322"
+    "last_updated": "2026-03-26T01:00:47.381259"
   },
   "MTD": {
     "ticker": "MTD",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001037586",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:53.632906"
+    "last_updated": "2026-03-26T01:01:38.830912"
   },
   "REGN": {
     "ticker": "REGN",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000872589",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:54.087195"
+    "last_updated": "2026-03-26T01:02:29.561760"
   },
   "RMD": {
     "ticker": "RMD",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000943819",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:54.631880"
+    "last_updated": "2026-03-26T01:03:20.428567"
   },
   "SYK": {
     "ticker": "SYK",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000310764",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:55.256937"
+    "last_updated": "2026-03-26T01:04:11.520122"
   },
   "TECH": {
     "ticker": "TECH",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000849547",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:55.920639"
+    "last_updated": "2026-03-26T01:05:02.656313"
   },
   "VRTX": {
     "ticker": "VRTX",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000875320",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:56.436400"
+    "last_updated": "2026-03-26T01:05:53.744260"
   },
   "WAT": {
     "ticker": "WAT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001000230",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:56.928244"
+    "last_updated": "2026-03-26T01:06:44.660923"
   },
   "WST": {
     "ticker": "WST",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000105770",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:57.404860"
+    "last_updated": "2026-03-26T01:07:35.570738"
   },
   "ZTS": {
     "ticker": "ZTS",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001555280",
     "sector": "Healthcare",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:58.047898"
+    "last_updated": "2026-03-26T01:08:26.550518"
   },
   "WM": {
     "ticker": "WM",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000823768",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:58.614152"
+    "last_updated": "2026-03-26T01:09:17.444041"
   },
   "MO": {
     "ticker": "MO",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000764038",
     "sector": "Consumer Defensive",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:27:59.198682"
+    "last_updated": "2026-03-26T01:10:08.524648"
   },
   "ADP": {
     "ticker": "ADP",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000012927",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:00.113080"
+    "last_updated": "2026-03-26T01:10:59.750455"
   },
   "AXON": {
     "ticker": "AXON",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001069183",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:00.871765"
+    "last_updated": "2026-03-26T01:11:51.097865"
   },
   "CAT": {
     "ticker": "CAT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000018230",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:01.266482"
+    "last_updated": "2026-03-26T01:12:41.966201"
   },
   "CTAS": {
     "ticker": "CTAS",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000723254",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:02.029340"
+    "last_updated": "2026-03-26T01:13:33.313805"
   },
   "DE": {
     "ticker": "DE",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000315189",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:02.663771"
+    "last_updated": "2026-03-26T01:14:24.182773"
   },
   "EME": {
     "ticker": "EME",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000093859",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:03.509786"
+    "last_updated": "2026-03-26T01:15:15.350455"
   },
   "EMR": {
     "ticker": "EMR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000032604",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:04.112614"
+    "last_updated": "2026-03-26T01:16:06.280876"
   },
   "ETN": {
     "ticker": "ETN",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001551182",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:04.794256"
+    "last_updated": "2026-03-26T01:16:57.421723"
   },
   "FAST": {
     "ticker": "FAST",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000815556",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:05.635461"
+    "last_updated": "2026-03-26T01:17:48.711445"
   },
   "FIX": {
     "ticker": "FIX",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000766704",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:06.216038"
+    "last_updated": "2026-03-26T01:18:39.748643"
   },
   "GD": {
     "ticker": "GD",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000040533",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:06.776744"
+    "last_updated": "2026-03-26T01:19:30.758139"
   },
   "GE": {
     "ticker": "GE",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000040987",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:07.664745"
+    "last_updated": "2026-03-26T01:20:22.098171"
   },
   "GWW": {
     "ticker": "GWW",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000277135",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:08.613422"
+    "last_updated": "2026-03-26T01:21:13.702069"
   },
   "HON": {
     "ticker": "HON",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000773840",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:09.394962"
+    "last_updated": "2026-03-26T01:22:04.898613"
   },
   "HWM": {
     "ticker": "HWM",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000004281",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:10.345215"
+    "last_updated": "2026-03-26T01:22:56.229792"
   },
   "LMT": {
     "ticker": "LMT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000936468",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:10.783353"
+    "last_updated": "2026-03-26T01:23:47.201679"
   },
   "NOC": {
     "ticker": "NOC",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001133421",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:11.624192"
+    "last_updated": "2026-03-26T01:24:38.385079"
   },
   "ODFL": {
     "ticker": "ODFL",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000878927",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:12.303815"
+    "last_updated": "2026-03-26T01:25:29.472497"
   },
   "OTIS": {
     "ticker": "OTIS",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001781335",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:12.914572"
+    "last_updated": "2026-03-26T01:26:20.358513"
   },
   "PH": {
     "ticker": "PH",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000076334",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:13.335101"
+    "last_updated": "2026-03-26T01:27:11.237101"
   },
   "PWR": {
     "ticker": "PWR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001050606",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:14.032299"
+    "last_updated": "2026-03-26T01:28:02.243048"
   },
   "ROK": {
     "ticker": "ROK",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001024795",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:14.530842"
+    "last_updated": "2026-03-26T01:28:53.258026"
   },
   "ROL": {
     "ticker": "ROL",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000085408",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:15.171252"
+    "last_updated": "2026-03-26T01:29:44.328607"
   },
   "ROP": {
     "ticker": "ROP",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000882184",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:15.882861"
+    "last_updated": "2026-03-26T01:30:35.299172"
   },
   "TDG": {
     "ticker": "TDG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001260221",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:16.509844"
+    "last_updated": "2026-03-26T01:31:26.341043"
   },
   "TT": {
     "ticker": "TT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001466258",
     "sector": "Industrials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:17.046116"
+    "last_updated": "2026-03-26T01:32:17.365158"
   },
   "ACN": {
     "ticker": "ACN",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001467373",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:17.779233"
+    "last_updated": "2026-03-26T01:33:08.409567"
   },
   "ADI": {
     "ticker": "ADI",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000006845",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:18.316100"
+    "last_updated": "2026-03-26T01:33:59.246582"
   },
   "ADSK": {
     "ticker": "ADSK",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000796343",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:18.962240"
+    "last_updated": "2026-03-26T01:34:50.217746"
   },
   "AMAT": {
     "ticker": "AMAT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000796343",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:19.607827"
+    "last_updated": "2026-03-26T01:35:41.256243"
   },
   "AMD": {
     "ticker": "AMD",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000002488",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:20.352949"
+    "last_updated": "2026-03-26T01:36:32.181809"
   },
   "ANET": {
     "ticker": "ANET",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001313925",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:20.916197"
+    "last_updated": "2026-03-26T01:37:23.033663"
   },
   "APH": {
     "ticker": "APH",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000820081",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:21.340534"
+    "last_updated": "2026-03-26T01:38:13.703312"
   },
   "CDNS": {
     "ticker": "CDNS",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000813672",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:21.902631"
+    "last_updated": "2026-03-26T01:39:04.798148"
   },
   "CSCO": {
     "ticker": "CSCO",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000858877",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:22.383018"
+    "last_updated": "2026-03-26T01:39:55.782143"
   },
   "FTNT": {
     "ticker": "FTNT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001262039",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:22.992285"
+    "last_updated": "2026-03-26T01:40:46.755583"
   },
   "IT": {
     "ticker": "IT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000749251",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:23.426881"
+    "last_updated": "2026-03-26T01:41:37.677231"
   },
   "KLAC": {
     "ticker": "KLAC",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000319201",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:23.916731"
+    "last_updated": "2026-03-26T01:42:28.568017"
   },
   "LRCX": {
     "ticker": "LRCX",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000707549",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:24.559665"
+    "last_updated": "2026-03-26T01:43:19.634890"
   },
   "MCHP": {
     "ticker": "MCHP",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000827054",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:25.139493"
+    "last_updated": "2026-03-26T01:44:10.614210"
   },
   "MPWR": {
     "ticker": "MPWR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001280452",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:25.670284"
+    "last_updated": "2026-03-26T01:45:01.654614"
   },
   "MSI": {
     "ticker": "MSI",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000068505",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:26.137920"
+    "last_updated": "2026-03-26T01:45:52.527601"
   },
   "NXPI": {
     "ticker": "NXPI",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001413447",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:27.006544"
+    "last_updated": "2026-03-26T01:46:43.863260"
   },
   "ON": {
     "ticker": "ON",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000863894",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:27.396443"
+    "last_updated": "2026-03-26T01:47:34.579039"
   },
   "PTC": {
     "ticker": "PTC",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000857005",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:27.805993"
+    "last_updated": "2026-03-26T01:48:25.722696"
   },
   "Q": {
     "ticker": "Q",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001479290",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:28.236448"
+    "last_updated": "2026-03-26T01:49:16.592930"
   },
   "SNPS": {
     "ticker": "SNPS",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000883241",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:28.585740"
+    "last_updated": "2026-03-26T01:50:07.287530"
   },
   "TEL": {
     "ticker": "TEL",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001385157",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:29.080866"
+    "last_updated": "2026-03-26T01:50:58.217398"
   },
   "TER": {
     "ticker": "TER",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000097210",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:29.522639"
+    "last_updated": "2026-03-26T01:51:49.023588"
   },
   "TTD": {
     "ticker": "TTD",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001671933",
     "sector": "Communication Services",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:30.150923"
+    "last_updated": "2026-03-26T01:52:39.994673"
   },
   "TXN": {
     "ticker": "TXN",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000097476",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:30.561484"
+    "last_updated": "2026-03-26T01:53:30.810124"
   },
   "TYL": {
     "ticker": "TYL",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000860731",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:31.563473"
+    "last_updated": "2026-03-26T01:54:22.592156"
   },
   "VRSN": {
     "ticker": "VRSN",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001014473",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:32.096247"
+    "last_updated": "2026-03-26T01:55:13.662747"
   },
   "WDAY": {
     "ticker": "WDAY",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001327811",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:32.578733"
+    "last_updated": "2026-03-26T01:56:04.736138"
   },
   "APD": {
     "ticker": "APD",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000002969",
     "sector": "Basic Materials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:32.939772"
+    "last_updated": "2026-03-26T01:56:55.456076"
   },
   "AVY": {
     "ticker": "AVY",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000008818",
     "sector": "Consumer Cyclical",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:33.671615"
+    "last_updated": "2026-03-26T01:57:47.013557"
   },
   "CRH": {
     "ticker": "CRH",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001370946",
     "sector": "Basic Materials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:34.383533"
+    "last_updated": "2026-03-26T01:58:38.260678"
   },
   "ECL": {
     "ticker": "ECL",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000031462",
     "sector": "Basic Materials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:34.994875"
+    "last_updated": "2026-03-26T01:59:29.218627"
   },
   "FSLR": {
     "ticker": "FSLR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001274494",
     "sector": "Technology",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:35.681266"
+    "last_updated": "2026-03-26T02:00:20.233266"
   },
   "LIN": {
     "ticker": "LIN",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001707092",
     "sector": "Basic Materials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:36.150596"
+    "last_updated": "2026-03-26T02:01:11.212635"
   },
   "MLM": {
     "ticker": "MLM",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000916789",
     "sector": "Basic Materials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:36.904095"
+    "last_updated": "2026-03-26T02:02:02.188963"
   },
   "NUE": {
     "ticker": "NUE",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000073309",
     "sector": "Basic Materials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:37.457419"
+    "last_updated": "2026-03-26T02:02:53.132568"
   },
   "SHW": {
     "ticker": "SHW",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000089089",
     "sector": "Basic Materials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:38.214557"
+    "last_updated": "2026-03-26T02:03:44.263467"
   },
   "STLD": {
     "ticker": "STLD",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001022671",
     "sector": "Basic Materials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:38.895460"
+    "last_updated": "2026-03-26T02:04:35.229267"
   },
   "VMC": {
     "ticker": "VMC",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001396033",
     "sector": "Basic Materials",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:39.362920"
+    "last_updated": "2026-03-26T02:05:26.304212"
   },
   "AMT": {
     "ticker": "AMT",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001053507",
     "sector": "Real Estate",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:40.101573"
+    "last_updated": "2026-03-26T02:06:17.352415"
   },
   "CSGP": {
     "ticker": "CSGP",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001467373",
     "sector": "Real Estate",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:40.614514"
+    "last_updated": "2026-03-26T02:07:08.273918"
   },
   "EXR": {
     "ticker": "EXR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001289490",
     "sector": "Real Estate",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:41.203542"
+    "last_updated": "2026-03-26T02:07:59.136228"
   },
   "PSA": {
     "ticker": "PSA",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001393311",
     "sector": "Real Estate",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:41.712417"
+    "last_updated": "2026-03-26T02:08:49.940474"
   },
   "SBAC": {
     "ticker": "SBAC",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001034669",
     "sector": "Real Estate",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:42.386005"
+    "last_updated": "2026-03-26T02:09:40.916401"
   },
   "VICI": {
     "ticker": "VICI",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001695678",
     "sector": "Real Estate",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:42.978652"
+    "last_updated": "2026-03-26T02:10:31.615990"
   },
   "AEP": {
     "ticker": "AEP",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000004904",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:43.438756"
+    "last_updated": "2026-03-26T02:11:22.547660"
   },
   "AWK": {
     "ticker": "AWK",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001410636",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:44.408575"
+    "last_updated": "2026-03-26T02:12:13.989470"
   },
   "CEG": {
     "ticker": "CEG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001168165",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:44.971629"
+    "last_updated": "2026-03-26T02:13:04.922299"
   },
   "D": {
     "ticker": "D",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000715957",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:45.540022"
+    "last_updated": "2026-03-26T02:13:55.572934"
   },
   "DUK": {
     "ticker": "DUK",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001326160",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:46.375013"
+    "last_updated": "2026-03-26T02:14:46.661980"
   },
   "ETR": {
     "ticker": "ETR",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000049600",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:47.066414"
+    "last_updated": "2026-03-26T02:15:37.801571"
   },
   "NEE": {
     "ticker": "NEE",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000753308",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:47.914126"
+    "last_updated": "2026-03-26T02:16:28.978102"
   },
   "NRG": {
     "ticker": "NRG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001013871",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:48.682625"
+    "last_updated": "2026-03-26T02:17:20.228860"
   },
   "PEG": {
     "ticker": "PEG",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000081033",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:49.534853"
+    "last_updated": "2026-03-26T02:18:11.188648"
   },
   "SO": {
     "ticker": "SO",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000092122",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:50.211597"
+    "last_updated": "2026-03-26T02:19:02.260969"
   },
   "SRE": {
     "ticker": "SRE",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001032778",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:50.930711"
+    "last_updated": "2026-03-26T02:19:53.374893"
   },
   "VST": {
     "ticker": "VST",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0001692819",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:51.478162"
+    "last_updated": "2026-03-26T02:20:44.171878"
   },
   "XEL": {
     "ticker": "XEL",
-    "error": "CIK not found in SEC EDGAR",
+    "error": "Could not fetch EDGAR facts for CIK 0000072741",
     "sector": "Utilities",
     "data_source": "SEC EDGAR + Yahoo Finance",
     "current": {},
     "peak_since_oct2022": {},
     "bear_markets": [],
-    "last_updated": "2026-03-25T23:28:51.884270"
+    "last_updated": "2026-03-26T02:21:34.997160"
   }
 }
