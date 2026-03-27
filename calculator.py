@@ -129,7 +129,8 @@ def quarterly_ttm(facts, *concepts):
                 start_date = datetime.strptime(e["start"], "%Y-%m-%d")
                 end_date = datetime.strptime(e["end"], "%Y-%m-%d")
                 days = (end_date - start_date).days
-                if 80 <= days <= 105:
+                # Widened window for retail/industrial companies with odd fiscal quarters
+                if 75 <= days <= 110:
                     valid_quarters.append(e)
             except ValueError:
                 continue
@@ -149,9 +150,9 @@ def bs_values(facts, *concepts, n=6):
     return [(e["end"], e["val"]) for e in deduped[:n]]
 
 def extract_edgar_financials(facts):
-    ni_ttm = quarterly_ttm(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic", "ProfitLoss")
-    da_ttm = quarterly_ttm(facts, "DepreciationDepletionAndAmortization", "DepreciationAndAmortization", "Depreciation", "DepreciationAmortizationAndAccretionNet")
-    capex_ttm = quarterly_ttm(facts, "PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsForCapitalImprovements", "PaymentsToAcquireProductiveAssets")
+    ni_ttm = quarterly_ttm(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic", "ProfitLoss", "NetIncomeLossAllocatedToParent")
+    da_ttm = quarterly_ttm(facts, "DepreciationDepletionAndAmortization", "DepreciationAndAmortization", "Depreciation", "DepreciationAmortizationAndAccretionNet", "AmortizationOfIntangibleAssets")
+    capex_ttm = quarterly_ttm(facts, "PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsForCapitalImprovements", "PaymentsToAcquireProductiveAssets", "PaymentsToAcquireBusinessesAndPropertyPlantAndEquipment")
 
     ca_s   = bs_values(facts, "AssetsCurrent")
     cl_s   = bs_values(facts, "LiabilitiesCurrent")
@@ -172,7 +173,6 @@ def extract_edgar_financials(facts):
 
     oe_ttm = None
     if ni_ttm is not None and da_ttm is not None:
-        # Graceful fallback: If CapEx is entirely missing (Banks/Insurance), assume 0 to prevent total calculation failure
         capex_val = abs(capex_ttm) if capex_ttm else 0
         oe_ttm = ni_ttm + da_ttm - capex_val - delta_wc
 
@@ -231,13 +231,13 @@ def compute_epv_per_share(avg_ebit, tax_rate, wacc, shares):
     if avg_ebit is None or shares is None or shares <= 0: return None
     return avg_ebit * (1 - tax_rate) / wacc / shares
 
-# Strict Macro Crisis Target Engine
+# Chronological order: Newest to Oldest
 CRISIS_PERIODS = [
-    {"name": "2015-2016 Selloff", "start": "2015-01-01", "end": "2016-06-30"},
+    {"name": "April 2025 Crash", "start": "2025-03-01", "end": "2025-05-31"},
+    {"name": "2022 Bear Market (Jan 2022 - Oct 2022)", "start": "2022-01-01", "end": "2022-12-31"},
+    {"name": "2020 COVID-19 Crash & Bear Market (Feb 2020 - April 2020)", "start": "2020-02-01", "end": "2020-04-30"},
     {"name": "2018 Crypto/Rate Selloff", "start": "2018-01-01", "end": "2019-01-31"},
-    {"name": "2020 COVID-19 Crash", "start": "2020-02-01", "end": "2020-04-30"},
-    {"name": "2022 Bear Market", "start": "2021-11-01", "end": "2022-12-31"},
-    {"name": "April 2025 Crash", "start": "2025-03-01", "end": "2025-05-31"}
+    {"name": "2015-2016 Selloff", "start": "2015-01-01", "end": "2016-06-30"}
 ]
 
 def detect_macro_crises(price_series):
@@ -261,7 +261,7 @@ def detect_macro_crises(price_series):
         
         drawdown = (trough_price - peak_price) / peak_price * 100
         
-        if drawdown < -10:  # Register anything over a 10% drop within these specific crash windows
+        if drawdown < -10:
             crises.append({
                 "crisis_name": c["name"],
                 "peak_date": peak_date,
@@ -475,8 +475,17 @@ def run_prices_only(tickers, edgar_cache):
             continue
 
         try:
-            t    = yf.Ticker(sym)
-            info = t.info or {}
+            # Yfinance Rate Limit Protection buffer
+            time.sleep(0.3)
+            t = yf.Ticker(sym)
+            
+            # Safe info pull
+            try:
+                info = t.info or {}
+            except:
+                time.sleep(2) # secondary buffer if temporarily banned
+                info = t.info or {}
+                
             hist = t.history(period="max", interval="1d")["Close"].dropna()
             hist.index = hist.index.tz_convert(None) if hist.index.tz else hist.index.tz_localize(None)
 
