@@ -172,23 +172,26 @@ def extract_edgar_financials(facts):
     delta_wc = (wc_curr - wc_prev) if (wc_curr is not None and wc_prev is not None) else 0.0
 
     oe_ttm = None
-    if ni_ttm is not None and da_ttm is not None:
+    if ni_ttm is not None:
+        # Flexible calculation: If D&A or CapEx are missing, default to 0 rather than failing the whole company
+        da_val = da_ttm if da_ttm else 0
         capex_val = abs(capex_ttm) if capex_ttm else 0
-        oe_ttm = ni_ttm + da_ttm - capex_val - delta_wc
+        oe_ttm = ni_ttm + da_val - capex_val - delta_wc
 
-    ni_a    = annual_values(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic")
+    ni_a    = annual_values(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic", "NetIncomeLossAllocatedToParent")
     da_a    = annual_values(facts, "DepreciationDepletionAndAmortization", "DepreciationAndAmortization", "Depreciation")
     capex_a = annual_values(facts, "PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsForCapitalImprovements", "PaymentsToAcquireProductiveAssets")
 
     ni_d    = {e[0][:4]: e[1] for e in ni_a}
     da_d    = {e[0][:4]: e[1] for e in da_a}
     capex_d = {e[0][:4]: e[1] for e in capex_a}
-    years   = sorted(set(ni_d) & set(da_d)) 
+    years   = sorted(set(ni_d.keys())) 
     
     oe_annual = {}
     for yr in years:
         cx_val = abs(capex_d[yr]) if yr in capex_d else 0
-        oe_annual[int(yr)] = ni_d[yr] + da_d[yr] - cx_val
+        da_val = da_d[yr] if yr in da_d else 0
+        oe_annual[int(yr)] = ni_d[yr] + da_val - cx_val
 
     ebit_a   = annual_values(facts, "OperatingIncomeLoss", "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest")
     pretax_a = annual_values(facts, "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest", "IncomeLossFromContinuingOperationsBeforeIncomeTaxesDomestic")
@@ -397,17 +400,23 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         return mc + net_debt, mc
 
     ev_c, mc_c = ev_mc(current_price)
+    
+    # DECOUPLED PRICE FROM FUNDAMENTALS: Assign Price even if OE is missing
     if oe_ttm and mc_c:
-        m = metrics_at_price(oe_ttm, ev_c, mc_c, oe_growth, epv_per_share, shares)
-        m["price"] = round(current_price, 2)
-        result["current"] = m
+        m_c = metrics_at_price(oe_ttm, ev_c, mc_c, oe_growth, epv_per_share, shares)
+    else:
+        m_c = {}
+    m_c["price"] = round(current_price, 2)
+    result["current"] = m_c
 
     ev_p, mc_p = ev_mc(peak_price)
     if oe_ttm and mc_p:
-        m = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share, shares)
-        m["price"] = round(peak_price, 2)
-        m["date"]  = str(peak_date.date())
-        result["peak_since_oct2022"] = m
+        m_p = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share, shares)
+    else:
+        m_p = {}
+    m_p["price"] = round(peak_price, 2)
+    m_p["date"]  = str(peak_date.date())
+    result["peak_since_oct2022"] = m_p
 
     if result["current"] and result["peak_since_oct2022"]:
         result["vs_peak_diff"] = diff_block(result["current"], result["peak_since_oct2022"])
@@ -420,10 +429,12 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         ev_b, mc_b = ev_mc(bp)
         ev_p, mc_p = ev_mc(pp)
         
-        if not (oe_ttm and mc_b and mc_p): continue
-        
         # Calculate trough metrics
-        mb = metrics_at_price(oe_ttm, ev_b, mc_b, oe_growth, epv_per_share, shares)
+        if oe_ttm and mc_b:
+            mb = metrics_at_price(oe_ttm, ev_b, mc_b, oe_growth, epv_per_share, shares)
+        else:
+            mb = {}
+            
         mb["price"]        = round(bp, 2)
         mb["peak_price"]   = round(pp, 2)
         mb["crisis_name"]  = bear["crisis_name"]
@@ -432,7 +443,11 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         mb["drawdown_pct"] = round(bear["drawdown_pct"], 2)
         
         # Calculate peak metrics
-        mp = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share, shares)
+        if oe_ttm and mc_p:
+            mp = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share, shares)
+        else:
+            mp = {}
+            
         mb["peak_metrics"] = mp
         
         result["bear_markets"].append(mb)
