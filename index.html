@@ -113,24 +113,6 @@
 
   input[type="text"] { width: 140px; }
 
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 500;
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
-  }
-  .pill:hover { border-color: var(--accent); color: var(--accent); }
-  .pill.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-
   .spacer { flex: 1; }
 
   #last-updated {
@@ -179,7 +161,7 @@
   table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 1100px;
+    min-width: 1200px;
   }
 
   thead {
@@ -234,7 +216,6 @@
   td:first-child { text-align: left; }
   td:nth-child(2) { text-align: left; }
 
-  /* Ticker cell */
   .ticker-sym {
     font-weight: 500;
     color: var(--accent);
@@ -242,7 +223,6 @@
     font-size: 13px;
   }
 
-  /* Sector badge */
   .sector-badge {
     display: inline-block;
     padding: 2px 7px;
@@ -257,11 +237,6 @@
     text-overflow: ellipsis;
   }
 
-  /* Diff cells */
-  .pos { color: var(--green); }
-  .neg { color: var(--red); }
-  .neu { color: var(--muted); }
-
   .diff-pill {
     display: inline-block;
     padding: 2px 6px;
@@ -273,37 +248,12 @@
   .diff-pill.neg { background: rgba(243,139,168,0.1); color: var(--red); }
   .diff-pill.neu { color: var(--muted); }
 
-  /* Price cells */
   .price-now  { color: var(--text); }
   .price-peak { color: var(--yellow); font-size: 11px; }
-
-  /* Error row */
   .error-row td { color: var(--muted); font-style: italic; }
 
-  /* ── Empty state ── */
-  .empty {
-    padding: 80px 48px;
-    text-align: center;
-    color: var(--muted);
-    line-height: 2;
-  }
-  .empty h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: 1.6rem;
-    color: var(--text);
-    margin-bottom: 12px;
-  }
-  .empty code {
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    padding: 2px 8px;
-    border-radius: 4px;
-    color: var(--accent);
-    font-size: 12px;
-  }
+  .col-sep { border-left: 1px solid var(--border) !important; }
 
-  /* ── Loading ── */
   #loading {
     padding: 60px 48px;
     text-align: center;
@@ -319,16 +269,6 @@
     margin-bottom: 16px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── Column group separators ── */
-  .col-sep { border-left: 1px solid var(--border) !important; }
-
-  /* ── Responsive ── */
-  @media (max-width: 768px) {
-    header, .controls { padding: 20px 16px; }
-    .logo { font-size: 1.6rem; }
-    .stat { padding: 12px 16px; }
-  }
 </style>
 </head>
 <body>
@@ -343,7 +283,6 @@
   <div class="meta">
     <div>Peak reference: <strong>Oct 12, 2022 → present</strong></div>
     <div>OE = Net Income + D&A − CapEx ± ΔWC (TTM)</div>
-    <div>EPV = Avg EBIT × (1−tax) / Industry WACC</div>
     <div id="last-updated">Loading…</div>
   </div>
 </header>
@@ -351,9 +290,7 @@
 <div class="controls">
   <div class="control-group">
     <label>Sector</label>
-    <select id="sector-filter">
-      <option value="">All sectors</option>
-    </select>
+    <select id="sector-filter"><option value="">All sectors</option></select>
   </div>
   <div class="control-group">
     <label>Search</label>
@@ -365,7 +302,6 @@
       <option value="ticker">Ticker A→Z</option>
       <option value="oe_multiple">OE Multiple ↑</option>
       <option value="oe_yield_desc">OE Yield ↓</option>
-      <option value="oe_growth_desc">OE Growth ↓</option>
       <option value="oe_peg">OE-PEG ↑</option>
     </select>
   </div>
@@ -378,13 +314,9 @@
   <div class="stat"><div class="stat-label">Avg OE Yield</div><div class="stat-value" id="s-yield">—</div></div>
   <div class="stat"><div class="stat-label">Avg OE Multiple</div><div class="stat-value" id="s-multiple">—</div></div>
   <div class="stat"><div class="stat-label">Avg OE Growth</div><div class="stat-value" id="s-growth">—</div></div>
-  <div class="stat"><div class="stat-label">Tickers cheaper than peak</div><div class="stat-value" id="s-cheaper">—</div></div>
 </div>
 
-<div id="loading">
-  <div class="spinner"></div>
-  <div>Loading data…</div>
-</div>
+<div id="loading"><div class="spinner"></div><div>Loading data…</div></div>
 
 <div class="table-wrap" id="table-wrap" style="display:none">
   <table id="main-table">
@@ -395,27 +327,19 @@
         <th data-col="price" class="col-sep">Price <span class="sort-icon">↕</span></th>
         <th data-col="peak_price">Peak Price <span class="sort-icon">↕</span></th>
         <th data-col="oe" class="col-sep">OE ($B) <span class="sort-icon">↕</span></th>
-        <th data-col="oe_diff">vs Peak <span class="sort-icon">↕</span></th>
         <th data-col="oe_yield" class="col-sep">OE Yield % <span class="sort-icon">↕</span></th>
-        <th data-col="oe_yield_diff">vs Peak <span class="sort-icon">↕</span></th>
         <th data-col="oe_multiple" class="col-sep">OE Multiple <span class="sort-icon">↕</span></th>
         <th data-col="oe_multiple_diff">vs Peak <span class="sort-icon">↕</span></th>
         <th data-col="oe_growth" class="col-sep">OE Growth % <span class="sort-icon">↕</span></th>
-        <th data-col="oe_growth_diff">vs Peak <span class="sort-icon">↕</span></th>
         <th data-col="oe_peg" class="col-sep">OE-PEG <span class="sort-icon">↕</span></th>
-        <th data-col="oe_peg_diff">vs Peak <span class="sort-icon">↕</span></th>
         <th data-col="epv" class="col-sep">EPV $/sh <span class="sort-icon">↕</span></th>
-        <th data-col="epv_diff">vs Peak <span class="sort-icon">↕</span></th>
+        
+        <th data-col="crisis_floor" class="col-sep">Crisis Floor (Mult) <span class="sort-icon">↕</span></th>
+        <th data-col="dca_signal">DCA Signal <span class="sort-icon">↕</span></th>
       </tr>
     </thead>
     <tbody id="table-body"></tbody>
   </table>
-</div>
-
-<div class="empty" id="empty" style="display:none">
-  <h2>No data file found</h2>
-  <p>The GitHub Action hasn't run yet, or <code>oe_data.json</code> is missing.</p>
-  <p style="margin-top:12px;">Trigger it manually in the <strong>Actions</strong> tab on GitHub.</p>
 </div>
 
 <script>
@@ -454,17 +378,15 @@ function buildRows(data) {
       peak_price:       p.price,
       peak_date:        p.date,
       oe:               c.oe,
-      oe_diff:          diff.oe,
       oe_yield:         c.oe_yield,
-      oe_yield_diff:    diff.oe_yield,
       oe_multiple:      c.oe_multiple,
       oe_multiple_diff: diff.oe_multiple,
       oe_growth:        c.oe_growth,
-      oe_growth_diff:   diff.oe_growth,
       oe_peg:           c.oe_peg,
-      oe_peg_diff:      diff.oe_peg,
       epv:              c.epv,
-      epv_diff:         diff.epv,
+      // NEW DCA DATA
+      crisis_floor:     d.crisis_floor_multiple,
+      dca_signal:       d.dca_signal || '—',
     };
   });
 }
@@ -494,42 +416,38 @@ function filterRows(rows) {
 function renderTable(rows) {
   const tbody = document.getElementById('table-body');
   if (!rows.length) {
-    tbody.innerHTML = `<tr><td colspan="16" style="text-align:center;padding:40px;color:var(--muted)">No tickers match your filters</td></tr>`;
-    document.getElementById('row-count').textContent = '0 tickers';
+    tbody.innerHTML = `<tr><td colspan="16" style="text-align:center;padding:40px;color:var(--muted)">No tickers match filters</td></tr>`;
     return;
   }
-
   document.getElementById('row-count').textContent = `${rows.length} tickers`;
 
   tbody.innerHTML = rows.map((r, i) => {
     if (r.error && !r.price) {
-      return `<tr class="error-row" style="animation-delay:${i*8}ms">
+      return `<tr class="error-row">
         <td class="ticker-sym">${r.ticker}</td>
-        <td colspan="15" style="color:var(--muted);font-size:11px;">⚠ ${r.error}</td>
+        <td colspan="15">⚠ ${r.error}</td>
       </tr>`;
     }
-    return `<tr style="animation-delay:${Math.min(i,40)*8}ms">
+    return `<tr>
       <td><span class="ticker-sym">${r.ticker}</span></td>
-      <td><span class="sector-badge" title="${r.sector}">${r.sector}</span></td>
-      <td class="col-sep">
-        <div class="price-now">${fmt.price(r.price)}</div>
-      </td>
+      <td><span class="sector-badge">${r.sector}</span></td>
+      <td class="col-sep"><div class="price-now">${fmt.price(r.price)}</div></td>
       <td>
         <div class="price-peak">${fmt.price(r.peak_price)}</div>
         ${r.peak_date ? `<div style="font-size:10px;color:var(--muted)">${r.peak_date}</div>` : ''}
       </td>
       <td class="col-sep">${fmt.oe(r.oe)}</td>
-      <td>${diffPill(r.oe_diff)}</td>
       <td class="col-sep">${fmt.yield(r.oe_yield)}</td>
-      <td>${diffPill(r.oe_yield_diff)}</td>
       <td class="col-sep">${fmt.mult(r.oe_multiple)}</td>
       <td>${diffPill(r.oe_multiple_diff)}</td>
       <td class="col-sep">${fmt.growth(r.oe_growth)}</td>
-      <td>${diffPill(r.oe_growth_diff)}</td>
       <td class="col-sep">${fmt.peg(r.oe_peg)}</td>
-      <td>${diffPill(r.oe_peg_diff)}</td>
       <td class="col-sep">${fmt.epv(r.epv)}</td>
-      <td>${diffPill(r.epv_diff)}</td>
+      
+      <td class="col-sep" style="color:var(--yellow); font-weight:bold;">
+        ${r.crisis_floor != null ? r.crisis_floor + 'x' : '—'}
+      </td>
+      <td style="font-weight:bold; letter-spacing:0.05em;">${r.dca_signal}</td>
     </tr>`;
   }).join('');
 }
@@ -537,22 +455,15 @@ function renderTable(rows) {
 function updateStats(rows) {
   const valid = rows.filter(r => r.price);
   document.getElementById('s-total').textContent = valid.length;
-
   const avg = (key) => {
     const vals = valid.map(r => r[key]).filter(v => v != null);
     return vals.length ? vals.reduce((a,b) => a+b, 0) / vals.length : null;
   };
-
   const avgYield = avg('oe_yield');
   const avgMult  = avg('oe_multiple');
-  const avgGrowth= avg('oe_growth');
-
-  document.getElementById('s-yield').textContent   = avgYield  != null ? `${avgYield.toFixed(2)}%` : '—';
-  document.getElementById('s-multiple').textContent = avgMult   != null ? `${avgMult.toFixed(2)}x`  : '—';
-  document.getElementById('s-growth').textContent  = avgGrowth != null ? `${avgGrowth.toFixed(2)}%`: '—';
-
-  const cheaper = valid.filter(r => r.oe_multiple_diff != null && r.oe_multiple_diff < 0).length;
-  document.getElementById('s-cheaper').textContent = `${cheaper} / ${valid.length}`;
+  document.getElementById('s-yield').textContent   = avgYield != null ? `${avgYield.toFixed(2)}%` : '—';
+  document.getElementById('s-multiple').textContent = avgMult != null ? `${avgMult.toFixed(2)}x` : '—';
+  document.getElementById('s-growth').textContent  = avg('oe_growth') != null ? `${avg('oe_growth').toFixed(2)}%` : '—';
 }
 
 function populateSectors(rows) {
@@ -566,13 +477,11 @@ function populateSectors(rows) {
 }
 
 function refresh() {
-  const filtered = filterRows(ROWS);
-  const sorted   = sortRows(filtered);
+  const sorted = sortRows(filterRows(ROWS));
   renderTable(sorted);
   updateStats(sorted);
 }
 
-// Sort on header click
 document.querySelectorAll('th[data-col]').forEach(th => {
   th.addEventListener('click', () => {
     const col = th.dataset.col;
@@ -588,46 +497,30 @@ document.querySelectorAll('th[data-col]').forEach(th => {
 document.getElementById('sector-filter').addEventListener('change', refresh);
 document.getElementById('search').addEventListener('input', refresh);
 document.getElementById('sort-select').addEventListener('change', e => {
-  const v = e.target.value;
   const map = {
     'ticker':        ['ticker', true],
     'oe_multiple':   ['oe_multiple', true],
     'oe_yield_desc': ['oe_yield', false],
-    'oe_growth_desc':['oe_growth', false],
     'oe_peg':        ['oe_peg', true],
   };
-  [sortCol, sortAsc] = map[v] || ['ticker', true];
+  [sortCol, sortAsc] = map[e.target.value] || ['ticker', true];
   refresh();
 });
 
-// Load data
 async function loadData() {
   try {
     const res = await fetch('oe_data.json?nocache=' + Date.now());
     if (!res.ok) throw new Error('not found');
     RAW = await res.json();
-
     ROWS = buildRows(RAW);
     populateSectors(ROWS);
-
-    // Last updated
-    const dates = Object.values(RAW).map(d => d.last_updated).filter(Boolean).sort();
-    if (dates.length) {
-      const d = new Date(dates[dates.length - 1]);
-      document.getElementById('last-updated').textContent =
-        'Updated: ' + d.toLocaleDateString('en-US', {weekday:'short', year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
-    }
-
     document.getElementById('loading').style.display = 'none';
     document.getElementById('table-wrap').style.display = 'block';
     refresh();
-
   } catch(e) {
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('empty').style.display = 'block';
+    document.getElementById('loading').innerHTML = "No data file found yet. Trigger the GitHub Action.";
   }
 }
-
 loadData();
 </script>
 </body>

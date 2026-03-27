@@ -1,13 +1,5 @@
 """
 Owner Earnings Dashboard - Core Calculation Engine
-
-Two-mode architecture:
-  EDGAR + prices mode  (Tue/Thu nights): fetches SEC financials + Yahoo prices
-                                         saves edgar_cache.json + oe_data.json
-  Prices-only mode     (Mon/Wed/Fri):    loads edgar_cache.json, fetches Yahoo
-                                         prices only, saves oe_data.json (~2 min)
-
-RUN_MODE env var: "edgar_and_prices" | "prices_only" (default: prices_only)
 """
 
 import os
@@ -22,10 +14,13 @@ import warnings
 warnings.filterwarnings("ignore")
 
 PEAK_START_DATE = "2022-10-12"
+
+# CRITICAL: Replace with your actual name and email to avoid SEC bans
 EDGAR_HEADERS   = {
-    "User-Agent": "OEDashboard research/1.0 admin@oedashboard.com",
+    "User-Agent": "Gustavo Gonzalez gusqweenglish@gmail.com", 
     "Accept-Encoding": "gzip, deflate",
 }
+
 EDGAR_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
 EDGAR_CACHE     = "edgar_cache.json"
 OE_DATA         = "oe_data.json"
@@ -68,7 +63,6 @@ INDUSTRY_WACC = {
     "default":               0.085,
 }
 
-# Hardcoded CIK map — stable SEC identifiers, no endpoint dependency
 HARDCODED_CIKS = {
     "AAPL":"0000320193","GOOG":"0001652044","META":"0001326801","MSFT":"0000789019",
     "NVDA":"0001045810","PLTR":"0001321655","TSLA":"0001318605","EA":"0000712515",
@@ -125,7 +119,6 @@ def get_wacc(sector):
 def get_cik(ticker):
     return HARDCODED_CIKS.get(ticker.upper().replace(".", "-"))
 
-
 # ══════════════════════════════════════════════════════════════════════════════
 # EDGAR DATA LAYER
 # ══════════════════════════════════════════════════════════════════════════════
@@ -153,12 +146,7 @@ def fetch_edgar_facts(cik):
             time.sleep(5)
     return None
 
-
 def find_concept_series(facts, *concepts, unit="USD"):
-    """
-    Find the first matching GAAP concept and return its entries
-    sorted by end date descending.
-    """
     us_gaap = facts.get("facts", {}).get("us-gaap", {})
     for concept in concepts:
         if concept not in us_gaap:
@@ -171,9 +159,7 @@ def find_concept_series(facts, *concepts, unit="USD"):
         return valid
     return []
 
-
 def dedup_by_end(entries, form_types=("10-Q", "10-K")):
-    """Deduplicate entries by end date, keeping most recently filed."""
     filtered = [e for e in entries if e.get("form", "") in form_types]
     seen = {}
     for e in filtered:
@@ -182,65 +168,35 @@ def dedup_by_end(entries, form_types=("10-Q", "10-K")):
             seen[key] = e
     return sorted(seen.values(), key=lambda x: x["end"], reverse=True)
 
-
 def quarterly_ttm(facts, *concepts):
-    """Sum last 4 quarterly values (TTM) for a concept."""
     entries = find_concept_series(facts, *concepts)
     quarterly = dedup_by_end(entries, ("10-Q",))
     vals = [e["val"] for e in quarterly[:4]]
-    if len(vals) < 2:
-        return None
+    if len(vals) < 2: return None
     return sum(vals)
 
-
 def annual_values(facts, *concepts, n=11):
-    """Get last n annual values for a concept. Returns [(end_date, val), ...]"""
     entries = find_concept_series(facts, *concepts)
     annual  = dedup_by_end(entries, ("10-K",))
     return [(e["end"], e["val"]) for e in annual[:n]]
 
-
 def bs_values(facts, *concepts, n=6):
-    """Get last n balance sheet values (quarterly or annual)."""
     entries = find_concept_series(facts, *concepts)
     deduped = dedup_by_end(entries, ("10-Q", "10-K"))
     return [(e["end"], e["val"]) for e in deduped[:n]]
 
-
 def extract_edgar_financials(facts):
-    """
-    Extract all needed financial data from EDGAR facts.
-    Returns a dict of pre-computed values ready for metric calculation.
-    """
-    # ── TTM Owner Earnings components ─────────────────────────────────────
-    ni_ttm = quarterly_ttm(facts,
-        "NetIncomeLoss",
-        "NetIncomeLossAvailableToCommonStockholdersBasic",
-        "ProfitLoss")
+    ni_ttm = quarterly_ttm(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic", "ProfitLoss")
+    da_ttm = quarterly_ttm(facts, "DepreciationDepletionAndAmortization", "DepreciationAndAmortization", "Depreciation", "DepreciationAmortizationAndAccretionNet")
+    capex_ttm = quarterly_ttm(facts, "PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsForCapitalImprovements", "PaymentsToAcquireProductiveAssets")
 
-    da_ttm = quarterly_ttm(facts,
-        "DepreciationDepletionAndAmortization",
-        "DepreciationAndAmortization",
-        "Depreciation",
-        "DepreciationAmortizationAndAccretionNet")
-
-    capex_ttm = quarterly_ttm(facts,
-        "PaymentsToAcquirePropertyPlantAndEquipment",
-        "PaymentsForCapitalImprovements",
-        "PaymentsToAcquireProductiveAssets")
-
-    # ── Working capital (most recent vs ~1yr ago) ──────────────────────────
     ca_s   = bs_values(facts, "AssetsCurrent")
     cl_s   = bs_values(facts, "LiabilitiesCurrent")
-    csh_s  = bs_values(facts,
-                "CashAndCashEquivalentsAtCarryingValue",
-                "CashCashEquivalentsAndShortTermInvestments")
-    std_s  = bs_values(facts,
-                "DebtCurrent", "ShortTermBorrowings", "LongTermDebtCurrent")
+    csh_s  = bs_values(facts, "CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsAndShortTermInvestments")
+    std_s  = bs_values(facts, "DebtCurrent", "ShortTermBorrowings", "LongTermDebtCurrent")
 
     def wc_at(idx):
-        if idx >= len(ca_s) or idx >= len(cl_s):
-            return None
+        if idx >= len(ca_s) or idx >= len(cl_s): return None
         ca  = ca_s[idx][1]
         cl  = cl_s[idx][1]
         csh = csh_s[idx][1] if idx < len(csh_s) else 0
@@ -255,14 +211,9 @@ def extract_edgar_financials(facts):
     if ni_ttm is not None and da_ttm is not None and capex_ttm is not None:
         oe_ttm = ni_ttm + da_ttm - abs(capex_ttm) - delta_wc
 
-    # ── Annual OE series for 10-yr CAGR ───────────────────────────────────
-    ni_a    = annual_values(facts, "NetIncomeLoss",
-                            "NetIncomeLossAvailableToCommonStockholdersBasic")
-    da_a    = annual_values(facts, "DepreciationDepletionAndAmortization",
-                            "DepreciationAndAmortization", "Depreciation")
-    capex_a = annual_values(facts, "PaymentsToAcquirePropertyPlantAndEquipment",
-                            "PaymentsForCapitalImprovements",
-                            "PaymentsToAcquireProductiveAssets")
+    ni_a    = annual_values(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic")
+    da_a    = annual_values(facts, "DepreciationDepletionAndAmortization", "DepreciationAndAmortization", "Depreciation")
+    capex_a = annual_values(facts, "PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsForCapitalImprovements", "PaymentsToAcquireProductiveAssets")
 
     ni_d    = {e[0][:4]: e[1] for e in ni_a}
     da_d    = {e[0][:4]: e[1] for e in da_a}
@@ -270,18 +221,11 @@ def extract_edgar_financials(facts):
     years   = sorted(set(ni_d) & set(da_d) & set(capex_d))
     oe_annual = {int(yr): ni_d[yr] + da_d[yr] - abs(capex_d[yr]) for yr in years}
 
-    # ── EPV components ─────────────────────────────────────────────────────
-    ebit_a   = annual_values(facts,
-                "OperatingIncomeLoss",
-                "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest")
-    pretax_a = annual_values(facts,
-                "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
-                "IncomeLossFromContinuingOperationsBeforeIncomeTaxesDomestic")
-    tax_a    = annual_values(facts,
-                "IncomeTaxExpenseBenefit", "CurrentIncomeTaxExpenseBenefit")
+    ebit_a   = annual_values(facts, "OperatingIncomeLoss", "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest")
+    pretax_a = annual_values(facts, "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest", "IncomeLossFromContinuingOperationsBeforeIncomeTaxesDomestic")
+    tax_a    = annual_values(facts, "IncomeTaxExpenseBenefit", "CurrentIncomeTaxExpenseBenefit")
 
     avg_ebit = float(np.mean([v for _, v in ebit_a[:5]])) if ebit_a else None
-
     tax_rate = 0.21
     if pretax_a and tax_a:
         pt_d = {e[0]: e[1] for e in pretax_a[:4]}
@@ -290,10 +234,8 @@ def extract_edgar_financials(facts):
         for dt in pt_d:
             if dt in tx_d and pt_d[dt] != 0:
                 r = tx_d[dt] / pt_d[dt]
-                if 0 < r < 0.60:
-                    rates.append(r)
-        if rates:
-            tax_rate = float(np.mean(rates))
+                if 0 < r < 0.60: rates.append(r)
+        if rates: tax_rate = float(np.mean(rates))
 
     return {
         "oe_ttm":    oe_ttm,
@@ -303,32 +245,25 @@ def extract_edgar_financials(facts):
         "fetched_at": datetime.now().isoformat(),
     }
 
-
 # ══════════════════════════════════════════════════════════════════════════════
 # METRICS LAYER
 # ══════════════════════════════════════════════════════════════════════════════
 
 def compute_oe_growth_10yr(oe_annual: dict):
-    if len(oe_annual) < 2:
-        return None
+    if len(oe_annual) < 2: return None
     years  = sorted(oe_annual.keys())
     oldest = oe_annual[years[0]]
     newest = oe_annual[years[-1]]
     n      = years[-1] - years[0]
-    if n <= 0 or oldest <= 0 or newest <= 0:
-        return None
+    if n <= 0 or oldest <= 0 or newest <= 0: return None
     return (newest / oldest) ** (1.0 / n) - 1
 
-
 def compute_epv_per_share(avg_ebit, tax_rate, wacc, shares):
-    if avg_ebit is None or shares is None or shares <= 0:
-        return None
+    if avg_ebit is None or shares is None or shares <= 0: return None
     return avg_ebit * (1 - tax_rate) / wacc / shares
 
-
 def detect_bear_markets(price_series, threshold=0.20, top_n=10):
-    if price_series.empty:
-        return []
+    if price_series.empty: return []
     rolling_max = price_series.expanding().max()
     drawdown    = (price_series - rolling_max) / rolling_max
     bears, in_bear = [], False
@@ -361,12 +296,9 @@ def detect_bear_markets(price_series, threshold=0.20, top_n=10):
     bears.sort(key=lambda x: x["drawdown_pct"])
     return bears[:top_n]
 
-
 def pct_diff(a, b):
-    if a is None or b is None or b == 0:
-        return None
+    if a is None or b is None or b == 0: return None
     return round((a - b) / abs(b) * 100, 2)
-
 
 def metrics_at_price(oe_ttm, ev, mc, oe_growth, epv_per_share):
     oe_yield    = (oe_ttm / mc * 100)               if (mc and mc != 0 and oe_ttm)             else None
@@ -381,11 +313,8 @@ def metrics_at_price(oe_ttm, ev, mc, oe_growth, epv_per_share):
         "epv":         round(epv_per_share, 4)      if epv_per_share is not None else None,
     }
 
-
 def diff_block(curr, peak):
-    return {k: pct_diff(curr.get(k), peak.get(k))
-            for k in ("oe","oe_yield","oe_multiple","oe_growth","oe_peg","epv")}
-
+    return {k: pct_diff(curr.get(k), peak.get(k)) for k in ("oe","oe_yield","oe_multiple","oe_growth","oe_peg","epv")}
 
 # ══════════════════════════════════════════════════════════════════════════════
 # EDGAR CACHE LAYER
@@ -393,28 +322,23 @@ def diff_block(curr, peak):
 
 def load_edgar_cache():
     try:
-        with open(EDGAR_CACHE) as f:
-            return json.load(f)
+        with open(EDGAR_CACHE) as f: return json.load(f)
     except FileNotFoundError:
         return {}
-
 
 def save_edgar_cache(cache):
     with open(EDGAR_CACHE, "w") as f:
         json.dump(cache, f, indent=2, default=str)
     print(f"EDGAR cache saved: {len(cache)} tickers")
 
-
 def refresh_edgar_cache(tickers):
-    """Fetch fresh EDGAR data for all tickers. Takes ~20-30 min."""
-    cache = load_edgar_cache()  # keep existing data as fallback
+    cache = load_edgar_cache()
     total = len(tickers)
     ok, failed = 0, []
 
     for i, sym in enumerate(tickers):
         cik = get_cik(sym)
         if cik is None:
-            print(f"  [{i+1}/{total}] {sym}: no CIK")
             failed.append(sym)
             continue
 
@@ -422,7 +346,7 @@ def refresh_edgar_cache(tickers):
         facts = fetch_edgar_facts(cik)
 
         if facts is None:
-            print("FAILED — keeping cached data")
+            print("FAILED")
             failed.append(sym)
             continue
 
@@ -435,26 +359,17 @@ def refresh_edgar_cache(tickers):
             print(f"ERROR: {e}")
             failed.append(sym)
 
-        time.sleep(0.15)   # ~6-7 req/sec, well under EDGAR's 10/sec limit
+        time.sleep(0.15) 
 
     save_edgar_cache(cache)
     print(f"\nEDGAR refresh complete: {ok} ok, {len(failed)} failed")
-    if failed:
-        print(f"Failed tickers: {failed}")
     return cache
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PRICE + METRICS CALCULATION
 # ══════════════════════════════════════════════════════════════════════════════
 
 def compute_ticker_result(symbol, financials, yf_info, hist):
-    """
-    Combine EDGAR financials + Yahoo price data into final result dict.
-    financials: from edgar_cache
-    yf_info:    from yfinance ticker.info
-    hist:       price Series (timezone-stripped)
-    """
     result = {
         "ticker":             symbol,
         "error":              None,
@@ -465,6 +380,8 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         "bear_markets":       [],
         "last_updated":       datetime.now().isoformat(),
         "edgar_fetched_at":   financials.get("fetched_at", ""),
+        "crisis_floor_multiple": None,
+        "dca_signal": "—"
     }
 
     if hist.empty:
@@ -495,8 +412,7 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
     epv_per_share = compute_epv_per_share(avg_ebit, tax_rate, wacc, shares)
 
     def ev_mc(price):
-        if not shares:
-            return None, None
+        if not shares: return None, None
         mc = price * shares
         return mc + net_debt, mc
 
@@ -519,39 +435,50 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
     for bear in detect_bear_markets(hist):
         bp = bear["trough_price"]
         ev_b, mc_b = ev_mc(bp)
-        if not (oe_ttm and mc_b):
-            continue
+        if not (oe_ttm and mc_b): continue
         mb = metrics_at_price(oe_ttm, ev_b, mc_b, oe_growth, epv_per_share)
         mb["price"]        = round(bp, 2)
         mb["peak_price"]   = round(bear["peak_price"], 2)
         mb["peak_date"]    = str(bear["peak_date"].date()) if hasattr(bear["peak_date"], "date") else str(bear["peak_date"])
         mb["trough_date"]  = str(bear["trough_date"].date()) if hasattr(bear["trough_date"], "date") else str(bear["trough_date"])
         mb["drawdown_pct"] = round(bear["drawdown_pct"], 2)
-        ev_bp, mc_bp = ev_mc(bear["peak_price"])
-        mp = metrics_at_price(oe_ttm, ev_bp, mc_bp, oe_growth, epv_per_share)
-        mb["vs_bear_peak_diff"] = diff_block(mb, mp)
         result["bear_markets"].append(mb)
+
+    # --- DCA CRISIS ENGINE ---
+    historical_trough_multiples = [b.get("oe_multiple") for b in result["bear_markets"] if b.get("oe_multiple") is not None]
+    
+    if historical_trough_multiples and result["current"].get("oe_multiple"):
+        crisis_floor_multiple = min(historical_trough_multiples)
+        current_multiple = result["current"]["oe_multiple"]
+        
+        result["crisis_floor_multiple"] = round(crisis_floor_multiple, 2)
+        
+        if crisis_floor_multiple > 0:
+            premium_to_floor = (current_multiple - crisis_floor_multiple) / crisis_floor_multiple
+            
+            if premium_to_floor <= 0.15: 
+                result["dca_signal"] = "🟢 STRONG DCA"
+            elif premium_to_floor <= 0.30: 
+                result["dca_signal"] = "🟡 ACCUMULATE"
+            else:
+                result["dca_signal"] = "🔴 WAIT"
+        else:
+            result["dca_signal"] = "🔴 WAIT" 
 
     return result
 
-
 def run_prices_only(tickers, edgar_cache):
-    """
-    Fast daily run (~2 min): load cached EDGAR data, fetch Yahoo prices only.
-    """
     results  = {}
     total    = len(tickers)
     no_cache = []
 
     for i, sym in enumerate(tickers):
         print(f"  [{i+1}/{total}] {sym}", end=" ", flush=True)
-
         financials = edgar_cache.get(sym)
+        
         if not financials:
             no_cache.append(sym)
-            results[sym] = {"ticker": sym, "error": "No EDGAR cache — run EDGAR refresh",
-                            "sector": None, "current": {}, "peak_since_oct2022": {},
-                            "bear_markets": [], "last_updated": datetime.now().isoformat()}
+            results[sym] = {"ticker": sym, "error": "No EDGAR cache", "sector": None, "current": {}, "peak_since_oct2022": {}, "bear_markets": [], "last_updated": datetime.now().isoformat()}
             print("(no cache)")
             continue
 
@@ -565,62 +492,36 @@ def run_prices_only(tickers, edgar_cache):
             price = results[sym].get("current", {}).get("price", "n/a")
             print(f"${price}")
         except Exception as e:
-            results[sym] = {"ticker": sym, "error": str(e), "sector": None,
-                            "current": {}, "peak_since_oct2022": {},
-                            "bear_markets": [], "last_updated": datetime.now().isoformat()}
+            results[sym] = {"ticker": sym, "error": str(e), "sector": None, "current": {}, "peak_since_oct2022": {}, "bear_markets": [], "last_updated": datetime.now().isoformat()}
             print(f"ERROR: {e}")
 
-    if no_cache:
-        print(f"\nWarning: {len(no_cache)} tickers have no EDGAR cache: {no_cache}")
     return results
 
-
 def run_edgar_and_prices(tickers):
-    """
-    Full Tue/Thu run (~25-35 min): refresh EDGAR cache then compute all metrics.
-    """
     print("Phase 1: Refreshing EDGAR financial data...")
     edgar_cache = refresh_edgar_cache(tickers)
-
     print("\nPhase 2: Fetching prices and computing metrics...")
     return run_prices_only(tickers, edgar_cache)
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# MAIN
-# ══════════════════════════════════════════════════════════════════════════════
 
 def save_results(results, path=OE_DATA):
     with open(path, "w") as f:
         json.dump(results, f, indent=2, default=str)
     print(f"Saved {len(results)} tickers -> {path}")
 
-
 if __name__ == "__main__":
     run_mode = os.environ.get("RUN_MODE", "prices_only").strip().lower()
     print(f"{'='*60}")
-    print(f"OE Dashboard Calculator")
-    print(f"Mode: {run_mode}")
-    print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}")
-    print(f"Tickers: {len(TICKERS)}")
+    print(f"OE Dashboard Calculator - Mode: {run_mode}")
     print(f"{'='*60}")
 
     if run_mode == "edgar_and_prices":
         results = run_edgar_and_prices(TICKERS)
     else:
-        print("Loading EDGAR cache...")
         cache = load_edgar_cache()
-        cached = len([s for s in TICKERS if s in cache])
-        print(f"Cache: {cached}/{len(TICKERS)} tickers available")
-        if cached == 0:
+        if len(cache) == 0:
             print("No cache found — switching to full EDGAR refresh...")
             results = run_edgar_and_prices(TICKERS)
         else:
             results = run_prices_only(TICKERS, cache)
 
     save_results(results)
-    errors = [s for s, d in results.items() if d.get("error")]
-    ok     = len(results) - len(errors)
-    print(f"\nDone: {ok} ok, {len(errors)} errors")
-    if errors:
-        print(f"Errors: {errors}")
