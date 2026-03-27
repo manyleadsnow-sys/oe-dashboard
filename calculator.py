@@ -169,10 +169,32 @@ def dedup_by_end(entries, form_types=("10-Q", "10-K")):
     return sorted(seen.values(), key=lambda x: x["end"], reverse=True)
 
 def quarterly_ttm(facts, *concepts):
+    """Sum last 4 true quarters, filtering out Year-To-Date (YTD) cumulative overlaps."""
     entries = find_concept_series(facts, *concepts)
-    quarterly = dedup_by_end(entries, ("10-Q",))
+    valid_quarters = []
+    
+    for e in entries:
+        # We only want entries that have a start and end date (Income/Cash Flow)
+        if "start" in e and "end" in e:
+            try:
+                # Calculate duration to ensure it's a ~3 month period, not YTD
+                start_date = datetime.strptime(e["start"], "%Y-%m-%d")
+                end_date = datetime.strptime(e["end"], "%Y-%m-%d")
+                days = (end_date - start_date).days
+                
+                # A standard quarter is between 80 and 105 days
+                if 80 <= days <= 105:
+                    valid_quarters.append(e)
+            except ValueError:
+                continue
+                
+    # Deduplicate and grab the last 4 valid discrete quarters
+    quarterly = dedup_by_end(valid_quarters, ("10-Q", "10-K"))
     vals = [e["val"] for e in quarterly[:4]]
-    if len(vals) < 2: return None
+    
+    if len(vals) < 2:
+        return None
+        
     return sum(vals)
 
 def annual_values(facts, *concepts, n=11):
