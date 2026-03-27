@@ -474,27 +474,37 @@ def run_prices_only(tickers, edgar_cache):
             print("(no cache)")
             continue
 
-        try:
-            # Yfinance Rate Limit Protection buffer
-            time.sleep(0.3)
-            t = yf.Ticker(sym)
-            
-            # Safe info pull
-            try:
-                info = t.info or {}
-            except:
-                time.sleep(2) # secondary buffer if temporarily banned
-                info = t.info or {}
-                
-            hist = t.history(period="max", interval="1d")["Close"].dropna()
-            hist.index = hist.index.tz_convert(None) if hist.index.tz else hist.index.tz_localize(None)
+        max_retries = 3
+        retry_delay = 2
 
-            results[sym] = compute_ticker_result(sym, financials, info, hist)
-            price = results[sym].get("current", {}).get("price", "n/a")
-            print(f"${price}")
-        except Exception as e:
-            results[sym] = {"ticker": sym, "error": str(e), "sector": None, "current": {}, "peak_since_oct2022": {}, "bear_markets": [], "last_updated": datetime.now().isoformat()}
-            print(f"ERROR: {e}")
+        for attempt in range(max_retries):
+            try:
+                # Add a small base buffer to respect rate limits
+                time.sleep(0.5 + attempt) 
+                
+                t = yf.Ticker(sym)
+                info = t.info or {}
+                hist = t.history(period="max", interval="1d")["Close"].dropna()
+                
+                if hist.empty:
+                     raise ValueError("Empty price history")
+                     
+                hist.index = hist.index.tz_convert(None) if hist.index.tz else hist.index.tz_localize(None)
+
+                results[sym] = compute_ticker_result(sym, financials, info, hist)
+                price = results[sym].get("current", {}).get("price", "n/a")
+                print(f"${price}")
+                break # Exit the retry loop on success
+                
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    # Wait and try again
+                    time.sleep(retry_delay)
+                    retry_delay *= 2
+                else:
+                    # Final failure
+                    results[sym] = {"ticker": sym, "error": f"Price fetch failed: {str(e)}", "sector": None, "current": {}, "peak_since_oct2022": {}, "bear_markets": [], "last_updated": datetime.now().isoformat()}
+                    print(f"ERROR: {e}")
 
     return results
 
