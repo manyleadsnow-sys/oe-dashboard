@@ -44,7 +44,7 @@
 
 <header>
   <h1>Owner Earnings Dossier</h1>
-  <p style="color:var(--muted); margin-top:10px;">Deep-dive crisis metrics (Post-2015)</p>
+  <p style="color:var(--muted); margin-top:10px;">Deep-dive Macro Crisis Valuation Engine</p>
 </header>
 
 <div class="controls">
@@ -92,7 +92,7 @@ function renderCards(data) {
     let crisisBlocks = bears.map((b, i) => {
       let pm = b.peak_metrics || {};
       return `
-      <div class="section-title">- Pre-Crisis Peak (${b.peak_date}) vs Trough (${b.trough_date}) [▼${b.drawdown_pct}%] -</div>
+      <div class="section-title">- ${b.crisis_name} (${b.peak_date} @ ${fmt.price(b.peak_price)}) vs Trough (${b.trough_date} @ ${fmt.price(b.price)}) [▼${b.drawdown_pct}%] -</div>
       <div class="comparison-row"><span class="comp-label">OE per share</span><span class="comp-val1">${fmt.oeps(pm.oeps)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.oeps(b.oeps)}</span></div>
       <div class="comparison-row"><span class="comp-label">OE Multiple</span><span class="comp-val1">${fmt.mult(pm.oe_multiple)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.mult(b.oe_multiple)}</span></div>
       <div class="comparison-row"><span class="comp-label">OE Yield</span><span class="comp-val1">${fmt.yield(pm.oe_yield)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.yield(b.oe_yield)}</span></div>

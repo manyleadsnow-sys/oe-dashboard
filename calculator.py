@@ -15,7 +15,6 @@ warnings.filterwarnings("ignore")
 
 PEAK_START_DATE = "2022-10-12"
 
-# CRITICAL: Replace with your actual name and email if this is not yours
 EDGAR_HEADERS   = {
     "User-Agent": "Gustavo Gonzalez gusqweenglish@gmail.com", 
     "Accept-Encoding": "gzip, deflate",
@@ -63,68 +62,21 @@ INDUSTRY_WACC = {
     "default":               0.085,
 }
 
-HARDCODED_CIKS = {
-    "AAPL":"0000320193","GOOG":"0001652044","META":"0001326801","MSFT":"0000789019",
-    "NVDA":"0001045810","PLTR":"0001321655","TSLA":"0001318605","EA":"0000712515",
-    "NFLX":"0001065280","TMUS":"0001283699","AMZN":"0001018724","CMG":"0001058090",
-    "CPRT":"0000723254","GRMN":"0001121788","LEN":"0000060667","MCD":"0000063754",
-    "ORLY":"0000898173","POOL":"0000945841","ROST":"0000745732","TSCO":"0000916365",
-    "ULTA":"0001403568","BG":"0001144519","COST":"0000909832","HSY":"0000047111",
-    "KO":"0000021344","PEP":"0000077476","PG":"0000080424","PM":"0001413159",
-    "STZ":"0000016160","SYY":"0000086312","WMT":"0000104169","BKR":"0001701605",
-    "CVX":"0000093410","EOG":"0000821189","EPD":"0001061219","EXE":"0001168165",
-    "FANG":"0001539838","SLB":"0000087347","TPL":"0000097476","VLO":"0001035002",
-    "XOM":"0000034088","BRK-B":"0001067983","ACGL":"0000947484","AIZ":"0001267238",
-    "AJG":"0000354190","AON":"0000315293","ARES":"0001555280","AXP":"0000004962",
-    "BAC":"0000070858","BLK":"0001364742","BRO":"0000014846","C":"0000831001",
-    "CB":"0000896159","CBOE":"0001374310","CBRE":"0001138118","CINF":"0000020286",
-    "CME":"0001156375","CPAY":"0001175922","EG":"0000049697","ERIE":"0000049697",
-    "FICO":"0000814547","GS":"0000886982","IBKR":"0001381197","ICE":"0001571123",
-    "JPM":"0000019617","KKR":"0001404912","MA":"0001141391","MCO":"0001059556",
-    "MSCI":"0001408198","NDAQ":"0001120193","PGR":"0000080661","RJF":"0000720005",
-    "SPGI":"0000064040","TRV":"0000086312","V":"0001403161","VRSK":"0001442145",
-    "WFC":"0000072971","WRB":"0000011544","A":"0001090872","BSX":"0000885725",
-    "CI":"0001739940","ABT":"0000001800","COO":"0000723254","HCA":"0000860730",
-    "IDXX":"0000874716","IQV":"0001478454","ISRG":"0001035267","JNJ":"0000200406",
-    "LLY":"0000059478","MCK":"0000927653","MRK":"0000310158","MTD":"0001037586",
-    "REGN":"0000872589","RMD":"0000943819","SYK":"0000310764","TECH":"0000849547",
-    "VRTX":"0000875320","WAT":"0001000230","WST":"0000105770","ZTS":"0001555280",
-    "WM":"0000823768","MO":"0000764038","ADP":"0000012927","AXON":"0001069183",
-    "CAT":"0000018230","CTAS":"0000723254","DE":"0000315189","EME":"0000093859",
-    "EMR":"0000032604","ETN":"0001551182","FAST":"0000815556","FIX":"0000766704",
-    "GD":"0000040533","GE":"0000040987","GWW":"0000277135","HON":"0000773840",
-    "HWM":"0000004281","LMT":"0000936468","NOC":"0001133421","ODFL":"0000878927",
-    "OTIS":"0001781335","PH":"0000076334","PWR":"0001050606","ROK":"0001024795",
-    "ROL":"0000085408","ROP":"0000882184","TDG":"0001260221","TT":"0001466258",
-    "ACN":"0001467373","ADI":"0000006845","ADSK":"0000796343","AMAT":"0000796343",
-    "AMD":"0000002488","ANET":"0001313925","APH":"0000820081","CDNS":"0000813672",
-    "CSCO":"0000858877","FTNT":"0001262039","IT":"0000749251","KLAC":"0000319201",
-    "LRCX":"0000707549","MCHP":"0000827054","MPWR":"0001280452","MSI":"0000068505",
-    "NXPI":"0001413447","ON":"0000863894","PTC":"0000857005","Q":"0001479290",
-    "SNPS":"0000883241","TEL":"0001385157","TER":"0000097210","TTD":"0001671933",
-    "TXN":"0000097476","TYL":"0000860731","VRSN":"0001014473","WDAY":"0001327811",
-    "APD":"0000002969","AVY":"0000008818","CRH":"0001370946","ECL":"0000031462",
-    "FSLR":"0001274494","LIN":"0001707092","MLM":"0000916789","NUE":"0000073309",
-    "SHW":"0000089089","STLD":"0001022671","VMC":"0001396033","AMT":"0001053507",
-    "CSGP":"0001467373","EXR":"0001289490","PSA":"0001393311","SBAC":"0001034669",
-    "VICI":"0001695678","AEP":"0000004904","AWK":"0001410636","CEG":"0001168165",
-    "D":"0000715957","DUK":"0001326160","ETR":"0000049600","NEE":"0000753308",
-    "NRG":"0001013871","PEG":"0000081033","SO":"0000092122","SRE":"0001032778",
-    "VST":"0001692819","XEL":"0000072741",
-}
+HARDCODED_CIKS = {}
+DYNAMIC_CIK_MAP = {}
 
 def get_wacc(sector):
     return INDUSTRY_WACC.get(sector, INDUSTRY_WACC["default"])
 
 def get_cik(ticker):
-    return HARDCODED_CIKS.get(ticker.upper().replace(".", "-"))
+    t = ticker.upper().replace(".", "-")
+    return DYNAMIC_CIK_MAP.get(t) or HARDCODED_CIKS.get(t)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # EDGAR DATA LAYER
 # ══════════════════════════════════════════════════════════════════════════════
 
 def fetch_edgar_facts(cik):
-    """Fetch XBRL facts from EDGAR with retries."""
     url = EDGAR_FACTS_URL.format(cik=cik)
     for attempt in range(3):
         try:
@@ -169,10 +121,8 @@ def dedup_by_end(entries, form_types=("10-Q", "10-K")):
     return sorted(seen.values(), key=lambda x: x["end"], reverse=True)
 
 def quarterly_ttm(facts, *concepts):
-    """Sum last 4 true quarters, filtering out Year-To-Date (YTD) cumulative overlaps."""
     entries = find_concept_series(facts, *concepts)
     valid_quarters = []
-    
     for e in entries:
         if "start" in e and "end" in e:
             try:
@@ -183,7 +133,6 @@ def quarterly_ttm(facts, *concepts):
                     valid_quarters.append(e)
             except ValueError:
                 continue
-                
     quarterly = dedup_by_end(valid_quarters, ("10-Q", "10-K"))
     vals = [e["val"] for e in quarterly[:4]]
     if len(vals) < 2: return None
@@ -222,8 +171,10 @@ def extract_edgar_financials(facts):
     delta_wc = (wc_curr - wc_prev) if (wc_curr is not None and wc_prev is not None) else 0.0
 
     oe_ttm = None
-    if ni_ttm is not None and da_ttm is not None and capex_ttm is not None:
-        oe_ttm = ni_ttm + da_ttm - abs(capex_ttm) - delta_wc
+    if ni_ttm is not None and da_ttm is not None:
+        # Graceful fallback: If CapEx is entirely missing (Banks/Insurance), assume 0 to prevent total calculation failure
+        capex_val = abs(capex_ttm) if capex_ttm else 0
+        oe_ttm = ni_ttm + da_ttm - capex_val - delta_wc
 
     ni_a    = annual_values(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic")
     da_a    = annual_values(facts, "DepreciationDepletionAndAmortization", "DepreciationAndAmortization", "Depreciation")
@@ -232,8 +183,12 @@ def extract_edgar_financials(facts):
     ni_d    = {e[0][:4]: e[1] for e in ni_a}
     da_d    = {e[0][:4]: e[1] for e in da_a}
     capex_d = {e[0][:4]: e[1] for e in capex_a}
-    years   = sorted(set(ni_d) & set(da_d) & set(capex_d))
-    oe_annual = {int(yr): ni_d[yr] + da_d[yr] - abs(capex_d[yr]) for yr in years}
+    years   = sorted(set(ni_d) & set(da_d)) 
+    
+    oe_annual = {}
+    for yr in years:
+        cx_val = abs(capex_d[yr]) if yr in capex_d else 0
+        oe_annual[int(yr)] = ni_d[yr] + da_d[yr] - cx_val
 
     ebit_a   = annual_values(facts, "OperatingIncomeLoss", "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest")
     pretax_a = annual_values(facts, "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest", "IncomeLossFromContinuingOperationsBeforeIncomeTaxesDomestic")
@@ -276,39 +231,47 @@ def compute_epv_per_share(avg_ebit, tax_rate, wacc, shares):
     if avg_ebit is None or shares is None or shares <= 0: return None
     return avg_ebit * (1 - tax_rate) / wacc / shares
 
-def detect_bear_markets(price_series, threshold=0.20, top_n=10):
-    if price_series.empty: return []
-    rolling_max = price_series.expanding().max()
-    drawdown    = (price_series - rolling_max) / rolling_max
-    bears, in_bear = [], False
-    peak_date = peak_price = trough_date = trough_price = None
+# Strict Macro Crisis Target Engine
+CRISIS_PERIODS = [
+    {"name": "2015-2016 Selloff", "start": "2015-01-01", "end": "2016-06-30"},
+    {"name": "2018 Crypto/Rate Selloff", "start": "2018-01-01", "end": "2019-01-31"},
+    {"name": "2020 COVID-19 Crash", "start": "2020-02-01", "end": "2020-04-30"},
+    {"name": "2022 Bear Market", "start": "2021-11-01", "end": "2022-12-31"},
+    {"name": "April 2025 Crash", "start": "2025-03-01", "end": "2025-05-31"}
+]
 
-    for dt, dd in drawdown.items():
-        price    = price_series[dt]
-        roll_max = rolling_max[dt]
-        if not in_bear and dd <= -threshold:
-            in_bear      = True
-            mask         = price_series[:dt] == roll_max
-            peak_date    = mask[mask].index[-1] if mask.any() else dt
-            peak_price   = roll_max
-            trough_date  = dt
-            trough_price = price
-        elif in_bear:
-            if price < trough_price:
-                trough_date  = dt
-                trough_price = price
-            elif dd > -threshold / 2:
-                bears.append({"peak_date": peak_date, "trough_date": trough_date,
-                               "peak_price": float(peak_price), "trough_price": float(trough_price),
-                               "drawdown_pct": float((trough_price - peak_price) / peak_price * 100)})
-                in_bear = False
-
-    if in_bear and trough_date is not None:
-        bears.append({"peak_date": peak_date, "trough_date": trough_date,
-                       "peak_price": float(peak_price), "trough_price": float(trough_price),
-                       "drawdown_pct": float((trough_price - peak_price) / peak_price * 100)})
-    bears.sort(key=lambda x: x["drawdown_pct"])
-    return bears[:top_n]
+def detect_macro_crises(price_series):
+    crises = []
+    if price_series.empty: return crises
+    
+    for c in CRISIS_PERIODS:
+        mask = (price_series.index >= pd.Timestamp(c["start"])) & (price_series.index <= pd.Timestamp(c["end"]))
+        window = price_series[mask]
+        
+        if len(window) < 2: continue
+        
+        peak_date = window.idxmax()
+        peak_price = window.max()
+        
+        post_peak_window = window[window.index >= peak_date]
+        if post_peak_window.empty: continue
+        
+        trough_date = post_peak_window.idxmin()
+        trough_price = post_peak_window.min()
+        
+        drawdown = (trough_price - peak_price) / peak_price * 100
+        
+        if drawdown < -10:  # Register anything over a 10% drop within these specific crash windows
+            crises.append({
+                "crisis_name": c["name"],
+                "peak_date": peak_date,
+                "trough_date": trough_date,
+                "peak_price": float(peak_price),
+                "trough_price": float(trough_price),
+                "drawdown_pct": float(drawdown)
+            })
+            
+    return crises
 
 def pct_diff(a, b):
     if a is None or b is None or b == 0: return None
@@ -333,7 +296,7 @@ def diff_block(curr, peak):
     return {k: pct_diff(curr.get(k), peak.get(k)) for k in ("oe","oeps","oe_yield","oe_multiple","oe_growth","oe_peg","epv")}
 
 # ══════════════════════════════════════════════════════════════════════════════
-# EDGAR CACHE LAYER
+# CACHE AND INITIALIZATION
 # ══════════════════════════════════════════════════════════════════════════════
 
 def load_edgar_cache():
@@ -449,10 +412,8 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
     if result["current"] and result["peak_since_oct2022"]:
         result["vs_peak_diff"] = diff_block(result["current"], result["peak_since_oct2022"])
 
-    # POST-2015 BEAR MARKET FILTER
-    hist_since_2015 = hist[hist.index >= pd.Timestamp("2015-01-01")]
-
-    for bear in detect_bear_markets(hist_since_2015):
+    # Extract exactly the crises we established
+    for bear in detect_macro_crises(hist):
         bp = bear["trough_price"]
         pp = bear["peak_price"]
         
@@ -465,11 +426,12 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         mb = metrics_at_price(oe_ttm, ev_b, mc_b, oe_growth, epv_per_share, shares)
         mb["price"]        = round(bp, 2)
         mb["peak_price"]   = round(pp, 2)
+        mb["crisis_name"]  = bear["crisis_name"]
         mb["peak_date"]    = str(bear["peak_date"].date()) if hasattr(bear["peak_date"], "date") else str(bear["peak_date"])
         mb["trough_date"]  = str(bear["trough_date"].date()) if hasattr(bear["trough_date"], "date") else str(bear["trough_date"])
         mb["drawdown_pct"] = round(bear["drawdown_pct"], 2)
         
-        # Calculate peak metrics immediately preceding the crash
+        # Calculate peak metrics
         mp = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share, shares)
         mb["peak_metrics"] = mp
         
@@ -543,6 +505,14 @@ if __name__ == "__main__":
     print(f"{'='*60}")
     print(f"OE Dashboard Calculator - Mode: {run_mode}")
     print(f"{'='*60}")
+    
+    print("Fetching official SEC CIK mapping...")
+    try:
+        r = requests.get("https://www.sec.gov/files/company_tickers.json", headers=EDGAR_HEADERS, timeout=10)
+        for k, v in r.json().items():
+            DYNAMIC_CIK_MAP[v['ticker']] = str(v['cik_str']).zfill(10)
+    except Exception as e:
+        print(f"Failed to fetch SEC mapping: {e}")
 
     if run_mode == "edgar_and_prices":
         results = run_edgar_and_prices(TICKERS)
