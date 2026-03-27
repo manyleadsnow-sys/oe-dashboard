@@ -454,14 +454,25 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
 
     for bear in detect_bear_markets(hist_since_2015):
         bp = bear["trough_price"]
+        pp = bear["peak_price"]
+        
         ev_b, mc_b = ev_mc(bp)
-        if not (oe_ttm and mc_b): continue
+        ev_p, mc_p = ev_mc(pp)
+        
+        if not (oe_ttm and mc_b and mc_p): continue
+        
+        # Calculate trough metrics
         mb = metrics_at_price(oe_ttm, ev_b, mc_b, oe_growth, epv_per_share, shares)
         mb["price"]        = round(bp, 2)
-        mb["peak_price"]   = round(bear["peak_price"], 2)
+        mb["peak_price"]   = round(pp, 2)
         mb["peak_date"]    = str(bear["peak_date"].date()) if hasattr(bear["peak_date"], "date") else str(bear["peak_date"])
         mb["trough_date"]  = str(bear["trough_date"].date()) if hasattr(bear["trough_date"], "date") else str(bear["trough_date"])
         mb["drawdown_pct"] = round(bear["drawdown_pct"], 2)
+        
+        # Calculate peak metrics immediately preceding the crash
+        mp = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share, shares)
+        mb["peak_metrics"] = mp
+        
         result["bear_markets"].append(mb)
 
     historical_trough_multiples = [b.get("oe_multiple") for b in result["bear_markets"] if b.get("oe_multiple") is not None]

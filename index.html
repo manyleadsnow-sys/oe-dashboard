@@ -63,6 +63,7 @@ const fmt = {
   oeps:  v => v != null ? `$${v.toFixed(2)}` : 'N/A',
   mult:  v => v != null ? `${v.toFixed(2)}x` : 'N/A',
   yield: v => v != null ? `${v.toFixed(2)}%` : 'N/A',
+  growth:v => v != null ? `${v.toFixed(2)}%` : 'N/A',
   peg:   v => v != null ? `${v.toFixed(2)}x` : 'N/A'
 };
 
@@ -83,19 +84,21 @@ function renderCards(data) {
       <div class="comparison-row"><span class="comp-label">OE per share</span><span class="comp-val1">${fmt.oeps(p.oeps)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.oeps(c.oeps)}</span></div>
       <div class="comparison-row"><span class="comp-label">OE Multiple</span><span class="comp-val1">${fmt.mult(p.oe_multiple)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.mult(c.oe_multiple)}</span></div>
       <div class="comparison-row"><span class="comp-label">OE Yield</span><span class="comp-val1">${fmt.yield(p.oe_yield)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.yield(c.oe_yield)}</span></div>
-      <div class="comparison-row"><span class="comp-label">OE Growth Rate</span><span class="comp-val1">${fmt.yield(p.oe_growth)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.yield(c.oe_growth)}</span></div>
+      <div class="comparison-row"><span class="comp-label">OE Growth Rate</span><span class="comp-val1">${fmt.growth(p.oe_growth)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.growth(c.oe_growth)}</span></div>
       <div class="comparison-row"><span class="comp-label">OE-PEG Ratio</span><span class="comp-val1">${fmt.peg(p.oe_peg)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.peg(c.oe_peg)}</span></div>
     `;
 
     // CRISIS BLOCKS
-    let crisisBlocks = bears.map((b, i) => `
+    let crisisBlocks = bears.map((b, i) => {
+      let pm = b.peak_metrics || {};
+      return `
       <div class="section-title">- Pre-Crisis Peak (${b.peak_date}) vs Trough (${b.trough_date}) [▼${b.drawdown_pct}%] -</div>
-      <div class="comparison-row"><span class="comp-label">OE per share</span><span class="comp-val1">Prior Peak</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.oeps(b.oeps)}</span></div>
-      <div class="comparison-row"><span class="comp-label">OE Multiple</span><span class="comp-val1">Prior Peak</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.mult(b.oe_multiple)}</span></div>
-      <div class="comparison-row"><span class="comp-label">OE Yield</span><span class="comp-val1">Prior Peak</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.yield(b.oe_yield)}</span></div>
-      <div class="comparison-row"><span class="comp-label">OE Growth Rate</span><span class="comp-val1">Prior Peak</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.yield(b.oe_growth)}</span></div>
-      <div class="comparison-row"><span class="comp-label">OE-PEG Ratio</span><span class="comp-val1">Prior Peak</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.peg(b.oe_peg)}</span></div>
-    `).join('');
+      <div class="comparison-row"><span class="comp-label">OE per share</span><span class="comp-val1">${fmt.oeps(pm.oeps)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.oeps(b.oeps)}</span></div>
+      <div class="comparison-row"><span class="comp-label">OE Multiple</span><span class="comp-val1">${fmt.mult(pm.oe_multiple)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.mult(b.oe_multiple)}</span></div>
+      <div class="comparison-row"><span class="comp-label">OE Yield</span><span class="comp-val1">${fmt.yield(pm.oe_yield)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.yield(b.oe_yield)}</span></div>
+      <div class="comparison-row"><span class="comp-label">OE Growth Rate</span><span class="comp-val1">${fmt.growth(pm.oe_growth)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.growth(b.oe_growth)}</span></div>
+      <div class="comparison-row"><span class="comp-label">OE-PEG Ratio</span><span class="comp-val1">${fmt.peg(pm.oe_peg)}</span><span class="comp-vs">vs</span><span class="comp-val2">${fmt.peg(b.oe_peg)}</span></div>
+    `}).join('');
 
     return `
     <div class="dossier-card">
