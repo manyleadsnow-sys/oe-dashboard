@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore")
 
 PEAK_START_DATE = "2022-10-12"
 
-# CRITICAL: Replace with your actual name and email to avoid SEC bans
+# CRITICAL: Replace with your actual name and email if this is not yours
 EDGAR_HEADERS   = {
     "User-Agent": "Gustavo Gonzalez gusqweenglish@gmail.com", 
     "Accept-Encoding": "gzip, deflate",
@@ -174,27 +174,19 @@ def quarterly_ttm(facts, *concepts):
     valid_quarters = []
     
     for e in entries:
-        # We only want entries that have a start and end date (Income/Cash Flow)
         if "start" in e and "end" in e:
             try:
-                # Calculate duration to ensure it's a ~3 month period, not YTD
                 start_date = datetime.strptime(e["start"], "%Y-%m-%d")
                 end_date = datetime.strptime(e["end"], "%Y-%m-%d")
                 days = (end_date - start_date).days
-                
-                # A standard quarter is between 80 and 105 days
                 if 80 <= days <= 105:
                     valid_quarters.append(e)
             except ValueError:
                 continue
                 
-    # Deduplicate and grab the last 4 valid discrete quarters
     quarterly = dedup_by_end(valid_quarters, ("10-Q", "10-K"))
     vals = [e["val"] for e in quarterly[:4]]
-    
-    if len(vals) < 2:
-        return None
-        
+    if len(vals) < 2: return None
     return sum(vals)
 
 def annual_values(facts, *concepts, n=11):
@@ -322,12 +314,14 @@ def pct_diff(a, b):
     if a is None or b is None or b == 0: return None
     return round((a - b) / abs(b) * 100, 2)
 
-def metrics_at_price(oe_ttm, ev, mc, oe_growth, epv_per_share):
+def metrics_at_price(oe_ttm, ev, mc, oe_growth, epv_per_share, shares):
     oe_yield    = (oe_ttm / mc * 100)               if (mc and mc != 0 and oe_ttm)             else None
     oe_multiple = (ev / oe_ttm)                      if (oe_ttm and oe_ttm != 0 and ev)         else None
     oe_peg      = (oe_multiple / (oe_growth * 100))  if (oe_multiple and oe_growth and oe_growth != 0) else None
+    oeps        = (oe_ttm / shares)                  if (shares and shares != 0 and oe_ttm)     else None
     return {
         "oe":          round(oe_ttm / 1e9, 4)      if oe_ttm        is not None else None,
+        "oeps":        round(oeps, 2)              if oeps          is not None else None,
         "oe_yield":    round(oe_yield, 4)           if oe_yield      is not None else None,
         "oe_multiple": round(oe_multiple, 4)        if oe_multiple   is not None else None,
         "oe_growth":   round(oe_growth * 100, 4)    if oe_growth     is not None else None,
@@ -336,7 +330,7 @@ def metrics_at_price(oe_ttm, ev, mc, oe_growth, epv_per_share):
     }
 
 def diff_block(curr, peak):
-    return {k: pct_diff(curr.get(k), peak.get(k)) for k in ("oe","oe_yield","oe_multiple","oe_growth","oe_peg","epv")}
+    return {k: pct_diff(curr.get(k), peak.get(k)) for k in ("oe","oeps","oe_yield","oe_multiple","oe_growth","oe_peg","epv")}
 
 # ══════════════════════════════════════════════════════════════════════════════
 # EDGAR CACHE LAYER
@@ -394,6 +388,7 @@ def refresh_edgar_cache(tickers):
 def compute_ticker_result(symbol, financials, yf_info, hist):
     result = {
         "ticker":             symbol,
+        "company_name":       yf_info.get("shortName", symbol),
         "error":              None,
         "sector":             yf_info.get("sector", "default"),
         "data_source":        "SEC EDGAR + Yahoo Finance",
@@ -440,13 +435,13 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
 
     ev_c, mc_c = ev_mc(current_price)
     if oe_ttm and mc_c:
-        m = metrics_at_price(oe_ttm, ev_c, mc_c, oe_growth, epv_per_share)
+        m = metrics_at_price(oe_ttm, ev_c, mc_c, oe_growth, epv_per_share, shares)
         m["price"] = round(current_price, 2)
         result["current"] = m
 
     ev_p, mc_p = ev_mc(peak_price)
     if oe_ttm and mc_p:
-        m = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share)
+        m = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share, shares)
         m["price"] = round(peak_price, 2)
         m["date"]  = str(peak_date.date())
         result["peak_since_oct2022"] = m
@@ -454,11 +449,14 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
     if result["current"] and result["peak_since_oct2022"]:
         result["vs_peak_diff"] = diff_block(result["current"], result["peak_since_oct2022"])
 
-    for bear in detect_bear_markets(hist):
+    # POST-2015 BEAR MARKET FILTER
+    hist_since_2015 = hist[hist.index >= pd.Timestamp("2015-01-01")]
+
+    for bear in detect_bear_markets(hist_since_2015):
         bp = bear["trough_price"]
         ev_b, mc_b = ev_mc(bp)
         if not (oe_ttm and mc_b): continue
-        mb = metrics_at_price(oe_ttm, ev_b, mc_b, oe_growth, epv_per_share)
+        mb = metrics_at_price(oe_ttm, ev_b, mc_b, oe_growth, epv_per_share, shares)
         mb["price"]        = round(bp, 2)
         mb["peak_price"]   = round(bear["peak_price"], 2)
         mb["peak_date"]    = str(bear["peak_date"].date()) if hasattr(bear["peak_date"], "date") else str(bear["peak_date"])
@@ -466,7 +464,6 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         mb["drawdown_pct"] = round(bear["drawdown_pct"], 2)
         result["bear_markets"].append(mb)
 
-    # --- DCA CRISIS ENGINE ---
     historical_trough_multiples = [b.get("oe_multiple") for b in result["bear_markets"] if b.get("oe_multiple") is not None]
     
     if historical_trough_multiples and result["current"].get("oe_multiple"):
