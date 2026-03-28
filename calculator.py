@@ -6,7 +6,7 @@ import os
 import yfinance as yf
 import numpy as np
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import time
 import requests
@@ -64,6 +64,7 @@ INDUSTRY_WACC = {
 
 HARDCODED_CIKS = {}
 DYNAMIC_CIK_MAP = {}
+GLOBAL_10Y_YIELD = 4.2  # Fallback
 
 def get_wacc(sector):
     return INDUSTRY_WACC.get(sector, INDUSTRY_WACC["default"])
@@ -129,7 +130,6 @@ def quarterly_ttm(facts, *concepts):
                 start_date = datetime.strptime(e["start"], "%Y-%m-%d")
                 end_date = datetime.strptime(e["end"], "%Y-%m-%d")
                 days = (end_date - start_date).days
-                # Widened window for retail/industrial companies with odd fiscal quarters
                 if 75 <= days <= 110:
                     valid_quarters.append(e)
             except ValueError:
@@ -173,7 +173,6 @@ def extract_edgar_financials(facts):
 
     oe_ttm = None
     if ni_ttm is not None:
-        # Flexible calculation: If D&A or CapEx are missing, default to 0 rather than failing the whole company
         da_val = da_ttm if da_ttm else 0
         capex_val = abs(capex_ttm) if capex_ttm else 0
         oe_ttm = ni_ttm + da_val - capex_val - delta_wc
@@ -234,7 +233,6 @@ def compute_epv_per_share(avg_ebit, tax_rate, wacc, shares):
     if avg_ebit is None or shares is None or shares <= 0: return None
     return avg_ebit * (1 - tax_rate) / wacc / shares
 
-# Chronological order: Newest to Oldest
 CRISIS_PERIODS = [
     {"name": "April 2025 Crash", "start": "2025-03-01", "end": "2025-05-31"},
     {"name": "2022 Bear Market (Jan 2022 - Oct 2022)", "start": "2022-01-01", "end": "2022-12-31"},
@@ -361,6 +359,7 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         "current":            {},
         "peak_since_oct2022": {},
         "bear_markets":       [],
+        "discount_metrics":   {"z_score_5y": None, "z_score_10y": None, "erp_spread": None, "premium_to_floor": None},
         "last_updated":       datetime.now().isoformat(),
         "edgar_fetched_at":   financials.get("fetched_at", ""),
         "crisis_floor_multiple": None,
@@ -401,7 +400,6 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
 
     ev_c, mc_c = ev_mc(current_price)
     
-    # DECOUPLED PRICE FROM FUNDAMENTALS: Assign Price even if OE is missing
     if oe_ttm and mc_c:
         m_c = metrics_at_price(oe_ttm, ev_c, mc_c, oe_growth, epv_per_share, shares)
     else:
@@ -421,15 +419,12 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
     if result["current"] and result["peak_since_oct2022"]:
         result["vs_peak_diff"] = diff_block(result["current"], result["peak_since_oct2022"])
 
-    # Extract exactly the crises we established
     for bear in detect_macro_crises(hist):
         bp = bear["trough_price"]
         pp = bear["peak_price"]
-        
         ev_b, mc_b = ev_mc(bp)
         ev_p, mc_p = ev_mc(pp)
         
-        # Calculate trough metrics
         if oe_ttm and mc_b:
             mb = metrics_at_price(oe_ttm, ev_b, mc_b, oe_growth, epv_per_share, shares)
         else:
@@ -442,39 +437,66 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         mb["trough_date"]  = str(bear["trough_date"].date()) if hasattr(bear["trough_date"], "date") else str(bear["trough_date"])
         mb["drawdown_pct"] = round(bear["drawdown_pct"], 2)
         
-        # Calculate peak metrics
         if oe_ttm and mc_p:
             mp = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share, shares)
         else:
             mp = {}
             
         mb["peak_metrics"] = mp
-        
         result["bear_markets"].append(mb)
 
-    historical_trough_multiples = [b.get("oe_multiple") for b in result["bear_markets"] if b.get("oe_multiple") is not None]
-    
-    if historical_trough_multiples and result["current"].get("oe_multiple"):
-        crisis_floor_multiple = min(historical_trough_multiples)
-        current_multiple = result["current"]["oe_multiple"]
+    # ══════════════════════════════════════════════════════════════════════════════
+    # DISCOUNT METRICS ENGINE
+    # ══════════════════════════════════════════════════════════════════════════════
+    if result["current"].get("oe_yield"):
+        result["discount_metrics"]["erp_spread"] = round(result["current"]["oe_yield"] - GLOBAL_10Y_YIELD, 2)
+
+    if oe_ttm and shares and result["current"].get("oe_multiple"):
+        oeps = oe_ttm / shares
+        hist_multiples = hist / oeps
+        curr_m = result["current"]["oe_multiple"]
         
-        result["crisis_floor_multiple"] = round(crisis_floor_multiple, 2)
-        
-        if crisis_floor_multiple > 0:
-            premium_to_floor = (current_multiple - crisis_floor_multiple) / crisis_floor_multiple
+        # 5-Year Z-Score
+        lookback_5y = hist_multiples[hist_multiples.index > (datetime.now() - timedelta(days=5*365))]
+        if not lookback_5y.empty and lookback_5y.std() > 0:
+            result["discount_metrics"]["z_score_5y"] = round((curr_m - lookback_5y.mean()) / lookback_5y.std(), 2)
             
-            if premium_to_floor <= 0.15: 
-                result["dca_signal"] = "🟢 STRONG DCA"
-            elif premium_to_floor <= 0.30: 
-                result["dca_signal"] = "🟡 ACCUMULATE"
-            else:
-                result["dca_signal"] = "🔴 WAIT"
-        else:
-            result["dca_signal"] = "🔴 WAIT" 
+        # 10-Year Z-Score
+        lookback_10y = hist_multiples[hist_multiples.index > (datetime.now() - timedelta(days=10*365))]
+        if not lookback_10y.empty and lookback_10y.std() > 0:
+            result["discount_metrics"]["z_score_10y"] = round((curr_m - lookback_10y.mean()) / lookback_10y.std(), 2)
+
+    historical_trough_multiples = [b.get("oe_multiple") for b in result["bear_markets"] if b.get("oe_multiple") is not None]
+    if historical_trough_multiples and result["current"].get("oe_multiple"):
+        min_floor = min(historical_trough_multiples)
+        result["crisis_floor_multiple"] = round(min_floor, 2)
+        
+        if min_floor > 0:
+            premium = (result["current"]["oe_multiple"] / min_floor - 1) * 100
+            result["discount_metrics"]["premium_to_floor"] = round(premium, 1)
+
+    # DCA SIGNAL LOGIC 
+    z5 = result["discount_metrics"].get("z_score_5y")
+    prem = result["discount_metrics"].get("premium_to_floor")
+    
+    if (z5 is not None and z5 <= -1.5) or (prem is not None and prem <= 10):
+        result["dca_signal"] = "🟢 STRONG DCA"
+    elif (z5 is not None and z5 <= -0.5) or (prem is not None and prem <= 25):
+        result["dca_signal"] = "🟡 ACCUMULATE"
+    else:
+        result["dca_signal"] = "🔴 WAIT" 
 
     return result
 
 def run_prices_only(tickers, edgar_cache):
+    global GLOBAL_10Y_YIELD
+    try:
+        tnx = yf.Ticker("^TNX")
+        GLOBAL_10Y_YIELD = tnx.history(period="1d")["Close"].iloc[-1]
+        print(f"Current 10Y Treasury Yield: {GLOBAL_10Y_YIELD:.2f}%")
+    except: 
+        print(f"Failed to fetch 10Y Treasury. Using fallback: {GLOBAL_10Y_YIELD}%")
+
     results  = {}
     total    = len(tickers)
     no_cache = []
@@ -494,7 +516,6 @@ def run_prices_only(tickers, edgar_cache):
 
         for attempt in range(max_retries):
             try:
-                # Add a small base buffer to respect rate limits
                 time.sleep(0.5 + attempt) 
                 
                 t = yf.Ticker(sym)
@@ -509,15 +530,13 @@ def run_prices_only(tickers, edgar_cache):
                 results[sym] = compute_ticker_result(sym, financials, info, hist)
                 price = results[sym].get("current", {}).get("price", "n/a")
                 print(f"${price}")
-                break # Exit the retry loop on success
+                break 
                 
             except Exception as e:
                 if attempt < max_retries - 1:
-                    # Wait and try again
                     time.sleep(retry_delay)
                     retry_delay *= 2
                 else:
-                    # Final failure
                     results[sym] = {"ticker": sym, "error": f"Price fetch failed: {str(e)}", "sector": None, "current": {}, "peak_since_oct2022": {}, "bear_markets": [], "last_updated": datetime.now().isoformat()}
                     print(f"ERROR: {e}")
 

@@ -14,9 +14,16 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; padding: 40px; }
   
-  header { margin-bottom: 40px; border-bottom: 1px solid var(--bg3); padding-bottom: 20px; }
+  header { margin-bottom: 20px; border-bottom: 1px solid var(--bg3); padding-bottom: 20px; }
   h1 { color: var(--accent); font-family: 'DM Mono', monospace; }
   
+  /* DCA Playbook Styles */
+  .dca-playbook { background: rgba(137, 180, 250, 0.05); border: 1px solid var(--accent); border-radius: 8px; padding: 20px; margin-bottom: 40px; }
+  .dca-playbook h3 { color: var(--accent); font-family: 'DM Mono', monospace; font-size: 16px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;}
+  .dca-playbook ul { list-style-type: none; padding: 0; margin: 0; }
+  .dca-playbook li { margin-bottom: 12px; font-size: 14px; line-height: 1.5; color: var(--text); }
+  .dca-playbook strong { color: var(--yellow); }
+
   .controls { margin-bottom: 30px; display: flex; gap: 15px; }
   input, select { background: var(--bg2); color: var(--text); border: 1px solid var(--bg3); padding: 10px; border-radius: 6px; font-family: 'DM Mono', monospace; }
   
@@ -31,6 +38,12 @@
 
   .section-title { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 30px 0 15px 0; border-bottom: 1px solid var(--bg3); padding-bottom: 5px;}
   
+  /* Discount Grid Styles */
+  .discount-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
+  .discount-box { background: var(--bg); padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #2a2a3e; }
+  .disc-label { font-size: 11px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .disc-val { font-size: 18px; font-weight: bold; font-family: 'DM Mono', monospace; }
+
   .comparison-row { display: grid; grid-template-columns: 200px 150px 40px 150px; align-items: center; padding: 8px 0; border-bottom: 1px dashed #2a2a3e; font-family: 'DM Mono', monospace; font-size: 14px; }
   .comp-label { color: var(--muted); }
   .comp-val1 { color: var(--yellow); font-weight: bold; }
@@ -46,6 +59,15 @@
   <h1>Owner Earnings Dossier</h1>
   <p style="color:var(--muted); margin-top:10px;">Deep-dive Macro Crisis Valuation Engine</p>
 </header>
+
+<div class="dca-playbook">
+  <h3>How to Use This for DCA</h3>
+  <ul>
+    <li><strong>Z-Score (5Y & 10Y):</strong> If this is negative (e.g., -1.8), you are buying the compounder at a valuation significantly below its own average. This is the "Statistical Discount."</li>
+    <li><strong>ERP Spread:</strong> If this is high (e.g., +2.5%), the stock’s cash yield is significantly more attractive than the "Risk-Free" rate of the 10-Year Treasury.</li>
+    <li><strong>Premium to Floor:</strong> If this is low (e.g., 8.0%), you are buying within 8% of the lowest valuation the company hit in the last decade of panics. This provides a "Margin of Safety."</li>
+  </ul>
+</div>
 
 <div class="controls">
   <input type="text" id="search" placeholder="Search Ticker (e.g. AAPL)">
@@ -77,6 +99,36 @@ function renderCards(data) {
     let c = r.current || {};
     let p = r.peak_since_oct2022 || {};
     let bears = r.bear_markets || [];
+    let disc = r.discount_metrics || {};
+
+    // Dynamic Color Logic for Statistical Discounts
+    let z5Color = disc.z_score_5y < -1.5 ? 'var(--green)' : (disc.z_score_5y > 1 ? 'var(--red)' : 'var(--text)');
+    let z10Color = disc.z_score_10y < -1.5 ? 'var(--green)' : (disc.z_score_10y > 1 ? 'var(--red)' : 'var(--text)');
+    let erpColor = disc.erp_spread > 1.0 ? 'var(--green)' : 'var(--text)';
+    let floorColor = disc.premium_to_floor < 15 ? 'var(--green)' : 'var(--text)';
+
+    // STATISTICAL DISCOUNT BLOCK
+    let discountBlock = `
+      <div class="section-title">- Statistical Discount Analysis -</div>
+      <div class="discount-grid">
+        <div class="discount-box">
+            <div class="disc-label">5Y Z-Score</div>
+            <div class="disc-val" style="color:${z5Color}">${disc.z_score_5y ?? 'N/A'}</div>
+        </div>
+        <div class="discount-box">
+            <div class="disc-label">10Y Z-Score</div>
+            <div class="disc-val" style="color:${z10Color}">${disc.z_score_10y ?? 'N/A'}</div>
+        </div>
+        <div class="discount-box">
+            <div class="disc-label">ERP Spread vs 10Y</div>
+            <div class="disc-val" style="color:${erpColor}">${disc.erp_spread ? '+' + disc.erp_spread + '%' : 'N/A'}</div>
+        </div>
+        <div class="discount-box">
+            <div class="disc-label">Premium to Floor</div>
+            <div class="disc-val" style="color:${floorColor}">${disc.premium_to_floor ? disc.premium_to_floor + '%' : 'N/A'}</div>
+        </div>
+      </div>
+    `;
 
     // LATEST PEAK VS CURRENT BLOCK
     let latestBlock = `
@@ -110,6 +162,7 @@ function renderCards(data) {
       <div class="price-banner">
         Peak Price <span class="peak-price">${fmt.price(p.price)}</span> &nbsp;vs&nbsp; Current Price <span class="current-price">${fmt.price(c.price)}</span>
       </div>
+      ${discountBlock}
       ${latestBlock}
       ${crisisBlocks}
     </div>`;
