@@ -82,22 +82,26 @@ def fetch_edgar_facts(cik):
     for attempt in range(3):
         try:
             r = requests.get(url, headers=EDGAR_HEADERS, timeout=90)
-            if r.status_code == 200: return r.json()
-            elif r.status_code == 429: time.sleep(30 * (attempt + 1))
-            else: time.sleep(5 * (attempt + 1))
-        except: time.sleep(5)
+            if r.status_code == 200:
+                return r.json()
+            elif r.status_code == 429:
+                time.sleep(30 * (attempt + 1))
+            else:
+                time.sleep(5 * (attempt + 1))
+        except:
+            time.sleep(5)
     return None
 
 def find_concept_series(facts, *concepts, unit="USD"):
     us_gaap = facts.get("facts", {}).get("us-gaap", {})
+    all_valid = []
     for concept in concepts:
         if concept not in us_gaap: continue
         entries = us_gaap[concept].get("units", {}).get(unit, [])
-        if not entries: continue
         valid = [e for e in entries if "end" in e and "val" in e]
-        valid.sort(key=lambda x: (x["end"], x.get("filed", "")), reverse=True)
-        return valid
-    return []
+        all_valid.extend(valid)
+    all_valid.sort(key=lambda x: (x["end"], x.get("filed", "")), reverse=True)
+    return all_valid
 
 def dedup_by_end(entries, form_types=("10-Q", "10-K")):
     filtered = [e for e in entries if e.get("form", "") in form_types]
@@ -108,11 +112,9 @@ def dedup_by_end(entries, form_types=("10-Q", "10-K")):
             seen[key] = e
     return sorted(seen.values(), key=lambda x: x["end"], reverse=True)
 
-# THE NEW INSTITUTIONAL LTM (Last Twelve Months) ENGINE
 def get_ttm(facts, *concepts):
     entries = find_concept_series(facts, *concepts)
     if not entries: return None
-    
     k_entries = [e for e in entries if e.get("form") == "10-K" and "start" in e and "end" in e]
     if not k_entries: return None
     k_entries.sort(key=lambda x: x["end"], reverse=True)
@@ -123,7 +125,6 @@ def get_ttm(facts, *concepts):
     
     q_entries.sort(key=lambda x: x["end"], reverse=True)
     latest_q_end = q_entries[0]["end"]
-    
     latest_q_ytd = max([e for e in q_entries if e["end"] == latest_q_end], key=lambda x: (datetime.strptime(x["end"], "%Y-%m-%d") - datetime.strptime(x["start"], "%Y-%m-%d")).days)
     
     expected_prior_end = datetime.strptime(latest_q_end, "%Y-%m-%d") - timedelta(days=365)
@@ -140,23 +141,33 @@ def get_ttm(facts, *concepts):
                 
     return latest_k["val"] + latest_q_ytd["val"] - prior_ytd_val
 
-def annual_values(facts, *concepts, n=11):
+def annual_values(facts, *concepts, n=15):
     entries = find_concept_series(facts, *concepts)
-    annual  = dedup_by_end(entries, ("10-K",))
+    annual_entries = []
+    # Strict 365-day Duration Filter to avoid Q4 overlap bugs
+    for e in entries:
+        if e.get("form") == "10-K" and "start" in e and "end" in e:
+            try:
+                sd = datetime.strptime(e["start"], "%Y-%m-%d")
+                ed = datetime.strptime(e["end"], "%Y-%m-%d")
+                if 350 <= (ed - sd).days <= 380:
+                    annual_entries.append(e)
+            except: pass
+    annual = dedup_by_end(annual_entries, ("10-K",))
     return [(e["end"], e["val"]) for e in annual[:n]]
 
 def extract_edgar_financials(facts):
     ni_ttm = get_ttm(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic", "ProfitLoss", "NetIncomeLossAllocatedToParent")
-    da_ttm = get_ttm(facts, "DepreciationDepletionAndAmortization", "DepreciationAndAmortization", "Depreciation", "DepreciationAmortizationAndAccretionNet")
-    capex_ttm = get_ttm(facts, "PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsForCapitalImprovements", "PaymentsToAcquireProductiveAssets")
+    da_ttm = get_ttm(facts, "DepreciationDepletionAndAmortization", "DepreciationAndAmortization", "Depreciation", "DepreciationAmortizationAndAccretionNet", "AmortizationOfIntangibleAssets")
+    capex_ttm = get_ttm(facts, "PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsForCapitalImprovements", "PaymentsToAcquireProductiveAssets", "PaymentsToAcquireBusinessesAndPropertyPlantAndEquipment")
 
     oe_ttm = None
     if ni_ttm is not None:
         da_val = da_ttm if da_ttm else 0
         capex_val = abs(capex_ttm) if capex_ttm else 0
-        oe_ttm = ni_ttm + da_val - capex_val # Strict Buffett Math: NO delta_wc
+        oe_ttm = ni_ttm + da_val - capex_val
 
-    ni_a    = annual_values(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic", "NetIncomeLossAllocatedToParent")
+    ni_a    = annual_values(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic", "ProfitLoss", "NetIncomeLossAllocatedToParent")
     da_a    = annual_values(facts, "DepreciationDepletionAndAmortization", "DepreciationAndAmortization", "Depreciation")
     capex_a = annual_values(facts, "PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsForCapitalImprovements", "PaymentsToAcquireProductiveAssets")
 
@@ -169,7 +180,7 @@ def extract_edgar_financials(facts):
     for yr in years:
         cx_val = abs(capex_d[yr]) if yr in capex_d else 0
         da_val = da_d[yr] if yr in da_d else 0
-        oe_annual[str(yr)] = ni_d[yr] + da_val - cx_val # THE JSON FIX: Force String Keys
+        oe_annual[str(yr)] = ni_d[yr] + da_val - cx_val
 
     ebit_a   = annual_values(facts, "OperatingIncomeLoss", "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest")
     avg_ebit = float(np.mean([v for _, v in ebit_a[:5]])) if ebit_a else None
@@ -251,73 +262,17 @@ def diff_block(curr, peak):
     return {k: pct_diff(curr.get(k), peak.get(k)) for k in ("oe","oeps","oe_yield","oe_multiple","oe_growth","oe_peg","epv")}
 
 # ══════════════════════════════════════════════════════════════════════════════
-# CACHE AND INITIALIZATION
-# ══════════════════════════════════════════════════════════════════════════════
-
-def load_edgar_cache():
-    try:
-        with open(EDGAR_CACHE) as f: return json.load(f)
-    except FileNotFoundError:
-        return {}
-
-def save_edgar_cache(cache):
-    with open(EDGAR_CACHE, "w") as f:
-        json.dump(cache, f, indent=2, default=str)
-    print(f"EDGAR cache saved: {len(cache)} tickers")
-
-def refresh_edgar_cache(tickers):
-    cache = load_edgar_cache()
-    total = len(tickers)
-    ok, failed = 0, []
-
-    for i, sym in enumerate(tickers):
-        cik = get_cik(sym)
-        if cik is None:
-            failed.append(sym)
-            continue
-
-        print(f"  [{i+1}/{total}] {sym} (CIK {cik})...", end=" ", flush=True)
-        facts = fetch_edgar_facts(cik)
-
-        if facts is None:
-            print("FAILED")
-            failed.append(sym)
-            continue
-
-        try:
-            financials = extract_edgar_financials(facts)
-            cache[sym] = financials
-            ok += 1
-            print(f"OK (OE TTM: ${financials['oe_ttm']/1e9:.2f}B)" if financials['oe_ttm'] else "OK (OE: n/a)")
-        except Exception as e:
-            print(f"ERROR: {e}")
-            failed.append(sym)
-
-        time.sleep(0.15) 
-
-    save_edgar_cache(cache)
-    print(f"\nEDGAR refresh complete: {ok} ok, {len(failed)} failed")
-    return cache
-
-# ══════════════════════════════════════════════════════════════════════════════
-# PRICE + METRICS CALCULATION
+# CALCULATION ENGINE 
 # ══════════════════════════════════════════════════════════════════════════════
 
 def compute_ticker_result(symbol, financials, yf_info, hist):
     result = {
-        "ticker":             symbol,
-        "company_name":       yf_info.get("shortName", symbol),
-        "error":              None,
-        "sector":             yf_info.get("sector", "default"),
-        "data_source":        "SEC EDGAR + Yahoo Finance",
-        "current":            {},
-        "peak_since_oct2022": {},
-        "bear_markets":       [],
-        "discount_metrics":   {"z_score_5y": None, "z_score_10y": None, "erp_spread": None, "premium_to_floor": None},
-        "last_updated":       datetime.now().isoformat(),
-        "edgar_fetched_at":   financials.get("fetched_at", ""),
-        "crisis_floor_multiple": None,
-        "dca_signal": "—"
+        "ticker": symbol, "company_name": yf_info.get("shortName", symbol), "error": None,
+        "sector": yf_info.get("sector", "default"), "data_source": "SEC EDGAR + Yahoo Finance",
+        "current": {}, "peak_since_oct2022": {}, "bear_markets": [],
+        "discount_metrics": {"z_score_5y": None, "z_score_10y": None, "erp_spread": None, "premium_to_floor": None},
+        "last_updated": datetime.now().isoformat(), "edgar_fetched_at": financials.get("fetched_at", ""),
+        "crisis_floor_multiple": None, "dca_signal": "—"
     }
 
     if hist.empty:
@@ -346,26 +301,22 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         mc = price * shares
         return mc + net_debt, mc
 
-    # Helper: Fixes the JSON String lookup bug for historical metrics
     def get_hist_metrics(dt):
-        if not dt: return oe_ttm, oe_growth_current
+        if not dt or not oe_annual: return oe_ttm, oe_growth_current
         y = str(dt.year)
-        h_oe = oe_ttm
-        if oe_annual:
-            if y in oe_annual: h_oe = oe_annual[y]
-            elif str(dt.year - 1) in oe_annual: h_oe = oe_annual[str(dt.year - 1)]
-            elif str(dt.year - 2) in oe_annual: h_oe = oe_annual[str(dt.year - 2)]
-            
+        
+        # Rigorous historical mapping fallback
+        h_oe = oe_annual.get(y) or oe_annual.get(str(dt.year - 1)) or oe_annual.get(str(dt.year - 2)) or oe_ttm
+        
         h_growth = oe_growth_current
-        if oe_annual:
-            end_y = int(y) if y in oe_annual else (int(y)-1 if str(int(y)-1) in oe_annual else None)
-            if end_y is not None:
-                start_y = end_y - 5
-                if str(start_y) not in oe_annual: start_y += 1
-                if str(start_y) in oe_annual and end_y > start_y:
-                    old = oe_annual[str(start_y)]
-                    new = oe_annual[str(end_y)]
-                    if old > 0 and new > 0: h_growth = (new / old) ** (1.0 / (end_y - start_y)) - 1
+        end_y = int(y) if y in oe_annual else (int(y)-1 if str(dt.year - 1) in oe_annual else None)
+        if end_y is not None:
+            start_y = end_y - 5
+            if str(start_y) not in oe_annual: start_y += 1
+            if str(start_y) in oe_annual and end_y > start_y:
+                old = oe_annual[str(start_y)]
+                new = oe_annual[str(end_y)]
+                if old > 0 and new > 0: h_growth = (new / old) ** (1.0 / (end_y - start_y)) - 1
         return h_oe, h_growth
 
     ev_c, mc_c = ev_mc(current_price)
@@ -417,7 +368,7 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         historical_oeps_series = pd.Series(index=hist.index, dtype=float)
         for dt in hist.index:
             y = str(dt.year)
-            hist_oe = oe_annual.get(y) or oe_annual.get(str(dt.year-1)) or oe_ttm
+            hist_oe = oe_annual.get(y) or oe_annual.get(str(dt.year-1)) or oe_annual.get(str(dt.year-2)) or oe_ttm
             historical_oeps_series[dt] = hist_oe / shares
             
         hist_multiples = hist / historical_oeps_series
@@ -451,6 +402,45 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
 
     return result
 
+def load_edgar_cache():
+    try:
+        with open(EDGAR_CACHE) as f: return json.load(f)
+    except FileNotFoundError:
+        return {}
+
+def save_edgar_cache(cache):
+    with open(EDGAR_CACHE, "w") as f:
+        json.dump(cache, f, indent=2, default=str)
+    print(f"EDGAR cache saved: {len(cache)} tickers")
+
+def refresh_edgar_cache(tickers):
+    cache = load_edgar_cache()
+    total = len(tickers)
+    ok, failed = 0, []
+    for i, sym in enumerate(tickers):
+        cik = get_cik(sym)
+        if cik is None:
+            failed.append(sym)
+            continue
+        print(f"  [{i+1}/{total}] {sym} (CIK {cik})...", end=" ", flush=True)
+        facts = fetch_edgar_facts(cik)
+        if facts is None:
+            print("FAILED")
+            failed.append(sym)
+            continue
+        try:
+            financials = extract_edgar_financials(facts)
+            cache[sym] = financials
+            ok += 1
+            print(f"OK (OE TTM: ${financials['oe_ttm']/1e9:.2f}B)" if financials['oe_ttm'] else "OK (OE: n/a)")
+        except Exception as e:
+            print(f"ERROR: {e}")
+            failed.append(sym)
+        time.sleep(0.15) 
+    save_edgar_cache(cache)
+    print(f"\nEDGAR refresh complete: {ok} ok, {len(failed)} failed")
+    return cache
+
 def run_prices_only(tickers, edgar_cache):
     global GLOBAL_10Y_YIELD
     try:
@@ -462,38 +452,31 @@ def run_prices_only(tickers, edgar_cache):
 
     results  = {}
     total    = len(tickers)
-
     for i, sym in enumerate(tickers):
         print(f"  [{i+1}/{total}] {sym}", end=" ", flush=True)
         financials = edgar_cache.get(sym)
-        
         if not financials:
             results[sym] = {"ticker": sym, "error": "No EDGAR cache", "sector": None, "current": {}, "peak_since_oct2022": {}, "bear_markets": [], "last_updated": datetime.now().isoformat()}
             print("(no cache)")
             continue
-
+            
         for attempt in range(3):
             try:
                 time.sleep(0.5 + attempt) 
-                
                 t = yf.Ticker(sym)
                 info = t.info or {}
                 hist = t.history(period="max", interval="1d")["Close"].dropna()
-                
                 if hist.empty: raise ValueError("Empty price history")
                 hist.index = hist.index.tz_convert(None) if hist.index.tz else hist.index.tz_localize(None)
-
                 results[sym] = compute_ticker_result(sym, financials, info, hist)
                 price = results[sym].get("current", {}).get("price", "n/a")
                 print(f"${price}")
                 break 
-                
             except Exception as e:
                 if attempt == 2:
                     results[sym] = {"ticker": sym, "error": f"Price fetch failed: {str(e)}", "sector": None, "current": {}, "peak_since_oct2022": {}, "bear_markets": [], "last_updated": datetime.now().isoformat()}
                     print(f"ERROR: {e}")
                 else: time.sleep(2)
-
     return results
 
 def run_edgar_and_prices(tickers):
