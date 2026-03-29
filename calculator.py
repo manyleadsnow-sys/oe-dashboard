@@ -167,7 +167,7 @@ def extract_edgar_financials(facts):
     if ni_ttm is not None:
         da_val = da_ttm if da_ttm else 0
         capex_val = abs(capex_ttm) if capex_ttm else 0
-        oe_ttm = ni_ttm + da_val - capex_val - delta_wc
+        oe_ttm = ni_ttm + da_val - capex_val
 
     ni_a    = annual_values(facts, "NetIncomeLoss", "NetIncomeLossAvailableToCommonStockholdersBasic", "NetIncomeLossAllocatedToParent")
     da_a    = annual_values(facts, "DepreciationDepletionAndAmortization", "DepreciationAndAmortization", "Depreciation")
