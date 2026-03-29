@@ -34,7 +34,7 @@ TICKERS = [
     "C","CB","CBOE","CBRE","CINF","CME","CPAY","EG","ERIE","FICO",
     "GS","IBKR","ICE","JPM","KKR","MA","MCO","MSCI","NDAQ","PGR",
     "RJF","SPGI","TRV","V","VRSK","WFC","WRB",
-    "A","BSX","CI","ABT","COO","HCA","IDXX","IQV","ISRG","JNJ",
+    "A","BSX","ABT","COO","HCA","IDXX","IQV","ISRG","JNJ",
     "LLY","MCK","MRK","MTD","REGN","RMD","SYK","TECH","VRTX","WAT","WST","ZTS",
     "WM","MO","ADP","AXON","CAT","CTAS","DE","EME","EMR","ETN",
     "FAST","FIX","GD","GE","GWW","HON","HWM","LMT","NOC","ODFL",
