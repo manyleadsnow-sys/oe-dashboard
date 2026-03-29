@@ -121,7 +121,7 @@ function renderCards(data) {
         </div>
         <div class="discount-box">
             <div class="disc-label">ERP Spread vs 10Y</div>
-            <div class="disc-val" style="color:${erpColor}">${disc.erp_spread ? '+' + disc.erp_spread + '%' : 'N/A'}</div>
+            <div class="disc-val" style="color:${erpColor}">${disc.erp_spread !== undefined && disc.erp_spread !== null ? (disc.erp_spread > 0 ? '+' : '') + disc.erp_spread + '%' : 'N/A'}</div>
         </div>
         <div class="discount-box">
             <div class="disc-label">Premium to Floor</div>
