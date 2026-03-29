@@ -34,7 +34,7 @@ TICKERS = [
     "C","CB","CBOE","CBRE","CINF","CME","CPAY","EG","ERIE","FICO",
     "GS","IBKR","ICE","JPM","KKR","MA","MCO","MSCI","NDAQ","PGR",
     "RJF","SPGI","TRV","V","VRSK","WFC","WRB",
-    "A","BSX","ABT","COO","HCA","IDXX","IQV","ISRG","JNJ",
+    "A","BSX","CI","ABT","COO","HCA","IDXX","IQV","ISRG","JNJ",
     "LLY","MCK","MRK","MTD","REGN","RMD","SYK","TECH","VRTX","WAT","WST","ZTS",
     "WM","MO","ADP","AXON","CAT","CTAS","DE","EME","EMR","ETN",
     "FAST","FIX","GD","GE","GWW","HON","HWM","LMT","NOC","ODFL",
@@ -86,27 +86,19 @@ def fetch_edgar_facts(cik):
                 return r.json()
             elif r.status_code == 429:
                 wait = 30 * (attempt + 1)
-                print(f"    Rate limited, waiting {wait}s...")
                 time.sleep(wait)
             else:
-                print(f"    HTTP {r.status_code} for CIK {cik}")
                 time.sleep(5 * (attempt + 1))
-        except requests.exceptions.Timeout:
-            print(f"    Timeout for CIK {cik}, attempt {attempt+1}/3")
-            time.sleep(10 * (attempt + 1))
-        except Exception as e:
-            print(f"    Error for CIK {cik}: {e}")
+        except:
             time.sleep(5)
     return None
 
 def find_concept_series(facts, *concepts, unit="USD"):
     us_gaap = facts.get("facts", {}).get("us-gaap", {})
     for concept in concepts:
-        if concept not in us_gaap:
-            continue
+        if concept not in us_gaap: continue
         entries = us_gaap[concept].get("units", {}).get(unit, [])
-        if not entries:
-            continue
+        if not entries: continue
         valid = [e for e in entries if "end" in e and "val" in e]
         valid.sort(key=lambda x: (x["end"], x.get("filed", "")), reverse=True)
         return valid
@@ -244,47 +236,35 @@ CRISIS_PERIODS = [
 def detect_macro_crises(price_series):
     crises = []
     if price_series.empty: return crises
-    
     for c in CRISIS_PERIODS:
         mask = (price_series.index >= pd.Timestamp(c["start"])) & (price_series.index <= pd.Timestamp(c["end"]))
         window = price_series[mask]
-        
         if len(window) < 2: continue
-        
         peak_date = window.idxmax()
         peak_price = window.max()
-        
         post_peak_window = window[window.index >= peak_date]
         if post_peak_window.empty: continue
-        
         trough_date = post_peak_window.idxmin()
         trough_price = post_peak_window.min()
-        
         drawdown = (trough_price - peak_price) / peak_price * 100
-        
         if drawdown < -10:
             crises.append({
-                "crisis_name": c["name"],
-                "peak_date": peak_date,
-                "trough_date": trough_date,
-                "peak_price": float(peak_price),
-                "trough_price": float(trough_price),
-                "drawdown_pct": float(drawdown)
+                "crisis_name": c["name"], "peak_date": peak_date, "trough_date": trough_date,
+                "peak_price": float(peak_price), "trough_price": float(trough_price), "drawdown_pct": float(drawdown)
             })
-            
     return crises
 
 def pct_diff(a, b):
     if a is None or b is None or b == 0: return None
     return round((a - b) / abs(b) * 100, 2)
 
-def metrics_at_price(oe_ttm, ev, mc, oe_growth, epv_per_share, shares):
-    oe_yield    = (oe_ttm / mc * 100)               if (mc and mc != 0 and oe_ttm)             else None
-    oe_multiple = (ev / oe_ttm)                      if (oe_ttm and oe_ttm != 0 and ev)         else None
+def metrics_at_price(oe, ev, mc, oe_growth, epv_per_share, shares):
+    oe_yield    = (oe / mc * 100)               if (mc and mc != 0 and oe)             else None
+    oe_multiple = (ev / oe)                      if (oe and oe != 0 and ev)         else None
     oe_peg      = (oe_multiple / (oe_growth * 100))  if (oe_multiple and oe_growth and oe_growth != 0) else None
-    oeps        = (oe_ttm / shares)                  if (shares and shares != 0 and oe_ttm)     else None
+    oeps        = (oe / shares)                  if (shares and shares != 0 and oe)     else None
     return {
-        "oe":          round(oe_ttm / 1e9, 4)      if oe_ttm        is not None else None,
+        "oe":          round(oe / 1e9, 4)      if oe        is not None else None,
         "oeps":        round(oeps, 2)              if oeps          is not None else None,
         "oe_yield":    round(oe_yield, 4)           if oe_yield      is not None else None,
         "oe_multiple": round(oe_multiple, 4)        if oe_multiple   is not None else None,
@@ -297,8 +277,157 @@ def diff_block(curr, peak):
     return {k: pct_diff(curr.get(k), peak.get(k)) for k in ("oe","oeps","oe_yield","oe_multiple","oe_growth","oe_peg","epv")}
 
 # ══════════════════════════════════════════════════════════════════════════════
-# CACHE AND INITIALIZATION
+# CALCULATION ENGINE 
 # ══════════════════════════════════════════════════════════════════════════════
+
+def compute_ticker_result(symbol, financials, yf_info, hist):
+    result = {
+        "ticker": symbol, "company_name": yf_info.get("shortName", symbol), "error": None,
+        "sector": yf_info.get("sector", "default"), "data_source": "SEC EDGAR + Yahoo Finance",
+        "current": {}, "peak_since_oct2022": {}, "bear_markets": [],
+        "discount_metrics": {"z_score_5y": None, "z_score_10y": None, "erp_spread": None, "premium_to_floor": None},
+        "last_updated": datetime.now().isoformat(), "edgar_fetched_at": financials.get("fetched_at", ""),
+        "crisis_floor_multiple": None, "dca_signal": "—"
+    }
+
+    if hist.empty:
+        result["error"] = "No price data"
+        return result
+
+    current_price = float(hist.iloc[-1])
+    hist_post     = hist[hist.index >= pd.Timestamp(PEAK_START_DATE)]
+    peak_price    = float(hist_post.max()) if not hist_post.empty else current_price
+    peak_date     = hist_post.idxmax() if not hist_post.empty else hist.index[-1]
+
+    shares   = yf_info.get("sharesOutstanding") or yf_info.get("impliedSharesOutstanding")
+    net_debt = (yf_info.get("totalDebt") or 0) - (yf_info.get("totalCash") or 0)
+    wacc     = get_wacc(result["sector"])
+
+    oe_ttm        = financials.get("oe_ttm")
+    oe_annual     = financials.get("oe_annual", {})
+    avg_ebit      = financials.get("avg_ebit")
+    tax_rate      = financials.get("tax_rate", 0.21)
+
+    oe_growth_current = compute_oe_growth_10yr(oe_annual)
+    epv_per_share     = compute_epv_per_share(avg_ebit, tax_rate, wacc, shares)
+
+    def ev_mc(price):
+        if not shares: return None, None
+        mc = price * shares
+        return mc + net_debt, mc
+
+    # Helper: Historically Accurate Metrics Finder
+    def get_hist_metrics(dt):
+        if not dt: return oe_ttm, oe_growth_current
+        y = dt.year
+        h_oe = oe_ttm
+        if oe_annual:
+            if y in oe_annual: h_oe = oe_annual[y]
+            elif y-1 in oe_annual: h_oe = oe_annual[y-1]
+            elif y-2 in oe_annual: h_oe = oe_annual[y-2]
+            
+        h_growth = oe_growth_current
+        if oe_annual:
+            end_y = y if y in oe_annual else (y-1 if y-1 in oe_annual else (y-2 if y-2 in oe_annual else None))
+            if end_y is not None:
+                start_y = end_y - 5
+                if start_y not in oe_annual: start_y += 1
+                if start_y not in oe_annual: start_y += 1
+                if start_y in oe_annual and end_y > start_y:
+                    old = oe_annual[start_y]
+                    new = oe_annual[end_y]
+                    if old > 0 and new > 0: h_growth = (new / old) ** (1.0 / (end_y - start_y)) - 1
+        return h_oe, h_growth
+
+    # 1. Current
+    ev_c, mc_c = ev_mc(current_price)
+    if oe_ttm and mc_c:
+        m_c = metrics_at_price(oe_ttm, ev_c, mc_c, oe_growth_current, epv_per_share, shares)
+    else: m_c = {}
+    m_c["price"] = round(current_price, 2)
+    result["current"] = m_c
+
+    # 2. Peak Since Oct 2022
+    ev_p, mc_p = ev_mc(peak_price)
+    oe_p22, gr_p22 = get_hist_metrics(peak_date)
+    if oe_p22 and mc_p:
+        m_p = metrics_at_price(oe_p22, ev_p, mc_p, gr_p22, epv_per_share, shares)
+    else: m_p = {}
+    m_p["price"] = round(peak_price, 2)
+    m_p["date"]  = str(peak_date.date())
+    result["peak_since_oct2022"] = m_p
+
+    if result["current"] and result["peak_since_oct2022"]:
+        result["vs_peak_diff"] = diff_block(result["current"], result["peak_since_oct2022"])
+
+    # 3. Macro Bear Markets
+    for bear in detect_macro_crises(hist):
+        ev_b, mc_b = ev_mc(bear["trough_price"])
+        ev_p, mc_p = ev_mc(bear["peak_price"])
+        
+        oe_b, gr_b = get_hist_metrics(bear["trough_date"])
+        oe_p, gr_p = get_hist_metrics(bear["peak_date"])
+        
+        if oe_b and mc_b: mb = metrics_at_price(oe_b, ev_b, mc_b, gr_b, epv_per_share, shares)
+        else: mb = {}
+            
+        mb["price"]        = round(bear["trough_price"], 2)
+        mb["peak_price"]   = round(bear["peak_price"], 2)
+        mb["crisis_name"]  = bear["crisis_name"]
+        mb["peak_date"]    = str(bear["peak_date"].date()) if hasattr(bear["peak_date"], "date") else str(bear["peak_date"])
+        mb["trough_date"]  = str(bear["trough_date"].date()) if hasattr(bear["trough_date"], "date") else str(bear["trough_date"])
+        mb["drawdown_pct"] = round(bear["drawdown_pct"], 2)
+        
+        if oe_p and mc_p: mp = metrics_at_price(oe_p, ev_p, mc_p, gr_p, epv_per_share, shares)
+        else: mp = {}
+            
+        mb["peak_metrics"] = mp
+        result["bear_markets"].append(mb)
+
+    # 4. Corrected Discount Metrics Engine
+    if result["current"].get("oe_yield"):
+        result["discount_metrics"]["erp_spread"] = round(result["current"]["oe_yield"] - GLOBAL_10Y_YIELD, 2)
+
+    if oe_annual and shares and result["current"].get("oe_multiple"):
+        # Rebuild price history accurately mapping past prices to past earnings
+        historical_oeps_series = pd.Series(index=hist.index, dtype=float)
+        for dt in hist.index:
+            y = dt.year
+            hist_oe = oe_annual.get(y) or oe_annual.get(y-1) or oe_annual.get(y-2) or oe_ttm
+            historical_oeps_series[dt] = hist_oe / shares
+            
+        hist_multiples = hist / historical_oeps_series
+        curr_m = result["current"]["oe_multiple"]
+        
+        # Calculate 5-Year and 10-Year Z-Scores based on the true historical multiples
+        lookback_5y = hist_multiples[hist_multiples.index > (datetime.now() - timedelta(days=5*365))]
+        if not lookback_5y.empty and lookback_5y.std() > 0:
+            result["discount_metrics"]["z_score_5y"] = round((curr_m - lookback_5y.mean()) / lookback_5y.std(), 2)
+            
+        lookback_10y = hist_multiples[hist_multiples.index > (datetime.now() - timedelta(days=10*365))]
+        if not lookback_10y.empty and lookback_10y.std() > 0:
+            result["discount_metrics"]["z_score_10y"] = round((curr_m - lookback_10y.mean()) / lookback_10y.std(), 2)
+
+    historical_trough_multiples = [b.get("oe_multiple") for b in result["bear_markets"] if b.get("oe_multiple") is not None]
+    if historical_trough_multiples and result["current"].get("oe_multiple"):
+        min_floor = min(historical_trough_multiples)
+        result["crisis_floor_multiple"] = round(min_floor, 2)
+        if min_floor > 0:
+            premium = (result["current"]["oe_multiple"] / min_floor - 1) * 100
+            result["discount_metrics"]["premium_to_floor"] = round(premium, 1)
+
+    # 5. Adjusted DCA Signal Logic 
+    z5 = result["discount_metrics"].get("z_score_5y")
+    prem = result["discount_metrics"].get("premium_to_floor")
+    
+    if (z5 is not None and z5 <= -1.5) or (prem is not None and prem <= 10):
+        result["dca_signal"] = "🟢 STRONG DCA"
+    elif (z5 is not None and z5 <= -0.5) or (prem is not None and prem <= 25):
+        result["dca_signal"] = "🟡 ACCUMULATE"
+    else:
+        result["dca_signal"] = "🔴 WAIT" 
+
+    return result
 
 def load_edgar_cache():
     try:
@@ -315,21 +444,17 @@ def refresh_edgar_cache(tickers):
     cache = load_edgar_cache()
     total = len(tickers)
     ok, failed = 0, []
-
     for i, sym in enumerate(tickers):
         cik = get_cik(sym)
         if cik is None:
             failed.append(sym)
             continue
-
         print(f"  [{i+1}/{total}] {sym} (CIK {cik})...", end=" ", flush=True)
         facts = fetch_edgar_facts(cik)
-
         if facts is None:
             print("FAILED")
             failed.append(sym)
             continue
-
         try:
             financials = extract_edgar_financials(facts)
             cache[sym] = financials
@@ -338,155 +463,10 @@ def refresh_edgar_cache(tickers):
         except Exception as e:
             print(f"ERROR: {e}")
             failed.append(sym)
-
         time.sleep(0.15) 
-
     save_edgar_cache(cache)
     print(f"\nEDGAR refresh complete: {ok} ok, {len(failed)} failed")
     return cache
-
-# ══════════════════════════════════════════════════════════════════════════════
-# PRICE + METRICS CALCULATION
-# ══════════════════════════════════════════════════════════════════════════════
-
-def compute_ticker_result(symbol, financials, yf_info, hist):
-    result = {
-        "ticker":             symbol,
-        "company_name":       yf_info.get("shortName", symbol),
-        "error":              None,
-        "sector":             yf_info.get("sector", "default"),
-        "data_source":        "SEC EDGAR + Yahoo Finance",
-        "current":            {},
-        "peak_since_oct2022": {},
-        "bear_markets":       [],
-        "discount_metrics":   {"z_score_5y": None, "z_score_10y": None, "erp_spread": None, "premium_to_floor": None},
-        "last_updated":       datetime.now().isoformat(),
-        "edgar_fetched_at":   financials.get("fetched_at", ""),
-        "crisis_floor_multiple": None,
-        "dca_signal": "—"
-    }
-
-    if hist.empty:
-        result["error"] = "No price data"
-        return result
-
-    current_price = float(hist.iloc[-1])
-    hist_post     = hist[hist.index >= pd.Timestamp(PEAK_START_DATE)]
-
-    if hist_post.empty:
-        result["error"] = "No price data since Oct 2022"
-        return result
-
-    peak_price = float(hist_post.max())
-    peak_date  = hist_post.idxmax()
-
-    shares   = yf_info.get("sharesOutstanding") or yf_info.get("impliedSharesOutstanding")
-    net_debt = (yf_info.get("totalDebt") or 0) - (yf_info.get("totalCash") or 0)
-    sector   = yf_info.get("sector", "default")
-    wacc     = get_wacc(sector)
-
-    oe_ttm        = financials.get("oe_ttm")
-    oe_annual     = financials.get("oe_annual", {})
-    avg_ebit      = financials.get("avg_ebit")
-    tax_rate      = financials.get("tax_rate", 0.21)
-
-    oe_growth     = compute_oe_growth_10yr(oe_annual)
-    epv_per_share = compute_epv_per_share(avg_ebit, tax_rate, wacc, shares)
-
-    def ev_mc(price):
-        if not shares: return None, None
-        mc = price * shares
-        return mc + net_debt, mc
-
-    ev_c, mc_c = ev_mc(current_price)
-    
-    if oe_ttm and mc_c:
-        m_c = metrics_at_price(oe_ttm, ev_c, mc_c, oe_growth, epv_per_share, shares)
-    else:
-        m_c = {}
-    m_c["price"] = round(current_price, 2)
-    result["current"] = m_c
-
-    ev_p, mc_p = ev_mc(peak_price)
-    if oe_ttm and mc_p:
-        m_p = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share, shares)
-    else:
-        m_p = {}
-    m_p["price"] = round(peak_price, 2)
-    m_p["date"]  = str(peak_date.date())
-    result["peak_since_oct2022"] = m_p
-
-    if result["current"] and result["peak_since_oct2022"]:
-        result["vs_peak_diff"] = diff_block(result["current"], result["peak_since_oct2022"])
-
-    for bear in detect_macro_crises(hist):
-        bp = bear["trough_price"]
-        pp = bear["peak_price"]
-        ev_b, mc_b = ev_mc(bp)
-        ev_p, mc_p = ev_mc(pp)
-        
-        if oe_ttm and mc_b:
-            mb = metrics_at_price(oe_ttm, ev_b, mc_b, oe_growth, epv_per_share, shares)
-        else:
-            mb = {}
-            
-        mb["price"]        = round(bp, 2)
-        mb["peak_price"]   = round(pp, 2)
-        mb["crisis_name"]  = bear["crisis_name"]
-        mb["peak_date"]    = str(bear["peak_date"].date()) if hasattr(bear["peak_date"], "date") else str(bear["peak_date"])
-        mb["trough_date"]  = str(bear["trough_date"].date()) if hasattr(bear["trough_date"], "date") else str(bear["trough_date"])
-        mb["drawdown_pct"] = round(bear["drawdown_pct"], 2)
-        
-        if oe_ttm and mc_p:
-            mp = metrics_at_price(oe_ttm, ev_p, mc_p, oe_growth, epv_per_share, shares)
-        else:
-            mp = {}
-            
-        mb["peak_metrics"] = mp
-        result["bear_markets"].append(mb)
-
-    # ══════════════════════════════════════════════════════════════════════════════
-    # DISCOUNT METRICS ENGINE
-    # ══════════════════════════════════════════════════════════════════════════════
-    if result["current"].get("oe_yield"):
-        result["discount_metrics"]["erp_spread"] = round(result["current"]["oe_yield"] - GLOBAL_10Y_YIELD, 2)
-
-    if oe_ttm and shares and result["current"].get("oe_multiple"):
-        oeps = oe_ttm / shares
-        hist_multiples = hist / oeps
-        curr_m = result["current"]["oe_multiple"]
-        
-        # 5-Year Z-Score
-        lookback_5y = hist_multiples[hist_multiples.index > (datetime.now() - timedelta(days=5*365))]
-        if not lookback_5y.empty and lookback_5y.std() > 0:
-            result["discount_metrics"]["z_score_5y"] = round((curr_m - lookback_5y.mean()) / lookback_5y.std(), 2)
-            
-        # 10-Year Z-Score
-        lookback_10y = hist_multiples[hist_multiples.index > (datetime.now() - timedelta(days=10*365))]
-        if not lookback_10y.empty and lookback_10y.std() > 0:
-            result["discount_metrics"]["z_score_10y"] = round((curr_m - lookback_10y.mean()) / lookback_10y.std(), 2)
-
-    historical_trough_multiples = [b.get("oe_multiple") for b in result["bear_markets"] if b.get("oe_multiple") is not None]
-    if historical_trough_multiples and result["current"].get("oe_multiple"):
-        min_floor = min(historical_trough_multiples)
-        result["crisis_floor_multiple"] = round(min_floor, 2)
-        
-        if min_floor > 0:
-            premium = (result["current"]["oe_multiple"] / min_floor - 1) * 100
-            result["discount_metrics"]["premium_to_floor"] = round(premium, 1)
-
-    # DCA SIGNAL LOGIC 
-    z5 = result["discount_metrics"].get("z_score_5y")
-    prem = result["discount_metrics"].get("premium_to_floor")
-    
-    if (z5 is not None and z5 <= -1.5) or (prem is not None and prem <= 10):
-        result["dca_signal"] = "🟢 STRONG DCA"
-    elif (z5 is not None and z5 <= -0.5) or (prem is not None and prem <= 25):
-        result["dca_signal"] = "🟡 ACCUMULATE"
-    else:
-        result["dca_signal"] = "🔴 WAIT" 
-
-    return result
 
 def run_prices_only(tickers, edgar_cache):
     global GLOBAL_10Y_YIELD
