@@ -661,7 +661,11 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
 
     # ── DCA SIGNAL ────────────────────────────────────────────────────────────
     z5   = result["discount_metrics"].get("z_score_5y")
-    if (z5 is not None and z5 <= -1.5):
+
+    # FIX: Circuit breaker for cash-burning companies
+    if result.get("oe_negative_warning", False):
+        result["dca_signal"] = "⚠️ NEGATIVE OE"
+    elif (z5 is not None and z5 <= -1.5):
         result["dca_signal"] = "🟢 STRONG DCA"
     elif (z5 is not None and z5 <= -0.5):
         result["dca_signal"] = "🟡 ACCUMULATE"
