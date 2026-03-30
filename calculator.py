@@ -4,8 +4,8 @@ Owner Earnings Dashboard - Core Calculation Engine
 Metric definitions (what each block must show):
 ────────────────────────────────────────────────
 BLOCK 1 — Statistical discount (A-C):
-  A) 5Y OE multiple Z-score
-  B) 10Y OE multiple Z-score
+  A) 5Y OE earnings Z-score  (TTM OE vs distribution of annual OE levels, last 5Y)
+  B) 10Y OE earnings Z-score (TTM OE vs distribution of annual OE levels, last 10Y)
   C) ERP spread: current OE yield − 10Y Treasury yield
 
 BLOCK 2 — 52-week peak vs today (E-I):
@@ -156,12 +156,13 @@ def dedup_by_end(entries, form_types=("10-Q", "10-K")):
     return sorted(seen.values(), key=lambda x: x["end"], reverse=True)
 
 
-def get_ttm(facts, *concepts):
+def get_ttm(facts, *concepts, unit="USD"):
     """
     TTM = latest_10K + latest_Q_YTD − prior_year_Q_YTD
     Falls back to the most recent 10-K annual value when no newer 10-Qs exist.
+    Pass unit="shares" when fetching share-count concepts.
     """
-    entries = find_concept_series(facts, *concepts)
+    entries = find_concept_series(facts, *concepts, unit=unit)
     if not entries:
         return None
 
@@ -202,12 +203,12 @@ def get_ttm(facts, *concepts):
     return latest_k["val"] + latest_q_ytd["val"] - prior_ytd_val
 
 
-def annual_values(facts, *concepts, n=15):
+def annual_values(facts, *concepts, n=15, unit="USD"):
     """
     Return [(fiscal_year_end_date_str, value), ...] for the last n annual
     10-K filings, validated to be ~365 days long.
     """
-    entries = find_concept_series(facts, *concepts)
+    entries = find_concept_series(facts, *concepts, unit=unit)
     annual_entries = []
     for e in entries:
         if e.get("form") == "10-K" and "start" in e and "end" in e:
@@ -284,12 +285,27 @@ def extract_edgar_financials(facts):
                              "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest")
     avg_ebit = float(np.mean([v for _, v in ebit_a[:5]])) if ebit_a else None
 
+    # Shares outstanding from EDGAR — keyed by fiscal year-end date so OEPS
+    # uses the share count that matches the OE period, not a live market float.
+    # Units are "shares" (integer count), not USD — use the "shares" unit key.
+    shares_a   = annual_values(facts,
+                               "CommonStockSharesOutstanding",
+                               "WeightedAverageNumberOfSharesOutstandingBasic",
+                               unit="shares")
+    shares_ttm = get_ttm(facts,
+                         "WeightedAverageNumberOfSharesOutstandingBasic",
+                         "CommonStockSharesOutstanding",
+                         unit="shares")
+    shares_by_fiscal_end = {e[0]: e[1] for e in shares_a}
+
     return {
-        "oe_ttm":           oe_ttm,
-        "oe_by_fiscal_end": oe_by_fiscal_end,
-        "avg_ebit":         avg_ebit,
-        "tax_rate":         0.21,
-        "fetched_at":       datetime.now().isoformat(),
+        "oe_ttm":              oe_ttm,
+        "oe_by_fiscal_end":    oe_by_fiscal_end,
+        "shares_ttm":          shares_ttm,
+        "shares_by_fiscal_end": shares_by_fiscal_end,
+        "avg_ebit":            avg_ebit,
+        "tax_rate":            0.21,
+        "fetched_at":          datetime.now().isoformat(),
     }
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -362,15 +378,19 @@ def metrics_at_price(oe, ev, mc, oe_growth_decimal, epv_per_share, shares):
     oe_growth_decimal : CAGR as a decimal (e.g. 0.12 for 12 %).
     Stored in output as percentage (× 100).
 
+    OE Multiple and OE Yield both use market-cap (mc) as the price basis so
+    that 1 / oe_multiple == oe_yield / 100 (i.e. they are inverses of each
+    other).  Using EV for the multiple but mc for the yield broke that identity
+    and produced inconsistent signals for net-cash companies like Apple.
+
     OE-PEG = oe_multiple / (cagr_as_percent)
            = oe_multiple / (oe_growth_decimal × 100)
-    There is no further × 100 anywhere — the fix eliminates the old double-multiply.
     """
     if not oe or oe == 0:
         return {}
 
     oe_yield    = (oe / mc * 100)  if mc else None
-    oe_multiple = (ev / oe)        if ev else None
+    oe_multiple = (mc / oe)        if mc else None
 
     oe_peg = None
     if oe_multiple is not None and oe_growth_decimal:
@@ -431,38 +451,61 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         result["error"] = "No price data"
         return result
 
-    oe_by_fiscal_end = financials.get("oe_by_fiscal_end", {})
-    oe_ttm           = financials.get("oe_ttm")
-    avg_ebit         = financials.get("avg_ebit")
-    tax_rate         = financials.get("tax_rate", 0.21)
+    oe_by_fiscal_end     = financials.get("oe_by_fiscal_end", {})
+    oe_ttm               = financials.get("oe_ttm")
+    shares_ttm           = financials.get("shares_ttm")
+    shares_by_fiscal_end = financials.get("shares_by_fiscal_end", {})
+    avg_ebit             = financials.get("avg_ebit")
+    tax_rate             = financials.get("tax_rate", 0.21)
 
-    shares   = yf_info.get("sharesOutstanding") or yf_info.get("impliedSharesOutstanding")
+    # Prefer EDGAR shares (period-matched); fall back to yfinance live float.
+    # yfinance fast_info/sharesOutstanding reflects the current market float and
+    # drifts from any specific fiscal period for active buyback programmes.
+    yf_shares = yf_info.get("sharesOutstanding") or yf_info.get("impliedSharesOutstanding")
+    shares    = shares_ttm or yf_shares
     net_debt = (yf_info.get("totalDebt") or 0) - (yf_info.get("totalCash") or 0)
     wacc     = get_wacc(result["sector"])
     epv      = compute_epv_per_share(avg_ebit, tax_rate, wacc, shares)
 
-    def ev_mc(price):
-        if not shares:
+    def ev_mc(price, sh=None):
+        """Return (enterprise_value, market_cap) at the given price and share count.
+        Uses period-matched sh when supplied; falls back to the TTM/yf share count."""
+        s = sh if sh is not None else shares
+        if not s:
             return None, None
-        mc = price * shares
+        mc = price * s
         return mc + net_debt, mc
 
+    def _shares_at(ts: pd.Timestamp) -> float:
+        """
+        Most recent EDGAR fiscal-year-end share count whose date is ≤ ts.
+        Falls back to shares (TTM/yf) when EDGAR has no share history.
+        """
+        if not shares_by_fiscal_end:
+            return shares
+        ts_str     = ts.strftime("%Y-%m-%d")
+        candidates = [(d, v) for d, v in shares_by_fiscal_end.items() if d <= ts_str]
+        if not candidates:
+            return shares
+        return max(candidates, key=lambda x: x[0])[1]
+
     def oe_and_growth_at(ts: pd.Timestamp):
-        """OE value + CAGR using the latest fiscal year-end strictly ≤ ts."""
+        """OE value + CAGR + period-matched shares at date ts."""
         fend, oe_val = _latest_oe_before(oe_by_fiscal_end, ts)
         if fend is None:
-            return oe_ttm, None
-        cagr = _cagr_ending_at(oe_by_fiscal_end, fend)
-        return oe_val, cagr
+            return oe_ttm, None, shares
+        cagr    = _cagr_ending_at(oe_by_fiscal_end, fend)
+        sh      = _shares_at(ts)
+        return oe_val, cagr, sh
 
     # ── CURRENT ───────────────────────────────────────────────────────────────
     current_price = float(hist.iloc[-1])
     today_ts      = hist.index[-1]
 
-    _, curr_cagr = oe_and_growth_at(today_ts)
-    ev_c, mc_c   = ev_mc(current_price)
+    _, curr_cagr, curr_shares = oe_and_growth_at(today_ts)
+    ev_c, mc_c   = ev_mc(current_price, curr_shares)
     if oe_ttm and mc_c:
-        m_c = metrics_at_price(oe_ttm, ev_c, mc_c, curr_cagr, epv, shares)
+        m_c = metrics_at_price(oe_ttm, ev_c, mc_c, curr_cagr, epv, curr_shares)
     else:
         m_c = {}
     m_c["price"]     = round(current_price, 2)
@@ -472,10 +515,10 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
     # Peak = highest close in the 52 weeks before today
     peak52_date, peak52_price = _52w_peak(hist, today_ts)
     if peak52_date is not None:
-        oe_pk, cagr_pk = oe_and_growth_at(peak52_date)
-        ev_p,  mc_p    = ev_mc(peak52_price)
+        oe_pk, cagr_pk, sh_pk = oe_and_growth_at(peak52_date)
+        ev_p,  mc_p    = ev_mc(peak52_price, sh_pk)
         if oe_pk and mc_p:
-            m_p = metrics_at_price(oe_pk, ev_p, mc_p, cagr_pk, epv, shares)
+            m_p = metrics_at_price(oe_pk, ev_p, mc_p, cagr_pk, epv, sh_pk)
         else:
             m_p = {}
         m_p["price"] = round(peak52_price, 2)
@@ -515,14 +558,14 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
             continue
 
         # OE and CAGR anchored to each date independently
-        oe_pk,  cagr_pk  = oe_and_growth_at(pre_peak_date)
-        oe_tr,  cagr_tr  = oe_and_growth_at(trough_date)
+        oe_pk,  cagr_pk, sh_pk = oe_and_growth_at(pre_peak_date)
+        oe_tr,  cagr_tr, sh_tr = oe_and_growth_at(trough_date)
 
-        ev_pk,  mc_pk  = ev_mc(pre_peak_price)
-        ev_tr,  mc_tr  = ev_mc(trough_price)
+        ev_pk,  mc_pk  = ev_mc(pre_peak_price, sh_pk)
+        ev_tr,  mc_tr  = ev_mc(trough_price,   sh_tr)
 
-        mp = metrics_at_price(oe_pk, ev_pk, mc_pk, cagr_pk, epv, shares) if (oe_pk and mc_pk) else {}
-        mb = metrics_at_price(oe_tr, ev_tr, mc_tr, cagr_tr, epv, shares) if (oe_tr and mc_tr) else {}
+        mp = metrics_at_price(oe_pk, ev_pk, mc_pk, cagr_pk, epv, sh_pk) if (oe_pk and mc_pk) else {}
+        mb = metrics_at_price(oe_tr, ev_tr, mc_tr, cagr_tr, epv, sh_tr) if (oe_tr and mc_tr) else {}
 
         mb["price"]        = round(trough_price,   2)
         mb["peak_price"]   = round(pre_peak_price, 2)
@@ -535,35 +578,31 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         result["bear_markets"].append(mb)
 
     # ── Z-SCORES (Block 1-A/B) ────────────────────────────────────────────────
-    # Build a daily historical OE-multiple series, each day's OE anchored to
-    # the latest fiscal year-end ≤ that day.
-    if oe_by_fiscal_end and shares and result["current"].get("oe_multiple"):
-        mult_vals, mult_idx = [], []
-        for dt in hist.index:
-            fend, oe_h = _latest_oe_before(oe_by_fiscal_end, dt)
-            if not fend or not oe_h or oe_h == 0:
-                continue
-            mc_h  = float(hist[dt]) * shares
-            ev_h  = mc_h + net_debt
-            mult  = ev_h / oe_h
-            if np.isfinite(mult) and mult > 0:
-                mult_vals.append(mult)
-                mult_idx.append(dt)
+    # Z-score the current TTM OE dollar level against the distribution of
+    # annual OE figures from the historical oe_by_fiscal_end series.
+    # This answers: "is the business generating unusually high or low earnings
+    # relative to its own history?" — not a valuation multiple question.
+    if oe_by_fiscal_end and oe_ttm is not None:
+        now = datetime.now()
+        cutoff_5y  = (now - timedelta(days=5  * 365)).strftime("%Y-%m-%d")
+        cutoff_10y = (now - timedelta(days=10 * 365)).strftime("%Y-%m-%d")
 
-        if mult_vals:
-            hist_mult = pd.Series(mult_vals, index=mult_idx)
-            curr_m    = result["current"]["oe_multiple"]
-            now       = datetime.now()
+        vals_5y  = [v for d, v in oe_by_fiscal_end.items() if d >= cutoff_5y]
+        vals_10y = [v for d, v in oe_by_fiscal_end.items() if d >= cutoff_10y]
 
-            lb5  = hist_mult[hist_mult.index > (now - timedelta(days=5  * 365))]
-            lb10 = hist_mult[hist_mult.index > (now - timedelta(days=10 * 365))]
-
-            if len(lb5) >= 20 and lb5.std() > 0:
+        if len(vals_5y) >= 2:
+            arr5 = np.array(vals_5y, dtype=float)
+            std5 = arr5.std()
+            if std5 > 0:
                 result["discount_metrics"]["z_score_5y"] = round(
-                    (curr_m - lb5.mean()) / lb5.std(), 2)
-            if len(lb10) >= 20 and lb10.std() > 0:
+                    (oe_ttm - arr5.mean()) / std5, 2)
+
+        if len(vals_10y) >= 2:
+            arr10 = np.array(vals_10y, dtype=float)
+            std10 = arr10.std()
+            if std10 > 0:
                 result["discount_metrics"]["z_score_10y"] = round(
-                    (curr_m - lb10.mean()) / lb10.std(), 2)
+                    (oe_ttm - arr10.mean()) / std10, 2)
 
     # ── ERP SPREAD (Block 1-C) ────────────────────────────────────────────────
     if result["current"].get("oe_yield") is not None:
@@ -638,8 +677,8 @@ def run_prices_only(tickers, edgar_cache):
         fetched = tnx.history(period="5d")["Close"].dropna()
         if fetched.empty:
             raise ValueError("Empty TNX series")
-        # FIX: Scaling down TNX yield by 10
-        GLOBAL_10Y_YIELD      = float(fetched.iloc[-1]) / 10.0
+        # ^TNX is quoted in percent already (e.g. 44.4 = 4.44%) — no division needed.
+        GLOBAL_10Y_YIELD      = float(fetched.iloc[-1])
         GLOBAL_10Y_YIELD_LIVE = True
         print(f"10Y Treasury Yield: {GLOBAL_10Y_YIELD:.2f}% (live)")
     except Exception as e:
