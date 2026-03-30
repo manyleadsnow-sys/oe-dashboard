@@ -7,114 +7,180 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #09090e; --bg2: #15151f; --bg3: #1e1e2e;
-    --text: #cdd6f4; --muted: #a6adc8; --accent: #89b4fa;
-    --red: #f38ba8; --green: #a6e3a1; --yellow: #f9e2af;
+    --bg:     #09090e;
+    --bg2:    #15151f;
+    --bg3:    #1e1e2e;
+    --text:   #cdd6f4;
+    --muted:  #a6adc8;
+    --accent: #89b4fa;
+    --red:    #f38ba8;
+    --green:  #a6e3a1;
+    --yellow: #f9e2af;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; padding: 40px; }
 
+  /* ── header ── */
   header { margin-bottom: 20px; border-bottom: 1px solid var(--bg3); padding-bottom: 20px; }
   h1 { color: var(--accent); font-family: 'DM Mono', monospace; }
 
-  /* DCA Playbook */
-  .dca-playbook { background: rgba(137,180,250,0.05); border: 1px solid var(--accent); border-radius: 8px; padding: 20px; margin-bottom: 40px; }
-  .dca-playbook h3 { color: var(--accent); font-family: 'DM Mono', monospace; font-size: 16px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-  .dca-playbook ul { list-style-type: none; padding: 0; margin: 0; }
-  .dca-playbook li { margin-bottom: 12px; font-size: 14px; line-height: 1.5; color: var(--text); }
+  /* ── playbook ── */
+  .dca-playbook { background: rgba(137,180,250,.05); border: 1px solid var(--accent);
+                  border-radius: 8px; padding: 20px; margin-bottom: 40px; }
+  .dca-playbook h3 { color: var(--accent); font-family: 'DM Mono', monospace; font-size: 16px;
+                     margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+  .dca-playbook ul { list-style: none; }
+  .dca-playbook li { margin-bottom: 10px; font-size: 14px; line-height: 1.6; }
   .dca-playbook strong { color: var(--yellow); }
 
-  /* Controls */
-  .controls { margin-bottom: 30px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
-  input, select { background: var(--bg2); color: var(--text); border: 1px solid var(--bg3); padding: 10px; border-radius: 6px; font-family: 'DM Mono', monospace; }
+  /* ── controls ── */
+  .controls { margin-bottom: 24px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  input, select { background: var(--bg2); color: var(--text); border: 1px solid var(--bg3);
+                  padding: 10px 12px; border-radius: 6px; font-family: 'DM Mono', monospace; }
 
-  /* Bug 5 fix: stale-yield warning banner */
-  .yield-warning { background: rgba(243,139,168,0.12); border: 1px solid var(--red); border-radius: 6px;
-                   padding: 8px 14px; font-size: 13px; color: var(--red); font-family: 'DM Mono', monospace; display: none; }
+  /* ── global stale-yield banner ── */
+  .yield-warning { display: none; background: rgba(243,139,168,.12);
+                   border: 1px solid var(--red); border-radius: 6px;
+                   padding: 8px 14px; margin-bottom: 20px;
+                   font-size: 13px; color: var(--red); font-family: 'DM Mono', monospace; }
 
-  /* Card */
-  .dossier-card { background: var(--bg2); border: 1px solid var(--bg3); border-radius: 12px; padding: 30px; margin-bottom: 40px; }
+  /* ── card ── */
+  .dossier-card { background: var(--bg2); border: 1px solid var(--bg3);
+                  border-radius: 12px; padding: 30px; margin-bottom: 40px; }
   .ticker-header { display: flex; align-items: baseline; gap: 15px; margin-bottom: 10px; }
-  .ticker-sym { font-size: 24px; font-weight: bold; color: var(--accent); font-family: 'DM Mono', monospace; }
-  .company-name { font-size: 20px; color: var(--text); }
+  .ticker-sym    { font-size: 24px; font-weight: 700; color: var(--accent);
+                   font-family: 'DM Mono', monospace; }
+  .company-name  { font-size: 20px; }
+  .dca-badge     { float: right; padding: 8px 16px; background: var(--bg);
+                   border: 1px solid var(--accent); border-radius: 20px;
+                   font-weight: 700; font-family: 'DM Mono', monospace; }
 
-  .price-banner { background: var(--bg3); padding: 15px; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 16px; margin-bottom: 25px; display: inline-block; }
+  .price-banner  { background: var(--bg3); padding: 14px 18px; border-radius: 8px;
+                   font-family: 'DM Mono', monospace; font-size: 15px;
+                   margin-bottom: 24px; display: inline-block; }
   .peak-price    { color: var(--yellow); }
-  .current-price { color: var(--green); }
+  .curr-price    { color: var(--green); }
 
-  .section-title { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 30px 0 15px 0; border-bottom: 1px solid var(--bg3); padding-bottom: 5px; }
+  /* ── section title ── */
+  .section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px;
+                   color: var(--muted); margin: 28px 0 12px 0;
+                   border-bottom: 1px solid var(--bg3); padding-bottom: 5px; }
 
-  /* Discount grid */
-  .discount-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
-  .discount-box  { background: var(--bg); padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #2a2a3e; }
-  .disc-label    { font-size: 11px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
-  .disc-val      { font-size: 18px; font-weight: bold; font-family: 'DM Mono', monospace; }
+  /* ── discount grid (Block 1) ── */
+  .discount-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+  .discount-box  { background: var(--bg); padding: 15px; border-radius: 8px;
+                   text-align: center; border: 1px solid #2a2a3e; }
+  .disc-label    { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                   margin-bottom: 8px; letter-spacing: .5px; }
+  .disc-val      { font-size: 18px; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .disc-sub      { font-size: 11px; color: var(--muted); margin-top: 5px;
+                   font-family: 'DM Mono', monospace; }
 
-  /* Comparison rows
-     col layout: label | peak/trough-at-peak | vs | current/trough-at-trough
-     Bug 6 fix: column header added so users know which side is which */
-  .comparison-header { display: grid; grid-template-columns: 200px 150px 40px 150px;
-                        font-size: 11px; color: var(--muted); text-transform: uppercase;
-                        letter-spacing: 0.5px; padding: 4px 0 6px 0; }
-  .comparison-row { display: grid; grid-template-columns: 200px 150px 40px 150px; align-items: center;
-                    padding: 8px 0; border-bottom: 1px dashed #2a2a3e; font-family: 'DM Mono', monospace; font-size: 14px; }
-  .comp-label { color: var(--muted); }
-  .comp-val1  { color: var(--yellow); font-weight: bold; }
-  .comp-vs    { color: #585b70; text-align: center; font-size: 12px; }
-  .comp-val2  { color: var(--text); font-weight: bold; }
-
-  .dca-badge { float: right; padding: 8px 16px; background: var(--bg); border: 1px solid var(--accent); border-radius: 20px; font-weight: bold; font-family: 'DM Mono', monospace; }
-
-  /* Bug 5 fix: per-card stale yield flag */
-  .stale-erp { font-size: 11px; color: var(--red); font-family: 'DM Mono', monospace; margin-top: 4px; }
+  /* ── comparison table (Blocks 2 & 3) ──
+     col layout: row-label | LEFT value | vs | RIGHT value
+     LEFT  = peak (52w or pre-crisis)
+     RIGHT = current price OR trough price                  */
+  .cmp-header { display: grid; grid-template-columns: 200px 160px 36px 160px;
+                font-size: 11px; color: var(--muted); text-transform: uppercase;
+                letter-spacing: .6px; padding: 2px 0 8px 0; }
+  .cmp-row    { display: grid; grid-template-columns: 200px 160px 36px 160px;
+                align-items: center; padding: 7px 0;
+                border-bottom: 1px dashed #2a2a3e;
+                font-family: 'DM Mono', monospace; font-size: 14px; }
+  .cmp-label  { color: var(--muted); }
+  .cmp-left   { color: var(--yellow); font-weight: 700; }
+  .cmp-vs     { color: #585b70; text-align: center; font-size: 12px; }
+  .cmp-right  { color: var(--text); font-weight: 700; }
 </style>
 </head>
 <body>
 
 <header>
   <h1>Owner Earnings Dossier</h1>
-  <p style="color:var(--muted); margin-top:10px;">Deep-dive Macro Crisis Valuation Engine</p>
+  <p style="color:var(--muted);margin-top:8px;">Deep-dive Macro Crisis Valuation Engine</p>
 </header>
 
 <div class="dca-playbook">
-  <h3>How to Use This for DCA</h3>
+  <h3>How to Read This Dashboard</h3>
   <ul>
-    <li><strong>Z-Score (5Y & 10Y):</strong> If negative (e.g., -1.8), you are buying the compounder at a valuation significantly below its own historical average. This is the "Statistical Discount."</li>
-    <li><strong>ERP Spread:</strong> If high (e.g., +2.5%), the stock's OE yield is significantly more attractive than the 10-Year Treasury "Risk-Free" rate.</li>
-    <li><strong>Premium to Floor:</strong> If low (e.g., 8.0%), you are buying within 8% of the lowest valuation the company reached during past crises — a margin-of-safety anchor.</li>
-    <li><strong>Trailing OE CAGR:</strong> In each crisis block, the left column shows the trailing growth rate <em>as of the peak date</em> and the right column shows it <em>as of the trough date</em>. Different values confirm OE data is anchored correctly to each moment in time.</li>
+    <li><strong>Block 1 — Statistical Discount:</strong>
+      Z-scores measure how cheap/expensive the current OE multiple is vs its own 5/10-year history.
+      ERP Spread = OE yield minus 10Y Treasury yield.
+      Premium to Floor = how far the current multiple is above the lowest trough multiple seen in past crises.</li>
+    <li><strong>Block 2 — 52-Week Peak vs Today:</strong>
+      Left column = metrics at the highest price in the past 52 weeks (OE anchored to the most recent
+      fiscal year-end before that peak date). Right = today.</li>
+    <li><strong>Block 3 — Crisis Blocks:</strong>
+      Left column = metrics at the pre-crisis 52-week peak (the peak in the year before the crisis began).
+      Right column = metrics at the trough (lowest price inside the crisis window).
+      OE and CAGR are each independently anchored to the latest available fiscal year-end before each date —
+      so the two columns will show different OE when a new annual filing landed between the peak and trough.</li>
+    <li><strong>Trailing OE CAGR:</strong> the compound annual growth rate of Owner Earnings anchored to
+      the most recent fiscal year-end available at each respective date. Not a delta between the two columns.</li>
   </ul>
 </div>
 
-<!-- Bug 5 fix: global stale-yield banner, shown when any card uses fallback -->
 <div class="yield-warning" id="yield-warning">
-  ⚠ ERP Spread is using a fallback 10Y yield — live fetch from ^TNX failed. Restart the calculator to refresh.
+  ⚠ ERP Spread is using a fallback 10Y yield — live fetch from ^TNX failed.
+  Rerun calculator.py to refresh.
 </div>
 
 <div class="controls">
-  <input type="text" id="search" placeholder="Search Ticker (e.g. AAPL)">
+  <input  type="text" id="search"        placeholder="Search ticker (e.g. AAPL)" style="width:220px">
   <select id="sector-filter"><option value="">All Sectors</option></select>
 </div>
 
-<div id="dossier-container">Loading data...</div>
+<div id="dossier-container">Loading data…</div>
 
 <script>
-let RAW  = {};
-let ROWS = [];
-
-// ── formatters ───────────────────────────────────────────────────────────────
+// ── formatters ────────────────────────────────────────────────────────────────
+const NA = 'N/A';
 const fmt = {
-  price:  v => v != null ? `$${Number(v).toFixed(2)}`        : 'N/A',
-  oeps:   v => v != null ? `$${Number(v).toFixed(2)}`        : 'N/A',
-  mult:   v => v != null ? `${Number(v).toFixed(2)}x`        : 'N/A',
-  yield:  v => v != null ? `${Number(v).toFixed(2)}%`        : 'N/A',
-  // Bug 6 fix: label is "Trailing OE CAGR" in the HTML; value already ×100 from Python
-  growth: v => v != null ? `${Number(v).toFixed(2)}%`        : 'N/A',
-  peg:    v => v != null ? `${Number(v).toFixed(2)}x`        : 'N/A',
-  erp:    v => v != null ? `${v > 0 ? '+' : ''}${Number(v).toFixed(2)}%` : 'N/A',
+  price:  v => v != null ? `$${Number(v).toFixed(2)}`               : NA,
+  oeps:   v => v != null ? `$${Number(v).toFixed(2)}`               : NA,
+  mult:   v => v != null ? `${Number(v).toFixed(2)}x`               : NA,
+  yld:    v => v != null ? `${Number(v).toFixed(2)}%`               : NA,
+  growth: v => v != null ? `${Number(v).toFixed(2)}%`               : NA,
+  peg:    v => v != null ? `${Number(v).toFixed(2)}x`               : NA,
+  erp:    v => v != null ? `${v >= 0 ? '+' : ''}${Number(v).toFixed(2)}%` : NA,
+  zscore: v => v != null ? String(Number(v).toFixed(2))             : NA,
+  prem:   v => v != null ? `${Number(v).toFixed(1)}%`               : NA,
 };
 
-// ── render ───────────────────────────────────────────────────────────────────
+// ── colour helpers ────────────────────────────────────────────────────────────
+const col = {
+  z:     v => v == null ? 'var(--muted)' : v <= -1.5 ? 'var(--green)' : v >= 1 ? 'var(--red)' : 'var(--text)',
+  erp:   v => v == null ? 'var(--muted)' : v > 1     ? 'var(--green)'              : 'var(--text)',
+  floor: v => v == null ? 'var(--muted)' : v < 15    ? 'var(--green)'              : 'var(--text)',
+};
+
+// ── comparison table builder ──────────────────────────────────────────────────
+function cmpTable(leftLabel, rightLabel, left, right) {
+  const rows = [
+    ['OE per share',     fmt.oeps(left.oeps),        fmt.oeps(right.oeps)],
+    ['OE Multiple',      fmt.mult(left.oe_multiple),  fmt.mult(right.oe_multiple)],
+    ['OE Yield',         fmt.yld(left.oe_yield),      fmt.yld(right.oe_yield)],
+    ['Trailing OE CAGR', fmt.growth(left.oe_growth),  fmt.growth(right.oe_growth)],
+    ['OE-PEG Ratio',     fmt.peg(left.oe_peg),        fmt.peg(right.oe_peg)],
+  ];
+  const header = `
+    <div class="cmp-header">
+      <span></span>
+      <span>${leftLabel}</span>
+      <span></span>
+      <span>${rightLabel}</span>
+    </div>`;
+  const body = rows.map(([label, l, r]) => `
+    <div class="cmp-row">
+      <span class="cmp-label">${label}</span>
+      <span class="cmp-left">${l}</span>
+      <span class="cmp-vs">vs</span>
+      <span class="cmp-right">${r}</span>
+    </div>`).join('');
+  return header + body;
+}
+
+// ── main render ───────────────────────────────────────────────────────────────
 function renderCards(data) {
   const container = document.getElementById('dossier-container');
   if (!data.length) { container.innerHTML = 'No tickers found.'; return; }
@@ -122,177 +188,107 @@ function renderCards(data) {
   let anyStale = false;
 
   container.innerHTML = data.map(r => {
-    if (r.error && !r.current?.price) return '';   // skip total failures
+    // Skip records with no usable data at all
+    if (!r.current?.price && r.error) return '';
 
-    const c    = r.current            || {};
-    const p    = r.peak_since_oct2022 || {};
-    const bears = r.bear_markets      || [];
-    const disc  = r.discount_metrics  || {};
+    const c    = r.current    || {};
+    const p    = r.peak_52w   || {};
+    const disc = r.discount_metrics || {};
+    const bears = r.bear_markets    || [];
 
-    // ── Bug 5 fix: detect stale yield per card ──────────────────────────────
-    const yieldIsLive  = disc.erp_yield_live !== false;  // false = fallback was used
-    const yieldUsed    = disc.erp_yield_used != null ? disc.erp_yield_used : '?';
-    if (!yieldIsLive) anyStale = true;
-    const staleErpNote = !yieldIsLive
-      ? `<div class="stale-erp">⚠ ERP uses fallback yield ${yieldUsed}% (live fetch failed)</div>`
-      : `<div class="stale-erp" style="color:var(--muted)">10Y yield used: ${yieldUsed}% (live)</div>`;
-    // ────────────────────────────────────────────────────────────────────────
+    // ── stale yield check ───────────────────────────────────────────────────
+    const yieldLive = disc.erp_yield_live !== false;
+    const yieldUsed = disc.erp_yield_used != null ? disc.erp_yield_used : '?';
+    if (!yieldLive) anyStale = true;
+    const erpSub = yieldLive
+      ? `<div class="disc-sub">yield: ${yieldUsed}% (live)</div>`
+      : `<div class="disc-sub" style="color:var(--red)">⚠ fallback ${yieldUsed}%</div>`;
 
-    // colour logic
-    const z5Color    = disc.z_score_5y  != null ? (disc.z_score_5y  < -1.5 ? 'var(--green)' : disc.z_score_5y  > 1 ? 'var(--red)' : 'var(--text)') : 'var(--muted)';
-    const z10Color   = disc.z_score_10y != null ? (disc.z_score_10y < -1.5 ? 'var(--green)' : disc.z_score_10y > 1 ? 'var(--red)' : 'var(--text)') : 'var(--muted)';
-    const erpColor   = disc.erp_spread  != null ? (disc.erp_spread  > 1.0  ? 'var(--green)'                                                        : 'var(--text)') : 'var(--muted)';
-    const floorColor = disc.premium_to_floor != null ? (disc.premium_to_floor < 15 ? 'var(--green)' : 'var(--text)') : 'var(--muted)';
-
-    // ── Statistical Discount block ──────────────────────────────────────────
-    const discountBlock = `
-      <div class="section-title">- Statistical Discount Analysis -</div>
+    // ── Block 1: Statistical Discount ───────────────────────────────────────
+    const block1 = `
+      <div class="section-title">— A · B · C · D &nbsp; Statistical Discount Analysis —</div>
       <div class="discount-grid">
         <div class="discount-box">
-          <div class="disc-label">5Y Z-Score</div>
-          <div class="disc-val" style="color:${z5Color}">${disc.z_score_5y ?? 'N/A'}</div>
+          <div class="disc-label">5Y OE Z-Score</div>
+          <div class="disc-val" style="color:${col.z(disc.z_score_5y)}">${fmt.zscore(disc.z_score_5y)}</div>
         </div>
         <div class="discount-box">
-          <div class="disc-label">10Y Z-Score</div>
-          <div class="disc-val" style="color:${z10Color}">${disc.z_score_10y ?? 'N/A'}</div>
+          <div class="disc-label">10Y OE Z-Score</div>
+          <div class="disc-val" style="color:${col.z(disc.z_score_10y)}">${fmt.zscore(disc.z_score_10y)}</div>
         </div>
         <div class="discount-box">
           <div class="disc-label">ERP Spread vs 10Y</div>
-          <div class="disc-val" style="color:${erpColor}">${fmt.erp(disc.erp_spread)}</div>
-          ${staleErpNote}
+          <div class="disc-val" style="color:${col.erp(disc.erp_spread)}">${fmt.erp(disc.erp_spread)}</div>
+          ${erpSub}
         </div>
         <div class="discount-box">
           <div class="disc-label">Premium to Floor</div>
-          <div class="disc-val" style="color:${floorColor}">${disc.premium_to_floor != null ? disc.premium_to_floor + '%' : 'N/A'}</div>
+          <div class="disc-val" style="color:${col.floor(disc.premium_to_floor)}">${fmt.prem(disc.premium_to_floor)}</div>
         </div>
       </div>`;
 
-    // ── Peak-vs-current block ───────────────────────────────────────────────
-    // Bug 6 fix: column headers label left = "@ Peak Date", right = "Current"
-    const latestBlock = `
-      <div class="section-title">- Latest price peak vs current situation -</div>
-      <div class="comparison-header">
-        <span></span><span>@ Peak (${p.date || '—'})</span><span></span><span>Current</span>
+    // ── Block 2: 52-week peak vs today ──────────────────────────────────────
+    const peakDateStr = p.date ? `@ ${p.date}` : '';
+    const block2 = `
+      <div class="section-title">
+        — E · F · G · H · I &nbsp; 52-Week Peak ${peakDateStr} (${fmt.price(p.price)}) vs Today (${fmt.price(c.price)}) —
       </div>
-      <div class="comparison-row">
-        <span class="comp-label">OE per share</span>
-        <span class="comp-val1">${fmt.oeps(p.oeps)}</span>
-        <span class="comp-vs">vs</span>
-        <span class="comp-val2">${fmt.oeps(c.oeps)}</span>
-      </div>
-      <div class="comparison-row">
-        <span class="comp-label">OE Multiple</span>
-        <span class="comp-val1">${fmt.mult(p.oe_multiple)}</span>
-        <span class="comp-vs">vs</span>
-        <span class="comp-val2">${fmt.mult(c.oe_multiple)}</span>
-      </div>
-      <div class="comparison-row">
-        <span class="comp-label">OE Yield</span>
-        <span class="comp-val1">${fmt.yield(p.oe_yield)}</span>
-        <span class="comp-vs">vs</span>
-        <span class="comp-val2">${fmt.yield(c.oe_yield)}</span>
-      </div>
-      <div class="comparison-row">
-        <span class="comp-label">Trailing OE CAGR</span>
-        <span class="comp-val1">${fmt.growth(p.oe_growth)}</span>
-        <span class="comp-vs">vs</span>
-        <span class="comp-val2">${fmt.growth(c.oe_growth)}</span>
-      </div>
-      <div class="comparison-row">
-        <span class="comp-label">OE-PEG Ratio</span>
-        <span class="comp-val1">${fmt.peg(p.oe_peg)}</span>
-        <span class="comp-vs">vs</span>
-        <span class="comp-val2">${fmt.peg(c.oe_peg)}</span>
-      </div>`;
+      ${cmpTable('@ 52-W Peak', 'Current', p, c)}`;
 
-    // ── Crisis blocks ───────────────────────────────────────────────────────
-    // Bug 6 fix: column headers label left = "@ Peak", right = "@ Trough"
-    const crisisBlocks = bears.map(b => {
+    // ── Block 3: Crisis blocks ──────────────────────────────────────────────
+    const block3 = bears.map(b => {
       const pm = b.peak_metrics || {};
       return `
-      <div class="section-title">
-        - ${b.crisis_name}
-        (${b.peak_date} @ ${fmt.price(b.peak_price)}) vs Trough
-        (${b.trough_date} @ ${fmt.price(b.price)}) [▼${b.drawdown_pct}%] -
-      </div>
-      <div class="comparison-header">
-        <span></span><span>@ Peak</span><span></span><span>@ Trough</span>
-      </div>
-      <div class="comparison-row">
-        <span class="comp-label">OE per share</span>
-        <span class="comp-val1">${fmt.oeps(pm.oeps)}</span>
-        <span class="comp-vs">vs</span>
-        <span class="comp-val2">${fmt.oeps(b.oeps)}</span>
-      </div>
-      <div class="comparison-row">
-        <span class="comp-label">OE Multiple</span>
-        <span class="comp-val1">${fmt.mult(pm.oe_multiple)}</span>
-        <span class="comp-vs">vs</span>
-        <span class="comp-val2">${fmt.mult(b.oe_multiple)}</span>
-      </div>
-      <div class="comparison-row">
-        <span class="comp-label">OE Yield</span>
-        <span class="comp-val1">${fmt.yield(pm.oe_yield)}</span>
-        <span class="comp-vs">vs</span>
-        <span class="comp-val2">${fmt.yield(b.oe_yield)}</span>
-      </div>
-      <div class="comparison-row">
-        <span class="comp-label">Trailing OE CAGR</span>
-        <span class="comp-val1">${fmt.growth(pm.oe_growth)}</span>
-        <span class="comp-vs">vs</span>
-        <span class="comp-val2">${fmt.growth(b.oe_growth)}</span>
-      </div>
-      <div class="comparison-row">
-        <span class="comp-label">OE-PEG Ratio</span>
-        <span class="comp-val1">${fmt.peg(pm.oe_peg)}</span>
-        <span class="comp-vs">vs</span>
-        <span class="comp-val2">${fmt.peg(b.oe_peg)}</span>
-      </div>`;
+        <div class="section-title">
+          — J · K · L · M · N &nbsp;
+          ${b.crisis_name} —
+          Pre-crisis peak ${b.peak_date} (${fmt.price(b.peak_price)})
+          vs Trough ${b.trough_date} (${fmt.price(b.price)})
+          [▼${b.drawdown_pct}%]
+        </div>
+        ${cmpTable('@ Pre-Crisis Peak', '@ Trough', pm, b)}`;
     }).join('');
 
     return `
     <div class="dossier-card">
-      <div class="dca-badge">${r.dca_signal || 'WAIT'}</div>
+      <div class="dca-badge">${r.dca_signal || '—'}</div>
       <div class="ticker-header">
         <div class="ticker-sym">${r.ticker}</div>
         <div class="company-name">${r.company_name || r.ticker}</div>
       </div>
       <div class="price-banner">
-        Peak Price <span class="peak-price">${fmt.price(p.price)}</span>
+        52-W Peak <span class="peak-price">${fmt.price(p.price)}</span>
         &nbsp;vs&nbsp;
-        Current Price <span class="current-price">${fmt.price(c.price)}</span>
+        Current <span class="curr-price">${fmt.price(c.price)}</span>
       </div>
-      ${discountBlock}
-      ${latestBlock}
-      ${crisisBlocks}
+      ${block1}
+      ${block2}
+      ${block3}
     </div>`;
   }).join('');
 
-  // Bug 5 fix: show global banner if any card had a stale yield
   document.getElementById('yield-warning').style.display = anyStale ? 'block' : 'none';
 }
 
-// ── filter / search ──────────────────────────────────────────────────────────
+// ── filter / search ───────────────────────────────────────────────────────────
+let ROWS = [];
 function refresh() {
-  const search = document.getElementById('search').value.trim().toUpperCase();
-  const sector = document.getElementById('sector-filter').value;
-  const filtered = ROWS.filter(r => {
-    if (search && !r.ticker.includes(search)) return false;
-    if (sector && r.sector !== sector) return false;
-    return true;
-  });
-  renderCards(filtered);
+  const q  = document.getElementById('search').value.trim().toUpperCase();
+  const sc = document.getElementById('sector-filter').value;
+  renderCards(ROWS.filter(r =>
+    (!q  || r.ticker.includes(q)) &&
+    (!sc || r.sector === sc)
+  ));
 }
-
 document.getElementById('search').addEventListener('input', refresh);
 document.getElementById('sector-filter').addEventListener('change', refresh);
 
-// ── data load ────────────────────────────────────────────────────────────────
+// ── data load ─────────────────────────────────────────────────────────────────
 async function loadData() {
   try {
     const res = await fetch('oe_data.json?nocache=' + Date.now());
-    RAW  = await res.json();
-    ROWS = Object.values(RAW).sort((a, b) => a.ticker.localeCompare(b.ticker));
+    const raw = await res.json();
+    ROWS = Object.values(raw).sort((a, b) => a.ticker.localeCompare(b.ticker));
 
     const sectors = [...new Set(ROWS.map(r => r.sector).filter(s => s && s !== 'default'))].sort();
     sectors.forEach(s => {
@@ -304,7 +300,7 @@ async function loadData() {
     refresh();
   } catch (e) {
     document.getElementById('dossier-container').innerHTML =
-      'Run calculator.py to generate oe_data.json.';
+      '<p style="color:var(--muted);font-family:\'DM Mono\',monospace">Run calculator.py to generate oe_data.json.</p>';
   }
 }
 loadData();
