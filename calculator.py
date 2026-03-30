@@ -70,26 +70,7 @@ INDUSTRY_WACC = {
 }
 
 TICKERS = [
-    "AAPL","GOOG","META","MSFT","NVDA","PLTR","TSLA",
-    "EA","NFLX","TMUS",
-    "AMZN","CMG","CPRT","GRMN","LEN","MCD","ORLY","POOL","ROST","TSCO","ULTA",
-    "BG","COST","HSY","KO","PEP","PG","PM","STZ","SYY","WMT",
-    "BKR","CVX","EOG","EPD","EXE","FANG","SLB","TPL","VLO","XOM",
-    "BRK-B","ACGL","AIZ","AJG","AON","ARES","AXP","BAC","BLK","BRO",
-    "C","CB","CBOE","CBRE","CINF","CME","CPAY","EG","ERIE","FICO",
-    "GS","IBKR","ICE","JPM","KKR","MA","MCO","MSCI","NDAQ","PGR",
-    "RJF","SPGI","TRV","V","VRSK","WFC","WRB",
-    "A","BSX","CI","ABT","COO","HCA","IDXX","IQV","ISRG","JNJ",
-    "LLY","MCK","MRK","MTD","REGN","RMD","SYK","TECH","VRTX","WAT","WST","ZTS",
-    "WM","MO","ADP","AXON","CAT","CTAS","DE","EME","EMR","ETN",
-    "FAST","FIX","GD","GE","GWW","HON","HWM","LMT","NOC","ODFL",
-    "OTIS","PH","PWR","ROK","ROL","ROP","TDG","TT",
-    "ACN","ADI","ADSK","AMAT","AMD","ANET","APH","CDNS","CSCO","FTNT",
-    "IT","KLAC","LRCX","MCHP","MPWR","MSI","NXPI","ON","PTC","Q",
-    "SNPS","TEL","TER","TTD","TXN","TYL","VRSN","WDAY",
-    "APD","AVY","CRH","ECL","FSLR","LIN","MLM","NUE","SHW","STLD","VMC",
-    "AMT","CSGP","EXR","PSA","SBAC","VICI",
-    "AEP","AWK","CEG","D","DUK","ETR","NEE","NRG","PEG","SO","SRE","VST","XEL",
+    "AAPL","GOOG",
 ]
 
 HARDCODED_CIKS  = {}
