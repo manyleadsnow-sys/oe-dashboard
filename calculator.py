@@ -39,7 +39,7 @@ EDGAR_HEADERS = {
 EDGAR_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
 EDGAR_CACHE          = "edgar_cache.json"
 OE_DATA              = "oe_data.json"
-CACHE_SCHEMA_VERSION = 3   # v3: priority-first concept fetch (prevents D&A inflation)
+CACHE_SCHEMA_VERSION = 5   # v5: capex_ttm concept list unified with capex_a
 
 # Crisis windows — trough is the lowest price inside [start, end].
 # Pre-crisis peak is defined as the 52-week high in the year BEFORE start.
@@ -245,17 +245,23 @@ def extract_edgar_financials(facts):
                         "NetIncomeLossAvailableToCommonStockholdersBasic",
                         "ProfitLoss",
                         "NetIncomeLossAllocatedToParent")
+    # D&A concept list is intentionally identical to da_a below so that TTM
+    # and annual series always resolve to the same XBRL concept (priority-first).
+    # DepreciationAmortizationAndAccretionNet and AmortizationOfIntangibleAssets
+    # are excluded: the former can include non-D&A accretion items; the latter
+    # is a subset of total D&A and would undercount if used as the sole figure.
     da_ttm    = get_ttm(facts,
                         "DepreciationDepletionAndAmortization",
                         "DepreciationAndAmortization",
-                        "Depreciation",
-                        "DepreciationAmortizationAndAccretionNet",
-                        "AmortizationOfIntangibleAssets")
+                        "Depreciation")
+    # CapEx concept list is intentionally identical to capex_a below so that TTM
+    # and annual series always resolve to the same XBRL concept (priority-first).
+    # PaymentsToAcquireBusinessesAndPropertyPlantAndEquipment is excluded because
+    # it bundles acquisition payments with CapEx, overstating maintenance/growth capex.
     capex_ttm = get_ttm(facts,
                         "PaymentsToAcquirePropertyPlantAndEquipment",
                         "PaymentsForCapitalImprovements",
-                        "PaymentsToAcquireProductiveAssets",
-                        "PaymentsToAcquireBusinessesAndPropertyPlantAndEquipment")
+                        "PaymentsToAcquireProductiveAssets")
 
     oe_ttm = None
     if ni_ttm is not None:
@@ -297,9 +303,14 @@ def extract_edgar_financials(facts):
     # blend. Shares don't accumulate like income — adding Q YTD deltas produces
     # a nonsensical interpolated count. The latest fiscal year-end 10-K value
     # is the correct period-matched denominator for OE per share.
+    # WeightedAverageNumberOfSharesOutstandingBasic is listed first because it
+    # matches the denominator used in EPS computation, making it consistent with
+    # net income as the OE numerator. CommonStockSharesOutstanding is a point-
+    # in-time count at fiscal year-end and can diverge from weighted average
+    # for companies with active buyback programmes like Apple.
     shares_a = annual_values(facts,
-                             "CommonStockSharesOutstanding",
                              "WeightedAverageNumberOfSharesOutstandingBasic",
+                             "CommonStockSharesOutstanding",
                              unit="shares")
     shares_by_fiscal_end = {e[0]: e[1] for e in shares_a}
     # shares_ttm = latest annual 10-K share count (first entry after dedup+sort)
@@ -638,14 +649,17 @@ def load_edgar_cache():
         with open(EDGAR_CACHE) as f:
             data = json.load(f)
         # Reject caches built by an older version of extract_edgar_financials.
-        # A v1 cache lacks "shares_ttm" / "shares_by_fiscal_end", which causes
-        # fix #3 to silently fall back to the yfinance live share count.
+        # A v1/v2 cache may lack shares_ttm / shares_by_fiscal_end, or may have
+        # been built with the old merge-all D&A concept fetch.
         if data.get("__schema_version__", 1) < CACHE_SCHEMA_VERSION:
             print(f"WARNING: edgar_cache.json is schema v{data.get('__schema_version__', 1)}, "
                   f"need v{CACHE_SCHEMA_VERSION}. Forcing full EDGAR refresh.")
             return {}
         return data
     except FileNotFoundError:
+        return {}
+    except json.JSONDecodeError as e:
+        print(f"WARNING: edgar_cache.json is corrupted ({e}). Forcing full EDGAR refresh.")
         return {}
 
 
