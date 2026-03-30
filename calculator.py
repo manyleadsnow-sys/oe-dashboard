@@ -37,8 +37,9 @@ EDGAR_HEADERS = {
     "Accept-Encoding": "gzip, deflate",
 }
 EDGAR_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
-EDGAR_CACHE     = "edgar_cache.json"
-OE_DATA         = "oe_data.json"
+EDGAR_CACHE          = "edgar_cache.json"
+OE_DATA              = "oe_data.json"
+CACHE_SCHEMA_VERSION = 2   # bump whenever extract_edgar_financials output keys change
 
 # Crisis windows — trough is the lowest price inside [start, end].
 # Pre-crisis peak is defined as the 52-week high in the year BEFORE start.
@@ -285,18 +286,17 @@ def extract_edgar_financials(facts):
                              "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest")
     avg_ebit = float(np.mean([v for _, v in ebit_a[:5]])) if ebit_a else None
 
-    # Shares outstanding from EDGAR — keyed by fiscal year-end date so OEPS
-    # uses the share count that matches the OE period, not a live market float.
-    # Units are "shares" (integer count), not USD — use the "shares" unit key.
-    shares_a   = annual_values(facts,
-                               "CommonStockSharesOutstanding",
-                               "WeightedAverageNumberOfSharesOutstandingBasic",
-                               unit="shares")
-    shares_ttm = get_ttm(facts,
-                         "WeightedAverageNumberOfSharesOutstandingBasic",
-                         "CommonStockSharesOutstanding",
-                         unit="shares")
+    # Shares from EDGAR: use the most recent 10-K annual figure, NOT a TTM
+    # blend. Shares don't accumulate like income — adding Q YTD deltas produces
+    # a nonsensical interpolated count. The latest fiscal year-end 10-K value
+    # is the correct period-matched denominator for OE per share.
+    shares_a = annual_values(facts,
+                             "CommonStockSharesOutstanding",
+                             "WeightedAverageNumberOfSharesOutstandingBasic",
+                             unit="shares")
     shares_by_fiscal_end = {e[0]: e[1] for e in shares_a}
+    # shares_ttm = latest annual 10-K share count (first entry after dedup+sort)
+    shares_ttm = shares_a[0][1] if shares_a else None
 
     return {
         "oe_ttm":              oe_ttm,
@@ -579,16 +579,20 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
 
     # ── Z-SCORES (Block 1-A/B) ────────────────────────────────────────────────
     # Z-score the current TTM OE dollar level against the distribution of
-    # annual OE figures from the historical oe_by_fiscal_end series.
-    # This answers: "is the business generating unusually high or low earnings
-    # relative to its own history?" — not a valuation multiple question.
+    # *prior* annual OE figures (the current fiscal year-end is excluded so the
+    # TTM is not compared against a set that effectively contains itself).
     if oe_by_fiscal_end and oe_ttm is not None:
-        now = datetime.now()
+        now        = datetime.now()
+        all_dates  = sorted(oe_by_fiscal_end.keys())
+        # Exclude the most recent fiscal year-end from the reference pool —
+        # TTM ≈ latest annual, including it compresses std and inflates the Z.
+        prior_dates = all_dates[:-1] if len(all_dates) > 1 else all_dates
+
         cutoff_5y  = (now - timedelta(days=5  * 365)).strftime("%Y-%m-%d")
         cutoff_10y = (now - timedelta(days=10 * 365)).strftime("%Y-%m-%d")
 
-        vals_5y  = [v for d, v in oe_by_fiscal_end.items() if d >= cutoff_5y]
-        vals_10y = [v for d, v in oe_by_fiscal_end.items() if d >= cutoff_10y]
+        vals_5y  = [oe_by_fiscal_end[d] for d in prior_dates if d >= cutoff_5y]
+        vals_10y = [oe_by_fiscal_end[d] for d in prior_dates if d >= cutoff_10y]
 
         if len(vals_5y) >= 2:
             arr5 = np.array(vals_5y, dtype=float)
@@ -629,15 +633,24 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
 def load_edgar_cache():
     try:
         with open(EDGAR_CACHE) as f:
-            return json.load(f)
+            data = json.load(f)
+        # Reject caches built by an older version of extract_edgar_financials.
+        # A v1 cache lacks "shares_ttm" / "shares_by_fiscal_end", which causes
+        # fix #3 to silently fall back to the yfinance live share count.
+        if data.get("__schema_version__", 1) < CACHE_SCHEMA_VERSION:
+            print(f"WARNING: edgar_cache.json is schema v{data.get('__schema_version__', 1)}, "
+                  f"need v{CACHE_SCHEMA_VERSION}. Forcing full EDGAR refresh.")
+            return {}
+        return data
     except FileNotFoundError:
         return {}
 
 
 def save_edgar_cache(cache):
+    cache["__schema_version__"] = CACHE_SCHEMA_VERSION
     with open(EDGAR_CACHE, "w") as f:
         json.dump(cache, f, indent=2, default=str)
-    print(f"EDGAR cache saved: {len(cache)} tickers")
+    print(f"EDGAR cache saved: {len(cache) - 1} tickers (schema v{CACHE_SCHEMA_VERSION})")
 
 
 def refresh_edgar_cache(tickers):
