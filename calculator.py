@@ -1,5 +1,5 @@
 """
-Owner Earnings (OE) Dashboard - Core Calculation Engine
+Owner Earnings Dashboard - Core Calculation Engine
 
 Metric definitions (what each block must show):
 ────────────────────────────────────────────────
