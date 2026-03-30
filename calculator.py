@@ -377,6 +377,11 @@ def _cagr_ending_at(oe_by_fiscal_end: dict, end_date_str: str):
             continue
         if start_val > 0 and end_val > 0:
             return (end_val / start_val) ** (1.0 / actual_years) - 1
+        # Both endpoints found but OE is negative — CAGR is mathematically
+        # undefined. Return a sentinel so the UI can display "Negative OE"
+        # rather than a bare N/A, making the reason explicit to the user.
+        if start_val <= 0 or end_val <= 0:
+            return "NEGATIVE_OE"
     return None
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -404,28 +409,42 @@ def metrics_at_price(oe, ev, mc, oe_growth_decimal, epv_per_share, shares):
     OE-PEG = oe_multiple / (cagr_as_percent)
            = oe_multiple / (oe_growth_decimal × 100)
     """
-    if not oe or oe == 0:
+    if oe is None or oe == 0:
         return {}
+
+    # Flag negative OE so the frontend can render a warning instead of showing
+    # nonsensical valuation multiples without context.
+    oe_is_negative = oe < 0
 
     oe_yield    = (oe / mc * 100)  if mc else None
     oe_multiple = (mc / oe)        if mc else None
 
     oe_peg = None
-    if oe_multiple is not None and oe_growth_decimal:
+    # OE-PEG is only meaningful when both the multiple and CAGR are positive.
+    # oe_growth_decimal may be the sentinel string "NEGATIVE_OE" — guard against that.
+    if (oe_multiple is not None
+            and oe_growth_decimal is not None
+            and oe_growth_decimal != "NEGATIVE_OE"
+            and not oe_is_negative):
         growth_pct = oe_growth_decimal * 100     # e.g. 12.0
         if growth_pct != 0:
             oe_peg = oe_multiple / growth_pct
 
     oeps = (oe / shares) if shares else None
 
+    # Coerce CAGR sentinel to None for numeric storage; the flag carries the reason.
+    oe_growth_store = None if (oe_growth_decimal is None or oe_growth_decimal == "NEGATIVE_OE") \
+                           else oe_growth_decimal
+
     return {
         "oe":          round(oe / 1e9, 4)               if oe                 is not None else None,
         "oeps":        round(oeps, 2)                    if oeps               is not None else None,
         "oe_yield":    round(oe_yield, 4)                if oe_yield           is not None else None,
         "oe_multiple": round(oe_multiple, 4)             if oe_multiple        is not None else None,
-        "oe_growth":   round(oe_growth_decimal * 100, 4) if oe_growth_decimal  is not None else None,
+        "oe_growth":   round(oe_growth_store * 100, 4)   if oe_growth_store    is not None else None,
         "oe_peg":      round(oe_peg, 4)                  if oe_peg             is not None else None,
         "epv":         round(epv_per_share, 4)           if epv_per_share      is not None else None,
+        "oe_negative": oe_is_negative,
     }
 
 
@@ -472,6 +491,11 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
     oe_by_fiscal_end     = financials.get("oe_by_fiscal_end", {})
     oe_ttm               = financials.get("oe_ttm")
     shares_ttm           = financials.get("shares_ttm")
+
+    # Flag negative TTM OE so the frontend can show a company-wide warning
+    # (e.g. "Owner Earnings are currently negative — multiples are inverted").
+    result["oe_negative_warning"] = (oe_ttm is not None and oe_ttm < 0)
+
     shares_by_fiscal_end = financials.get("shares_by_fiscal_end", {})
     avg_ebit             = financials.get("avg_ebit")
     tax_rate             = financials.get("tax_rate", 0.21)
