@@ -677,14 +677,31 @@ def run_prices_only(tickers, edgar_cache):
 
         for attempt in range(3):
             try:
-                time.sleep(0.5 + attempt)
-                t    = yf.Ticker(sym)
-                info = t.info or {}
+                time.sleep(1 + attempt)  # Slightly longer backoff
+                t = yf.Ticker(sym)
+                
+                # 1. Guarantee share count using fast_info (bypasses standard .info rate limits)
+                raw_info = t.info or {}
+                shares = t.fast_info.get("shares") or raw_info.get("sharesOutstanding")
+                
+                # 2. Rebuild the info dictionary so your compute function doesn't break
+                info = {
+                    "shortName": raw_info.get("shortName", sym),
+                    "sector": raw_info.get("sector", "default"),
+                    "sharesOutstanding": shares,
+                    "totalDebt": raw_info.get("totalDebt", 0),
+                    "totalCash": raw_info.get("totalCash", 0)
+                }
+
+                # 3. Fetch history
                 hist = t.history(period="max", interval="1d")["Close"].dropna()
                 if hist.empty:
                     raise ValueError("Empty price history")
-                hist.index = (hist.index.tz_convert(None)
-                              if hist.index.tz else hist.index.tz_localize(None))
+                
+                # 4. Safely strip timezones to prevent Pandas TypeError crashes
+                if hist.index.tz is not None:
+                    hist.index = hist.index.tz_convert(None)
+                
                 results[sym] = compute_ticker_result(sym, fin, info, hist)
                 print(f"${results[sym].get('current', {}).get('price', 'n/a')}")
                 break
