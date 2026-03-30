@@ -647,58 +647,79 @@ def refresh_edgar_cache(tickers):
     return cache
 
 
-def run_prices_only(tickers, edgar_cache):
-    global GLOBAL_10Y_YIELD, GLOBAL_10Y_YIELD_LIVE
-    try:
-        tnx     = yf.Ticker("^TNX")
-        fetched = tnx.history(period="5d")["Close"].dropna()
-        if fetched.empty:
-            raise ValueError("Empty TNX series")
-        GLOBAL_10Y_YIELD      = float(fetched.iloc[-1])
-        GLOBAL_10Y_YIELD_LIVE = True
-        print(f"10Y Treasury Yield: {GLOBAL_10Y_YIELD:.2f}% (live)")
-    except Exception as e:
-        GLOBAL_10Y_YIELD_LIVE = False
-        print(f"WARNING: TNX fetch failed ({e}). Fallback: {GLOBAL_10Y_YIELD:.2f}%")
+# ADD THIS API KEY VARIABLE DIRECTLY ABOVE THE run_prices_only FUNCTION
+AV_API_KEY = "YOUR_API_KEY_HERE"  # Claim your free key at alphavantage.co
 
-    results = {}
-    total   = len(tickers)
+def run_prices_only(tickers, edgar_cache):
+    global GLOBAL_10Y_YIELD
+    try:
+        # Fetch 10Y Treasury Yield from Alpha Vantage
+        url = f"https://www.alphavantage.co/query?function=TREASURY_YIELD&interval=daily&maturity=10year&apikey={AV_API_KEY}"
+        r = requests.get(url).json()
+        data = r.get("data", [])
+        if data:
+            GLOBAL_10Y_YIELD = float(data[0]["value"])
+            print(f"Current 10Y Treasury Yield: {GLOBAL_10Y_YIELD:.2f}% (Alpha Vantage)")
+        else:
+            raise ValueError("No TNX data returned")
+    except: 
+        print(f"Failed to fetch 10Y Treasury. Using fallback: {GLOBAL_10Y_YIELD}%")
+
+    results  = {}
+    total    = len(tickers)
     for i, sym in enumerate(tickers):
         print(f"  [{i+1}/{total}] {sym}", end=" ", flush=True)
-        fin = edgar_cache.get(sym)
-        if not fin:
-            results[sym] = {
-                "ticker": sym, "error": "No EDGAR cache", "sector": None,
-                "current": {}, "peak_52w": {}, "bear_markets": [],
-                "last_updated": datetime.now().isoformat(),
-            }
+        financials = edgar_cache.get(sym)
+        if not financials:
+            results[sym] = {"ticker": sym, "error": "No EDGAR cache", "sector": None, "current": {}, "peak_since_oct2022": {}, "bear_markets": [], "last_updated": datetime.now().isoformat()}
             print("(no cache)")
             continue
-
+            
         for attempt in range(3):
             try:
-                time.sleep(0.5 + attempt)
-                t    = yf.Ticker(sym)
-                info = t.info or {}
-                hist = t.history(period="max", interval="1d")["Close"].dropna()
-                if hist.empty:
-                    raise ValueError("Empty price history")
-                hist.index = (hist.index.tz_convert(None)
-                              if hist.index.tz else hist.index.tz_localize(None))
-                results[sym] = compute_ticker_result(sym, fin, info, hist)
-                print(f"${results[sym].get('current', {}).get('price', 'n/a')}")
-                break
+                # Alpha Vantage strict rate limit buffer (5 requests per minute allowed on free tier)
+                time.sleep(15) 
+                
+                # 1. Fetch Company Info (Shares, Sector)
+                ov_url = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={sym}&apikey={AV_API_KEY}"
+                ov_data = requests.get(ov_url).json()
+                
+                if "Note" in ov_data or "Information" in ov_data:
+                    raise ValueError("Alpha Vantage API limit reached. Check API Key.")
+                    
+                info = {
+                    "shortName": ov_data.get("Name", sym),
+                    "sector": ov_data.get("Sector", "default"),
+                    "sharesOutstanding": float(ov_data.get("SharesOutstanding", 0)) if ov_data.get("SharesOutstanding") else None,
+                    "totalDebt": 0, # AV Overview doesn't map debt natively on free tier
+                    "totalCash": 0  
+                }
+                
+                time.sleep(15)
+                
+                # 2. Fetch Adjusted Historical Prices
+                pr_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={sym}&outputsize=full&apikey={AV_API_KEY}"
+                pr_data = requests.get(pr_url).json()
+                
+                if "Note" in pr_data or "Information" in pr_data:
+                    raise ValueError("Alpha Vantage API limit reached. Check API Key.")
+                    
+                ts = pr_data.get("Time Series (Daily)", {})
+                if not ts: raise ValueError("Empty price history")
+                
+                # Convert to Pandas Series, handle AV adjusted close format
+                hist = pd.Series({pd.Timestamp(k): float(v["5. adjusted close"]) for k, v in ts.items()}).sort_index()
+
+                results[sym] = compute_ticker_result(sym, financials, info, hist)
+                price = results[sym].get("current", {}).get("price", "n/a")
+                print(f"${price}")
+                break 
             except Exception as e:
                 if attempt == 2:
-                    results[sym] = {
-                        "ticker": sym, "error": f"Price fetch failed: {e}",
-                        "sector": None,
-                        "current": {}, "peak_52w": {}, "bear_markets": [],
-                        "last_updated": datetime.now().isoformat(),
-                    }
+                    results[sym] = {"ticker": sym, "error": f"Price fetch failed: {str(e)}", "sector": None, "current": {}, "peak_since_oct2022": {}, "bear_markets": [], "last_updated": datetime.now().isoformat()}
                     print(f"ERROR: {e}")
-                else:
-                    time.sleep(2)
+                else: 
+                    time.sleep(15)
     return results
 
 
