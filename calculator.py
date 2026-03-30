@@ -417,16 +417,16 @@ def metrics_at_price(oe, ev, mc, oe_growth_decimal, epv_per_share, shares):
     oe_is_negative = oe < 0
 
     # FIX: Do not calculate yield or multiples if Owner Earnings are negative
-    if oe_is_negative:
-        oe_yield = None
-        oe_multiple = None
-        oe_peg = None
-    else:
-        oe_yield    = (oe / mc * 100)  if mc else None
-        oe_multiple = (mc / oe)        if mc else None
+    	if oe_is_negative:
+       		oe_yield = None
+        	oe_multiple = None
+        	oe_peg = None
+    	else:
+        	oe_yield    = (oe / mc * 100)  if mc else None
+        	oe_multiple = (mc / oe)        if mc else None
 
-    oe_peg = None
-    # OE-PEG is only meaningful when both the multiple and CAGR are positive.
+    	oe_peg = None
+    	# OE-PEG is only meaningful when both the multiple and CAGR are positive.
     # oe_growth_decimal may be the sentinel string "NEGATIVE_OE" — guard against that.
     if (oe_multiple is not None
             and oe_growth_decimal is not None
