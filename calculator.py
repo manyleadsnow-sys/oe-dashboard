@@ -70,7 +70,7 @@ INDUSTRY_WACC = {
 }
 
 TICKERS = [
-    "AAPL","GOOG",
+    "AAPL","GOOG","LLY","TSLA","AMZN",
 ]
 
 HARDCODED_CIKS  = {}
