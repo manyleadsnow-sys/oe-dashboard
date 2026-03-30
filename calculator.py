@@ -416,8 +416,14 @@ def metrics_at_price(oe, ev, mc, oe_growth_decimal, epv_per_share, shares):
     # nonsensical valuation multiples without context.
     oe_is_negative = oe < 0
 
-    oe_yield    = (oe / mc * 100)  if mc else None
-    oe_multiple = (mc / oe)        if mc else None
+    # FIX: Do not calculate yield or multiples if Owner Earnings are negative
+    if oe_is_negative:
+        oe_yield = None
+        oe_multiple = None
+        oe_peg = None
+    else:
+        oe_yield    = (oe / mc * 100)  if mc else None
+        oe_multiple = (mc / oe)        if mc else None
 
     oe_peg = None
     # OE-PEG is only meaningful when both the multiple and CAGR are positive.
@@ -654,15 +660,19 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         result["discount_metrics"]["erp_yield_live"] = GLOBAL_10Y_YIELD_LIVE
 
     # ── DCA SIGNAL ────────────────────────────────────────────────────────────
-    z5   = result["discount_metrics"].get("z_score_5y")
-    if (z5 is not None and z5 <= -1.5):
-        result["dca_signal"] = "🟢 STRONG DCA"
-    elif (z5 is not None and z5 <= -0.5):
-        result["dca_signal"] = "🟡 ACCUMULATE"
-    else:
-        result["dca_signal"] = "🔴 WAIT"
+    	z5   = result["discount_metrics"].get("z_score_5y")
+    
+   	 # FIX: Circuit breaker for cash-burning companies
+    	if result.get("oe_negative_warning", False):
+        	result["dca_signal"] = "⚠️ NEGATIVE OE"
+    	elif (z5 is not None and z5 <= -1.5):
+       		result["dca_signal"] = "🟢 STRONG DCA"
+    	elif (z5 is not None and z5 <= -0.5):
+        	result["dca_signal"] = "🟡 ACCUMULATE"
+    	else:
+        	result["dca_signal"] = "🔴 WAIT"
 
-    return result
+    	return result
 
 # ══════════════════════════════════════════════════════════════════════════════
 # CACHE + RUNNER
