@@ -8,13 +8,13 @@
     "current": {
       "oe": 117.461,
       "oeps": 7.86,
-      "oe_yield": 3.1902,
-      "oe_multiple": 31.3463,
+      "oe_yield": 3.1831,
+      "oe_multiple": 31.4163,
       "oe_growth": 12.6542,
-      "oe_peg": 2.4772,
+      "oe_peg": 2.4827,
       "epv": 70.3412,
       "oe_negative": false,
-      "price": 246.31
+      "price": 246.86
     },
     "peak_52w": {
       "oe": 110.993,
@@ -177,7 +177,7 @@
         "peak_metrics": {
           "oe": 117.461,
           "oeps": 7.86,
-          "oe_yield": 169.7393,
+          "oe_yield": 169.7392,
           "oe_multiple": 0.5891,
           "oe_growth": null,
           "oe_peg": null,
@@ -189,21 +189,21 @@
     "discount_metrics": {
       "z_score_5y": 3.01,
       "z_score_10y": 1.69,
-      "erp_spread": -1.15,
+      "erp_spread": -1.16,
       "erp_yield_used": 4.34,
       "erp_yield_live": true
     },
-    "last_updated": "2026-03-30T19:51:40.040621",
-    "edgar_fetched_at": "2026-03-30T19:51:35.511729",
+    "last_updated": "2026-03-30T19:58:03.897830",
+    "edgar_fetched_at": "2026-03-30T19:57:59.559116",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
     "vs_peak_diff": {
       "oe": 5.83,
       "oeps": 5.79,
-      "oe_yield": 22.85,
-      "oe_multiple": -18.6,
+      "oe_yield": 22.57,
+      "oe_multiple": -18.42,
       "oe_growth": 0.0,
-      "oe_peg": -18.6,
+      "oe_peg": -18.42,
       "epv": 0.0
     }
   },
@@ -216,13 +216,13 @@
     "current": {
       "oe": 61.859,
       "oeps": 5.11,
-      "oe_yield": 1.8705,
-      "oe_multiple": 53.4613,
+      "oe_yield": 1.8683,
+      "oe_multiple": 53.524,
       "oe_growth": 28.0262,
-      "oe_peg": 1.9076,
+      "oe_peg": 1.9098,
       "epv": 73.5303,
       "oe_negative": false,
-      "price": 272.95
+      "price": 273.27
     },
     "peak_52w": {
       "oe": 61.859,
@@ -401,17 +401,17 @@
       "erp_yield_used": 4.34,
       "erp_yield_live": true
     },
-    "last_updated": "2026-03-30T19:51:41.684266",
-    "edgar_fetched_at": "2026-03-30T19:51:36.004424",
+    "last_updated": "2026-03-30T19:58:06.018677",
+    "edgar_fetched_at": "2026-03-30T19:57:59.924907",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
     "vs_peak_diff": {
       "oe": 0.0,
       "oeps": 0.0,
-      "oe_yield": 26.27,
-      "oe_multiple": -20.81,
+      "oe_yield": 26.13,
+      "oe_multiple": -20.71,
       "oe_growth": 0.0,
-      "oe_peg": -20.8,
+      "oe_peg": -20.71,
       "epv": 0.0
     }
   },
@@ -424,13 +424,13 @@
     "current": {
       "oe": 22.637,
       "oeps": 25.23,
-      "oe_yield": 2.8465,
-      "oe_multiple": 35.1313,
+      "oe_yield": 2.8472,
+      "oe_multiple": 35.1226,
       "oe_growth": 24.6697,
-      "oe_peg": 1.4241,
+      "oe_peg": 1.4237,
       "epv": 119.9999,
       "oe_negative": false,
-      "price": 886.29
+      "price": 886.07
     },
     "peak_52w": {
       "oe": 12.357,
@@ -552,7 +552,7 @@
       {
         "oe": 22.637,
         "oeps": 25.23,
-        "oe_yield": 146.362,
+        "oe_yield": 146.3619,
         "oe_multiple": 0.6832,
         "oe_growth": null,
         "oe_peg": null,
@@ -579,19 +579,19 @@
     "discount_metrics": {
       "z_score_5y": 1.88,
       "z_score_10y": 2.58,
-      "erp_spread": -1.5,
+      "erp_spread": -1.49,
       "erp_yield_used": 4.34,
       "erp_yield_live": true
     },
-    "last_updated": "2026-03-30T19:51:43.629272",
-    "edgar_fetched_at": "2026-03-30T19:51:36.447002",
+    "last_updated": "2026-03-30T19:58:08.356716",
+    "edgar_fetched_at": "2026-03-30T19:58:00.338840",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
     "vs_peak_diff": {
       "oe": 83.19,
       "oeps": 83.89,
-      "oe_yield": 129.89,
-      "oe_multiple": -56.5,
+      "oe_yield": 129.95,
+      "oe_multiple": -56.51,
       "oe_growth": 366.85,
       "oe_peg": -90.68,
       "epv": 0.0
@@ -612,7 +612,7 @@
       "oe_peg": null,
       "epv": 23.3439,
       "oe_negative": true,
-      "price": 354.42
+      "price": 355.25
     },
     "peak_52w": {
       "oe": -4.251,
@@ -765,9 +765,9 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-03-30T19:51:45.277452",
-    "edgar_fetched_at": "2026-03-30T19:51:36.938826",
-    "dca_signal": "\ud83d\udfe1 ACCUMULATE",
+    "last_updated": "2026-03-30T19:58:10.023444",
+    "edgar_fetched_at": "2026-03-30T19:58:00.761548",
+    "dca_signal": "\u26a0\ufe0f NEGATIVE OE",
     "oe_negative_warning": true,
     "vs_peak_diff": {
       "oe": 12.94,
@@ -788,13 +788,13 @@
     "current": {
       "oe": 134.169,
       "oeps": 12.59,
-      "oe_yield": 6.268,
-      "oe_multiple": 15.9539,
+      "oe_yield": 6.2688,
+      "oe_multiple": 15.952,
       "oe_growth": 25.2644,
-      "oe_peg": 0.6315,
+      "oe_peg": 0.6314,
       "epv": 38.8209,
       "oe_negative": false,
-      "price": 200.88
+      "price": 200.85
     },
     "peak_52w": {
       "oe": 112.043,
@@ -947,17 +947,17 @@
       "erp_yield_used": 4.34,
       "erp_yield_live": true
     },
-    "last_updated": "2026-03-30T19:51:46.988708",
-    "edgar_fetched_at": "2026-03-30T19:51:37.436437",
+    "last_updated": "2026-03-30T19:58:11.851580",
+    "edgar_fetched_at": "2026-03-30T19:58:01.188724",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
     "vs_peak_diff": {
       "oe": 19.75,
       "oeps": 17.66,
-      "oe_yield": 48.82,
-      "oe_multiple": -32.8,
+      "oe_yield": 48.84,
+      "oe_multiple": -32.81,
       "oe_growth": -7.77,
-      "oe_peg": -27.14,
+      "oe_peg": -27.15,
       "epv": 0.0
     }
   }
