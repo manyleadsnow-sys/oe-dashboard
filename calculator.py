@@ -3,12 +3,10 @@ Owner Earnings Dashboard - Core Calculation Engine
 
 Metric definitions (what each block must show):
 ────────────────────────────────────────────────
-BLOCK 1 — Statistical discount (A-D):
+BLOCK 1 — Statistical discount (A-C):
   A) 5Y OE multiple Z-score
   B) 10Y OE multiple Z-score
   C) ERP spread: current OE yield − 10Y Treasury yield
-  D) Premium to floor: how far current OE multiple is above the lowest
-     trough multiple recorded across all past crises
 
 BLOCK 2 — 52-week peak vs today (E-I):
   Peak   = highest closing price in the 52 weeks ending yesterday
@@ -423,11 +421,9 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
             "erp_spread":       None,
             "erp_yield_used":   None,
             "erp_yield_live":   GLOBAL_10Y_YIELD_LIVE,
-            "premium_to_floor": None,
         },
         "last_updated":          datetime.now().isoformat(),
         "edgar_fetched_at":      financials.get("fetched_at", ""),
-        "crisis_floor_multiple": None,
         "dca_signal":            "—",
     }
 
@@ -533,7 +529,7 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         mb["crisis_name"]  = crisis["name"]
         mb["peak_date"]    = str(pre_peak_date.date())
         mb["trough_date"]  = str(trough_date.date())
-        mb["drawdown_pct"] = round(drawdown, 2)
+        mb["drawdown_pct"] = round(abs(drawdown), 2)  # FIX: Wrapped in abs()
         mb["peak_metrics"] = mp
 
         result["bear_markets"].append(mb)
@@ -576,23 +572,11 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         result["discount_metrics"]["erp_yield_used"] = round(GLOBAL_10Y_YIELD, 2)
         result["discount_metrics"]["erp_yield_live"] = GLOBAL_10Y_YIELD_LIVE
 
-    # ── PREMIUM TO FLOOR (Block 1-D) ──────────────────────────────────────────
-    trough_mults = [b["oe_multiple"] for b in result["bear_markets"]
-                    if b.get("oe_multiple") and b["oe_multiple"] > 0]
-    if trough_mults and result["current"].get("oe_multiple"):
-        min_floor = min(trough_mults)
-        result["crisis_floor_multiple"] = round(min_floor, 2)
-        curr_mult = result["current"]["oe_multiple"]
-        if curr_mult > 0:
-            result["discount_metrics"]["premium_to_floor"] = round(
-                (curr_mult / min_floor - 1) * 100, 1)
-
     # ── DCA SIGNAL ────────────────────────────────────────────────────────────
     z5   = result["discount_metrics"].get("z_score_5y")
-    prem = result["discount_metrics"].get("premium_to_floor")
-    if   (z5 is not None and z5 <= -1.5) or (prem is not None and prem <= 10):
+    if (z5 is not None and z5 <= -1.5):
         result["dca_signal"] = "🟢 STRONG DCA"
-    elif (z5 is not None and z5 <= -0.5) or (prem is not None and prem <= 25):
+    elif (z5 is not None and z5 <= -0.5):
         result["dca_signal"] = "🟡 ACCUMULATE"
     else:
         result["dca_signal"] = "🔴 WAIT"
@@ -654,7 +638,8 @@ def run_prices_only(tickers, edgar_cache):
         fetched = tnx.history(period="5d")["Close"].dropna()
         if fetched.empty:
             raise ValueError("Empty TNX series")
-        GLOBAL_10Y_YIELD      = float(fetched.iloc[-1])
+        # FIX: Scaling down TNX yield by 10
+        GLOBAL_10Y_YIELD      = float(fetched.iloc[-1]) / 10.0
         GLOBAL_10Y_YIELD_LIVE = True
         print(f"10Y Treasury Yield: {GLOBAL_10Y_YIELD:.2f}% (live)")
     except Exception as e:
@@ -684,13 +669,25 @@ def run_prices_only(tickers, edgar_cache):
                 raw_info = t.info or {}
                 shares = t.fast_info.get("shares") or raw_info.get("sharesOutstanding")
                 
-                # 2. Rebuild the info dictionary so your compute function doesn't break
+                # 2. FIX: Pull Enterprise Value Balance Sheet numbers safely
+                bs = t.balance_sheet
+                total_debt = 0.0
+                total_cash = 0.0
+                if bs is not None and not bs.empty:
+                    if "Total Debt" in bs.index:
+                        total_debt = float(bs.loc["Total Debt"].iloc[0]) if pd.notna(bs.loc["Total Debt"].iloc[0]) else 0.0
+                    
+                    if "Cash And Cash Equivalents" in bs.index:
+                        total_cash = float(bs.loc["Cash And Cash Equivalents"].iloc[0]) if pd.notna(bs.loc["Cash And Cash Equivalents"].iloc[0]) else 0.0
+                    elif "Total Cash" in bs.index:
+                        total_cash = float(bs.loc["Total Cash"].iloc[0]) if pd.notna(bs.loc["Total Cash"].iloc[0]) else 0.0
+
                 info = {
                     "shortName": raw_info.get("shortName", sym),
                     "sector": raw_info.get("sector", "default"),
                     "sharesOutstanding": shares,
-                    "totalDebt": raw_info.get("totalDebt", 0),
-                    "totalCash": raw_info.get("totalCash", 0)
+                    "totalDebt": total_debt,
+                    "totalCash": total_cash
                 }
 
                 # 3. Fetch history

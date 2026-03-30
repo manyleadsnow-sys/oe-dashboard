@@ -67,7 +67,7 @@
                    border-bottom: 1px solid var(--bg3); padding-bottom: 5px; }
 
   /* ── discount grid (Block 1) ── */
-  .discount-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+  .discount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
   .discount-box  { background: var(--bg); padding: 15px; border-radius: 8px;
                    text-align: center; border: 1px solid #2a2a3e; }
   .disc-label    { font-size: 11px; color: var(--muted); text-transform: uppercase;
@@ -105,8 +105,7 @@
   <ul>
     <li><strong>Block 1 — Statistical Discount:</strong>
       Z-scores measure how cheap/expensive the current OE multiple is vs its own 5/10-year history.
-      ERP Spread = OE yield minus 10Y Treasury yield.
-      Premium to Floor = how far the current multiple is above the lowest trough multiple seen in past crises.</li>
+      ERP Spread = OE yield minus 10Y Treasury yield.</li>
     <li><strong>Block 2 — 52-Week Peak vs Today:</strong>
       Left column = metrics at the highest price in the past 52 weeks (OE anchored to the most recent
       fiscal year-end before that peak date). Right = today.</li>
@@ -144,20 +143,18 @@ const fmt = {
   peg:    v => v != null ? `${Number(v).toFixed(2)}x`               : NA,
   erp:    v => v != null ? `${v >= 0 ? '+' : ''}${Number(v).toFixed(2)}%` : NA,
   zscore: v => v != null ? String(Number(v).toFixed(2))             : NA,
-  prem:   v => v != null ? `${Number(v).toFixed(1)}%`               : NA,
 };
 
 // ── colour helpers ────────────────────────────────────────────────────────────
 const col = {
-  z:     v => v == null ? 'var(--muted)' : v <= -1.5 ? 'var(--green)' : v >= 1 ? 'var(--red)' : 'var(--text)',
-  erp:   v => v == null ? 'var(--muted)' : v > 1     ? 'var(--green)'              : 'var(--text)',
-  floor: v => v == null ? 'var(--muted)' : v < 15    ? 'var(--green)'              : 'var(--text)',
+  z:   v => v == null ? 'var(--muted)' : v <= -1.5 ? 'var(--green)' : v >= 1 ? 'var(--red)' : 'var(--text)',
+  erp: v => v == null ? 'var(--muted)' : v > 1     ? 'var(--green)'               : 'var(--text)',
 };
 
 // ── comparison table builder ──────────────────────────────────────────────────
 function cmpTable(leftLabel, rightLabel, left, right) {
   const rows = [
-    ['OE per share',     fmt.oeps(left.oeps),        fmt.oeps(right.oeps)],
+    ['OE per share',     fmt.oeps(left.oeps),         fmt.oeps(right.oeps)],
     ['OE Multiple',      fmt.mult(left.oe_multiple),  fmt.mult(right.oe_multiple)],
     ['OE Yield',         fmt.yld(left.oe_yield),      fmt.yld(right.oe_yield)],
     ['Trailing OE CAGR', fmt.growth(left.oe_growth),  fmt.growth(right.oe_growth)],
@@ -206,7 +203,7 @@ function renderCards(data) {
 
     // ── Block 1: Statistical Discount ───────────────────────────────────────
     const block1 = `
-      <div class="section-title">— A · B · C · D &nbsp; Statistical Discount Analysis —</div>
+      <div class="section-title">— A · B · C &nbsp; Statistical Discount Analysis —</div>
       <div class="discount-grid">
         <div class="discount-box">
           <div class="disc-label">5Y OE Z-Score</div>
@@ -220,10 +217,6 @@ function renderCards(data) {
           <div class="disc-label">ERP Spread vs 10Y</div>
           <div class="disc-val" style="color:${col.erp(disc.erp_spread)}">${fmt.erp(disc.erp_spread)}</div>
           ${erpSub}
-        </div>
-        <div class="discount-box">
-          <div class="disc-label">Premium to Floor</div>
-          <div class="disc-val" style="color:${col.floor(disc.premium_to_floor)}">${fmt.prem(disc.premium_to_floor)}</div>
         </div>
       </div>`;
 

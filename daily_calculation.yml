@@ -4,7 +4,7 @@ on:
   schedule:
     # ── Daily price update: Mon-Fri at 11:00 UTC (7am EST) ──
     - cron: '0 11 * * 1-5'
-    # ── EDGAR financials refresh: Tuesday + Thursday at 02:00 UTC (10pm EST) ──
+    # ── EDGAR Financials refresh: Tuesday + Thursday at 02:00 UTC (10pm EST) ──
     - cron: '0 2 * * 2,4'
   workflow_dispatch:
     inputs:
@@ -75,7 +75,7 @@ jobs:
           # Also commit edgar_cache.json if it changed
           git add edgar_cache.json 2>/dev/null || true
           git commit -m "OE update $(date +'%Y-%m-%d %H:%M') [${RUN_MODE}]" || echo "No changes"
-          git push
+          git push origin HEAD:main
         env:
           RUN_MODE: ${{ steps.mode.outputs.mode }}
 
