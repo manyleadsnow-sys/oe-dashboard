@@ -8,12 +8,13 @@
     "current": {
       "oe": 117.461,
       "oeps": 7.86,
-      "oe_yield": 3.1858,
-      "oe_multiple": 31.3895,
+      "oe_yield": 3.1838,
+      "oe_multiple": 31.4086,
       "oe_growth": 12.6542,
-      "oe_peg": 2.4806,
+      "oe_peg": 2.4821,
       "epv": 70.3412,
-      "price": 246.65
+      "oe_negative": false,
+      "price": 246.8
     },
     "peak_52w": {
       "oe": 110.993,
@@ -23,6 +24,7 @@
       "oe_growth": 12.6542,
       "oe_peg": 3.0431,
       "epv": 70.3412,
+      "oe_negative": false,
       "price": 285.92,
       "date": "2025-12-02"
     },
@@ -35,6 +37,7 @@
         "oe_growth": 10.8031,
         "oe_peg": 2.5469,
         "epv": 70.3412,
+        "oe_negative": false,
         "price": 171.67,
         "peak_price": 257.61,
         "crisis_name": "April 2025 Crash",
@@ -48,7 +51,8 @@
           "oe_multiple": 41.2889,
           "oe_growth": 10.8031,
           "oe_peg": 3.822,
-          "epv": 70.3412
+          "epv": 70.3412,
+          "oe_negative": false
         }
       },
       {
@@ -59,6 +63,7 @@
         "oe_growth": 16.894,
         "oe_peg": 1.3297,
         "epv": 70.3412,
+        "oe_negative": false,
         "price": 127.62,
         "peak_price": 176.46,
         "crisis_name": "2022 Bear Market",
@@ -72,7 +77,8 @@
           "oe_multiple": 31.0617,
           "oe_growth": 16.894,
           "oe_peg": 1.8386,
-          "epv": 70.3412
+          "epv": 70.3412,
+          "oe_negative": false
         }
       },
       {
@@ -83,6 +89,7 @@
         "oe_growth": 13.8603,
         "oe_peg": 1.2881,
         "epv": 70.3412,
+        "oe_negative": false,
         "price": 55.39,
         "peak_price": 79.06,
         "crisis_name": "2020 COVID-19 Crash",
@@ -96,7 +103,8 @@
           "oe_multiple": 25.4824,
           "oe_growth": 13.8603,
           "oe_peg": 1.8385,
-          "epv": 70.3412
+          "epv": 70.3412,
+          "oe_negative": false
         }
       },
       {
@@ -107,6 +115,7 @@
         "oe_growth": 14.6145,
         "oe_peg": 0.828,
         "epv": 70.3412,
+        "oe_negative": false,
         "price": 34.87,
         "peak_price": 54.04,
         "crisis_name": "2018 Rate/Trade Selloff",
@@ -120,7 +129,8 @@
           "oe_multiple": 6.122,
           "oe_growth": 1.9905,
           "oe_peg": 3.0756,
-          "epv": 70.3412
+          "epv": 70.3412,
+          "oe_negative": false
         }
       },
       {
@@ -131,6 +141,7 @@
         "oe_growth": 18.607,
         "oe_peg": 0.1267,
         "epv": 70.3412,
+        "oe_negative": false,
         "price": 21.04,
         "peak_price": 29.59,
         "crisis_name": "2015-2016 Selloff",
@@ -144,17 +155,19 @@
           "oe_multiple": 6.0155,
           "oe_growth": 4.9046,
           "oe_peg": 1.2265,
-          "epv": 70.3412
+          "epv": 70.3412,
+          "oe_negative": false
         }
       },
       {
         "oe": 117.461,
         "oeps": 7.86,
-        "oe_yield": 335.3544,
+        "oe_yield": 335.3543,
         "oe_multiple": 0.2982,
         "oe_growth": null,
         "oe_peg": null,
         "epv": 70.3412,
+        "oe_negative": false,
         "price": 2.34,
         "peak_price": 4.63,
         "crisis_name": "2008 GFC",
@@ -164,11 +177,12 @@
         "peak_metrics": {
           "oe": 117.461,
           "oeps": 7.86,
-          "oe_yield": 169.7393,
+          "oe_yield": 169.7392,
           "oe_multiple": 0.5891,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 70.3412
+          "epv": 70.3412,
+          "oe_negative": false
         }
       }
     ],
@@ -179,16 +193,17 @@
       "erp_yield_used": 4.35,
       "erp_yield_live": true
     },
-    "last_updated": "2026-03-30T18:54:54.388188",
-    "edgar_fetched_at": "2026-03-30T18:54:50.066744",
+    "last_updated": "2026-03-30T19:02:23.470340",
+    "edgar_fetched_at": "2026-03-30T19:02:18.985286",
     "dca_signal": "\ud83d\udd34 WAIT",
+    "oe_negative_warning": false,
     "vs_peak_diff": {
       "oe": 5.83,
       "oeps": 5.79,
-      "oe_yield": 22.68,
-      "oe_multiple": -18.49,
+      "oe_yield": 22.6,
+      "oe_multiple": -18.44,
       "oe_growth": 0.0,
-      "oe_peg": -18.48,
+      "oe_peg": -18.44,
       "epv": 0.0
     }
   },
@@ -201,12 +216,13 @@
     "current": {
       "oe": 61.859,
       "oeps": 5.11,
-      "oe_yield": 1.8744,
-      "oe_multiple": 53.3516,
+      "oe_yield": 1.8742,
+      "oe_multiple": 53.3555,
       "oe_growth": 28.0262,
-      "oe_peg": 1.9036,
+      "oe_peg": 1.9038,
       "epv": 73.5303,
-      "price": 272.39
+      "oe_negative": false,
+      "price": 272.41
     },
     "peak_52w": {
       "oe": 61.859,
@@ -216,6 +232,7 @@
       "oe_growth": 28.0262,
       "oe_peg": 2.4087,
       "epv": 73.5303,
+      "oe_negative": false,
       "price": 344.66,
       "date": "2026-02-02"
     },
@@ -228,7 +245,8 @@
         "oe_growth": 42.2376,
         "oe_peg": 0.6774,
         "epv": 73.5303,
-        "price": 146.07,
+        "oe_negative": false,
+        "price": 146.08,
         "peak_price": 206.76,
         "crisis_name": "April 2025 Crash",
         "peak_date": "2025-02-04",
@@ -241,7 +259,8 @@
           "oe_multiple": 40.4977,
           "oe_growth": 42.2376,
           "oe_peg": 0.9588,
-          "epv": 73.5303
+          "epv": 73.5303,
+          "oe_negative": false
         }
       },
       {
@@ -252,6 +271,7 @@
         "oe_growth": 46.101,
         "oe_peg": 0.4064,
         "epv": 73.5303,
+        "oe_negative": false,
         "price": 95.37,
         "peak_price": 149.48,
         "crisis_name": "2022 Bear Market",
@@ -262,10 +282,11 @@
           "oe": 17.988,
           "oeps": 1.48,
           "oe_yield": 0.9932,
-          "oe_multiple": 100.6849,
+          "oe_multiple": 100.685,
           "oe_growth": 22.9563,
           "oe_peg": 4.3859,
-          "epv": 73.5303
+          "epv": 73.5303,
+          "oe_negative": false
         }
       },
       {
@@ -276,6 +297,7 @@
         "oe_growth": 28.166,
         "oe_peg": 2.1191,
         "epv": 73.5303,
+        "oe_negative": false,
         "price": 53.18,
         "peak_price": 75.3,
         "crisis_name": "2020 COVID-19 Crash",
@@ -289,17 +311,19 @@
           "oe_multiple": 84.5093,
           "oe_growth": 28.166,
           "oe_peg": 3.0004,
-          "epv": 73.5303
+          "epv": 73.5303,
+          "oe_negative": false
         }
       },
       {
         "oe": -0.522,
         "oeps": -0.04,
         "oe_yield": -0.089,
-        "oe_multiple": -1123.7132,
+        "oe_multiple": -1123.7133,
         "oe_growth": null,
         "oe_peg": null,
         "epv": 73.5303,
+        "oe_negative": true,
         "price": 48.41,
         "peak_price": 62.9,
         "crisis_name": "2018 Rate/Trade Selloff",
@@ -310,10 +334,11 @@
           "oe": -0.522,
           "oeps": -0.04,
           "oe_yield": -0.0685,
-          "oe_multiple": -1459.957,
+          "oe_multiple": -1459.9571,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 73.5303
+          "epv": 73.5303,
+          "oe_negative": true
         }
       },
       {
@@ -324,6 +349,7 @@
         "oe_growth": null,
         "oe_peg": null,
         "epv": 73.5303,
+        "oe_negative": false,
         "price": 25.63,
         "peak_price": 29.48,
         "crisis_name": "2015-2016 Selloff",
@@ -337,7 +363,8 @@
           "oe_multiple": 66.4529,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 73.5303
+          "epv": 73.5303,
+          "oe_negative": false
         }
       },
       {
@@ -348,6 +375,7 @@
         "oe_growth": null,
         "oe_peg": null,
         "epv": 73.5303,
+        "oe_negative": false,
         "price": 6.36,
         "peak_price": 14.06,
         "crisis_name": "2008 GFC",
@@ -361,7 +389,8 @@
           "oe_multiple": 2.7532,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 73.5303
+          "epv": 73.5303,
+          "oe_negative": false
         }
       }
     ],
@@ -372,16 +401,17 @@
       "erp_yield_used": 4.35,
       "erp_yield_live": true
     },
-    "last_updated": "2026-03-30T18:54:56.129920",
-    "edgar_fetched_at": "2026-03-30T18:54:50.495839",
+    "last_updated": "2026-03-30T19:02:25.101723",
+    "edgar_fetched_at": "2026-03-30T19:02:19.422159",
     "dca_signal": "\ud83d\udd34 WAIT",
+    "oe_negative_warning": false,
     "vs_peak_diff": {
       "oe": 0.0,
       "oeps": 0.0,
-      "oe_yield": 26.54,
-      "oe_multiple": -20.97,
+      "oe_yield": 26.52,
+      "oe_multiple": -20.96,
       "oe_growth": 0.0,
-      "oe_peg": -20.97,
+      "oe_peg": -20.96,
       "epv": 0.0
     }
   },
@@ -394,12 +424,13 @@
     "current": {
       "oe": 22.637,
       "oeps": 25.23,
-      "oe_yield": 2.8412,
-      "oe_multiple": 35.1967,
+      "oe_yield": 2.8397,
+      "oe_multiple": 35.215,
       "oe_growth": 24.6697,
-      "oe_peg": 1.4267,
+      "oe_peg": 1.4275,
       "epv": 119.9999,
-      "price": 887.94
+      "oe_negative": false,
+      "price": 888.4
     },
     "peak_52w": {
       "oe": 12.357,
@@ -409,6 +440,7 @@
       "oe_growth": 5.2843,
       "oe_peg": 15.2829,
       "epv": 119.9999,
+      "oe_negative": false,
       "price": 1108.09,
       "date": "2025-11-25"
     },
@@ -421,6 +453,7 @@
         "oe_growth": 5.2843,
         "oe_peg": 9.7912,
         "epv": 119.9999,
+        "oe_negative": false,
         "price": 709.92,
         "peak_price": 949.75,
         "crisis_name": "April 2025 Crash",
@@ -434,7 +467,8 @@
           "oe_multiple": 126.3435,
           "oe_growth": 6.9292,
           "oe_peg": 18.2336,
-          "epv": 119.9999
+          "epv": 119.9999,
+          "oe_negative": false
         }
       },
       {
@@ -445,6 +479,7 @@
         "oe_growth": 10.9842,
         "oe_peg": 2.6251,
         "epv": 119.9999,
+        "oe_negative": false,
         "price": 226.66,
         "peak_price": 268.37,
         "crisis_name": "2022 Bear Market",
@@ -458,7 +493,8 @@
           "oe_multiple": 32.4013,
           "oe_growth": 14.3968,
           "oe_peg": 2.2506,
-          "epv": 119.9999
+          "epv": 119.9999,
+          "oe_negative": false
         }
       },
       {
@@ -469,6 +505,7 @@
         "oe_growth": 20.4381,
         "oe_peg": 0.545,
         "epv": 119.9999,
+        "oe_negative": false,
         "price": 114.27,
         "peak_price": 136.85,
         "crisis_name": "2020 COVID-19 Crash",
@@ -482,7 +519,8 @@
           "oe_multiple": 13.341,
           "oe_growth": 20.4381,
           "oe_peg": 0.6527,
-          "epv": 119.9999
+          "epv": 119.9999,
+          "oe_negative": false
         }
       },
       {
@@ -493,6 +531,7 @@
         "oe_growth": -9.5104,
         "oe_peg": -1.8009,
         "epv": 119.9999,
+        "oe_negative": false,
         "price": 61.87,
         "peak_price": 65.53,
         "crisis_name": "2015-2016 Selloff",
@@ -506,7 +545,8 @@
           "oe_multiple": 18.6008,
           "oe_growth": -12.9818,
           "oe_peg": -1.4328,
-          "epv": 119.9999
+          "epv": 119.9999,
+          "oe_negative": false
         }
       },
       {
@@ -517,6 +557,7 @@
         "oe_growth": null,
         "oe_peg": null,
         "epv": 119.9999,
+        "oe_negative": false,
         "price": 17.24,
         "peak_price": 35.12,
         "crisis_name": "2008 GFC",
@@ -530,25 +571,27 @@
           "oe_multiple": 1.3923,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 119.9999
+          "epv": 119.9999,
+          "oe_negative": false
         }
       }
     ],
     "discount_metrics": {
       "z_score_5y": 1.88,
       "z_score_10y": 2.58,
-      "erp_spread": -1.5,
+      "erp_spread": -1.51,
       "erp_yield_used": 4.35,
       "erp_yield_live": true
     },
-    "last_updated": "2026-03-30T18:54:57.988749",
-    "edgar_fetched_at": "2026-03-30T18:54:50.938534",
+    "last_updated": "2026-03-30T19:02:27.058079",
+    "edgar_fetched_at": "2026-03-30T19:02:19.847916",
     "dca_signal": "\ud83d\udd34 WAIT",
+    "oe_negative_warning": false,
     "vs_peak_diff": {
       "oe": 83.19,
       "oeps": 83.89,
-      "oe_yield": 129.46,
-      "oe_multiple": -56.42,
+      "oe_yield": 129.34,
+      "oe_multiple": -56.4,
       "oe_growth": 366.85,
       "oe_peg": -90.66,
       "epv": 0.0
@@ -563,12 +606,13 @@
     "current": {
       "oe": -3.7009,
       "oeps": -1.15,
-      "oe_yield": -0.3234,
-      "oe_multiple": -309.1761,
+      "oe_yield": -0.3236,
+      "oe_multiple": -308.9931,
       "oe_growth": null,
       "oe_peg": null,
       "epv": 23.3439,
-      "price": 354.8
+      "oe_negative": true,
+      "price": 354.59
     },
     "peak_52w": {
       "oe": -4.251,
@@ -578,6 +622,7 @@
       "oe_growth": null,
       "oe_peg": null,
       "epv": 23.3439,
+      "oe_negative": true,
       "price": 489.88,
       "date": "2025-12-16"
     },
@@ -590,6 +635,7 @@
         "oe_growth": null,
         "oe_peg": null,
         "epv": 23.3439,
+        "oe_negative": true,
         "price": 221.86,
         "peak_price": 479.86,
         "crisis_name": "April 2025 Crash",
@@ -603,7 +649,8 @@
           "oe_multiple": 249.7664,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 23.3439
+          "epv": 23.3439,
+          "oe_negative": false
         }
       },
       {
@@ -614,6 +661,7 @@
         "oe_growth": null,
         "oe_peg": null,
         "epv": 23.3439,
+        "oe_negative": true,
         "price": 209.39,
         "peak_price": 409.97,
         "crisis_name": "2022 Bear Market",
@@ -627,7 +675,8 @@
           "oe_multiple": -470.8933,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 23.3439
+          "epv": 23.3439,
+          "oe_negative": true
         }
       },
       {
@@ -638,6 +687,7 @@
         "oe_growth": null,
         "oe_peg": null,
         "epv": 23.3439,
+        "oe_negative": true,
         "price": 24.08,
         "peak_price": 59.14,
         "crisis_name": "2020 COVID-19 Crash",
@@ -651,7 +701,8 @@
           "oe_multiple": -23.9629,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 23.3439
+          "epv": 23.3439,
+          "oe_negative": true
         }
       },
       {
@@ -662,6 +713,7 @@
         "oe_growth": null,
         "oe_peg": null,
         "epv": 23.3439,
+        "oe_negative": true,
         "price": 16.7,
         "peak_price": 25.3,
         "crisis_name": "2018 Rate/Trade Selloff",
@@ -675,7 +727,8 @@
           "oe_multiple": -0.9116,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 23.3439
+          "epv": 23.3439,
+          "oe_negative": true
         }
       },
       {
@@ -686,6 +739,7 @@
         "oe_growth": null,
         "oe_peg": null,
         "epv": 23.3439,
+        "oe_negative": true,
         "price": 9.58,
         "peak_price": 19.07,
         "crisis_name": "2015-2016 Selloff",
@@ -699,7 +753,8 @@
           "oe_multiple": -241.7987,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 23.3439
+          "epv": 23.3439,
+          "oe_negative": true
         }
       }
     ],
@@ -710,14 +765,15 @@
       "erp_yield_used": 4.35,
       "erp_yield_live": true
     },
-    "last_updated": "2026-03-30T18:54:59.623198",
-    "edgar_fetched_at": "2026-03-30T18:54:51.387885",
+    "last_updated": "2026-03-30T19:02:28.699929",
+    "edgar_fetched_at": "2026-03-30T19:02:20.443333",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
+    "oe_negative_warning": true,
     "vs_peak_diff": {
       "oe": 12.94,
       "oeps": 13.53,
-      "oe_yield": -19.16,
-      "oe_multiple": 16.08,
+      "oe_yield": -19.23,
+      "oe_multiple": 16.13,
       "oe_growth": null,
       "oe_peg": null,
       "epv": 0.0
@@ -732,12 +788,13 @@
     "current": {
       "oe": 134.169,
       "oeps": 12.59,
-      "oe_yield": 6.2654,
-      "oe_multiple": 15.9607,
+      "oe_yield": 6.2746,
+      "oe_multiple": 15.9373,
       "oe_growth": 25.2644,
-      "oe_peg": 0.6317,
+      "oe_peg": 0.6308,
       "epv": 38.8209,
-      "price": 200.96
+      "oe_negative": false,
+      "price": 200.66
     },
     "peak_52w": {
       "oe": 112.043,
@@ -747,6 +804,7 @@
       "oe_growth": 27.3926,
       "oe_peg": 0.8667,
       "epv": 38.8209,
+      "oe_negative": false,
       "price": 254.0,
       "date": "2025-11-03"
     },
@@ -759,6 +817,7 @@
         "oe_growth": 27.3926,
         "oe_peg": 0.571,
         "epv": 38.8209,
+        "oe_negative": false,
         "price": 167.32,
         "peak_price": 242.06,
         "crisis_name": "April 2025 Crash",
@@ -772,7 +831,8 @@
           "oe_multiple": 22.6261,
           "oe_growth": 27.3926,
           "oe_peg": 0.826,
-          "epv": 38.8209
+          "epv": 38.8209,
+          "oe_negative": false
         }
       },
       {
@@ -783,6 +843,7 @@
         "oe_growth": 78.431,
         "oe_peg": 0.1947,
         "epv": 38.8209,
+        "oe_negative": false,
         "price": 102.31,
         "peak_price": 186.57,
         "crisis_name": "2022 Bear Market",
@@ -796,7 +857,8 @@
           "oe_multiple": 40.1333,
           "oe_growth": 82.6049,
           "oe_peg": 0.4858,
-          "epv": 38.8209
+          "epv": 38.8209,
+          "oe_negative": false
         }
       },
       {
@@ -804,9 +866,10 @@
         "oeps": 67.56,
         "oe_yield": 80.5969,
         "oe_multiple": 1.2407,
-        "oe_growth": 95.433,
-        "oe_peg": 0.013,
+        "oe_growth": null,
+        "oe_peg": null,
         "epv": 38.8209,
+        "oe_negative": false,
         "price": 83.83,
         "peak_price": 108.0,
         "crisis_name": "2020 COVID-19 Crash",
@@ -818,9 +881,10 @@
           "oeps": 67.56,
           "oe_yield": 62.56,
           "oe_multiple": 1.5985,
-          "oe_growth": 95.433,
-          "oe_peg": 0.0167,
-          "epv": 38.8209
+          "oe_growth": null,
+          "oe_peg": null,
+          "epv": 38.8209,
+          "oe_negative": false
         }
       },
       {
@@ -828,9 +892,10 @@
         "oeps": 30.23,
         "oe_yield": 44.9883,
         "oe_multiple": 2.2228,
-        "oe_growth": 151.6786,
-        "oe_peg": 0.0147,
+        "oe_growth": null,
+        "oe_peg": null,
         "epv": 38.8209,
+        "oe_negative": false,
         "price": 67.2,
         "peak_price": 101.98,
         "crisis_name": "2018 Rate/Trade Selloff",
@@ -842,9 +907,10 @@
           "oeps": 30.23,
           "oe_yield": 29.6456,
           "oe_multiple": 3.3732,
-          "oe_growth": 151.6786,
-          "oe_peg": 0.0222,
-          "epv": 38.8209
+          "oe_growth": null,
+          "oe_peg": null,
+          "epv": 38.8209,
+          "oe_negative": false
         }
       },
       {
@@ -855,6 +921,7 @@
         "oe_growth": null,
         "oe_peg": null,
         "epv": 38.8209,
+        "oe_negative": false,
         "price": 1.75,
         "peak_price": 4.67,
         "crisis_name": "2008 GFC",
@@ -868,27 +935,29 @@
           "oe_multiple": 0.3712,
           "oe_growth": null,
           "oe_peg": null,
-          "epv": 38.8209
+          "epv": 38.8209,
+          "oe_negative": false
         }
       }
     ],
     "discount_metrics": {
       "z_score_5y": 1.27,
       "z_score_10y": 1.84,
-      "erp_spread": 1.92,
+      "erp_spread": 1.93,
       "erp_yield_used": 4.35,
       "erp_yield_live": true
     },
-    "last_updated": "2026-03-30T18:55:01.372741",
-    "edgar_fetched_at": "2026-03-30T18:54:51.888850",
+    "last_updated": "2026-03-30T19:02:30.385096",
+    "edgar_fetched_at": "2026-03-30T19:02:20.898900",
     "dca_signal": "\ud83d\udd34 WAIT",
+    "oe_negative_warning": false,
     "vs_peak_diff": {
       "oe": 19.75,
       "oeps": 17.66,
-      "oe_yield": 48.75,
-      "oe_multiple": -32.77,
+      "oe_yield": 48.97,
+      "oe_multiple": -32.87,
       "oe_growth": -7.77,
-      "oe_peg": -27.11,
+      "oe_peg": -27.22,
       "epv": 0.0
     }
   }
