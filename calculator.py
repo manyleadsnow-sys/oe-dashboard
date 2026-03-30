@@ -39,7 +39,7 @@ EDGAR_HEADERS = {
 EDGAR_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
 EDGAR_CACHE          = "edgar_cache.json"
 OE_DATA              = "oe_data.json"
-CACHE_SCHEMA_VERSION = 2   # bump whenever extract_edgar_financials output keys change
+CACHE_SCHEMA_VERSION = 3   # v3: priority-first concept fetch (prevents D&A inflation)
 
 # Crisis windows — trough is the lowest price inside [start, end].
 # Pre-crisis peak is defined as the 52-week high in the year BEFORE start.
@@ -136,15 +136,22 @@ def fetch_edgar_facts(cik: str):
 
 
 def find_concept_series(facts, *concepts, unit="USD"):
-    us_gaap   = facts.get("facts", {}).get("us-gaap", {})
-    all_valid = []
+    """
+    Return XBRL entries for the FIRST concept in the priority list that has data.
+    Using the first match (not merging all) prevents cross-concept contamination:
+    e.g. DepreciationDepletionAndAmortization (total) being mixed with
+    AmortizationOfIntangibleAssets (a subset), inflating computed D&A.
+    """
+    us_gaap = facts.get("facts", {}).get("us-gaap", {})
     for concept in concepts:
         if concept not in us_gaap:
             continue
         entries = us_gaap[concept].get("units", {}).get(unit, [])
-        all_valid.extend(e for e in entries if "end" in e and "val" in e)
-    all_valid.sort(key=lambda x: (x["end"], x.get("filed", "")), reverse=True)
-    return all_valid
+        valid   = [e for e in entries if "end" in e and "val" in e]
+        if valid:
+            valid.sort(key=lambda x: (x["end"], x.get("filed", "")), reverse=True)
+            return valid
+    return []
 
 
 def dedup_by_end(entries, form_types=("10-Q", "10-K")):
@@ -578,21 +585,17 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         result["bear_markets"].append(mb)
 
     # ── Z-SCORES (Block 1-A/B) ────────────────────────────────────────────────
-    # Z-score the current TTM OE dollar level against the distribution of
-    # *prior* annual OE figures (the current fiscal year-end is excluded so the
-    # TTM is not compared against a set that effectively contains itself).
+    # Z-score the current TTM OE dollar level against the full distribution of
+    # annual OE figures from oe_by_fiscal_end. All fiscal year-ends within the
+    # lookback window are included — the TTM is computed from quarterly filings
+    # and is NOT identical to any single annual value, so no self-comparison issue.
     if oe_by_fiscal_end and oe_ttm is not None:
-        now        = datetime.now()
-        all_dates  = sorted(oe_by_fiscal_end.keys())
-        # Exclude the most recent fiscal year-end from the reference pool —
-        # TTM ≈ latest annual, including it compresses std and inflates the Z.
-        prior_dates = all_dates[:-1] if len(all_dates) > 1 else all_dates
-
+        now = datetime.now()
         cutoff_5y  = (now - timedelta(days=5  * 365)).strftime("%Y-%m-%d")
         cutoff_10y = (now - timedelta(days=10 * 365)).strftime("%Y-%m-%d")
 
-        vals_5y  = [oe_by_fiscal_end[d] for d in prior_dates if d >= cutoff_5y]
-        vals_10y = [oe_by_fiscal_end[d] for d in prior_dates if d >= cutoff_10y]
+        vals_5y  = [v for d, v in oe_by_fiscal_end.items() if d >= cutoff_5y]
+        vals_10y = [v for d, v in oe_by_fiscal_end.items() if d >= cutoff_10y]
 
         if len(vals_5y) >= 2:
             arr5 = np.array(vals_5y, dtype=float)
