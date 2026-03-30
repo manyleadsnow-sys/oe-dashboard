@@ -3,7 +3,12 @@ name: Daily OE Calculation
 on:
   schedule:
     - cron: '0 11 * * 1-5'  # 7am EST = 11am UTC, Mon-Fri
-  workflow_dispatch:          # allows manual trigger from GitHub website
+  workflow_dispatch:
+    inputs:
+      force_edgar:
+        description: 'Force a full EDGAR data refresh? (yes/no)'
+        required: true
+        default: 'no'
 
 jobs:
   calculate:
@@ -27,7 +32,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run calculation
-        run: python calculator.py
+        run: python calculator.py --force ${{ github.event.inputs.force_edgar }}
 
       - name: Copy dashboard files for Pages
         run: |
