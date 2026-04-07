@@ -76,10 +76,7 @@
   .disc-sub      { font-size: 11px; color: var(--muted); margin-top: 5px;
                    font-family: 'DM Mono', monospace; }
 
-  /* ── comparison table (Blocks 2 & 3) ──
-     col layout: row-label | LEFT value | vs | RIGHT value
-     LEFT  = peak (52w or pre-crisis)
-     RIGHT = current price OR trough price                  */
+  /* ── comparison table (Blocks 2 & 3) ── */
   .cmp-header { display: grid; grid-template-columns: 200px 160px 36px 160px;
                 font-size: 11px; color: var(--muted); text-transform: uppercase;
                 letter-spacing: .6px; padding: 2px 0 8px 0; }
@@ -96,198 +93,53 @@
 <body>
     <p style="color:var(--muted);margin-top:6px;">Owner Earnings Dossier</p>
 
+<button id="info-btn" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000; padding: 12px 24px; background-color: var(--accent); color: var(--bg); border: 1px solid var(--accent); border-radius: 50px; font-family: 'DM Mono', monospace; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
+  ℹ️ Interpreting Dashboard
+</button>
 
-<div class=WordSection1>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:10.0pt;line-height:105%;color:#A6A6A6;mso-themecolor:background1;
-mso-themeshade:166;mso-style-textfill-fill-color:#A6A6A6;mso-style-textfill-fill-themecolor:
-background1;mso-style-textfill-fill-alpha:100.0%;mso-style-textfill-fill-colortransforms:
-lumm=65000;mso-ansi-language:EN-US'>Interpreting this dashboard<o:p></o:p></span></b></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:10.0pt;line-height:105%;color:#A6A6A6;mso-themecolor:background1;
-mso-themeshade:166;mso-style-textfill-fill-color:#A6A6A6;mso-style-textfill-fill-themecolor:
-background1;mso-style-textfill-fill-alpha:100.0%;mso-style-textfill-fill-colortransforms:
-lumm=65000;mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></b></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='color:#92D050;mso-ansi-language:EN-US'>Block 1 - Current levels: Price,
-OE Z-Scores, and Equity Risk Premium<o:p></o:p></span></b></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-ansi-language:EN-US'>Z-scores:</span></b><span lang=EN-US
-style='mso-ansi-language:EN-US'> They measure how cheap/expensive the current
-OE multiple is vs its own 5/10-year history. In a normal distribution, most
-data points (68%) fall between -1 and +1. <o:p></o:p></span></p>
-
-<p class=MsoNormal style='text-indent:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='color:white;mso-themecolor:background1;
-mso-ansi-language:EN-US'>Target:</span></b><span lang=EN-US style='color:white;
-mso-themecolor:background1;mso-ansi-language:EN-US'> </span><span lang=EN-US
-style='font-size:10.0pt;line-height:105%;mso-ansi-language:EN-US'>Look for a
-negative Z-Score (e.g., -1.0 to -2.0).</span><span lang=EN-US style='mso-ansi-language:
-EN-US'> <o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:
-background1;mso-ansi-language:EN-US'>Above +2.0:</span></b><span lang=EN-US
-style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:
-EN-US'> </span><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>The
-stock is &quot;historically expensive.<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:
-background1;mso-ansi-language:EN-US'>0.0:</span></b><span lang=EN-US
-style='font-size:10.0pt;mso-ansi-language:EN-US'> The stock is trading at its
-&quot;average&quot; historical valuation.<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:
-background1;mso-ansi-language:EN-US'>Below -1.0:</span></b><span lang=EN-US
-style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:
-EN-US'> </span><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>The
-stock is &quot;on sale&quot; relative to its history.<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:
-EN-US'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNoSpacing><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-ansi-language:EN-US'>ERP spread VS 10Y (Equity Risk Premium): </span></b><span
-lang=EN-US style='mso-ansi-language:EN-US'>This measures the &quot;bonus&quot;
-yield you get for taking the risk of owning a stock instead of a
-&quot;guaranteed&quot; government bond.</span><span lang=EN-US
-style='font-size:10.0pt;mso-ansi-language:EN-US'><o:p></o:p></span></p>
-
-<p class=MsoNormal style='text-indent:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:10.0pt;line-height:105%;color:white;
-mso-themecolor:background1;mso-ansi-language:EN-US'>Target:</span></b><span
-lang=EN-US style='font-size:10.0pt;line-height:105%;mso-ansi-language:EN-US'>
-&gt; +2.0%. <o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:
-background1;mso-ansi-language:EN-US'>Negative:</span></b><span lang=EN-US
-style='font-size:10.0pt;mso-ansi-language:EN-US'> This is a warning. It means
-you are earning <span style='mso-bidi-font-style:italic'>less</span> yield from
-Apple s earnings than you would from a &quot;risk-free&quot; bond. This usually
-happens at market peaks.<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:
-background1;mso-ansi-language:EN-US'>Positive +3% or higher:</span></b><span
-lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;
-mso-ansi-language:EN-US'> </span><span lang=EN-US style='font-size:10.0pt;
-mso-ansi-language:EN-US'>This is a strong &quot;Buy&quot; signal. It means
-stocks are significantly more attractive than bonds.<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><span lang=EN-US
-style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='color:#92D050;mso-ansi-language:EN-US'>Block 2 - 52-Week highest price
-vs Today<o:p></o:p></span></b></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-ansi-language:EN-US'>OE per share:</span></b><span lang=EN-US
-style='mso-ansi-language:EN-US'> Unlike the stock price, you want this number
-to go up every year regardless of the market. If <b data-path-to-node="13,1,0"
-data-index-in-node=110>OE per share</b> is rising while the <b
-data-path-to-node="13,1,0" data-index-in-node=143>Stock Price</b> is falling,
-the &quot;Statistical Discount&quot; is widening, <b style='mso-bidi-font-weight:
-normal'>creating a buying opportunity</b>.<o:p></o:p></span></p>
-
-<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-ansi-language:EN-US'>OE multiple:</span></b><span lang=EN-US
-style='mso-ansi-language:EN-US'> It tells you how much you are paying for every
-<b data-path-to-node=4 data-index-in-node=57>$1</b> of Apple s actual cash
-profit and how much cash is actually available to be sent to you as a dividend
-or used to buy back shares.<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:
-background1;mso-ansi-language:EN-US'>Gold target:</span></b><span lang=EN-US
-style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:
-EN-US'> </span><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>&lt;
-15x. (Extremely rare for compounders).<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:
-background1;mso-ansi-language:EN-US'>Quality target:</span></b><span
-lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'> 18x   22x. (This
-is where some compounders like Apple historically bottoms out during major
-market corrections.<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:
-background1;mso-ansi-language:EN-US'>Avoid Zone:</span></b><span lang=EN-US
-style='font-size:10.0pt;mso-ansi-language:EN-US'> &gt; 30x. A high multiple
-means the market is incredibly optimistic.<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><span lang=EN-US
-style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-ansi-language:EN-US'>OE yield:</span></b><span lang=EN-US
-style='mso-ansi-language:EN-US'> The yield is your &quot;Return.&quot; It must
-be high enough to justify the risk of owning a stock instead of a
-&quot;safe&quot; government 10Y bond. The <b style='mso-bidi-font-weight:normal'>r<span
-style='mso-bidi-font-weight:bold'>isk premium rule: 10Y Treasury Yield + 2%</span></b>.<o:p></o:p></span></p>
-
-<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-ansi-language:EN-US'>Trailing (3Y to 5Y) OE CAGR:</span></b><span
-lang=EN-US style='mso-ansi-language:EN-US'> The Compound Annual Growth Rate
-measures the &quot;speed&quot; of the business. <b>The Target:</b> <b
-data-path-to-node="14,2,0" data-index-in-node=12>&gt; 10%<o:p></o:p></b></span></p>
-
-<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-ansi-language:EN-US'>OE-PEG ratio:</span></b><span lang=EN-US
-style='mso-ansi-language:EN-US'> This is the final &quot;sanity check&quot;
-that combines Price (Multiple) and Speed (Growth).<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b><span lang=EN-US
-style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:
-EN-US'>Strong-buy target: </span></b><b><span lang=EN-US style='font-size:10.0pt;
-mso-ansi-language:EN-US'>&lt; 1.0</span></b><span lang=EN-US style='font-size:
-10.0pt;mso-ansi-language:EN-US'>. This means you are paying less for the stock
-than its growth rate.<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b><span lang=EN-US
-style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:
-EN-US'>Growth-at-a-reasonable-price (GARP) target:</span></b><b><span
-lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'> 1.0   1.5</span></b><span
-lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>.<o:p></o:p></span></p>
-
-<p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:
-background1;mso-ansi-language:EN-US'>Above GARP target:</span></b><span
-lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'> It confirms the
-stock is currently in the overvalued category.<o:p></o:p></span></p>
-
-<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='color:#92D050;mso-ansi-language:EN-US'>Block 3 - Stock behavior in
-different crisis scenarios. <o:p></o:p></span></b></p>
-
-<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>This
-comparison among metrics of pre-crisis 52-week highest price and lowest price
-inside the crisis window, helps to understand each stock s retracement
-dynamics.<o:p></o:p></span></p>
-
-<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
-
+<div id="info-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(9, 9, 14, 0.85); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
+  <div style="background: var(--bg2); border: 1px solid var(--bg3); width: 90%; max-width: 800px; max-height: 85vh; border-radius: 12px; padding: 40px; position: relative; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+    <button id="close-modal" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--red); font-size: 28px; cursor: pointer;">&times;</button>
+    
+    <div class="WordSection1">
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;line-height:105%;color:#A6A6A6;mso-themecolor:background1;mso-themeshade:166;mso-style-textfill-fill-color:#A6A6A6;mso-style-textfill-fill-themecolor:background1;mso-style-textfill-fill-alpha:100.0%;mso-style-textfill-fill-colortransforms:lumm=65000;mso-ansi-language:EN-US'>Interpreting this dashboard<o:p></o:p></span></b></p>
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;line-height:105%;color:#A6A6A6;mso-themecolor:background1;mso-themeshade:166;mso-style-textfill-fill-color:#A6A6A6;mso-style-textfill-fill-themecolor:background1;mso-style-textfill-fill-alpha:100.0%;mso-style-textfill-fill-colortransforms:lumm=65000;mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></b></p>
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:#92D050;mso-ansi-language:EN-US'>Block 1 - Current levels: Price, OE Z-Scores, and Equity Risk Premium<o:p></o:p></span></b></p>
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-ansi-language:EN-US'>Z-scores:</span></b><span lang=EN-US style='mso-ansi-language:EN-US'> They measure how cheap/expensive the current OE multiple is vs its own 5/10-year history. In a normal distribution, most data points (68%) fall between -1 and +1. <o:p></o:p></span></p>
+        <p class=MsoNormal style='text-indent:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Target:</span></b><span lang=EN-US style='color:white;mso-themecolor:background1;mso-ansi-language:EN-US'> </span><span lang=EN-US style='font-size:10.0pt;line-height:105%;mso-ansi-language:EN-US'>Look for a negative Z-Score (e.g., -1.0 to -2.0).</span><span lang=EN-US style='mso-ansi-language:EN-US'> <o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Above +2.0:</span></b><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'> </span><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>The stock is &quot;historically expensive.<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>0.0:</span></b><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'> The stock is trading at its &quot;average&quot; historical valuation.<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Below -1.0:</span></b><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'> </span><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>The stock is &quot;on sale&quot; relative to its history.<o:p></o:p></span></p>
+        <p class=MsoNoSpacing><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+        <p class=MsoNoSpacing><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-ansi-language:EN-US'>ERP spread VS 10Y (Equity Risk Premium): </span></b><span lang=EN-US style='mso-ansi-language:EN-US'>This measures the &quot;bonus&quot; yield you get for taking the risk of owning a stock instead of a &quot;guaranteed&quot; government bond.</span><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'><o:p></o:p></span></p>
+        <p class=MsoNormal style='text-indent:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;line-height:105%;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Target:</span></b><span lang=EN-US style='font-size:10.0pt;line-height:105%;mso-ansi-language:EN-US'> &gt; +2.0%. <o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Negative:</span></b><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'> This is a warning. It means you are earning <span style='mso-bidi-font-style:italic'>less</span> yield from Apple s earnings than you would from a &quot;risk-free&quot; bond. This usually happens at market peaks.<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Positive +3% or higher:</span></b><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'> </span><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>This is a strong &quot;Buy&quot; signal. It means stocks are significantly more attractive than bonds.<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:#92D050;mso-ansi-language:EN-US'>Block 2 - 52-Week highest price vs Today<o:p></o:p></span></b></p>
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-ansi-language:EN-US'>OE per share:</span></b><span lang=EN-US style='mso-ansi-language:EN-US'> Unlike the stock price, you want this number to go up every year regardless of the market. If <b data-path-to-node="13,1,0" data-index-in-node=110>OE per share</b> is rising while the <b data-path-to-node="13,1,0" data-index-in-node=143>Stock Price</b> is falling, the &quot;Statistical Discount&quot; is widening, <b style='mso-bidi-font-weight:normal'>creating a buying opportunity</b>.<o:p></o:p></span></p>
+        <p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-ansi-language:EN-US'>OE multiple:</span></b><span lang=EN-US style='mso-ansi-language:EN-US'> It tells you how much you are paying for every <b data-path-to-node=4 data-index-in-node=57>$1</b> of Apple s actual cash profit and how much cash is actually available to be sent to you as a dividend or used to buy back shares.<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Gold target:</span></b><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'> </span><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>&lt; 15x. (Extremely rare for compounders).<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Quality target:</span></b><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'> 18x   22x. (This is where some compounders like Apple historically bottoms out during major market corrections.<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Avoid Zone:</span></b><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'> &gt; 30x. A high multiple means the market is incredibly optimistic.<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-ansi-language:EN-US'>OE yield:</span></b><span lang=EN-US style='mso-ansi-language:EN-US'> The yield is your &quot;Return.&quot; It must be high enough to justify the risk of owning a stock instead of a &quot;safe&quot; government 10Y bond. The <b style='mso-bidi-font-weight:normal'>r<span style='mso-bidi-font-weight:bold'>isk premium rule: 10Y Treasury Yield + 2%</span></b>.<o:p></o:p></span></p>
+        <p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-ansi-language:EN-US'>Trailing (3Y to 5Y) OE CAGR:</span></b><span lang=EN-US style='mso-ansi-language:EN-US'> The Compound Annual Growth Rate measures the &quot;speed&quot; of the business. <b>The Target:</b> <b data-path-to-node="14,2,0" data-index-in-node=12>&gt; 10%<o:p></o:p></b></span></p>
+        <p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-ansi-language:EN-US'>OE-PEG ratio:</span></b><span lang=EN-US style='mso-ansi-language:EN-US'> This is the final &quot;sanity check&quot; that combines Price (Multiple) and Speed (Growth).<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Strong-buy target: </span></b><b><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>&lt; 1.0</span></b><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>. This means you are paying less for the stock than its growth rate.<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Growth-at-a-reasonable-price (GARP) target:</span></b><b><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'> 1.0   1.5</span></b><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'>.<o:p></o:p></span></p>
+        <p class=MsoNoSpacing style='margin-left:35.4pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.0pt;color:white;mso-themecolor:background1;mso-ansi-language:EN-US'>Above GARP target:</span></b><span lang=EN-US style='font-size:10.0pt;mso-ansi-language:EN-US'> It confirms the stock is currently in the overvalued category.<o:p></o:p></span></p>
+        <p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+        <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:#92D050;mso-ansi-language:EN-US'>Block 3 - Stock behavior in different crisis scenarios. <o:p></o:p></span></b></p>
+        <p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>This comparison among metrics of pre-crisis 52-week highest price and lowest price inside the crisis window, helps to understand each stock s retracement dynamics.<o:p></o:p></span></p>
+        <p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+        <p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
+    </div>
+  </div>
 </div>
-
-
 
 <div class="yield-warning" id="yield-warning">
   ⚠ ERP Spread is using a fallback 10Y yield — live fetch from ^TNX failed.
@@ -322,14 +174,19 @@ const col = {
 };
 
 // ── comparison table builder ──────────────────────────────────────────────────
-function cmpTable(leftLabel, rightLabel, left, right) {
+function cmpTable(leftLabel, rightLabel, left, right, isGFC = false) {
   const rows = [
-    ['OE per share',     fmt.oeps(left.oeps),         fmt.oeps(right.oeps)],
-    ['OE Multiple',      fmt.mult(left.oe_multiple),  fmt.mult(right.oe_multiple)],
-    ['OE Yield',         fmt.yld(left.oe_yield),      fmt.yld(right.oe_yield)],
-    ['Trailing OE CAGR', fmt.growth(left.oe_growth),  fmt.growth(right.oe_growth)],
-    ['OE-PEG Ratio',     fmt.peg(left.oe_peg),        fmt.peg(right.oe_peg)],
+    { label: 'OE per share',     lRaw: left.oeps,        rRaw: right.oeps,        l: fmt.oeps(left.oeps),        r: fmt.oeps(right.oeps) },
+    { label: 'OE Multiple',      lRaw: left.oe_multiple, rRaw: right.oe_multiple, l: fmt.mult(left.oe_multiple), r: fmt.mult(right.oe_multiple) },
+    { label: 'OE Yield',         lRaw: left.oe_yield,    rRaw: right.oe_yield,    l: fmt.yld(left.oe_yield),     r: fmt.yld(right.oe_yield) }
   ];
+
+  // Omit Trailing OE CAGR and OE-PEG Ratio if this is the 2008 GFC
+  if (!isGFC) {
+    rows.push({ label: 'Trailing OE CAGR', lRaw: left.oe_growth, rRaw: right.oe_growth, l: fmt.growth(left.oe_growth), r: fmt.growth(right.oe_growth) });
+    rows.push({ label: 'OE-PEG Ratio',     lRaw: left.oe_peg,    rRaw: right.oe_peg,    l: fmt.peg(left.oe_peg),       r: fmt.peg(right.oe_peg) });
+  }
+
   const header = `
     <div class="cmp-header">
       <span></span>
@@ -337,13 +194,24 @@ function cmpTable(leftLabel, rightLabel, left, right) {
       <span></span>
       <span>${rightLabel}</span>
     </div>`;
-  const body = rows.map(([label, l, r]) => `
+
+  const body = rows.map(row => {
+    let rHtml = row.r;
+    
+    // Highlight the Current OE Multiple if it is below the 52-W Peak OE Multiple
+    if (row.label === 'OE Multiple' && rightLabel === 'Current' && row.lRaw != null && row.rRaw != null && Number(row.rRaw) < Number(row.lRaw)) {
+        rHtml = `<span style="color:var(--green);">${row.r}</span>`;
+    }
+
+    return `
     <div class="cmp-row">
-      <span class="cmp-label">${label}</span>
-      <span class="cmp-left">${l}</span>
+      <span class="cmp-label">${row.label}</span>
+      <span class="cmp-left">${row.l}</span>
       <span class="cmp-vs">vs</span>
-      <span class="cmp-right">${r}</span>
-    </div>`).join('');
+      <span class="cmp-right">${rHtml}</span>
+    </div>`;
+  }).join('');
+  
   return header + body;
 }
 
@@ -372,8 +240,9 @@ function renderCards(data) {
       : `<div class="disc-sub" style="color:var(--red)">⚠ fallback ${yieldUsed}%</div>`;
 
     // ── Block 1: Statistical Discount ───────────────────────────────────────
+    // Removed specific letters "A · B · C" from title
     const block1 = `
-      <div class="section-title">— A · B · C &nbsp; Statistical Discount Analysis —</div>
+      <div class="section-title">— Statistical Discount Analysis —</div>
       <div class="discount-grid">
         <div class="discount-box">
           <div class="disc-label">5Y OE Z-Score</div>
@@ -391,25 +260,28 @@ function renderCards(data) {
       </div>`;
 
     // ── Block 2: 52-week peak vs today ──────────────────────────────────────
-    const peakDateStr = p.date ? `@ ${p.date}` : '';
+    // Removed "@" and "E · F · G · H · I" from title/call
+    const peakDateStr = p.date ? `${p.date}` : '';
     const block2 = `
       <div class="section-title">
-        — E · F · G · H · I &nbsp; 52-Week Peak ${peakDateStr} (${fmt.price(p.price)}) vs Today (${fmt.price(c.price)}) —
+        — 52-Week Peak ${peakDateStr} (${fmt.price(p.price)}) vs Today (${fmt.price(c.price)}) —
       </div>
-      ${cmpTable('@ 52-W Peak', 'Current', p, c)}`;
+      ${cmpTable('52-W Peak', 'Current', p, c)}`;
 
     // ── Block 3: Crisis blocks ──────────────────────────────────────────────
+    // Removed "@" and "J · K · L · M · N" from title/call
     const block3 = bears.map(b => {
       const pm = b.peak_metrics || {};
+      const isGFC = b.crisis_name === "2008 GFC"; // Boolean check for filtering
+      
       return `
         <div class="section-title">
-          — J · K · L · M · N &nbsp;
-          ${b.crisis_name} —
+          — ${b.crisis_name} —
           Pre-crisis peak ${b.peak_date} (${fmt.price(b.peak_price)})
           vs Trough ${b.trough_date} (${fmt.price(b.price)})
           [▼${b.drawdown_pct}%]
         </div>
-        ${cmpTable('@ Pre-Crisis Peak', '@ Trough', pm, b)}`;
+        ${cmpTable('Pre-Crisis Peak', 'Trough', pm, b, isGFC)}`;
     }).join('');
 
     return `
@@ -432,6 +304,19 @@ function renderCards(data) {
 
   document.getElementById('yield-warning').style.display = anyStale ? 'block' : 'none';
 }
+
+// ── modal visibility logic ────────────────────────────────────────────────────
+document.getElementById('info-btn').addEventListener('click', () => {
+  document.getElementById('info-modal').style.display = 'flex';
+});
+document.getElementById('close-modal').addEventListener('click', () => {
+  document.getElementById('info-modal').style.display = 'none';
+});
+document.getElementById('info-modal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('info-modal')) {
+    document.getElementById('info-modal').style.display = 'none';
+  }
+});
 
 // ── filter / search ───────────────────────────────────────────────────────────
 let ROWS = [];
