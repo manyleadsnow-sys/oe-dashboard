@@ -185,14 +185,13 @@ const col = {
 };
 
 // ── comparison table builder ──────────────────────────────────────────────────
-function cmpTable(leftLabel, rightLabel, left, right, isGFC = false, crisisMaxDiffs = null) {
+function cmpTable(leftLabel, rightLabel, left, right, isGFC = false) {
   const rows = [
     { key: 'oeps',        label: 'OE per share',     lRaw: left.oeps,        rRaw: right.oeps,        l: fmt.oeps(left.oeps),        r: fmt.oeps(right.oeps) },
     { key: 'oe_multiple', label: 'OE Multiple',      lRaw: left.oe_multiple, rRaw: right.oe_multiple, l: fmt.mult(left.oe_multiple), r: fmt.mult(right.oe_multiple) },
     { key: 'oe_yield',    label: 'OE Yield',         lRaw: left.oe_yield,    rRaw: right.oe_yield,    l: fmt.yld(left.oe_yield),     r: fmt.yld(right.oe_yield) }
   ];
 
-  // Omit Trailing OE CAGR and OE-PEG Ratio if this is the 2008 GFC
   if (!isGFC) {
     rows.push({ key: 'oe_growth', label: 'Trailing OE CAGR', lRaw: left.oe_growth, rRaw: right.oe_growth, l: fmt.growth(left.oe_growth), r: fmt.growth(right.oe_growth) });
     rows.push({ key: 'oe_peg',    label: 'OE-PEG Ratio',     lRaw: left.oe_peg,    rRaw: right.oe_peg,    l: fmt.peg(left.oe_peg),       r: fmt.peg(right.oe_peg) });
@@ -210,35 +209,28 @@ function cmpTable(leftLabel, rightLabel, left, right, isGFC = false, crisisMaxDi
   const body = rows.map(row => {
     let rHtml = row.r;
     
-    // Highlight the Current OE Multiple if it is below the 52-W Peak OE Multiple
-    if (row.key === 'oe_multiple' && rightLabel === 'Current' && row.lRaw != null && row.rRaw != null && Number(row.rRaw) < Number(row.lRaw)) {
+    if (row.key === 'oe_multiple' && rightLabel === 'Current' && row.rRaw != null && Number(row.rRaw) > 0 && Number(row.rRaw) <= 18) {
         rHtml = `<span style="color:var(--green);">${row.r}</span>`;
     }
 
-    // % Diff Calculation logic 
     let pctHtml = `<span></span>`; 
     if (row.lRaw != null && row.rRaw != null && row.lRaw !== 0) {
         const diff = ((row.rRaw - row.lRaw) / Math.abs(row.lRaw)) * 100;
         const sign = diff > 0 ? '+' : '';
         const diffStr = `${sign}${diff.toFixed(1)}%`;
-        const defaultColor = diff > 0 ? 'var(--green)' : 'var(--red)';
         
         let isHighlight = false;
-        let titleStr = '';
         
-        // If crisisMaxDiffs is provided, check if current diff is within 3% of the largest crisis diff
-        if (crisisMaxDiffs && crisisMaxDiffs[row.key] != null) {
-            const maxDiff = crisisMaxDiffs[row.key];
-            if (Math.abs(diff - maxDiff) <= 3.0) {
-                isHighlight = true;
-                titleStr = `title="Alert: Current difference (${diffStr}) is within 3% of the largest crisis difference (${maxDiff > 0 ? '+' : ''}${maxDiff.toFixed(1)}%)"`;
-            }
-        }
+        if (row.key === 'oeps' && diff >= 10.0) { isHighlight = true; }
+        if (row.key === 'oe_multiple' && row.rRaw > 0 && row.rRaw <= 18.0) { isHighlight = true; }
+        if (row.key === 'oe_yield' && row.rRaw >= 2.0) { isHighlight = true; }
+        if (row.key === 'oe_growth' && row.rRaw >= 10.0) { isHighlight = true; }
+        if (row.key === 'oe_peg' && row.rRaw > 0 && row.rRaw <= 1.5) { isHighlight = true; }
 
         if (isHighlight) {
-            pctHtml = `<span class="cmp-diff highlight-diff" ${titleStr}>${diffStr} ⚠</span>`;
+            pctHtml = `<span class="cmp-diff highlight-diff">${diffStr} ⚠</span>`;
         } else {
-            pctHtml = `<span class="cmp-diff" style="color:${defaultColor}">${diffStr}</span>`;
+            pctHtml = `<span class="cmp-diff" style="color:var(--muted)">${diffStr}</span>`;
         }
     }
 
@@ -263,7 +255,6 @@ function renderCards(data) {
   let anyStale = false;
 
   container.innerHTML = data.map(r => {
-    // Skip records with no usable data at all
     if (!r.current?.price && r.error) return '';
 
     const c    = r.current    || {};
@@ -271,29 +262,6 @@ function renderCards(data) {
     const disc = r.discount_metrics || {};
     const bears = r.bear_markets    || [];
 
-    // ── Pre-calculate the maximum percentage differences for crises (Block 3 metrics)
-    const crisisMaxDiffs = {};
-    const metricKeys = ['oeps', 'oe_multiple', 'oe_yield', 'oe_growth', 'oe_peg'];
-    metricKeys.forEach(k => {
-        let maxAbs = -1;
-        let largestDiff = null;
-        bears.forEach(b => {
-            const pk = b.peak_metrics || {};
-            const lVal = pk[k];
-            const rVal = b[k];
-            if (lVal != null && rVal != null && lVal !== 0) {
-                const diff = ((rVal - lVal) / Math.abs(lVal)) * 100;
-                if (Math.abs(diff) > maxAbs) {
-                    maxAbs = Math.abs(diff);
-                    largestDiff = diff;
-                }
-            }
-        });
-        crisisMaxDiffs[k] = largestDiff;
-    });
-
-
-    // ── stale yield check ───────────────────────────────────────────────────
     const yieldLive = disc.erp_yield_live !== false;
     const yieldUsed = disc.erp_yield_used != null ? disc.erp_yield_used : '?';
     if (!yieldLive) anyStale = true;
@@ -301,7 +269,6 @@ function renderCards(data) {
       ? `<div class="disc-sub">yield: ${yieldUsed}% (live)</div>`
       : `<div class="disc-sub" style="color:var(--red)">⚠ fallback ${yieldUsed}%</div>`;
 
-    // ── Block 1: Statistical Discount ───────────────────────────────────────
     const block1 = `
       <div class="section-title">— Statistical Discount Analysis —</div>
       <div class="discount-grid">
@@ -320,10 +287,8 @@ function renderCards(data) {
         </div>
       </div>`;
 
-    // ── Block 2: 52-week peak vs today ──────────────────────────────────────
     const peakDateStr = p.date ? `${p.date}` : '';
     
-    // Calculate stock price drop logic here
     const pricePct = (p.price != null && c.price != null && p.price !== 0) 
         ? ((c.price - p.price) / Math.abs(p.price)) * 100 
         : null;
@@ -338,9 +303,8 @@ function renderCards(data) {
       <div class="section-title">
         — 52-Week Peak ${peakDateStr} (${fmt.price(p.price)}) vs Today (${fmt.price(c.price)}) —
       </div>
-      ${cmpTable('52-W Peak', 'Current', p, c, false, crisisMaxDiffs)}`;
+      ${cmpTable('52-W Peak', 'Current', p, c)}`;
 
-    // ── Block 3: Crisis blocks ──────────────────────────────────────────────
     const block3 = bears.map(b => {
       const pm = b.peak_metrics || {};
       const isGFC = b.crisis_name === "2008 GFC"; 
@@ -352,7 +316,7 @@ function renderCards(data) {
           vs Trough ${b.trough_date} (${fmt.price(b.price)})
           [▼${b.drawdown_pct}%]
         </div>
-        ${cmpTable('Pre-Crisis Peak', 'Trough', pm, b, isGFC, null)}`;
+        ${cmpTable('Pre-Crisis Peak', 'Trough', pm, b, isGFC)}`;
     }).join('');
 
     return `
@@ -377,7 +341,6 @@ function renderCards(data) {
   document.getElementById('yield-warning').style.display = anyStale ? 'block' : 'none';
 }
 
-// ── modal visibility logic ────────────────────────────────────────────────────
 document.getElementById('info-btn').addEventListener('click', () => {
   document.getElementById('info-modal').style.display = 'flex';
 });
@@ -390,7 +353,6 @@ document.getElementById('info-modal').addEventListener('click', (e) => {
   }
 });
 
-// ── filter / search ───────────────────────────────────────────────────────────
 let ROWS = [];
 function refresh() {
   const q  = document.getElementById('search').value.trim().toUpperCase();
@@ -403,7 +365,6 @@ function refresh() {
 document.getElementById('search').addEventListener('input', refresh);
 document.getElementById('sector-filter').addEventListener('change', refresh);
 
-// ── data load ─────────────────────────────────────────────────────────────────
 async function loadData() {
   try {
     const res = await fetch('oe_data.json?nocache=' + Date.now());
