@@ -61,7 +61,9 @@ CRISIS_PERIODS = [
     {"name": "2020 COVID-19 Crash",     "start": "2020-02-15", "end": "2020-03-23"},
     {"name": "2018 Rate/Trade Selloff", "start": "2018-09-20", "end": "2018-12-26"},
     {"name": "2015-2016 Selloff",       "start": "2015-06-01", "end": "2016-02-11"},
-    {"name": "2008 GFC",                "start": "2007-10-01", "end": "2009-03-09"},
+    # 2008 GFC removed: SEC EDGAR XBRL data does not exist before 2009.
+    # Falling back to current-TTM OE for pre-2009 periods produces nonsensical
+    # multiples and yields. No historical OE data = no crisis entry shown.
 ]
 
 INDUSTRY_WACC = {
@@ -700,7 +702,11 @@ def compute_ticker_result(symbol, financials, ticker_info, hist):
     def oe_and_growth_at(ts: pd.Timestamp):
         fend, oe_val = _latest_oe_before(oe_by_fiscal_end, ts)
         if fend is None:
-            return oe_ttm, None, shares
+            # No EDGAR annual data exists before this date.
+            # Return None so callers skip the metric rather than silently
+            # inheriting the current-TTM OE — which would produce
+            # nonsensical multiples and yields for historical periods.
+            return None, None, shares
         cagr = _cagr_ending_at(oe_by_fiscal_end, fend)
         sh   = _shares_at(ts)
         return oe_val, cagr, sh
@@ -761,6 +767,12 @@ def compute_ticker_result(symbol, financials, ticker_info, hist):
 
         oe_pk,  cagr_pk, sh_pk = oe_and_growth_at(pre_peak_date)
         oe_tr,  cagr_tr, sh_tr = oe_and_growth_at(trough_date)
+
+        # Skip crisis entirely if EDGAR has no OE data for either date.
+        # This happens when the crisis predates EDGAR XBRL coverage (~2009)
+        # or when the ticker was not yet public / reporting at that time.
+        if oe_pk is None and oe_tr is None:
+            continue
 
         ev_pk,  mc_pk  = ev_mc(pre_peak_price, sh_pk)
         ev_tr,  mc_tr  = ev_mc(trough_price,   sh_tr)
@@ -874,7 +886,7 @@ def refresh_edgar_cache(tickers):
                 sic = subs_r.json().get("sic")
         except Exception:
             pass
-        time.sleep(0.1)   # polite pause between submissions and facts calls
+        time.sleep(0.4)   # polite pause between submissions and facts calls (SEC rate limit)
 
         # Fetch company facts
         facts = fetch_edgar_facts(cik)
@@ -892,7 +904,7 @@ def refresh_edgar_cache(tickers):
         except Exception as e:
             print(f"ERROR: {e}")
             failed.append(sym)
-        time.sleep(0.15)
+        time.sleep(0.5)   # ~2 req/sec across submissions + facts calls, well under SEC's 10 req/sec limit
 
     save_edgar_cache(cache)
     print(f"\nEDGAR refresh complete: {ok} ok, {len(failed)} failed")
