@@ -1,991 +1,48 @@
 {
   "AAPL": {
     "ticker": "AAPL",
-    "company_name": "Apple Inc.",
-    "error": null,
-    "sector": "Industrials",
-    "data_source": "SEC EDGAR + Tiingo + FRED",
-    "current": {
-      "oe": 117.461,
-      "oeps": 7.86,
-      "oe_yield": 2.9493,
-      "oe_multiple": 33.9068,
-      "oe_growth": 12.6542,
-      "oe_peg": 2.6795,
-      "epv": 74.4789,
-      "oe_negative": false,
-      "price": 266.43
-    },
-    "peak_52w": {
-      "oe": 110.993,
-      "oeps": 7.43,
-      "oe_yield": 2.5969,
-      "oe_multiple": 38.5075,
-      "oe_growth": 12.6542,
-      "oe_peg": 3.0431,
-      "epv": 74.4789,
-      "oe_negative": false,
-      "price": 285.92,
-      "date": "2025-12-02"
-    },
-    "bear_markets": [
-      {
-        "oe": 95.734,
-        "oeps": 6.24,
-        "oe_yield": 3.6342,
-        "oe_multiple": 27.5164,
-        "oe_growth": 10.8031,
-        "oe_peg": 2.5471,
-        "epv": 74.4789,
-        "oe_negative": false,
-        "price": 171.68,
-        "peak_price": 257.63,
-        "crisis_name": "April 2025 Crash",
-        "peak_date": "2024-12-26",
-        "trough_date": "2025-04-08",
-        "drawdown_pct": 33.36,
-        "peak_metrics": {
-          "oe": 95.734,
-          "oeps": 6.24,
-          "oe_yield": 2.4218,
-          "oe_multiple": 41.2915,
-          "oe_growth": 10.8031,
-          "oe_peg": 3.8222,
-          "epv": 74.4789,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 94.879,
-        "oeps": 5.68,
-        "oe_yield": 4.4511,
-        "oe_multiple": 22.4662,
-        "oe_growth": 16.894,
-        "oe_peg": 1.3298,
-        "epv": 74.4789,
-        "oe_negative": false,
-        "price": 127.63,
-        "peak_price": 176.48,
-        "crisis_name": "2022 Bear Market",
-        "peak_date": "2021-12-27",
-        "trough_date": "2022-06-16",
-        "drawdown_pct": 27.68,
-        "peak_metrics": {
-          "oe": 94.879,
-          "oeps": 5.68,
-          "oe_yield": 3.2191,
-          "oe_multiple": 31.0645,
-          "oe_growth": 16.894,
-          "oe_peg": 1.8388,
-          "epv": 74.4789,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 57.308,
-        "oeps": 3.1,
-        "oe_yield": 5.7222,
-        "oe_multiple": 17.4759,
-        "oe_growth": 13.8603,
-        "oe_peg": 1.2609,
-        "epv": 74.4789,
-        "oe_negative": false,
-        "price": 54.22,
-        "peak_price": 79.07,
-        "crisis_name": "2020 COVID-19 Crash",
-        "peak_date": "2020-02-12",
-        "trough_date": "2020-03-23",
-        "drawdown_pct": 31.43,
-        "peak_metrics": {
-          "oe": 57.308,
-          "oeps": 3.1,
-          "oe_yield": 3.9238,
-          "oe_multiple": 25.4853,
-          "oe_growth": 13.8603,
-          "oe_peg": 1.8387,
-          "epv": 74.4789,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 57.121,
-        "oeps": 2.88,
-        "oe_yield": 8.264,
-        "oe_multiple": 12.1006,
-        "oe_growth": 14.6145,
-        "oe_peg": 0.828,
-        "epv": 74.4789,
-        "oe_negative": false,
-        "price": 34.87,
-        "peak_price": 54.04,
-        "crisis_name": "2018 Rate/Trade Selloff",
-        "peak_date": "2018-09-04",
-        "trough_date": "2018-12-24",
-        "drawdown_pct": 35.48,
-        "peak_metrics": {
-          "oe": 46.057,
-          "oeps": 8.83,
-          "oe_yield": 16.3343,
-          "oe_multiple": 6.1221,
-          "oe_growth": 1.9905,
-          "oe_peg": 3.0757,
-          "epv": 74.4789,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 51.347,
-        "oeps": 8.92,
-        "oe_yield": 42.4114,
-        "oe_multiple": 2.3579,
-        "oe_growth": 18.607,
-        "oe_peg": 0.1267,
-        "epv": 74.4789,
-        "oe_negative": false,
-        "price": 21.04,
-        "peak_price": 29.59,
-        "crisis_name": "2015-2016 Selloff",
-        "peak_date": "2015-05-22",
-        "trough_date": "2016-01-27",
-        "drawdown_pct": 28.89,
-        "peak_metrics": {
-          "oe": 29.939,
-          "oeps": 4.92,
-          "oe_yield": 16.6243,
-          "oe_multiple": 6.0153,
-          "oe_growth": 4.9046,
-          "oe_peg": 1.2265,
-          "epv": 74.4789,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 117.461,
-        "oeps": 7.86,
-        "oe_yield": 335.3644,
-        "oe_multiple": 0.2982,
-        "oe_growth": null,
-        "oe_peg": null,
-        "epv": 74.4789,
-        "oe_negative": false,
-        "price": 2.34,
-        "peak_price": 4.63,
-        "crisis_name": "2008 GFC",
-        "peak_date": "2007-09-27",
-        "trough_date": "2009-01-20",
-        "drawdown_pct": 49.39,
-        "peak_metrics": {
-          "oe": 117.461,
-          "oeps": 7.86,
-          "oe_yield": 169.7443,
-          "oe_multiple": 0.5891,
-          "oe_growth": null,
-          "oe_peg": null,
-          "epv": 74.4789,
-          "oe_negative": false
-        }
-      }
-    ],
-    "discount_metrics": {
-      "z_score_5y": 3.01,
-      "z_score_10y": 1.69,
-      "erp_spread": -1.31,
-      "erp_yield_used": 4.26,
-      "erp_yield_live": true
-    },
-    "last_updated": "2026-04-16T15:19:04.740051",
-    "edgar_fetched_at": "2026-04-16T15:16:53.609083",
-    "dca_signal": "\ud83d\udd34 WAIT",
-    "oe_negative_warning": false,
-    "vs_peak_diff": {
-      "oe": 5.83,
-      "oeps": 5.79,
-      "oe_yield": 13.57,
-      "oe_multiple": -11.95,
-      "oe_growth": 0.0,
-      "oe_peg": -11.95,
-      "epv": 0.0
-    }
+    "error": "Price fetch failed: Empty price history from Tiingo",
+    "sector": null,
+    "current": {},
+    "peak_52w": {},
+    "bear_markets": [],
+    "last_updated": "2026-04-16T16:19:34.661623"
   },
   "GOOG": {
     "ticker": "GOOG",
-    "company_name": "ALPHABET INC.",
-    "error": null,
-    "sector": "Technology",
-    "data_source": "SEC EDGAR + Tiingo + FRED",
-    "current": {
-      "oe": 61.859,
-      "oeps": 5.11,
-      "oe_yield": 1.5265,
-      "oe_multiple": 65.5109,
-      "oe_growth": 28.0262,
-      "oe_peg": 2.3375,
-      "epv": 69.4453,
-      "oe_negative": false,
-      "price": 334.47
-    },
-    "peak_52w": {
-      "oe": 61.859,
-      "oeps": 5.11,
-      "oe_yield": 1.4813,
-      "oe_multiple": 67.5074,
-      "oe_growth": 28.0262,
-      "oe_peg": 2.4087,
-      "epv": 69.4453,
-      "oe_negative": false,
-      "price": 344.66,
-      "date": "2026-02-02"
-    },
-    "bear_markets": [
-      {
-        "oe": 62.894,
-        "oeps": 5.11,
-        "oe_yield": 3.495,
-        "oe_multiple": 28.6122,
-        "oe_growth": 42.2376,
-        "oe_peg": 0.6774,
-        "epv": 69.4453,
-        "oe_negative": false,
-        "price": 146.08,
-        "peak_price": 206.75,
-        "crisis_name": "April 2025 Crash",
-        "peak_date": "2025-02-04",
-        "trough_date": "2025-04-08",
-        "drawdown_pct": 29.35,
-        "peak_metrics": {
-          "oe": 62.894,
-          "oeps": 5.11,
-          "oe_yield": 2.4694,
-          "oe_multiple": 40.4964,
-          "oe_growth": 42.2376,
-          "oe_peg": 0.9588,
-          "epv": 69.4453,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 61.666,
-        "oeps": 5.09,
-        "oe_yield": 5.3371,
-        "oe_multiple": 18.7367,
-        "oe_growth": 46.101,
-        "oe_peg": 0.4064,
-        "epv": 69.4453,
-        "oe_negative": false,
-        "price": 95.36,
-        "peak_price": 149.48,
-        "crisis_name": "2022 Bear Market",
-        "peak_date": "2021-11-18",
-        "trough_date": "2022-09-30",
-        "drawdown_pct": 36.2,
-        "peak_metrics": {
-          "oe": 17.988,
-          "oeps": 1.48,
-          "oe_yield": 0.9932,
-          "oe_multiple": 100.6806,
-          "oe_growth": 22.9563,
-          "oe_peg": 4.3857,
-          "epv": 69.4453,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 10.795,
-        "oeps": 0.89,
-        "oe_yield": 1.7004,
-        "oe_multiple": 58.8106,
-        "oe_growth": 28.166,
-        "oe_peg": 2.088,
-        "epv": 69.4453,
-        "oe_negative": false,
-        "price": 52.4,
-        "peak_price": 75.41,
-        "crisis_name": "2020 COVID-19 Crash",
-        "peak_date": "2020-02-14",
-        "trough_date": "2020-03-23",
-        "drawdown_pct": 30.52,
-        "peak_metrics": {
-          "oe": 10.795,
-          "oeps": 0.89,
-          "oe_yield": 1.1814,
-          "oe_multiple": 84.6432,
-          "oe_growth": 28.166,
-          "oe_peg": 3.0052,
-          "epv": 69.4453,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": -0.522,
-        "oeps": -0.04,
-        "oe_yield": null,
-        "oe_multiple": null,
-        "oe_growth": null,
-        "oe_peg": null,
-        "epv": 69.4453,
-        "oe_negative": true,
-        "price": 48.41,
-        "peak_price": 62.9,
-        "crisis_name": "2018 Rate/Trade Selloff",
-        "peak_date": "2018-07-26",
-        "trough_date": "2018-12-24",
-        "drawdown_pct": 23.03,
-        "peak_metrics": {
-          "oe": -0.522,
-          "oeps": -0.04,
-          "oe_yield": null,
-          "oe_multiple": null,
-          "oe_growth": null,
-          "oe_peg": null,
-          "epv": 69.4453,
-          "oe_negative": true
-        }
-      },
-      {
-        "oe": 3.122,
-        "oeps": 0.26,
-        "oe_yield": 1.0054,
-        "oe_multiple": 99.4659,
-        "oe_growth": null,
-        "oe_peg": null,
-        "epv": 69.4453,
-        "oe_negative": false,
-        "price": 25.63,
-        "peak_price": 29.56,
-        "crisis_name": "2015-2016 Selloff",
-        "peak_date": "2014-09-19",
-        "trough_date": "2015-07-08",
-        "drawdown_pct": 13.3,
-        "peak_metrics": {
-          "oe": 5.375,
-          "oeps": 0.44,
-          "oe_yield": 1.5008,
-          "oe_multiple": 66.6324,
-          "oe_growth": null,
-          "oe_peg": null,
-          "epv": 69.4453,
-          "oe_negative": false
-        }
-      }
-    ],
-    "discount_metrics": {
-      "z_score_5y": 0.69,
-      "z_score_10y": 1.18,
-      "erp_spread": -2.73,
-      "erp_yield_used": 4.26,
-      "erp_yield_live": true
-    },
-    "last_updated": "2026-04-16T15:19:04.999427",
-    "edgar_fetched_at": "2026-04-16T15:16:54.338980",
-    "dca_signal": "\ud83d\udd34 WAIT",
-    "oe_negative_warning": false,
-    "vs_peak_diff": {
-      "oe": 0.0,
-      "oeps": 0.0,
-      "oe_yield": 3.05,
-      "oe_multiple": -2.96,
-      "oe_growth": 0.0,
-      "oe_peg": -2.96,
-      "epv": 0.0
-    }
+    "error": "Price fetch failed: Empty price history from Tiingo",
+    "sector": null,
+    "current": {},
+    "peak_52w": {},
+    "bear_markets": [],
+    "last_updated": "2026-04-16T16:28:39.748575"
   },
   "META": {
     "ticker": "META",
-    "company_name": "Meta Platforms, Inc.",
-    "error": null,
-    "sector": "Technology",
-    "data_source": "SEC EDGAR + Tiingo + FRED",
-    "current": {
-      "oe": 9.383,
-      "oeps": 3.72,
-      "oe_yield": 0.5542,
-      "oe_multiple": 180.4384,
-      "oe_growth": -14.757,
-      "oe_peg": -12.2273,
-      "epv": 191.5749,
-      "oe_negative": false,
-      "price": 671.58
-    },
-    "peak_52w": {
-      "oe": 40.602,
-      "oeps": 16.02,
-      "oe_yield": 2.033,
-      "oe_multiple": 49.1896,
-      "oe_growth": 34.7781,
-      "oe_peg": 1.4144,
-      "epv": 191.5749,
-      "oe_negative": false,
-      "price": 788.16,
-      "date": "2025-08-12"
-    },
-    "bear_markets": [
-      {
-        "oe": 40.602,
-        "oeps": 16.02,
-        "oe_yield": 3.3162,
-        "oe_multiple": 30.155,
-        "oe_growth": 34.7781,
-        "oe_peg": 0.8671,
-        "epv": 191.5749,
-        "oe_negative": false,
-        "price": 483.17,
-        "peak_price": 733.77,
-        "crisis_name": "April 2025 Crash",
-        "peak_date": "2025-02-14",
-        "trough_date": "2025-04-21",
-        "drawdown_pct": 34.15,
-        "peak_metrics": {
-          "oe": 40.602,
-          "oeps": 16.02,
-          "oe_yield": 2.1836,
-          "oe_multiple": 45.7951,
-          "oe_growth": 34.7781,
-          "oe_peg": 1.3168,
-          "epv": 191.5749,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 28.647,
-        "oeps": 10.18,
-        "oe_yield": 8.0906,
-        "oe_multiple": 12.36,
-        "oe_growth": 28.848,
-        "oe_peg": 0.4285,
-        "epv": 191.5749,
-        "oe_negative": false,
-        "price": 125.78,
-        "peak_price": 379.23,
-        "crisis_name": "2022 Bear Market",
-        "peak_date": "2021-09-07",
-        "trough_date": "2022-10-14",
-        "drawdown_pct": 66.83,
-        "peak_metrics": {
-          "oe": 20.845,
-          "oeps": 7.31,
-          "oe_yield": 1.928,
-          "oe_multiple": 51.8682,
-          "oe_growth": 46.2785,
-          "oe_peg": 1.1208,
-          "epv": 191.5749,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 9.124,
-        "oeps": 3.2,
-        "oe_yield": 2.2065,
-        "oe_multiple": 45.32,
-        "oe_growth": 31.1492,
-        "oe_peg": 1.4549,
-        "epv": 191.5749,
-        "oe_negative": false,
-        "price": 144.88,
-        "peak_price": 221.51,
-        "crisis_name": "2020 COVID-19 Crash",
-        "peak_date": "2020-01-29",
-        "trough_date": "2020-03-16",
-        "drawdown_pct": 34.59,
-        "peak_metrics": {
-          "oe": 9.124,
-          "oeps": 3.2,
-          "oe_yield": 1.4432,
-          "oe_multiple": 69.2882,
-          "oe_growth": 31.1492,
-          "oe_peg": 2.2244,
-          "epv": 191.5749,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 12.226,
-        "oeps": 4.21,
-        "oe_yield": 3.4235,
-        "oe_multiple": 29.2101,
-        "oe_growth": null,
-        "oe_peg": null,
-        "epv": 191.5749,
-        "oe_negative": false,
-        "price": 123.1,
-        "peak_price": 215.82,
-        "crisis_name": "2018 Rate/Trade Selloff",
-        "peak_date": "2018-07-25",
-        "trough_date": "2018-12-24",
-        "drawdown_pct": 42.96,
-        "peak_metrics": {
-          "oe": 12.226,
-          "oeps": 4.21,
-          "oe_yield": 1.9527,
-          "oe_multiple": 51.2107,
-          "oe_growth": null,
-          "oe_peg": null,
-          "epv": 191.5749,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 2.352,
-        "oeps": 0.9,
-        "oe_yield": 1.1294,
-        "oe_multiple": 88.5458,
-        "oe_growth": 48.5708,
-        "oe_peg": 1.823,
-        "epv": 191.5749,
-        "oe_negative": false,
-        "price": 79.67,
-        "peak_price": 84.65,
-        "crisis_name": "2015-2016 Selloff",
-        "peak_date": "2015-03-24",
-        "trough_date": "2015-06-01",
-        "drawdown_pct": 5.88,
-        "peak_metrics": {
-          "oe": 2.352,
-          "oeps": 0.9,
-          "oe_yield": 1.0629,
-          "oe_multiple": 94.082,
-          "oe_growth": 48.5708,
-          "oe_peg": 1.937,
-          "epv": 191.5749,
-          "oe_negative": false
-        }
-      }
-    ],
-    "discount_metrics": {
-      "z_score_5y": -0.79,
-      "z_score_10y": -0.64,
-      "erp_spread": -3.71,
-      "erp_yield_used": 4.26,
-      "erp_yield_live": true
-    },
-    "last_updated": "2026-04-16T15:19:05.202086",
-    "edgar_fetched_at": "2026-04-16T15:16:54.909881",
-    "dca_signal": "\ud83d\udfe1 ACCUMULATE",
-    "oe_negative_warning": false,
-    "vs_peak_diff": {
-      "oe": -76.89,
-      "oeps": -76.78,
-      "oe_yield": -72.74,
-      "oe_multiple": 266.82,
-      "oe_growth": -142.43,
-      "oe_peg": -964.49,
-      "epv": 0.0
-    }
+    "error": "Price fetch failed: Empty price history from Tiingo",
+    "sector": null,
+    "current": {},
+    "peak_52w": {},
+    "bear_markets": [],
+    "last_updated": "2026-04-16T16:37:44.843504"
   },
   "MSFT": {
     "ticker": "MSFT",
-    "company_name": "MICROSOFT CORPORATION",
-    "error": null,
-    "sector": "Technology",
-    "data_source": "SEC EDGAR + Tiingo + FRED",
-    "current": {
-      "oe": 63.268,
-      "oeps": 8.51,
-      "oe_yield": 2.0699,
-      "oe_multiple": 48.3119,
-      "oe_growth": 8.4378,
-      "oe_peg": 5.7257,
-      "epv": 113.3171,
-      "oe_negative": false,
-      "price": 411.22
-    },
-    "peak_52w": {
-      "oe": 59.281,
-      "oeps": 7.98,
-      "oe_yield": 1.4774,
-      "oe_multiple": 67.6843,
-      "oe_growth": 8.4378,
-      "oe_peg": 8.0216,
-      "epv": 113.3171,
-      "oe_negative": false,
-      "price": 539.81,
-      "date": "2025-10-28"
-    },
-    "bear_markets": [
-      {
-        "oe": 58.859,
-        "oeps": 7.92,
-        "oe_yield": 2.2511,
-        "oe_multiple": 44.4221,
-        "oe_growth": 10.9413,
-        "oe_peg": 4.06,
-        "epv": 113.3171,
-        "oe_negative": false,
-        "price": 351.86,
-        "peak_price": 461.32,
-        "crisis_name": "April 2025 Crash",
-        "peak_date": "2024-07-05",
-        "trough_date": "2025-04-08",
-        "drawdown_pct": 23.73,
-        "peak_metrics": {
-          "oe": 58.859,
-          "oeps": 7.92,
-          "oe_yield": 1.717,
-          "oe_multiple": 58.242,
-          "oe_growth": 10.9413,
-          "oe_peg": 5.3231,
-          "epv": 113.3171,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 61.452,
-        "oeps": 8.2,
-        "oe_yield": 3.7427,
-        "oe_multiple": 26.7185,
-        "oe_growth": 21.242,
-        "oe_peg": 1.2578,
-        "epv": 113.3171,
-        "oe_negative": false,
-        "price": 219.04,
-        "peak_price": 331.21,
-        "crisis_name": "2022 Bear Market",
-        "peak_date": "2021-11-19",
-        "trough_date": "2022-10-11",
-        "drawdown_pct": 33.87,
-        "peak_metrics": {
-          "oe": 49.949,
-          "oeps": 6.62,
-          "oe_yield": 1.9983,
-          "oe_multiple": 50.0433,
-          "oe_growth": 23.9194,
-          "oe_peg": 2.0922,
-          "epv": 113.3171,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 35.015,
-        "oeps": 4.56,
-        "oe_yield": 3.5478,
-        "oe_multiple": 28.1864,
-        "oe_growth": 11.8663,
-        "oe_peg": 2.3753,
-        "epv": 113.3171,
-        "oe_negative": false,
-        "price": 128.63,
-        "peak_price": 178.75,
-        "crisis_name": "2020 COVID-19 Crash",
-        "peak_date": "2020-02-10",
-        "trough_date": "2020-03-16",
-        "drawdown_pct": 28.04,
-        "peak_metrics": {
-          "oe": 35.015,
-          "oeps": 4.56,
-          "oe_yield": 2.553,
-          "oe_multiple": 39.1694,
-          "oe_growth": 11.8663,
-          "oe_peg": 3.3009,
-          "epv": 113.3171,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 12.639,
-        "oeps": 1.64,
-        "oe_yield": 1.8683,
-        "oe_multiple": 53.5255,
-        "oe_growth": -8.9582,
-        "oe_peg": -5.975,
-        "epv": 113.3171,
-        "oe_negative": false,
-        "price": 87.86,
-        "peak_price": 105.35,
-        "crisis_name": "2018 Rate/Trade Selloff",
-        "peak_date": "2018-09-14",
-        "trough_date": "2018-12-24",
-        "drawdown_pct": 16.61,
-        "peak_metrics": {
-          "oe": 12.639,
-          "oeps": 1.64,
-          "oe_yield": 1.558,
-          "oe_multiple": 64.1848,
-          "oe_growth": -8.9582,
-          "oe_peg": -7.1649,
-          "epv": 113.3171,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 10.349,
-        "oeps": 1.27,
-        "oe_yield": 3.604,
-        "oe_multiple": 27.7467,
-        "oe_growth": -17.9148,
-        "oe_peg": -1.5488,
-        "epv": 113.3171,
-        "oe_negative": false,
-        "price": 35.12,
-        "peak_price": 42.1,
-        "crisis_name": "2015-2016 Selloff",
-        "peak_date": "2015-04-28",
-        "trough_date": "2015-08-25",
-        "drawdown_pct": 16.59,
-        "peak_metrics": {
-          "oe": 19.989,
-          "oeps": 2.41,
-          "oe_yield": 5.721,
-          "oe_multiple": 17.4794,
-          "oe_growth": -4.2832,
-          "oe_peg": -4.0809,
-          "epv": 113.3171,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 63.268,
-        "oeps": 8.51,
-        "oe_yield": 76.5807,
-        "oe_multiple": 1.3058,
-        "oe_growth": null,
-        "oe_peg": null,
-        "epv": 113.3171,
-        "oe_negative": false,
-        "price": 11.11,
-        "peak_price": 22.39,
-        "crisis_name": "2008 GFC",
-        "peak_date": "2007-07-19",
-        "trough_date": "2009-03-09",
-        "drawdown_pct": 50.35,
-        "peak_metrics": {
-          "oe": 63.268,
-          "oeps": 8.51,
-          "oe_yield": 38.0205,
-          "oe_multiple": 2.6302,
-          "oe_growth": null,
-          "oe_peg": null,
-          "epv": 113.3171,
-          "oe_negative": false
-        }
-      }
-    ],
-    "discount_metrics": {
-      "z_score_5y": 1.57,
-      "z_score_10y": 1.26,
-      "erp_spread": -2.19,
-      "erp_yield_used": 4.26,
-      "erp_yield_live": true
-    },
-    "last_updated": "2026-04-16T15:19:05.491858",
-    "edgar_fetched_at": "2026-04-16T15:16:55.592692",
-    "dca_signal": "\ud83d\udd34 WAIT",
-    "oe_negative_warning": false,
-    "vs_peak_diff": {
-      "oe": 6.73,
-      "oeps": 6.64,
-      "oe_yield": 40.1,
-      "oe_multiple": -28.62,
-      "oe_growth": 0.0,
-      "oe_peg": -28.62,
-      "epv": 0.0
-    }
+    "error": "Price fetch failed: Empty price history from Tiingo",
+    "sector": null,
+    "current": {},
+    "peak_52w": {},
+    "bear_markets": [],
+    "last_updated": "2026-04-16T16:46:49.915270"
   },
   "NVDA": {
     "ticker": "NVDA",
-    "company_name": "NVIDIA CORP",
-    "error": null,
-    "sector": "Technology",
-    "data_source": "SEC EDGAR + Tiingo + FRED",
-    "current": {
-      "oe": 122.6403,
-      "oeps": 5.03,
-      "oe_yield": 2.5317,
-      "oe_multiple": 39.4999,
-      "oe_growth": 87.02,
-      "oe_peg": 0.4539,
-      "epv": 18.6717,
-      "oe_negative": false,
-      "price": 198.87
-    },
-    "peak_52w": {
-      "oe": 74.744,
-      "oeps": 3.04,
-      "oe_yield": 1.4704,
-      "oe_multiple": 68.0097,
-      "oe_growth": 88.0179,
-      "oe_peg": 0.7727,
-      "epv": 18.6717,
-      "oe_negative": false,
-      "price": 207.02,
-      "date": "2025-10-29"
-    },
-    "bear_markets": [
-      {
-        "oe": 74.744,
-        "oeps": 3.04,
-        "oe_yield": 3.2283,
-        "oe_multiple": 30.9756,
-        "oe_growth": 88.0179,
-        "oe_peg": 0.3519,
-        "epv": 18.6717,
-        "oe_negative": false,
-        "price": 94.29,
-        "peak_price": 149.38,
-        "crisis_name": "April 2025 Crash",
-        "peak_date": "2025-01-06",
-        "trough_date": "2025-04-04",
-        "drawdown_pct": 36.88,
-        "peak_metrics": {
-          "oe": 31.268,
-          "oeps": 1.27,
-          "oe_yield": 0.8478,
-          "oe_multiple": 117.9558,
-          "oe_growth": 49.8052,
-          "oe_peg": 2.3683,
-          "epv": 18.6717,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 10.926,
-        "oeps": 4.38,
-        "oe_yield": 39.0403,
-        "oe_multiple": 2.5615,
-        "oe_growth": 45.6432,
-        "oe_peg": 0.0561,
-        "epv": 18.6717,
-        "oe_negative": false,
-        "price": 11.21,
-        "peak_price": 33.31,
-        "crisis_name": "2022 Bear Market",
-        "peak_date": "2021-11-29",
-        "trough_date": "2022-10-14",
-        "drawdown_pct": 66.34,
-        "peak_metrics": {
-          "oe": 5.43,
-          "oeps": 2.2,
-          "oe_yield": 6.6085,
-          "oe_multiple": 15.132,
-          "oe_growth": 54.6139,
-          "oe_peg": 0.2771,
-          "epv": 18.6717,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 3.177,
-        "oeps": 1.3,
-        "oe_yield": 26.6318,
-        "oe_multiple": 3.7549,
-        "oe_growth": 38.1465,
-        "oe_peg": 0.0984,
-        "epv": 18.6717,
-        "oe_negative": false,
-        "price": 4.89,
-        "peak_price": 7.21,
-        "crisis_name": "2020 COVID-19 Crash",
-        "peak_date": "2020-02-14",
-        "trough_date": "2020-03-16",
-        "drawdown_pct": 32.18,
-        "peak_metrics": {
-          "oe": 3.177,
-          "oeps": 1.3,
-          "oe_yield": 18.0607,
-          "oe_multiple": 5.5369,
-          "oe_growth": 38.1465,
-          "oe_peg": 0.1451,
-          "epv": 18.6717,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 3.047,
-        "oeps": 5.09,
-        "oe_yield": 161.465,
-        "oe_multiple": 0.6193,
-        "oe_growth": 40.1794,
-        "oe_peg": 0.0154,
-        "epv": 18.6717,
-        "oe_negative": false,
-        "price": 3.15,
-        "peak_price": 7.03,
-        "crisis_name": "2018 Rate/Trade Selloff",
-        "peak_date": "2018-09-04",
-        "trough_date": "2018-12-24",
-        "drawdown_pct": 55.16,
-        "peak_metrics": {
-          "oe": 3.047,
-          "oeps": 5.09,
-          "oe_yield": 72.3998,
-          "oe_multiple": 1.3812,
-          "oe_growth": 40.1794,
-          "oe_peg": 0.0344,
-          "epv": 18.6717,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 0.631,
-        "oeps": 1.14,
-        "oe_yield": 244.6042,
-        "oe_multiple": 0.4088,
-        "oe_growth": 12.615,
-        "oe_peg": 0.0324,
-        "epv": 18.6717,
-        "oe_negative": false,
-        "price": 0.47,
-        "peak_price": 0.57,
-        "crisis_name": "2015-2016 Selloff",
-        "peak_date": "2015-03-20",
-        "trough_date": "2015-07-27",
-        "drawdown_pct": 17.34,
-        "peak_metrics": {
-          "oe": 0.631,
-          "oeps": 1.14,
-          "oe_yield": 202.1813,
-          "oe_multiple": 0.4946,
-          "oe_growth": 12.615,
-          "oe_peg": 0.0392,
-          "epv": 18.6717,
-          "oe_negative": false
-        }
-      },
-      {
-        "oe": 122.6403,
-        "oeps": 5.03,
-        "oe_yield": 3722.6311,
-        "oe_multiple": 0.0269,
-        "oe_growth": null,
-        "oe_peg": null,
-        "epv": 18.6717,
-        "oe_negative": false,
-        "price": 0.14,
-        "peak_price": 0.84,
-        "crisis_name": "2008 GFC",
-        "peak_date": "2007-09-27",
-        "trough_date": "2008-11-20",
-        "drawdown_pct": 83.96,
-        "peak_metrics": {
-          "oe": 122.6403,
-          "oeps": 5.03,
-          "oe_yield": 597.1578,
-          "oe_multiple": 0.1675,
-          "oe_growth": null,
-          "oe_peg": null,
-          "epv": 18.6717,
-          "oe_negative": false
-        }
-      }
-    ],
-    "discount_metrics": {
-      "z_score_5y": 1.66,
-      "z_score_10y": 2.49,
-      "erp_spread": -1.73,
-      "erp_yield_used": 4.26,
-      "erp_yield_live": true
-    },
-    "last_updated": "2026-04-16T15:19:05.724641",
-    "edgar_fetched_at": "2026-04-16T15:16:56.267268",
-    "dca_signal": "\ud83d\udd34 WAIT",
-    "oe_negative_warning": false,
-    "vs_peak_diff": {
-      "oe": 64.08,
-      "oeps": 65.46,
-      "oe_yield": 72.18,
-      "oe_multiple": -41.92,
-      "oe_growth": -1.13,
-      "oe_peg": -41.26,
-      "epv": 0.0
-    }
+    "error": "Price fetch failed: Empty price history from Tiingo",
+    "sector": null,
+    "current": {},
+    "peak_52w": {},
+    "bear_markets": [],
+    "last_updated": "2026-04-16T16:55:55.158619"
   },
   "PLTR": {
     "ticker": "PLTR",
@@ -1077,7 +134,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:05.914359",
+    "last_updated": "2026-04-16T17:00:28.269677",
     "edgar_fetched_at": "2026-04-16T15:16:56.899309",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -1259,7 +316,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:06.119687",
+    "last_updated": "2026-04-16T17:00:28.658461",
     "edgar_fetched_at": "2026-04-16T15:16:57.535533",
     "dca_signal": "\u26a0\ufe0f NEGATIVE OE",
     "oe_negative_warning": true,
@@ -1467,7 +524,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:06.385860",
+    "last_updated": "2026-04-16T17:00:29.169447",
     "edgar_fetched_at": "2026-04-16T15:16:58.294577",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -1675,7 +732,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:06.643760",
+    "last_updated": "2026-04-16T17:00:29.750316",
     "edgar_fetched_at": "2026-04-16T15:16:58.927616",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -1883,7 +940,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:06.882041",
+    "last_updated": "2026-04-16T17:00:30.151340",
     "edgar_fetched_at": "2026-04-16T15:16:59.722900",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -2065,7 +1122,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:07.111556",
+    "last_updated": "2026-04-16T17:00:30.609933",
     "edgar_fetched_at": "2026-04-16T15:17:00.446120",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -2273,7 +1330,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:07.343097",
+    "last_updated": "2026-04-16T17:00:31.039153",
     "edgar_fetched_at": "2026-04-16T15:17:01.025973",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -2481,7 +1538,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:07.634140",
+    "last_updated": "2026-04-16T17:00:31.624451",
     "edgar_fetched_at": "2026-04-16T15:17:01.649552",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -2689,7 +1746,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:07.895126",
+    "last_updated": "2026-04-16T17:00:32.133853",
     "edgar_fetched_at": "2026-04-16T15:17:02.390958",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -2897,7 +1954,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:08.103271",
+    "last_updated": "2026-04-16T17:00:32.643631",
     "edgar_fetched_at": "2026-04-16T15:17:03.094578",
     "dca_signal": "\ud83d\udfe2 STRONG DCA",
     "oe_negative_warning": false,
@@ -3105,7 +2162,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:08.349040",
+    "last_updated": "2026-04-16T17:00:33.124948",
     "edgar_fetched_at": "2026-04-16T15:17:03.767768",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -3287,7 +2344,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:08.565003",
+    "last_updated": "2026-04-16T17:00:33.616449",
     "edgar_fetched_at": "2026-04-16T15:17:04.480507",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -3495,7 +2552,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:08.791406",
+    "last_updated": "2026-04-16T17:00:34.053544",
     "edgar_fetched_at": "2026-04-16T15:17:05.098381",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -3703,7 +2760,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:08.991210",
+    "last_updated": "2026-04-16T17:00:34.517595",
     "edgar_fetched_at": "2026-04-16T15:17:05.746109",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -3911,7 +2968,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:09.313421",
+    "last_updated": "2026-04-16T17:00:34.992550",
     "edgar_fetched_at": "2026-04-16T15:17:06.360824",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -4067,7 +3124,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:09.616153",
+    "last_updated": "2026-04-16T17:00:35.414432",
     "edgar_fetched_at": "2026-04-16T15:17:06.949866",
     "dca_signal": "\ud83d\udfe2 STRONG DCA",
     "oe_negative_warning": false,
@@ -4275,7 +3332,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:09.938432",
+    "last_updated": "2026-04-16T17:00:35.926792",
     "edgar_fetched_at": "2026-04-16T15:17:07.572812",
     "dca_signal": "\u26a0\ufe0f NEGATIVE OE",
     "oe_negative_warning": true,
@@ -4483,7 +3540,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:10.159820",
+    "last_updated": "2026-04-16T17:00:36.439888",
     "edgar_fetched_at": "2026-04-16T15:17:08.234114",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -4665,7 +3722,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:10.424065",
+    "last_updated": "2026-04-16T17:00:36.828478",
     "edgar_fetched_at": "2026-04-16T15:17:09.034698",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -4847,7 +3904,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:10.637366",
+    "last_updated": "2026-04-16T17:00:37.267330",
     "edgar_fetched_at": "2026-04-16T15:17:09.852453",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -5055,7 +4112,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:10.856422",
+    "last_updated": "2026-04-16T17:00:37.722333",
     "edgar_fetched_at": "2026-04-16T15:17:10.561726",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -5263,7 +4320,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:11.095497",
+    "last_updated": "2026-04-16T17:00:38.169668",
     "edgar_fetched_at": "2026-04-16T15:17:11.189487",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -5419,7 +4476,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:11.290234",
+    "last_updated": "2026-04-16T17:00:38.566172",
     "edgar_fetched_at": "2026-04-16T15:17:11.963815",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -5500,7 +4557,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:11.512308",
+    "last_updated": "2026-04-16T17:00:39.096004",
     "edgar_fetched_at": "2026-04-16T15:17:12.702505",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -5708,7 +4765,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:11.756992",
+    "last_updated": "2026-04-16T17:00:39.510858",
     "edgar_fetched_at": "2026-04-16T15:17:13.494100",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -5916,7 +4973,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:12.002268",
+    "last_updated": "2026-04-16T17:00:39.964206",
     "edgar_fetched_at": "2026-04-16T15:17:14.159777",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -5988,7 +5045,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:12.162125",
+    "last_updated": "2026-04-16T17:00:40.307308",
     "edgar_fetched_at": "2026-04-16T15:17:14.741456",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -6170,7 +5227,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:12.440378",
+    "last_updated": "2026-04-16T17:00:40.843375",
     "edgar_fetched_at": "2026-04-16T15:17:15.510605",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -6352,7 +5409,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:12.666602",
+    "last_updated": "2026-04-16T17:00:41.305586",
     "edgar_fetched_at": "2026-04-16T15:17:16.217716",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -6560,7 +5617,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:12.891787",
+    "last_updated": "2026-04-16T17:00:41.766915",
     "edgar_fetched_at": "2026-04-16T15:17:16.927739",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -6664,7 +5721,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:13.036352",
+    "last_updated": "2026-04-16T17:00:42.047773",
     "edgar_fetched_at": "2026-04-16T15:17:17.663798",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -6846,7 +5903,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:13.240065",
+    "last_updated": "2026-04-16T17:00:42.435524",
     "edgar_fetched_at": "2026-04-16T15:17:18.314414",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -7054,7 +6111,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:13.470987",
+    "last_updated": "2026-04-16T17:00:42.920745",
     "edgar_fetched_at": "2026-04-16T15:17:18.960888",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -7262,7 +6319,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:13.692478",
+    "last_updated": "2026-04-16T17:00:43.403097",
     "edgar_fetched_at": "2026-04-16T15:17:19.606942",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -7470,7 +6527,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:13.942875",
+    "last_updated": "2026-04-16T17:00:43.820973",
     "edgar_fetched_at": "2026-04-16T15:17:20.219016",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -7652,7 +6709,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:14.161406",
+    "last_updated": "2026-04-16T17:00:44.289144",
     "edgar_fetched_at": "2026-04-16T15:17:20.826564",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -7860,7 +6917,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:14.390787",
+    "last_updated": "2026-04-16T17:00:44.749636",
     "edgar_fetched_at": "2026-04-16T15:17:21.480075",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -8042,7 +7099,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:14.617762",
+    "last_updated": "2026-04-16T17:00:45.229703",
     "edgar_fetched_at": "2026-04-16T15:17:22.150822",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -8224,7 +7281,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:14.890128",
+    "last_updated": "2026-04-16T17:00:45.665275",
     "edgar_fetched_at": "2026-04-16T15:17:23.085346",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -8432,7 +7489,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:15.120041",
+    "last_updated": "2026-04-16T17:00:46.130590",
     "edgar_fetched_at": "2026-04-16T15:17:23.690848",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -8640,7 +7697,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:15.344045",
+    "last_updated": "2026-04-16T17:00:46.590940",
     "edgar_fetched_at": "2026-04-16T15:17:24.425909",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -8721,7 +7778,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:15.527952",
+    "last_updated": "2026-04-16T17:00:46.934298",
     "edgar_fetched_at": "2026-04-16T15:17:24.958009",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -8929,7 +7986,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:15.732016",
+    "last_updated": "2026-04-16T17:00:47.379042",
     "edgar_fetched_at": "2026-04-16T15:17:25.646503",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -9137,7 +8194,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:15.977833",
+    "last_updated": "2026-04-16T17:00:47.850909",
     "edgar_fetched_at": "2026-04-16T15:17:26.515346",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -9345,7 +8402,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:16.208637",
+    "last_updated": "2026-04-16T17:00:48.336376",
     "edgar_fetched_at": "2026-04-16T15:17:27.048473",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -9553,7 +8610,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:16.477043",
+    "last_updated": "2026-04-16T17:00:48.806549",
     "edgar_fetched_at": "2026-04-16T15:17:27.802026",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -9761,7 +8818,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:16.721583",
+    "last_updated": "2026-04-16T17:00:49.237957",
     "edgar_fetched_at": "2026-04-16T15:17:28.613312",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -9969,7 +9026,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:16.948151",
+    "last_updated": "2026-04-16T17:00:49.722128",
     "edgar_fetched_at": "2026-04-16T15:17:29.495880",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -10125,7 +9182,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:17.164062",
+    "last_updated": "2026-04-16T17:00:50.135286",
     "edgar_fetched_at": "2026-04-16T15:17:30.183066",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -10333,7 +9390,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:17.402895",
+    "last_updated": "2026-04-16T17:00:50.586266",
     "edgar_fetched_at": "2026-04-16T15:17:30.975905",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -10541,7 +9598,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:17.601085",
+    "last_updated": "2026-04-16T17:00:51.031666",
     "edgar_fetched_at": "2026-04-16T15:17:31.697931",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -10697,7 +9754,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:17.829399",
+    "last_updated": "2026-04-16T17:00:51.491307",
     "edgar_fetched_at": "2026-04-16T15:17:32.406093",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -10879,7 +9936,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:18.023407",
+    "last_updated": "2026-04-16T17:00:51.925243",
     "edgar_fetched_at": "2026-04-16T15:17:33.132181",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -11087,7 +10144,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:18.236638",
+    "last_updated": "2026-04-16T17:00:52.372977",
     "edgar_fetched_at": "2026-04-16T15:17:33.881923",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -11177,7 +10234,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:18.428100",
+    "last_updated": "2026-04-16T17:00:52.815088",
     "edgar_fetched_at": "2026-04-16T15:17:34.530311",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -11385,7 +10442,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:18.649162",
+    "last_updated": "2026-04-16T17:00:53.259731",
     "edgar_fetched_at": "2026-04-16T15:17:35.256962",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -11593,7 +10650,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:18.878806",
+    "last_updated": "2026-04-16T17:00:53.683838",
     "edgar_fetched_at": "2026-04-16T15:17:36.143657",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -11801,7 +10858,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:19.084289",
+    "last_updated": "2026-04-16T17:00:54.057490",
     "edgar_fetched_at": "2026-04-16T15:17:36.791865",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -12009,7 +11066,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T15:19:19.292644",
+    "last_updated": "2026-04-16T17:00:54.493361",
     "edgar_fetched_at": "2026-04-16T15:17:37.425160",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -12025,39 +11082,708 @@
   },
   "JPM": {
     "ticker": "JPM",
-    "error": "Price fetch failed: Empty price history from Tiingo",
-    "sector": null,
-    "current": {},
-    "peak_52w": {},
-    "bear_markets": [],
-    "last_updated": "2026-04-16T15:28:24.067884"
+    "company_name": "JPMORGAN CHASE & CO",
+    "error": null,
+    "sector": "Financial Services",
+    "data_source": "SEC EDGAR + Tiingo + FRED",
+    "current": {
+      "oe": 57.048,
+      "oeps": 20.55,
+      "oe_yield": 6.7162,
+      "oe_multiple": 14.8895,
+      "oe_growth": 14.3892,
+      "oe_peg": 1.0348,
+      "epv": 199.1817,
+      "oe_negative": false,
+      "price": 305.93
+    },
+    "peak_52w": {
+      "oe": 57.048,
+      "oeps": 20.55,
+      "oe_yield": 6.1717,
+      "oe_multiple": 16.2031,
+      "oe_growth": 14.3892,
+      "oe_peg": 1.1261,
+      "epv": 199.1817,
+      "oe_negative": false,
+      "price": 332.92,
+      "date": "2026-01-06"
+    },
+    "bear_markets": [
+      {
+        "oe": 58.471,
+        "oeps": 20.35,
+        "oe_yield": 9.862,
+        "oe_multiple": 10.14,
+        "oe_growth": 9.9201,
+        "oe_peg": 1.0222,
+        "epv": 199.1817,
+        "oe_negative": false,
+        "price": 206.3,
+        "peak_price": 272.84,
+        "crisis_name": "April 2025 Crash",
+        "peak_date": "2025-02-18",
+        "trough_date": "2025-04-04",
+        "drawdown_pct": 24.39,
+        "peak_metrics": {
+          "oe": 58.471,
+          "oeps": 20.35,
+          "oe_yield": 7.457,
+          "oe_multiple": 13.4102,
+          "oe_growth": 9.9201,
+          "oe_peg": 1.3518,
+          "epv": 199.1817,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 48.334,
+        "oeps": 16.0,
+        "oe_yield": 17.0598,
+        "oe_multiple": 5.8617,
+        "oe_growth": 14.3413,
+        "oe_peg": 0.4087,
+        "epv": 199.1817,
+        "oe_negative": false,
+        "price": 93.77,
+        "peak_price": 153.09,
+        "crisis_name": "2022 Bear Market",
+        "peak_date": "2021-10-22",
+        "trough_date": "2022-10-11",
+        "drawdown_pct": 38.75,
+        "peak_metrics": {
+          "oe": 29.131,
+          "oeps": 9.45,
+          "oe_yield": 6.1732,
+          "oe_multiple": 16.199,
+          "oe_growth": 3.5708,
+          "oe_peg": 4.5365,
+          "epv": 199.1817,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 36.431,
+        "oeps": 11.31,
+        "oe_yield": 16.947,
+        "oe_multiple": 5.9007,
+        "oe_growth": 10.8737,
+        "oe_peg": 0.5427,
+        "epv": 199.1817,
+        "oe_negative": false,
+        "price": 66.73,
+        "peak_price": 118.36,
+        "crisis_name": "2020 COVID-19 Crash",
+        "peak_date": "2020-01-02",
+        "trough_date": "2020-03-23",
+        "drawdown_pct": 43.62,
+        "peak_metrics": {
+          "oe": 36.431,
+          "oeps": 11.31,
+          "oe_yield": 9.5544,
+          "oe_multiple": 10.4663,
+          "oe_growth": 10.8737,
+          "oe_peg": 0.9625,
+          "epv": 199.1817,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 24.441,
+        "oeps": 6.88,
+        "oe_yield": 9.1815,
+        "oe_multiple": 10.8914,
+        "oe_growth": 2.8051,
+        "oe_peg": 3.8827,
+        "epv": 199.1817,
+        "oe_negative": false,
+        "price": 74.95,
+        "peak_price": 95.16,
+        "crisis_name": "2018 Rate/Trade Selloff",
+        "peak_date": "2018-08-08",
+        "trough_date": "2018-12-24",
+        "drawdown_pct": 21.23,
+        "peak_metrics": {
+          "oe": 24.441,
+          "oeps": 6.88,
+          "oe_yield": 7.232,
+          "oe_multiple": 13.8274,
+          "oe_growth": 2.8051,
+          "oe_peg": 4.9293,
+          "epv": 199.1817,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 24.442,
+        "oeps": 6.53,
+        "oe_yield": 16.1849,
+        "oe_multiple": 6.1786,
+        "oe_growth": 6.5327,
+        "oe_peg": 0.9458,
+        "epv": 199.1817,
+        "oe_negative": false,
+        "price": 40.37,
+        "peak_price": 49.93,
+        "crisis_name": "2015-2016 Selloff",
+        "peak_date": "2015-05-19",
+        "trough_date": "2016-02-11",
+        "drawdown_pct": 19.16,
+        "peak_metrics": {
+          "oe": 21.745,
+          "oeps": 5.78,
+          "oe_yield": 11.5713,
+          "oe_multiple": 8.642,
+          "oe_growth": 4.6439,
+          "oe_peg": 1.861,
+          "epv": 199.1817,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 57.048,
+        "oeps": 20.55,
+        "oe_yield": 196.8051,
+        "oe_multiple": 0.5081,
+        "oe_growth": null,
+        "oe_peg": null,
+        "epv": 199.1817,
+        "oe_negative": false,
+        "price": 10.44,
+        "peak_price": 32.78,
+        "crisis_name": "2008 GFC",
+        "peak_date": "2007-05-09",
+        "trough_date": "2009-03-09",
+        "drawdown_pct": 68.15,
+        "peak_metrics": {
+          "oe": 57.048,
+          "oeps": 20.55,
+          "oe_yield": 62.6839,
+          "oe_multiple": 1.5953,
+          "oe_growth": null,
+          "oe_peg": null,
+          "epv": 199.1817,
+          "oe_negative": false
+        }
+      }
+    ],
+    "discount_metrics": {
+      "z_score_5y": 0.92,
+      "z_score_10y": 1.42,
+      "erp_spread": 2.46,
+      "erp_yield_used": 4.26,
+      "erp_yield_live": true
+    },
+    "last_updated": "2026-04-16T17:00:54.992500",
+    "edgar_fetched_at": "2026-04-16T15:17:38.505707",
+    "dca_signal": "\ud83d\udd34 WAIT",
+    "oe_negative_warning": false,
+    "vs_peak_diff": {
+      "oe": 0.0,
+      "oeps": 0.0,
+      "oe_yield": 8.82,
+      "oe_multiple": -8.11,
+      "oe_growth": 0.0,
+      "oe_peg": -8.11,
+      "epv": 0.0
+    }
   },
   "KKR": {
     "ticker": "KKR",
-    "error": "Price fetch failed: Empty price history from Tiingo",
-    "sector": null,
-    "current": {},
-    "peak_52w": {},
-    "bear_markets": [],
-    "last_updated": "2026-04-16T15:37:29.042323"
+    "company_name": "KKR\u00a0&\u00a0CO.\u00a0INC.",
+    "error": null,
+    "sector": "Financial Services",
+    "data_source": "SEC EDGAR + Tiingo + FRED",
+    "current": {
+      "price": 103.85
+    },
+    "peak_52w": {
+      "price": 151.44,
+      "date": "2025-07-25"
+    },
+    "bear_markets": [
+      {
+        "price": 92.22,
+        "peak_price": 165.83,
+        "crisis_name": "April 2025 Crash",
+        "peak_date": "2025-01-31",
+        "trough_date": "2025-04-04",
+        "drawdown_pct": 44.39,
+        "peak_metrics": {}
+      },
+      {
+        "price": 41.83,
+        "peak_price": 80.31,
+        "crisis_name": "2022 Bear Market",
+        "peak_date": "2021-11-03",
+        "trough_date": "2022-09-30",
+        "drawdown_pct": 47.92,
+        "peak_metrics": {}
+      },
+      {
+        "price": 17.46,
+        "peak_price": 31.91,
+        "crisis_name": "2020 COVID-19 Crash",
+        "peak_date": "2020-02-11",
+        "trough_date": "2020-03-23",
+        "drawdown_pct": 45.3,
+        "peak_metrics": {}
+      },
+      {
+        "price": 17.22,
+        "peak_price": 25.57,
+        "crisis_name": "2018 Rate/Trade Selloff",
+        "peak_date": "2018-09-19",
+        "trough_date": "2018-12-24",
+        "drawdown_pct": 32.67,
+        "peak_metrics": {}
+      },
+      {
+        "price": 9.2,
+        "peak_price": 19.24,
+        "crisis_name": "2015-2016 Selloff",
+        "peak_date": "2015-02-09",
+        "trough_date": "2016-02-11",
+        "drawdown_pct": 52.18,
+        "peak_metrics": {}
+      }
+    ],
+    "discount_metrics": {
+      "z_score_5y": -0.27,
+      "z_score_10y": 0.16,
+      "erp_spread": null,
+      "erp_yield_used": null,
+      "erp_yield_live": true
+    },
+    "last_updated": "2026-04-16T17:00:55.377221",
+    "edgar_fetched_at": "2026-04-16T15:17:39.208558",
+    "dca_signal": "\ud83d\udd34 WAIT",
+    "oe_negative_warning": false,
+    "vs_peak_diff": {
+      "oe": null,
+      "oeps": null,
+      "oe_yield": null,
+      "oe_multiple": null,
+      "oe_growth": null,
+      "oe_peg": null,
+      "epv": null
+    }
   },
   "MA": {
     "ticker": "MA",
-    "error": "Price fetch failed: Empty price history from Tiingo",
-    "sector": null,
-    "current": {},
-    "peak_52w": {},
-    "bear_markets": [],
-    "last_updated": "2026-04-16T15:46:33.777019"
+    "company_name": "Mastercard Incorporated",
+    "error": null,
+    "sector": "Technology",
+    "data_source": "SEC EDGAR + Tiingo + FRED",
+    "current": {
+      "oe": 3.874,
+      "oeps": 4.28,
+      "oe_yield": 0.8233,
+      "oe_multiple": 121.4672,
+      "oe_growth": null,
+      "oe_peg": null,
+      "epv": 137.4047,
+      "oe_negative": false,
+      "price": 519.96
+    },
+    "peak_52w": {
+      "oe": 3.219,
+      "oeps": 3.48,
+      "oe_yield": 0.5837,
+      "oe_multiple": 171.3281,
+      "oe_growth": null,
+      "oe_peg": null,
+      "epv": 137.4047,
+      "oe_negative": false,
+      "price": 596.22,
+      "date": "2025-08-22"
+    },
+    "bear_markets": [
+      {
+        "oe": 3.219,
+        "oeps": 3.48,
+        "oe_yield": 0.7305,
+        "oe_multiple": 136.8914,
+        "oe_growth": null,
+        "oe_peg": null,
+        "epv": 137.4047,
+        "oe_negative": false,
+        "price": 476.38,
+        "peak_price": 572.06,
+        "crisis_name": "April 2025 Crash",
+        "peak_date": "2025-02-28",
+        "trough_date": "2025-04-08",
+        "drawdown_pct": 16.73,
+        "peak_metrics": {
+          "oe": 3.219,
+          "oeps": 3.48,
+          "oe_yield": 0.6083,
+          "oe_multiple": 164.3855,
+          "oe_growth": null,
+          "oe_peg": null,
+          "epv": 137.4047,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 3.219,
+        "oeps": 3.26,
+        "oe_yield": 1.1737,
+        "oe_multiple": 85.1991,
+        "oe_growth": null,
+        "oe_peg": null,
+        "epv": 137.4047,
+        "oe_negative": false,
+        "price": 277.59,
+        "peak_price": 384.36,
+        "crisis_name": "2022 Bear Market",
+        "peak_date": "2021-04-28",
+        "trough_date": "2022-10-12",
+        "drawdown_pct": 27.78,
+        "peak_metrics": {
+          "oe": 3.219,
+          "oeps": 3.21,
+          "oe_yield": 0.8358,
+          "oe_multiple": 119.6416,
+          "oe_growth": null,
+          "oe_peg": null,
+          "epv": 137.4047,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 3.219,
+        "oeps": 3.17,
+        "oe_yield": 1.6129,
+        "oe_multiple": 61.9995,
+        "oe_growth": null,
+        "oe_peg": null,
+        "epv": 137.4047,
+        "oe_negative": false,
+        "price": 196.24,
+        "peak_price": 329.11,
+        "crisis_name": "2020 COVID-19 Crash",
+        "peak_date": "2020-02-14",
+        "trough_date": "2020-03-23",
+        "drawdown_pct": 40.37,
+        "peak_metrics": {
+          "oe": 3.219,
+          "oeps": 3.17,
+          "oe_yield": 0.9617,
+          "oe_multiple": 103.978,
+          "oe_growth": null,
+          "oe_peg": null,
+          "epv": 137.4047,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 3.219,
+        "oeps": 3.02,
+        "oe_yield": 1.8019,
+        "oe_multiple": 55.4981,
+        "oe_growth": null,
+        "oe_peg": null,
+        "epv": 137.4047,
+        "oe_negative": false,
+        "price": 167.43,
+        "peak_price": 210.71,
+        "crisis_name": "2018 Rate/Trade Selloff",
+        "peak_date": "2018-09-18",
+        "trough_date": "2018-12-24",
+        "drawdown_pct": 20.54,
+        "peak_metrics": {
+          "oe": 3.219,
+          "oeps": 3.02,
+          "oe_yield": 1.4318,
+          "oe_multiple": 69.8429,
+          "oe_growth": null,
+          "oe_peg": null,
+          "epv": 137.4047,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 3.219,
+        "oeps": 2.84,
+        "oe_yield": 3.7413,
+        "oe_multiple": 26.7285,
+        "oe_growth": null,
+        "oe_peg": null,
+        "epv": 137.4047,
+        "oe_negative": false,
+        "price": 75.87,
+        "peak_price": 87.8,
+        "crisis_name": "2015-2016 Selloff",
+        "peak_date": "2015-05-14",
+        "trough_date": "2016-02-08",
+        "drawdown_pct": 13.59,
+        "peak_metrics": {
+          "oe": 3.219,
+          "oeps": 2.76,
+          "oe_yield": 3.1469,
+          "oe_multiple": 31.7775,
+          "oe_growth": null,
+          "oe_peg": null,
+          "epv": 137.4047,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": -0.254,
+        "oeps": -0.28,
+        "oe_yield": null,
+        "oe_multiple": null,
+        "oe_growth": null,
+        "oe_peg": null,
+        "epv": 137.4047,
+        "oe_negative": true,
+        "price": 10.9,
+        "peak_price": 15.44,
+        "crisis_name": "2008 GFC",
+        "peak_date": "2007-07-16",
+        "trough_date": "2009-01-20",
+        "drawdown_pct": 29.43,
+        "peak_metrics": {
+          "oe": 3.874,
+          "oeps": 4.28,
+          "oe_yield": 27.7162,
+          "oe_multiple": 3.608,
+          "oe_growth": null,
+          "oe_peg": null,
+          "epv": 137.4047,
+          "oe_negative": false
+        }
+      }
+    ],
+    "discount_metrics": {
+      "z_score_5y": null,
+      "z_score_10y": null,
+      "erp_spread": -3.44,
+      "erp_yield_used": 4.26,
+      "erp_yield_live": true
+    },
+    "last_updated": "2026-04-16T17:00:55.772098",
+    "edgar_fetched_at": "2026-04-16T15:17:39.861404",
+    "dca_signal": "\ud83d\udd34 WAIT",
+    "oe_negative_warning": false,
+    "vs_peak_diff": {
+      "oe": 20.35,
+      "oeps": 22.99,
+      "oe_yield": 41.05,
+      "oe_multiple": -29.1,
+      "oe_growth": null,
+      "oe_peg": null,
+      "epv": 0.0
+    }
   },
   "MCO": {
     "ticker": "MCO",
-    "error": "Price fetch failed: Empty price history from Tiingo",
-    "sector": null,
-    "current": {},
-    "peak_52w": {},
-    "bear_markets": [],
-    "last_updated": "2026-04-16T15:55:38.585766"
+    "company_name": "MOODY\u2019S CORPORATION",
+    "error": null,
+    "sector": "Consumer Cyclical",
+    "data_source": "SEC EDGAR + Tiingo + FRED",
+    "current": {
+      "oe": 2.2002,
+      "oeps": 12.28,
+      "oe_yield": 2.7494,
+      "oe_multiple": 36.3711,
+      "oe_growth": 4.9538,
+      "oe_peg": 7.3421,
+      "epv": 135.8571,
+      "oe_negative": false,
+      "price": 446.81
+    },
+    "peak_52w": {
+      "oe": 2.133,
+      "oeps": 11.91,
+      "oe_yield": 2.2119,
+      "oe_multiple": 45.2091,
+      "oe_growth": 4.9538,
+      "oe_peg": 9.1262,
+      "epv": 135.8571,
+      "oe_negative": false,
+      "price": 538.42,
+      "date": "2026-01-15"
+    },
+    "bear_markets": [
+      {
+        "oe": 1.741,
+        "oeps": 9.58,
+        "oe_yield": 2.4332,
+        "oe_multiple": 41.0984,
+        "oe_growth": 5.1698,
+        "oe_peg": 7.9496,
+        "epv": 135.8571,
+        "oe_negative": false,
+        "price": 393.58,
+        "peak_price": 522.35,
+        "crisis_name": "April 2025 Crash",
+        "peak_date": "2025-02-13",
+        "trough_date": "2025-04-08",
+        "drawdown_pct": 24.65,
+        "peak_metrics": {
+          "oe": 1.741,
+          "oeps": 9.58,
+          "oe_yield": 1.8333,
+          "oe_multiple": 54.5451,
+          "oe_growth": 5.1698,
+          "oe_peg": 10.5506,
+          "epv": 135.8571,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 2.075,
+        "oeps": 11.13,
+        "oe_yield": 4.8871,
+        "oe_multiple": 20.4621,
+        "oe_growth": 68.8144,
+        "oe_peg": 0.2974,
+        "epv": 135.8571,
+        "oe_negative": false,
+        "price": 227.78,
+        "peak_price": 390.47,
+        "crisis_name": "2022 Bear Market",
+        "peak_date": "2021-10-28",
+        "trough_date": "2022-10-14",
+        "drawdown_pct": 41.66,
+        "peak_metrics": {
+          "oe": 1.675,
+          "oeps": 8.93,
+          "oe_yield": 2.2866,
+          "oe_multiple": 43.7329,
+          "oe_growth": 14.4617,
+          "oe_peg": 3.024,
+          "epv": 135.8571,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 1.353,
+        "oeps": 7.15,
+        "oe_yield": 4.5638,
+        "oe_multiple": 21.9117,
+        "oe_growth": 6.6358,
+        "oe_peg": 3.302,
+        "epv": 135.8571,
+        "oe_negative": false,
+        "price": 156.61,
+        "peak_price": 263.01,
+        "crisis_name": "2020 COVID-19 Crash",
+        "peak_date": "2020-02-14",
+        "trough_date": "2020-03-23",
+        "drawdown_pct": 40.45,
+        "peak_metrics": {
+          "oe": 1.353,
+          "oeps": 7.15,
+          "oe_yield": 2.7175,
+          "oe_multiple": 36.7979,
+          "oe_growth": 6.6358,
+          "oe_peg": 5.5454,
+          "epv": 135.8571,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 0.91,
+        "oeps": 4.76,
+        "oe_yield": 3.9284,
+        "oe_multiple": 25.4559,
+        "oe_growth": 5.137,
+        "oe_peg": 4.9554,
+        "epv": 135.8571,
+        "oe_negative": false,
+        "price": 121.22,
+        "peak_price": 174.29,
+        "crisis_name": "2018 Rate/Trade Selloff",
+        "peak_date": "2018-07-25",
+        "trough_date": "2018-12-24",
+        "drawdown_pct": 30.45,
+        "peak_metrics": {
+          "oe": 0.91,
+          "oeps": 4.76,
+          "oe_yield": 2.7322,
+          "oe_multiple": 36.6007,
+          "oe_growth": 5.137,
+          "oe_peg": 7.1249,
+          "epv": 135.8571,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 0.8523,
+        "oeps": 4.26,
+        "oe_yield": 6.0205,
+        "oe_multiple": 16.6098,
+        "oe_growth": 10.9524,
+        "oe_peg": 1.5165,
+        "epv": 135.8571,
+        "oe_negative": false,
+        "price": 70.75,
+        "peak_price": 98.81,
+        "crisis_name": "2015-2016 Selloff",
+        "peak_date": "2015-05-20",
+        "trough_date": "2016-02-11",
+        "drawdown_pct": 28.4,
+        "peak_metrics": {
+          "oe": 0.9813,
+          "oeps": 4.66,
+          "oe_yield": 4.7132,
+          "oe_multiple": 21.2168,
+          "oe_growth": 20.3835,
+          "oe_peg": 1.0409,
+          "epv": 135.8571,
+          "oe_negative": false
+        }
+      },
+      {
+        "oe": 2.2002,
+        "oeps": 12.28,
+        "oe_yield": 96.909,
+        "oe_multiple": 1.0319,
+        "oe_growth": null,
+        "oe_peg": null,
+        "epv": 135.8571,
+        "oe_negative": false,
+        "price": 12.68,
+        "peak_price": 59.58,
+        "crisis_name": "2008 GFC",
+        "peak_date": "2007-02-08",
+        "trough_date": "2008-11-20",
+        "drawdown_pct": 78.72,
+        "peak_metrics": {
+          "oe": 2.2002,
+          "oeps": 12.28,
+          "oe_yield": 20.619,
+          "oe_multiple": 4.8499,
+          "oe_growth": null,
+          "oe_peg": null,
+          "epv": 135.8571,
+          "oe_negative": false
+        }
+      }
+    ],
+    "discount_metrics": {
+      "z_score_5y": 1.29,
+      "z_score_10y": 1.49,
+      "erp_spread": -1.51,
+      "erp_yield_used": 4.26,
+      "erp_yield_live": true
+    },
+    "last_updated": "2026-04-16T17:00:56.227197",
+    "edgar_fetched_at": "2026-04-16T15:17:40.646172",
+    "dca_signal": "\ud83d\udd34 WAIT",
+    "oe_negative_warning": false,
+    "vs_peak_diff": {
+      "oe": 3.15,
+      "oeps": 3.11,
+      "oe_yield": 24.3,
+      "oe_multiple": -19.55,
+      "oe_growth": 0.0,
+      "oe_peg": -19.55,
+      "epv": 0.0
+    }
   },
   "MSCI": {
     "ticker": "MSCI",
@@ -12227,7 +11953,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:11.546926",
+    "last_updated": "2026-04-16T17:00:56.681553",
     "edgar_fetched_at": "2026-04-16T15:17:41.408864",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -12435,7 +12161,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:11.914334",
+    "last_updated": "2026-04-16T17:00:57.123694",
     "edgar_fetched_at": "2026-04-16T15:17:42.114198",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -12591,7 +12317,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:12.226415",
+    "last_updated": "2026-04-16T17:00:57.559024",
     "edgar_fetched_at": "2026-04-16T15:17:42.828840",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -12799,7 +12525,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:12.454563",
+    "last_updated": "2026-04-16T17:00:58.539161",
     "edgar_fetched_at": "2026-04-16T15:17:43.510392",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -13007,7 +12733,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:12.779299",
+    "last_updated": "2026-04-16T17:00:58.920313",
     "edgar_fetched_at": "2026-04-16T15:17:44.436972",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -13215,7 +12941,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:13.137416",
+    "last_updated": "2026-04-16T17:00:59.328245",
     "edgar_fetched_at": "2026-04-16T15:17:45.199170",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -13287,7 +13013,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:13.533813",
+    "last_updated": "2026-04-16T17:00:59.771509",
     "edgar_fetched_at": "2026-04-16T15:17:45.856847",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -13469,7 +13195,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:13.805351",
+    "last_updated": "2026-04-16T17:01:00.179215",
     "edgar_fetched_at": "2026-04-16T15:17:46.651731",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -13677,7 +13403,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:14.079557",
+    "last_updated": "2026-04-16T17:01:00.632761",
     "edgar_fetched_at": "2026-04-16T15:17:47.619122",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -13833,7 +13559,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:14.429652",
+    "last_updated": "2026-04-16T17:01:01.077203",
     "edgar_fetched_at": "2026-04-16T15:17:48.323409",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -14041,7 +13767,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:14.722024",
+    "last_updated": "2026-04-16T17:01:01.649421",
     "edgar_fetched_at": "2026-04-16T15:17:49.132256",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -14131,7 +13857,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:15.114780",
+    "last_updated": "2026-04-16T17:01:02.170964",
     "edgar_fetched_at": "2026-04-16T15:17:49.934540",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -14221,7 +13947,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:15.507696",
+    "last_updated": "2026-04-16T17:01:02.643735",
     "edgar_fetched_at": "2026-04-16T15:17:50.512462",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -14403,7 +14129,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:15.784746",
+    "last_updated": "2026-04-16T17:01:03.103473",
     "edgar_fetched_at": "2026-04-16T15:17:51.255515",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -14611,7 +14337,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:16.333401",
+    "last_updated": "2026-04-16T17:01:03.595541",
     "edgar_fetched_at": "2026-04-16T15:17:51.974611",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -14793,7 +14519,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:16.766753",
+    "last_updated": "2026-04-16T17:01:04.047190",
     "edgar_fetched_at": "2026-04-16T15:17:52.691724",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -15001,7 +14727,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:17.065044",
+    "last_updated": "2026-04-16T17:01:04.490618",
     "edgar_fetched_at": "2026-04-16T15:17:53.455189",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -15183,7 +14909,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:17.280724",
+    "last_updated": "2026-04-16T17:01:04.888616",
     "edgar_fetched_at": "2026-04-16T15:17:54.241498",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -15391,7 +15117,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:17.526618",
+    "last_updated": "2026-04-16T17:01:05.340301",
     "edgar_fetched_at": "2026-04-16T15:17:54.923782",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -15599,7 +15325,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:17.846464",
+    "last_updated": "2026-04-16T17:01:05.822848",
     "edgar_fetched_at": "2026-04-16T15:17:55.660794",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -15781,7 +15507,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:18.141971",
+    "last_updated": "2026-04-16T17:01:06.251029",
     "edgar_fetched_at": "2026-04-16T15:17:56.370801",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -15937,7 +15663,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:18.530665",
+    "last_updated": "2026-04-16T17:01:06.680447",
     "edgar_fetched_at": "2026-04-16T15:17:57.095023",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -16119,7 +15845,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:18.908192",
+    "last_updated": "2026-04-16T17:01:07.115033",
     "edgar_fetched_at": "2026-04-16T15:17:57.780734",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -16327,7 +16053,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:19.153666",
+    "last_updated": "2026-04-16T17:01:07.657012",
     "edgar_fetched_at": "2026-04-16T15:17:58.487656",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -16535,7 +16261,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:19.371685",
+    "last_updated": "2026-04-16T17:01:08.092520",
     "edgar_fetched_at": "2026-04-16T15:17:59.088824",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -16743,7 +16469,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:19.613038",
+    "last_updated": "2026-04-16T17:01:08.495488",
     "edgar_fetched_at": "2026-04-16T15:17:59.658727",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -16951,7 +16677,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:20.016857",
+    "last_updated": "2026-04-16T17:01:08.870898",
     "edgar_fetched_at": "2026-04-16T15:18:00.326092",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -17159,7 +16885,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:20.409056",
+    "last_updated": "2026-04-16T17:01:09.295540",
     "edgar_fetched_at": "2026-04-16T15:18:01.064560",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -17367,7 +17093,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:20.659402",
+    "last_updated": "2026-04-16T17:01:09.703785",
     "edgar_fetched_at": "2026-04-16T15:18:01.728578",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -17575,7 +17301,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:20.900608",
+    "last_updated": "2026-04-16T17:01:10.125957",
     "edgar_fetched_at": "2026-04-16T15:18:02.542248",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -17783,7 +17509,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:21.132377",
+    "last_updated": "2026-04-16T17:01:10.547529",
     "edgar_fetched_at": "2026-04-16T15:18:03.308261",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -17965,7 +17691,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:21.331785",
+    "last_updated": "2026-04-16T17:01:10.913706",
     "edgar_fetched_at": "2026-04-16T15:18:04.090366",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -18173,7 +17899,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:21.590358",
+    "last_updated": "2026-04-16T17:01:11.340995",
     "edgar_fetched_at": "2026-04-16T15:18:04.852869",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -18355,7 +18081,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:21.998543",
+    "last_updated": "2026-04-16T17:01:11.817303",
     "edgar_fetched_at": "2026-04-16T15:18:05.499947",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -18563,7 +18289,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:22.350401",
+    "last_updated": "2026-04-16T17:01:12.237623",
     "edgar_fetched_at": "2026-04-16T15:18:06.181256",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -18771,7 +18497,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:22.558891",
+    "last_updated": "2026-04-16T17:01:12.685458",
     "edgar_fetched_at": "2026-04-16T15:18:06.809855",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -18979,7 +18705,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:22.777393",
+    "last_updated": "2026-04-16T17:01:13.137271",
     "edgar_fetched_at": "2026-04-16T15:18:07.574652",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -19187,7 +18913,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:23.131244",
+    "last_updated": "2026-04-16T17:01:13.558906",
     "edgar_fetched_at": "2026-04-16T15:18:08.357321",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -19395,7 +19121,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:23.377235",
+    "last_updated": "2026-04-16T17:01:13.984276",
     "edgar_fetched_at": "2026-04-16T15:18:09.086194",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -19603,7 +19329,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:23.775109",
+    "last_updated": "2026-04-16T17:01:14.391427",
     "edgar_fetched_at": "2026-04-16T15:18:09.711035",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -19811,7 +19537,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:24.138106",
+    "last_updated": "2026-04-16T17:01:14.833105",
     "edgar_fetched_at": "2026-04-16T15:18:10.428298",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -20019,7 +19745,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:24.350982",
+    "last_updated": "2026-04-16T17:01:15.272755",
     "edgar_fetched_at": "2026-04-16T15:18:11.068714",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -20227,7 +19953,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:24.566635",
+    "last_updated": "2026-04-16T17:01:15.677224",
     "edgar_fetched_at": "2026-04-16T15:18:11.648618",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -20409,7 +20135,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:24.787401",
+    "last_updated": "2026-04-16T17:01:16.134648",
     "edgar_fetched_at": "2026-04-16T15:18:12.241762",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -20591,7 +20317,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:25.121007",
+    "last_updated": "2026-04-16T17:01:17.325042",
     "edgar_fetched_at": "2026-04-16T15:18:12.970901",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -20799,7 +20525,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:25.347726",
+    "last_updated": "2026-04-16T17:01:17.792367",
     "edgar_fetched_at": "2026-04-16T15:18:13.723338",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -21007,7 +20733,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:25.678256",
+    "last_updated": "2026-04-16T17:01:18.245401",
     "edgar_fetched_at": "2026-04-16T15:18:14.454361",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -21215,7 +20941,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:26.030618",
+    "last_updated": "2026-04-16T17:01:18.673168",
     "edgar_fetched_at": "2026-04-16T15:18:15.182723",
     "dca_signal": "\ud83d\udfe2 STRONG DCA",
     "oe_negative_warning": false,
@@ -21423,7 +21149,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:26.394521",
+    "last_updated": "2026-04-16T17:01:19.080296",
     "edgar_fetched_at": "2026-04-16T15:18:16.113412",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -21631,7 +21357,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:26.628412",
+    "last_updated": "2026-04-16T17:01:19.505739",
     "edgar_fetched_at": "2026-04-16T15:18:16.725982",
     "dca_signal": "\ud83d\udfe2 STRONG DCA",
     "oe_negative_warning": false,
@@ -21839,7 +21565,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:26.852425",
+    "last_updated": "2026-04-16T17:01:19.934068",
     "edgar_fetched_at": "2026-04-16T15:18:17.418262",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -22047,7 +21773,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:27.068628",
+    "last_updated": "2026-04-16T17:01:20.355425",
     "edgar_fetched_at": "2026-04-16T15:18:17.999070",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -22151,7 +21877,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:27.406471",
+    "last_updated": "2026-04-16T17:01:20.620930",
     "edgar_fetched_at": "2026-04-16T15:18:18.509142",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -22359,7 +22085,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:27.623900",
+    "last_updated": "2026-04-16T17:01:21.069809",
     "edgar_fetched_at": "2026-04-16T15:18:19.225550",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -22567,7 +22293,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:27.843416",
+    "last_updated": "2026-04-16T17:01:21.479879",
     "edgar_fetched_at": "2026-04-16T15:18:20.134531",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -22775,7 +22501,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:28.084687",
+    "last_updated": "2026-04-16T17:01:21.882431",
     "edgar_fetched_at": "2026-04-16T15:18:20.810055",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -22931,7 +22657,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:28.440101",
+    "last_updated": "2026-04-16T17:01:22.322602",
     "edgar_fetched_at": "2026-04-16T15:18:21.460560",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -23139,7 +22865,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:28.649171",
+    "last_updated": "2026-04-16T17:01:22.772114",
     "edgar_fetched_at": "2026-04-16T15:18:22.120389",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -23347,7 +23073,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:29.037968",
+    "last_updated": "2026-04-16T17:01:23.156120",
     "edgar_fetched_at": "2026-04-16T15:18:22.752400",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -23555,7 +23281,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:29.269622",
+    "last_updated": "2026-04-16T17:01:23.576816",
     "edgar_fetched_at": "2026-04-16T15:18:23.519727",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -23763,7 +23489,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:29.524221",
+    "last_updated": "2026-04-16T17:01:24.130389",
     "edgar_fetched_at": "2026-04-16T15:18:24.282974",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -23971,7 +23697,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:29.755862",
+    "last_updated": "2026-04-16T17:01:24.608785",
     "edgar_fetched_at": "2026-04-16T15:18:25.031999",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -24179,7 +23905,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:29.996084",
+    "last_updated": "2026-04-16T17:01:25.017055",
     "edgar_fetched_at": "2026-04-16T15:18:25.699979",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -24387,7 +24113,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:30.217050",
+    "last_updated": "2026-04-16T17:01:26.343292",
     "edgar_fetched_at": "2026-04-16T15:18:26.368702",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -24595,7 +24321,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:30.548833",
+    "last_updated": "2026-04-16T17:01:26.748020",
     "edgar_fetched_at": "2026-04-16T15:18:27.042582",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -24777,7 +24503,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:30.740265",
+    "last_updated": "2026-04-16T17:01:27.081663",
     "edgar_fetched_at": "2026-04-16T15:18:27.716911",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -24985,7 +24711,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:30.949075",
+    "last_updated": "2026-04-16T17:01:27.499286",
     "edgar_fetched_at": "2026-04-16T15:18:28.380370",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -25193,7 +24919,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:31.242915",
+    "last_updated": "2026-04-16T17:01:27.903446",
     "edgar_fetched_at": "2026-04-16T15:18:29.001385",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -25401,7 +25127,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:31.464344",
+    "last_updated": "2026-04-16T17:01:28.323793",
     "edgar_fetched_at": "2026-04-16T15:18:29.930370",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -25583,7 +25309,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:31.673998",
+    "last_updated": "2026-04-16T17:01:28.676482",
     "edgar_fetched_at": "2026-04-16T15:18:30.556283",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -25791,7 +25517,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:31.944226",
+    "last_updated": "2026-04-16T17:01:29.061390",
     "edgar_fetched_at": "2026-04-16T15:18:31.270762",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -25999,7 +25725,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:32.215574",
+    "last_updated": "2026-04-16T17:01:29.542360",
     "edgar_fetched_at": "2026-04-16T15:18:31.901338",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -26207,7 +25933,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:32.475468",
+    "last_updated": "2026-04-16T17:01:29.983849",
     "edgar_fetched_at": "2026-04-16T15:18:32.645730",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -26415,7 +26141,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:32.736868",
+    "last_updated": "2026-04-16T17:01:30.388572",
     "edgar_fetched_at": "2026-04-16T15:18:33.320551",
     "dca_signal": "\ud83d\udfe2 STRONG DCA",
     "oe_negative_warning": false,
@@ -26623,7 +26349,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:32.954918",
+    "last_updated": "2026-04-16T17:01:30.827498",
     "edgar_fetched_at": "2026-04-16T15:18:33.952194",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -26831,7 +26557,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:33.246466",
+    "last_updated": "2026-04-16T17:01:31.268885",
     "edgar_fetched_at": "2026-04-16T15:18:34.745281",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -27013,7 +26739,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:33.436633",
+    "last_updated": "2026-04-16T17:01:31.655243",
     "edgar_fetched_at": "2026-04-16T15:18:35.307105",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -27221,7 +26947,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:33.739522",
+    "last_updated": "2026-04-16T17:01:32.035189",
     "edgar_fetched_at": "2026-04-16T15:18:36.105572",
     "dca_signal": "\ud83d\udfe2 STRONG DCA",
     "oe_negative_warning": false,
@@ -27429,7 +27155,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:34.027319",
+    "last_updated": "2026-04-16T17:01:32.484875",
     "edgar_fetched_at": "2026-04-16T15:18:36.804807",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -27464,7 +27190,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:34.159312",
+    "last_updated": "2026-04-16T17:01:32.668830",
     "edgar_fetched_at": "2026-04-16T15:18:37.284201",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -27672,7 +27398,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:34.379968",
+    "last_updated": "2026-04-16T17:01:33.095969",
     "edgar_fetched_at": "2026-04-16T15:18:37.975990",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -27880,7 +27606,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:34.609984",
+    "last_updated": "2026-04-16T17:01:33.493881",
     "edgar_fetched_at": "2026-04-16T15:18:38.686453",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -28088,7 +27814,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:34.837174",
+    "last_updated": "2026-04-16T17:01:33.969460",
     "edgar_fetched_at": "2026-04-16T15:18:39.448784",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -28244,7 +27970,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:35.009164",
+    "last_updated": "2026-04-16T17:01:34.274840",
     "edgar_fetched_at": "2026-04-16T15:18:39.980661",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -28452,7 +28178,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:35.221603",
+    "last_updated": "2026-04-16T17:01:34.680683",
     "edgar_fetched_at": "2026-04-16T15:18:40.587851",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -28660,7 +28386,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:35.448041",
+    "last_updated": "2026-04-16T17:01:35.070260",
     "edgar_fetched_at": "2026-04-16T15:18:41.202653",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -28842,7 +28568,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:35.682659",
+    "last_updated": "2026-04-16T17:01:35.493791",
     "edgar_fetched_at": "2026-04-16T15:18:41.955377",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -29024,7 +28750,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:35.875806",
+    "last_updated": "2026-04-16T17:01:35.829120",
     "edgar_fetched_at": "2026-04-16T15:18:42.602418",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -29232,7 +28958,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:36.123206",
+    "last_updated": "2026-04-16T17:01:36.289587",
     "edgar_fetched_at": "2026-04-16T15:18:43.445386",
     "dca_signal": "\u26a0\ufe0f NEGATIVE OE",
     "oe_negative_warning": true,
@@ -29440,7 +29166,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:36.379434",
+    "last_updated": "2026-04-16T17:01:36.742835",
     "edgar_fetched_at": "2026-04-16T15:18:44.357607",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -29648,7 +29374,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:36.611553",
+    "last_updated": "2026-04-16T17:01:37.240445",
     "edgar_fetched_at": "2026-04-16T15:18:45.073357",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -29856,7 +29582,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:36.851274",
+    "last_updated": "2026-04-16T17:01:37.748594",
     "edgar_fetched_at": "2026-04-16T15:18:45.867278",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -30064,7 +29790,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:37.087787",
+    "last_updated": "2026-04-16T17:01:38.168096",
     "edgar_fetched_at": "2026-04-16T15:18:46.582632",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -30194,7 +29920,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:37.266116",
+    "last_updated": "2026-04-16T17:01:38.468596",
     "edgar_fetched_at": "2026-04-16T15:18:47.144802",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -30402,7 +30128,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:37.495696",
+    "last_updated": "2026-04-16T17:01:38.881642",
     "edgar_fetched_at": "2026-04-16T15:18:47.738311",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -30610,7 +30336,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:37.722644",
+    "last_updated": "2026-04-16T17:01:39.324742",
     "edgar_fetched_at": "2026-04-16T15:18:48.448921",
     "dca_signal": "\u26a0\ufe0f NEGATIVE OE",
     "oe_negative_warning": true,
@@ -30818,7 +30544,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:37.967136",
+    "last_updated": "2026-04-16T17:01:39.772485",
     "edgar_fetched_at": "2026-04-16T15:18:49.298052",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -31026,7 +30752,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:38.173394",
+    "last_updated": "2026-04-16T17:01:40.220001",
     "edgar_fetched_at": "2026-04-16T15:18:49.906937",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -31234,7 +30960,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:38.391867",
+    "last_updated": "2026-04-16T17:01:40.709043",
     "edgar_fetched_at": "2026-04-16T15:18:50.630752",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -31442,7 +31168,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:38.607206",
+    "last_updated": "2026-04-16T17:01:41.216851",
     "edgar_fetched_at": "2026-04-16T15:18:51.359212",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -31650,7 +31376,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:38.826097",
+    "last_updated": "2026-04-16T17:01:41.620286",
     "edgar_fetched_at": "2026-04-16T15:18:52.042044",
     "dca_signal": "\u26a0\ufe0f NEGATIVE OE",
     "oe_negative_warning": true,
@@ -31858,7 +31584,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:39.044321",
+    "last_updated": "2026-04-16T17:01:42.064737",
     "edgar_fetched_at": "2026-04-16T15:18:52.798817",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -32066,7 +31792,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:39.271902",
+    "last_updated": "2026-04-16T17:01:42.511349",
     "edgar_fetched_at": "2026-04-16T15:18:53.465569",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -32274,7 +32000,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:39.496289",
+    "last_updated": "2026-04-16T17:01:42.924096",
     "edgar_fetched_at": "2026-04-16T15:18:54.248249",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -32430,7 +32156,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:39.677227",
+    "last_updated": "2026-04-16T17:01:43.288101",
     "edgar_fetched_at": "2026-04-16T15:18:54.926288",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -32638,7 +32364,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:39.892511",
+    "last_updated": "2026-04-16T17:01:43.669915",
     "edgar_fetched_at": "2026-04-16T15:18:55.581856",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -32820,7 +32546,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:40.120973",
+    "last_updated": "2026-04-16T17:01:44.113338",
     "edgar_fetched_at": "2026-04-16T15:18:56.301896",
     "dca_signal": "\u26a0\ufe0f NEGATIVE OE",
     "oe_negative_warning": true,
@@ -32898,7 +32624,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:40.267803",
+    "last_updated": "2026-04-16T17:01:44.405579",
     "edgar_fetched_at": "2026-04-16T15:18:56.879617",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -33106,7 +32832,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:40.478528",
+    "last_updated": "2026-04-16T17:01:44.814327",
     "edgar_fetched_at": "2026-04-16T15:18:57.600336",
     "dca_signal": "\ud83d\udfe2 STRONG DCA",
     "oe_negative_warning": false,
@@ -33314,7 +33040,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:40.704822",
+    "last_updated": "2026-04-16T17:01:45.251263",
     "edgar_fetched_at": "2026-04-16T15:18:58.350329",
     "dca_signal": "\u26a0\ufe0f NEGATIVE OE",
     "oe_negative_warning": true,
@@ -33522,7 +33248,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:40.918692",
+    "last_updated": "2026-04-16T17:01:45.698494",
     "edgar_fetched_at": "2026-04-16T15:18:59.152838",
     "dca_signal": "\u26a0\ufe0f NEGATIVE OE",
     "oe_negative_warning": true,
@@ -33730,7 +33456,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:41.150546",
+    "last_updated": "2026-04-16T17:01:46.158621",
     "edgar_fetched_at": "2026-04-16T15:18:59.923814",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -33912,7 +33638,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:41.384877",
+    "last_updated": "2026-04-16T17:01:46.576463",
     "edgar_fetched_at": "2026-04-16T15:19:00.736892",
     "dca_signal": "\ud83d\udfe1 ACCUMULATE",
     "oe_negative_warning": false,
@@ -34120,7 +33846,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:41.589028",
+    "last_updated": "2026-04-16T17:01:46.976928",
     "edgar_fetched_at": "2026-04-16T15:19:01.485943",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -34328,7 +34054,7 @@
       "erp_yield_used": null,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:41.820290",
+    "last_updated": "2026-04-16T17:01:47.403291",
     "edgar_fetched_at": "2026-04-16T15:19:02.169052",
     "dca_signal": "\u26a0\ufe0f NEGATIVE OE",
     "oe_negative_warning": true,
@@ -34536,7 +34262,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:42.052859",
+    "last_updated": "2026-04-16T17:01:47.830130",
     "edgar_fetched_at": "2026-04-16T15:19:02.899614",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -34692,7 +34418,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:42.239600",
+    "last_updated": "2026-04-16T17:01:48.139336",
     "edgar_fetched_at": "2026-04-16T15:19:03.520353",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
@@ -34900,7 +34626,7 @@
       "erp_yield_used": 4.26,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-16T16:00:42.449362",
+    "last_updated": "2026-04-16T17:01:48.554787",
     "edgar_fetched_at": "2026-04-16T15:19:04.194163",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
