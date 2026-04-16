@@ -42,7 +42,7 @@
     "cash_ttm": null,
     "entity_name": "Apple Inc.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:16:53.609083"
+    "fetched_at": "2026-04-16T18:12:27.635983"
   },
   "GOOG": {
     "oe_ttm": 61859000000,
@@ -74,7 +74,7 @@
     "cash_ttm": null,
     "entity_name": "ALPHABET INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:16:54.338980"
+    "fetched_at": "2026-04-16T18:12:28.894937"
   },
   "META": {
     "oe_ttm": 9383000000,
@@ -119,7 +119,7 @@
     "cash_ttm": null,
     "entity_name": "Meta Platforms, Inc.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:16:54.909881"
+    "fetched_at": "2026-04-16T18:12:30.136603"
   },
   "MSFT": {
     "oe_ttm": 63268000000,
@@ -164,7 +164,7 @@
     "cash_ttm": null,
     "entity_name": "MICROSOFT CORPORATION",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:16:55.592692"
+    "fetched_at": "2026-04-16T18:12:31.655486"
   },
   "NVDA": {
     "oe_ttm": 122640265000,
@@ -209,7 +209,7 @@
     "cash_ttm": null,
     "entity_name": "NVIDIA CORP",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:16:56.267268"
+    "fetched_at": "2026-04-16T18:12:32.990178"
   },
   "PLTR": {
     "oe_ttm": 1617296000,
@@ -240,7 +240,7 @@
     "cash_ttm": null,
     "entity_name": "Palantir Technologies Inc.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:16:56.899309"
+    "fetched_at": "2026-04-16T18:12:34.177927"
   },
   "TSLA": {
     "oe_ttm": -3700900000,
@@ -281,7 +281,7 @@
     "cash_ttm": null,
     "entity_name": "Tesla, Inc.",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:16:57.535533"
+    "fetched_at": "2026-04-16T18:12:35.458674"
   },
   "EA": {
     "oe_ttm": 889000000,
@@ -326,7 +326,7 @@
     "cash_ttm": null,
     "entity_name": "ELECTRONIC ARTS INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:16:58.294577"
+    "fetched_at": "2026-04-16T18:12:36.854359"
   },
   "NFLX": {
     "oe_ttm": 10626370000,
@@ -371,7 +371,7 @@
     "cash_ttm": null,
     "entity_name": "NETFLIX INC",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:16:58.927616"
+    "fetched_at": "2026-04-16T18:12:38.161029"
   },
   "TMUS": {
     "oe_ttm": 14545000000,
@@ -416,7 +416,7 @@
     "cash_ttm": null,
     "entity_name": "T-MOBILE US, INC.",
     "sector": "Communication Services",
-    "fetched_at": "2026-04-16T15:16:59.722900"
+    "fetched_at": "2026-04-16T18:12:39.584279"
   },
   "AMZN": {
     "oe_ttm": 134169000000,
@@ -461,7 +461,7 @@
     "cash_ttm": null,
     "entity_name": "AMAZON COM INC",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:00.446120"
+    "fetched_at": "2026-04-16T18:12:41.029329"
   },
   "CMG": {
     "oe_ttm": 1230807000,
@@ -506,7 +506,7 @@
     "cash_ttm": null,
     "entity_name": "CHIPOTLE MEXICAN GRILL, INC.",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:01.025973"
+    "fetched_at": "2026-04-16T18:12:42.319519"
   },
   "CPRT": {
     "oe_ttm": 1381610000,
@@ -551,7 +551,7 @@
     "cash_ttm": null,
     "entity_name": "COPART, INC.",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:17:01.649552"
+    "fetched_at": "2026-04-16T18:12:43.596474"
   },
   "GRMN": {
     "oe_ttm": 1546052000,
@@ -596,7 +596,7 @@
     "cash_ttm": null,
     "entity_name": "GARMIN LTD.",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:17:02.390958"
+    "fetched_at": "2026-04-16T18:12:44.898602"
   },
   "LEN": {
     "oe_ttm": 1670895000,
@@ -638,7 +638,7 @@
     "cash_ttm": null,
     "entity_name": "LENNAR CORP /NEW/",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:17:03.094578"
+    "fetched_at": "2026-04-16T18:12:46.607330"
   },
   "MCD": {
     "oe_ttm": 5655000000,
@@ -683,7 +683,7 @@
     "cash_ttm": null,
     "entity_name": "McDonald\u2019s Corporation",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:03.767768"
+    "fetched_at": "2026-04-16T18:12:48.047872"
   },
   "ORLY": {
     "oe_ttm": 1880624000,
@@ -728,7 +728,7 @@
     "cash_ttm": null,
     "entity_name": "O Reilly Automotive Inc",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:17:04.480507"
+    "fetched_at": "2026-04-16T18:12:49.471700"
   },
   "POOL": {
     "oe_ttm": 392748000,
@@ -773,7 +773,7 @@
     "cash_ttm": null,
     "entity_name": "POOL CORPORATION",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:05.098381"
+    "fetched_at": "2026-04-16T18:12:50.889684"
   },
   "ROST": {
     "oe_ttm": 1835160000,
@@ -818,7 +818,7 @@
     "cash_ttm": null,
     "entity_name": "ROSS STORES, INC.",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:05.746109"
+    "fetched_at": "2026-04-16T18:12:52.294214"
   },
   "TSCO": {
     "oe_ttm": 695328000,
@@ -863,7 +863,7 @@
     "cash_ttm": null,
     "entity_name": "TRACTOR SUPPLY CO /DE/",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:06.360824"
+    "fetched_at": "2026-04-16T18:12:53.672756"
   },
   "ULTA": {
     "oe_ttm": 1019422000,
@@ -908,7 +908,7 @@
     "cash_ttm": null,
     "entity_name": "ULTA BEAUTY,\u00a0INC.",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:06.949866"
+    "fetched_at": "2026-04-16T18:12:55.037600"
   },
   "BG": {
     "oe_ttm": -204000000,
@@ -933,7 +933,7 @@
     "cash_ttm": null,
     "entity_name": "BUNGE GLOBAL SA",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:17:07.572812"
+    "fetched_at": "2026-04-16T18:12:56.282027"
   },
   "COST": {
     "oe_ttm": 5157000000,
@@ -978,7 +978,7 @@
     "cash_ttm": null,
     "entity_name": "COSTCO WHOLESALE CORP /NEW",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:17:08.234114"
+    "fetched_at": "2026-04-16T18:12:57.649294"
   },
   "HSY": {
     "oe_ttm": 932338000,
@@ -1015,7 +1015,7 @@
     "cash_ttm": null,
     "entity_name": "HERSHEY CO",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:17:09.034698"
+    "fetched_at": "2026-04-16T18:12:59.085281"
   },
   "KO": {
     "oe_ttm": 12045000000,
@@ -1060,7 +1060,7 @@
     "cash_ttm": null,
     "entity_name": "COCA COLA CO",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:17:09.852453"
+    "fetched_at": "2026-04-16T18:13:00.498952"
   },
   "PEP": {
     "oe_ttm": 7983000000,
@@ -1105,7 +1105,7 @@
     "cash_ttm": null,
     "entity_name": "PepsiCo, Inc.",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:17:10.561726"
+    "fetched_at": "2026-04-16T18:13:01.917799"
   },
   "PG": {
     "oe_ttm": 15209000000,
@@ -1150,7 +1150,7 @@
     "cash_ttm": null,
     "entity_name": "PROCTER & GAMBLE CO",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:11.189487"
+    "fetched_at": "2026-04-16T18:13:03.271173"
   },
   "PM": {
     "oe_ttm": 11775000000,
@@ -1195,7 +1195,7 @@
     "cash_ttm": null,
     "entity_name": "Philip Morris International Inc.",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:17:11.963815"
+    "fetched_at": "2026-04-16T18:13:04.659491"
   },
   "STZ": {
     "oe_ttm": 585000000,
@@ -1224,7 +1224,7 @@
     "cash_ttm": null,
     "entity_name": "CONSTELLATION BRANDS, INC.",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:17:12.702505"
+    "fetched_at": "2026-04-16T18:13:06.199691"
   },
   "SYY": {
     "oe_ttm": 1329070000,
@@ -1264,7 +1264,7 @@
     "cash_ttm": null,
     "entity_name": "SYSCO CORP",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:13.494100"
+    "fetched_at": "2026-04-16T18:13:07.586730"
   },
   "WMT": {
     "oe_ttm": 5929000000,
@@ -1309,7 +1309,7 @@
     "cash_ttm": null,
     "entity_name": "Walmart Inc.",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:17:14.159777"
+    "fetched_at": "2026-04-16T18:13:08.885709"
   },
   "BKR": {
     "oe_ttm": 2503000000,
@@ -1334,7 +1334,7 @@
     "cash_ttm": null,
     "entity_name": "Baker Hughes Co",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:17:14.741456"
+    "fetched_at": "2026-04-16T18:13:10.168650"
   },
   "CVX": {
     "oe_ttm": 15084000000,
@@ -1379,7 +1379,7 @@
     "cash_ttm": null,
     "entity_name": "CHEVRON CORPORATION",
     "sector": "Energy",
-    "fetched_at": "2026-04-16T15:17:15.510605"
+    "fetched_at": "2026-04-16T18:13:11.619673"
   },
   "EOG": {
     "oe_ttm": 9441000000,
@@ -1424,7 +1424,7 @@
     "cash_ttm": null,
     "entity_name": "EOG RESOURCES, INC.",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:16.217716"
+    "fetched_at": "2026-04-16T18:13:13.035491"
   },
   "EPD": {
     "oe_ttm": 3303000000,
@@ -1457,7 +1457,7 @@
     "cash_ttm": null,
     "entity_name": "ENTERPRISE PRODUCTS PARTNERS L.P.",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:17:16.927739"
+    "fetched_at": "2026-04-16T18:13:14.390125"
   },
   "EXE": {
     "oe_ttm": 2063000000,
@@ -1502,7 +1502,7 @@
     "cash_ttm": null,
     "entity_name": "EXPAND ENERGY CORPORATION",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:17.663798"
+    "fetched_at": "2026-04-16T18:13:15.941571"
   },
   "FANG": {
     "oe_ttm": 6702000000,
@@ -1545,7 +1545,7 @@
     "cash_ttm": null,
     "entity_name": "DIAMONDBACK ENERGY, INC.",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:18.314414"
+    "fetched_at": "2026-04-16T18:13:17.314980"
   },
   "SLB": {
     "oe_ttm": 4323000000,
@@ -1590,7 +1590,7 @@
     "cash_ttm": null,
     "entity_name": "SLB LIMITED/NV",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:18.960888"
+    "fetched_at": "2026-04-16T18:13:18.787904"
   },
   "TPL": {
     "oe_ttm": 526710000,
@@ -1620,7 +1620,7 @@
     "cash_ttm": null,
     "entity_name": "Texas Pacific Land Corporation",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:19.606942"
+    "fetched_at": "2026-04-16T18:13:20.025417"
   },
   "VLO": {
     "oe_ttm": 2660000000,
@@ -1665,7 +1665,7 @@
     "cash_ttm": null,
     "entity_name": "VALERO ENERGY CORP/TX",
     "sector": "Energy",
-    "fetched_at": "2026-04-16T15:17:20.219016"
+    "fetched_at": "2026-04-16T18:13:21.401978"
   },
   "XOM": {
     "oe_ttm": 26479000000,
@@ -1710,7 +1710,7 @@
     "cash_ttm": null,
     "entity_name": "EXXON MOBIL CORPORATION",
     "sector": "Energy",
-    "fetched_at": "2026-04-16T15:17:20.826564"
+    "fetched_at": "2026-04-16T18:13:22.804862"
   },
   "BRK.B": {
     "oe_ttm": 59517000000,
@@ -1748,7 +1748,7 @@
     "cash_ttm": null,
     "entity_name": "BERKSHIRE HATHAWAY INC",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:21.480075"
+    "fetched_at": "2026-04-16T18:13:24.136688"
   },
   "ACGL": {
     "oe_ttm": 4355000000,
@@ -1793,7 +1793,7 @@
     "cash_ttm": null,
     "entity_name": "Arch Capital Group Ltd.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:22.150822"
+    "fetched_at": "2026-04-16T18:13:25.541548"
   },
   "AIZ": {
     "oe_ttm": 793600000,
@@ -1838,7 +1838,7 @@
     "cash_ttm": null,
     "entity_name": "Assurant, Inc.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:23.085346"
+    "fetched_at": "2026-04-16T18:13:27.104619"
   },
   "AJG": {
     "oe_ttm": 1519700000,
@@ -1883,7 +1883,7 @@
     "cash_ttm": null,
     "entity_name": "ARTHUR J. GALLAGHER & CO.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:23.690848"
+    "fetched_at": "2026-04-16T18:13:28.636223"
   },
   "AON": {
     "oe_ttm": 3608000000,
@@ -1924,7 +1924,7 @@
     "cash_ttm": null,
     "entity_name": "Aon plc",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:24.425909"
+    "fetched_at": "2026-04-16T18:13:30.063439"
   },
   "ARES": {
     "oe_ttm": 508943000,
@@ -1950,7 +1950,7 @@
     "cash_ttm": null,
     "entity_name": "ARES MANAGEMENT CORPORATION",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:24.958009"
+    "fetched_at": "2026-04-16T18:13:31.317016"
   },
   "AXP": {
     "oe_ttm": 8408000000,
@@ -1995,7 +1995,7 @@
     "cash_ttm": null,
     "entity_name": "AMERICAN EXPRESS CO",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:25.646503"
+    "fetched_at": "2026-04-16T18:13:32.732535"
   },
   "BAC": {
     "oe_ttm": 32823000000,
@@ -2040,7 +2040,7 @@
     "cash_ttm": null,
     "entity_name": "BANK OF AMERICA CORP /DE/",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:26.515346"
+    "fetched_at": "2026-04-16T18:13:34.207679"
   },
   "BLK": {
     "oe_ttm": 5475000000,
@@ -2063,7 +2063,7 @@
     "cash_ttm": null,
     "entity_name": "BLACKROCK, INC.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:27.048473"
+    "fetched_at": "2026-04-16T18:13:35.390734"
   },
   "BRO": {
     "oe_ttm": 1041000000,
@@ -2108,7 +2108,7 @@
     "cash_ttm": null,
     "entity_name": "BROWN & BROWN, INC.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:27.802026"
+    "fetched_at": "2026-04-16T18:13:36.793416"
   },
   "C": {
     "oe_ttm": 7786000000,
@@ -2153,7 +2153,7 @@
     "cash_ttm": null,
     "entity_name": "Citigroup Inc",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:28.613312"
+    "fetched_at": "2026-04-16T18:13:38.370447"
   },
   "CB": {
     "oe_ttm": 10310000000,
@@ -2198,7 +2198,7 @@
     "cash_ttm": null,
     "entity_name": "CHUBB LIMITED",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:29.495880"
+    "fetched_at": "2026-04-16T18:13:39.948626"
   },
   "CBOE": {
     "oe_ttm": 1151400000,
@@ -2242,7 +2242,7 @@
     "cash_ttm": null,
     "entity_name": "Cboe Global Markets, Inc.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:30.183066"
+    "fetched_at": "2026-04-16T18:13:41.291931"
   },
   "CBRE": {
     "oe_ttm": 1587570000,
@@ -2287,7 +2287,7 @@
     "cash_ttm": null,
     "entity_name": "CBRE GROUP, INC.",
     "sector": "Real Estate",
-    "fetched_at": "2026-04-16T15:17:30.975905"
+    "fetched_at": "2026-04-16T18:13:42.714036"
   },
   "CINF": {
     "oe_ttm": 2409000000,
@@ -2332,7 +2332,7 @@
     "cash_ttm": null,
     "entity_name": "Cincinnati Financial Corporation",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:31.697931"
+    "fetched_at": "2026-04-16T18:13:44.216159"
   },
   "CME": {
     "oe_ttm": 4096200000,
@@ -2377,7 +2377,7 @@
     "cash_ttm": null,
     "entity_name": "CME GROUP INC.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:32.406093"
+    "fetched_at": "2026-04-16T18:13:45.681808"
   },
   "CPAY": {
     "oe_ttm": 1262373000,
@@ -2422,7 +2422,7 @@
     "cash_ttm": null,
     "entity_name": "CORPAY, INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:17:33.132181"
+    "fetched_at": "2026-04-16T18:13:47.102887"
   },
   "EG": {
     "oe_ttm": 1591000000,
@@ -2465,7 +2465,7 @@
     "cash_ttm": null,
     "entity_name": "Everest Group, Ltd.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:33.881923"
+    "fetched_at": "2026-04-16T18:13:48.652972"
   },
   "ERIE": {
     "oe_ttm": 513093000,
@@ -2494,7 +2494,7 @@
     "cash_ttm": null,
     "entity_name": "ERIE INDEMNITY COMPANY",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:34.530311"
+    "fetched_at": "2026-04-16T18:13:49.914855"
   },
   "FICO": {
     "oe_ttm": 664918000,
@@ -2539,7 +2539,7 @@
     "cash_ttm": null,
     "entity_name": "FAIR ISAAC CORP",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:17:35.256962"
+    "fetched_at": "2026-04-16T18:13:51.241286"
   },
   "GS": {
     "oe_ttm": 17294000000,
@@ -2584,7 +2584,7 @@
     "cash_ttm": null,
     "entity_name": "The Goldman Sachs Group, Inc.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:36.143657"
+    "fetched_at": "2026-04-16T18:13:52.831916"
   },
   "IBKR": {
     "oe_ttm": 44533000,
@@ -2621,7 +2621,7 @@
     "cash_ttm": null,
     "entity_name": "INTERACTIVE BROKERS GROUP, INC.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:36.791865"
+    "fetched_at": "2026-04-16T18:13:54.317471"
   },
   "ICE": {
     "oe_ttm": 4502000000,
@@ -2666,7 +2666,7 @@
     "cash_ttm": null,
     "entity_name": "INTERCONTINENTAL EXCHANGE, INC.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:37.425160"
+    "fetched_at": "2026-04-16T18:13:55.599808"
   },
   "JPM": {
     "oe_ttm": 57048000000,
@@ -2711,7 +2711,7 @@
     "cash_ttm": null,
     "entity_name": "JPMORGAN CHASE & CO",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:38.505707"
+    "fetched_at": "2026-04-16T18:13:57.310932"
   },
   "KKR": {
     "oe_ttm": 2194494000,
@@ -2740,7 +2740,7 @@
     "cash_ttm": null,
     "entity_name": "KKR\u00a0&\u00a0CO.\u00a0INC.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:39.208558"
+    "fetched_at": "2026-04-16T18:13:58.706825"
   },
   "MA": {
     "oe_ttm": 3874000000,
@@ -2777,7 +2777,7 @@
     "cash_ttm": null,
     "entity_name": "Mastercard Incorporated",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:17:39.861404"
+    "fetched_at": "2026-04-16T18:14:00.087035"
   },
   "MCO": {
     "oe_ttm": 2200200000,
@@ -2822,7 +2822,7 @@
     "cash_ttm": null,
     "entity_name": "MOODY\u2019S CORPORATION",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:40.646172"
+    "fetched_at": "2026-04-16T18:14:01.658338"
   },
   "MSCI": {
     "oe_ttm": 1186391000,
@@ -2867,7 +2867,7 @@
     "cash_ttm": null,
     "entity_name": "MSCI Inc.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:17:41.408864"
+    "fetched_at": "2026-04-16T18:14:03.038034"
   },
   "NDAQ": {
     "oe_ttm": 1667000000,
@@ -2912,7 +2912,7 @@
     "cash_ttm": null,
     "entity_name": "Nasdaq, Inc.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:42.114198"
+    "fetched_at": "2026-04-16T18:14:04.480856"
   },
   "PGR": {
     "oe_ttm": 11273000000,
@@ -2957,7 +2957,7 @@
     "cash_ttm": null,
     "entity_name": "PROGRESSIVE CORP/OH/",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:42.828840"
+    "fetched_at": "2026-04-16T18:14:06.123900"
   },
   "RJF": {
     "oe_ttm": 2002000000,
@@ -3002,7 +3002,7 @@
     "cash_ttm": null,
     "entity_name": "RAYMOND JAMES FINANCIAL, INC.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:43.510392"
+    "fetched_at": "2026-04-16T18:14:07.518892"
   },
   "SPGI": {
     "oe_ttm": 5575431000,
@@ -3047,7 +3047,7 @@
     "cash_ttm": null,
     "entity_name": "S&P Global Inc.",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:44.436972"
+    "fetched_at": "2026-04-16T18:14:08.886953"
   },
   "TRV": {
     "oe_ttm": 8289000000,
@@ -3090,7 +3090,7 @@
     "cash_ttm": null,
     "entity_name": "Travelers Companies,\u00a0Inc.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:45.199170"
+    "fetched_at": "2026-04-16T18:14:10.222846"
   },
   "V": {
     "oe_ttm": 20541000000,
@@ -3119,7 +3119,7 @@
     "cash_ttm": null,
     "entity_name": "VISA INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:17:45.856847"
+    "fetched_at": "2026-04-16T18:14:11.554901"
   },
   "VRSK": {
     "oe_ttm": 923400000,
@@ -3164,7 +3164,7 @@
     "cash_ttm": null,
     "entity_name": "VERISK ANALYTICS, INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:17:46.651731"
+    "fetched_at": "2026-04-16T18:14:13.153152"
   },
   "WFC": {
     "oe_ttm": 23038000000,
@@ -3209,7 +3209,7 @@
     "cash_ttm": null,
     "entity_name": "WELLS FARGO & COMPANY/MN",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:47.619122"
+    "fetched_at": "2026-04-16T18:14:14.668754"
   },
   "WRB": {
     "oe_ttm": 1732075000,
@@ -3254,7 +3254,7 @@
     "cash_ttm": null,
     "entity_name": "W. R. BERKLEY CORP",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:48.323409"
+    "fetched_at": "2026-04-16T18:14:16.102304"
   },
   "A": {
     "oe_ttm": 1170000000,
@@ -3290,7 +3290,7 @@
     "cash_ttm": null,
     "entity_name": "AGILENT TECHNOLOGIES, INC.",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:17:49.132256"
+    "fetched_at": "2026-04-16T18:14:17.659297"
   },
   "BSX": {
     "oe_ttm": null,
@@ -3319,7 +3319,7 @@
     "cash_ttm": null,
     "entity_name": "BOSTON SCIENTIFIC CORPORATION",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:17:49.934540"
+    "fetched_at": "2026-04-16T18:14:19.121483"
   },
   "CI": {
     "oe_ttm": 7682000000,
@@ -3336,7 +3336,7 @@
     "cash_ttm": null,
     "entity_name": "The Cigna Group",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:17:50.512462"
+    "fetched_at": "2026-04-16T18:14:20.363476"
   },
   "ABT": {
     "oe_ttm": 5787000000,
@@ -3381,7 +3381,7 @@
     "cash_ttm": null,
     "entity_name": "ABBOTT LABORATORIES",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:51.255515"
+    "fetched_at": "2026-04-16T18:14:21.661823"
   },
   "COO": {
     "oe_ttm": 408100000,
@@ -3426,7 +3426,7 @@
     "cash_ttm": null,
     "entity_name": "The Cooper Companies, Inc.",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:17:51.974611"
+    "fetched_at": "2026-04-16T18:14:23.034854"
   },
   "HCA": {
     "oe_ttm": 5363000000,
@@ -3471,7 +3471,7 @@
     "cash_ttm": null,
     "entity_name": "HCA Healthcare, Inc.",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:17:52.691724"
+    "fetched_at": "2026-04-16T18:14:24.418168"
   },
   "IDXX": {
     "oe_ttm": 1079971000,
@@ -3516,7 +3516,7 @@
     "cash_ttm": null,
     "entity_name": "IDEXX LABORATORIES INC /DE",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:53.455189"
+    "fetched_at": "2026-04-16T18:14:25.743941"
   },
   "IQV": {
     "oe_ttm": 1901000000,
@@ -3561,7 +3561,7 @@
     "cash_ttm": null,
     "entity_name": "IQVIA HOLDINGS INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:17:54.241498"
+    "fetched_at": "2026-04-16T18:14:27.011739"
   },
   "ISRG": {
     "oe_ttm": 3456000000,
@@ -3606,7 +3606,7 @@
     "cash_ttm": null,
     "entity_name": "INTUITIVE SURGICAL, INC.",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:17:54.923782"
+    "fetched_at": "2026-04-16T18:14:28.384178"
   },
   "JNJ": {
     "oe_ttm": 29475000000,
@@ -3651,7 +3651,7 @@
     "cash_ttm": null,
     "entity_name": "Johnson & Johnson",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:55.660794"
+    "fetched_at": "2026-04-16T18:14:29.690591"
   },
   "LLY": {
     "oe_ttm": 22637000000,
@@ -3696,7 +3696,7 @@
     "cash_ttm": null,
     "entity_name": "ELI LILLY AND COMPANY",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:56.370801"
+    "fetched_at": "2026-04-16T18:14:30.987927"
   },
   "MCK": {
     "oe_ttm": 4118000000,
@@ -3741,7 +3741,7 @@
     "cash_ttm": null,
     "entity_name": "McKESSON CORPORATION",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:17:57.095023"
+    "fetched_at": "2026-04-16T18:14:32.356026"
   },
   "MRK": {
     "oe_ttm": 17799000000,
@@ -3786,7 +3786,7 @@
     "cash_ttm": null,
     "entity_name": "Merck & Co., Inc.",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:57.780734"
+    "fetched_at": "2026-04-16T18:14:33.731444"
   },
   "MTD": {
     "oe_ttm": 813210000,
@@ -3831,7 +3831,7 @@
     "cash_ttm": null,
     "entity_name": "Mettler-Toledo International Inc.",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:17:58.487656"
+    "fetched_at": "2026-04-16T18:14:35.193541"
   },
   "REGN": {
     "oe_ttm": 4150200000,
@@ -3876,7 +3876,7 @@
     "cash_ttm": null,
     "entity_name": "REGENERON PHARMACEUTICALS, INC.",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:17:59.088824"
+    "fetched_at": "2026-04-16T18:14:36.464361"
   },
   "RMD": {
     "oe_ttm": 1567877000,
@@ -3921,7 +3921,7 @@
     "cash_ttm": null,
     "entity_name": "ResMed Inc.",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:17:59.658727"
+    "fetched_at": "2026-04-16T18:14:37.823514"
   },
   "SYK": {
     "oe_ttm": 4055000000,
@@ -3966,7 +3966,7 @@
     "cash_ttm": null,
     "entity_name": "STRYKER CORP",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:18:00.326092"
+    "fetched_at": "2026-04-16T18:14:39.374768"
   },
   "TECH": {
     "oe_ttm": 158538000,
@@ -4011,7 +4011,7 @@
     "cash_ttm": null,
     "entity_name": "BIO-TECHNE CORPORATION",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:18:01.064560"
+    "fetched_at": "2026-04-16T18:14:40.803223"
   },
   "VRTX": {
     "oe_ttm": 3725400000,
@@ -4056,7 +4056,7 @@
     "cash_ttm": null,
     "entity_name": "VERTEX PHARMACEUTICALS INC / MA",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:18:01.728578"
+    "fetched_at": "2026-04-16T18:14:42.117836"
   },
   "WAT": {
     "oe_ttm": 618028000,
@@ -4090,7 +4090,7 @@
     "cash_ttm": null,
     "entity_name": "Waters Corporation",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:18:02.542248"
+    "fetched_at": "2026-04-16T18:14:43.601585"
   },
   "WST": {
     "oe_ttm": 379200000,
@@ -4131,7 +4131,7 @@
     "cash_ttm": null,
     "entity_name": "WEST PHARMACEUTICAL SERVICES, INC.",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:18:03.308261"
+    "fetched_at": "2026-04-16T18:14:44.998985"
   },
   "ZTS": {
     "oe_ttm": 2539000000,
@@ -4176,7 +4176,7 @@
     "cash_ttm": null,
     "entity_name": "Zoetis Inc.",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:18:04.090366"
+    "fetched_at": "2026-04-16T18:14:46.245445"
   },
   "WM": {
     "oe_ttm": 2762000000,
@@ -4221,7 +4221,7 @@
     "cash_ttm": null,
     "entity_name": "WASTE MANAGEMENT INC",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:18:04.852869"
+    "fetched_at": "2026-04-16T18:14:47.564128"
   },
   "MO": {
     "oe_ttm": 6997000000,
@@ -4266,7 +4266,7 @@
     "cash_ttm": null,
     "entity_name": "ALTRIA GROUP, INC.",
     "sector": "Consumer Defensive",
-    "fetched_at": "2026-04-16T15:18:05.499947"
+    "fetched_at": "2026-04-16T18:14:48.909799"
   },
   "ADP": {
     "oe_ttm": 4820300000,
@@ -4311,7 +4311,7 @@
     "cash_ttm": null,
     "entity_name": "AUTOMATIC DATA PROCESSING, INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:06.181256"
+    "fetched_at": "2026-04-16T18:14:50.343332"
   },
   "AXON": {
     "oe_ttm": 71559000,
@@ -4356,7 +4356,7 @@
     "cash_ttm": null,
     "entity_name": "Axon Enterprise, Inc.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:06.809855"
+    "fetched_at": "2026-04-16T18:14:51.638868"
   },
   "CAT": {
     "oe_ttm": 3790000000,
@@ -4390,7 +4390,7 @@
     "cash_ttm": null,
     "entity_name": "CATERPILLAR INC.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:07.574652"
+    "fetched_at": "2026-04-16T18:14:53.064822"
   },
   "CTAS": {
     "oe_ttm": 2032070000,
@@ -4435,7 +4435,7 @@
     "cash_ttm": null,
     "entity_name": "Cintas Corporation",
     "sector": "default",
-    "fetched_at": "2026-04-16T15:18:08.357321"
+    "fetched_at": "2026-04-16T18:14:54.380315"
   },
   "DE": {
     "oe_ttm": 5820000000,
@@ -4480,7 +4480,7 @@
     "cash_ttm": null,
     "entity_name": "DEERE & CO",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:09.086194"
+    "fetched_at": "2026-04-16T18:14:55.712799"
   },
   "EME": {
     "oe_ttm": 1211889000,
@@ -4525,7 +4525,7 @@
     "cash_ttm": null,
     "entity_name": "EMCOR Group, Inc.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:09.711035"
+    "fetched_at": "2026-04-16T18:14:57.097671"
   },
   "EMR": {
     "oe_ttm": 3362000000,
@@ -4570,7 +4570,7 @@
     "cash_ttm": null,
     "entity_name": "Emerson Electric Co.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:10.428298"
+    "fetched_at": "2026-04-16T18:14:58.516709"
   },
   "ETN": {
     "oe_ttm": 4174000000,
@@ -4611,7 +4611,7 @@
     "cash_ttm": null,
     "entity_name": "EATON CORPORATION plc",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:11.068714"
+    "fetched_at": "2026-04-16T18:14:59.936988"
   },
   "FAST": {
     "oe_ttm": 1230200000,
@@ -4656,7 +4656,7 @@
     "cash_ttm": null,
     "entity_name": "FASTENAL CO",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:18:11.648618"
+    "fetched_at": "2026-04-16T18:15:01.261710"
   },
   "FIX": {
     "oe_ttm": 930055000,
@@ -4699,7 +4699,7 @@
     "cash_ttm": null,
     "entity_name": "Comfort Systems USA, Inc.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:12.241762"
+    "fetched_at": "2026-04-16T18:15:02.547251"
   },
   "GD": {
     "oe_ttm": 3973000000,
@@ -4744,7 +4744,7 @@
     "cash_ttm": null,
     "entity_name": "GENERAL DYNAMICS CORPORATION",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:18:12.970901"
+    "fetched_at": "2026-04-16T18:15:03.879436"
   },
   "GE": {
     "oe_ttm": 15516000000,
@@ -4789,7 +4789,7 @@
     "cash_ttm": null,
     "entity_name": "GENERAL ELECTRIC COMPANY",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:13.723338"
+    "fetched_at": "2026-04-16T18:15:05.301480"
   },
   "GWW": {
     "oe_ttm": 1352000000,
@@ -4834,7 +4834,7 @@
     "cash_ttm": null,
     "entity_name": "W.W. Grainger, Inc.",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:18:14.454361"
+    "fetched_at": "2026-04-16T18:15:06.582124"
   },
   "HON": {
     "oe_ttm": 5131000000,
@@ -4879,7 +4879,7 @@
     "cash_ttm": null,
     "entity_name": "Honeywell International Inc.",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:18:15.182723"
+    "fetched_at": "2026-04-16T18:15:07.972743"
   },
   "HWM": {
     "oe_ttm": 1338000000,
@@ -4924,7 +4924,7 @@
     "cash_ttm": null,
     "entity_name": "HOWMET AEROSPACE INC.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:16.113412"
+    "fetched_at": "2026-04-16T18:15:09.518001"
   },
   "LMT": {
     "oe_ttm": 5785000000,
@@ -4969,7 +4969,7 @@
     "cash_ttm": null,
     "entity_name": "LOCKHEED MARTIN CORPORATION",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:18:16.725982"
+    "fetched_at": "2026-04-16T18:15:10.843689"
   },
   "NOC": {
     "oe_ttm": 4204000000,
@@ -5014,7 +5014,7 @@
     "cash_ttm": null,
     "entity_name": "NORTHROP GRUMMAN CORP /DE/",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:18:17.418262"
+    "fetched_at": "2026-04-16T18:15:12.144539"
   },
   "ODFL": {
     "oe_ttm": 973352000,
@@ -5059,7 +5059,7 @@
     "cash_ttm": null,
     "entity_name": "OLD DOMINION FREIGHT LINE, INC.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:17.999070"
+    "fetched_at": "2026-04-16T18:15:13.593456"
   },
   "OTIS": {
     "oe_ttm": 1345000000,
@@ -5090,7 +5090,7 @@
     "cash_ttm": null,
     "entity_name": "OTIS WORLDWIDE CORPORATION",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:18.509142"
+    "fetched_at": "2026-04-16T18:15:14.847128"
   },
   "PH": {
     "oe_ttm": 2796215000,
@@ -5135,7 +5135,7 @@
     "cash_ttm": null,
     "entity_name": "Parker-Hannifin Corp",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:19.225550"
+    "fetched_at": "2026-04-16T18:15:16.157798"
   },
   "PWR": {
     "oe_ttm": 830762000,
@@ -5174,7 +5174,7 @@
     "cash_ttm": null,
     "entity_name": "Quanta Services, Inc.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:20.134531"
+    "fetched_at": "2026-04-16T18:15:17.759466"
   },
   "ROK": {
     "oe_ttm": 1162500000,
@@ -5219,7 +5219,7 @@
     "cash_ttm": null,
     "entity_name": "ROCKWELL AUTOMATION, INC",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:18:20.810055"
+    "fetched_at": "2026-04-16T18:15:19.068814"
   },
   "ROL": {
     "oe_ttm": 591541000,
@@ -5256,7 +5256,7 @@
     "cash_ttm": null,
     "entity_name": "ROLLINS, INC.",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:18:21.460560"
+    "fetched_at": "2026-04-16T18:15:20.429205"
   },
   "ROP": {
     "oe_ttm": 2377400000,
@@ -5301,7 +5301,7 @@
     "cash_ttm": null,
     "entity_name": "ROPER TECHNOLOGIES, INC.",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:18:22.120389"
+    "fetched_at": "2026-04-16T18:15:21.823726"
   },
   "TDG": {
     "oe_ttm": 2163000000,
@@ -5343,7 +5343,7 @@
     "cash_ttm": null,
     "entity_name": "TransDigm Group Incorporated",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:18:22.752400"
+    "fetched_at": "2026-04-16T18:15:23.093440"
   },
   "TT": {
     "oe_ttm": 2913200000,
@@ -5388,7 +5388,7 @@
     "cash_ttm": null,
     "entity_name": "TRANE TECHNOLOGIES PLC",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:18:23.519727"
+    "fetched_at": "2026-04-16T18:15:24.528465"
   },
   "ACN": {
     "oe_ttm": 8508200000,
@@ -5433,7 +5433,7 @@
     "cash_ttm": null,
     "entity_name": "Accenture plc",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:24.282974"
+    "fetched_at": "2026-04-16T18:15:25.937784"
   },
   "ADI": {
     "oe_ttm": 2627205000,
@@ -5478,7 +5478,7 @@
     "cash_ttm": null,
     "entity_name": "Analog Devices, Inc.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:25.031999"
+    "fetched_at": "2026-04-16T18:15:27.303866"
   },
   "ADSK": {
     "oe_ttm": 1226800000,
@@ -5523,7 +5523,7 @@
     "cash_ttm": null,
     "entity_name": "AUTODESK, INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:25.699979"
+    "fetched_at": "2026-04-16T18:15:28.737788"
   },
   "AMAT": {
     "oe_ttm": 5758000000,
@@ -5568,7 +5568,7 @@
     "cash_ttm": null,
     "entity_name": "APPLIED MATERIALS INC /DE",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:26.368702"
+    "fetched_at": "2026-04-16T18:15:30.067877"
   },
   "AMD": {
     "oe_ttm": 3283000000,
@@ -5613,7 +5613,7 @@
     "cash_ttm": null,
     "entity_name": "ADVANCED MICRO DEVICES, INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:27.042582"
+    "fetched_at": "2026-04-16T18:15:31.422103"
   },
   "ANET": {
     "oe_ttm": 3505349000,
@@ -5656,7 +5656,7 @@
     "cash_ttm": null,
     "entity_name": "ARISTA NETWORKS,\u00a0INC.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:27.716911"
+    "fetched_at": "2026-04-16T18:15:32.709832"
   },
   "APH": {
     "oe_ttm": 4196100000,
@@ -5701,7 +5701,7 @@
     "cash_ttm": null,
     "entity_name": "Amphenol Corporation",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:28.380370"
+    "fetched_at": "2026-04-16T18:15:34.002802"
   },
   "CDNS": {
     "oe_ttm": 1194845000,
@@ -5746,7 +5746,7 @@
     "cash_ttm": null,
     "entity_name": "CADENCE DESIGN SYSTEMS, INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:29.001385"
+    "fetched_at": "2026-04-16T18:15:35.477103"
   },
   "CSCO": {
     "oe_ttm": 10692000000,
@@ -5791,7 +5791,7 @@
     "cash_ttm": null,
     "entity_name": "CISCO SYSTEMS, INC.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:29.930370"
+    "fetched_at": "2026-04-16T18:15:36.872371"
   },
   "FTNT": {
     "oe_ttm": 2005400000,
@@ -5836,7 +5836,7 @@
     "cash_ttm": null,
     "entity_name": "FORTINET, INC.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:30.556283"
+    "fetched_at": "2026-04-16T18:15:38.249211"
   },
   "IT": {
     "oe_ttm": 814398000,
@@ -5881,7 +5881,7 @@
     "cash_ttm": null,
     "entity_name": "GARTNER, INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:31.270762"
+    "fetched_at": "2026-04-16T18:15:39.629751"
   },
   "KLAC": {
     "oe_ttm": 4564601000,
@@ -5926,7 +5926,7 @@
     "cash_ttm": null,
     "entity_name": "KLA CORP",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:18:31.901338"
+    "fetched_at": "2026-04-16T18:15:40.993806"
   },
   "LRCX": {
     "oe_ttm": 5708511000,
@@ -5971,7 +5971,7 @@
     "cash_ttm": null,
     "entity_name": "LAM RESEARCH CORPORATION",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:32.645730"
+    "fetched_at": "2026-04-16T18:15:42.361992"
   },
   "MCHP": {
     "oe_ttm": 542700000,
@@ -6016,7 +6016,7 @@
     "cash_ttm": null,
     "entity_name": "MICROCHIP TECHNOLOGY INCORPORATED",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:33.320551"
+    "fetched_at": "2026-04-16T18:15:43.841015"
   },
   "MPWR": {
     "oe_ttm": 501983000,
@@ -6061,7 +6061,7 @@
     "cash_ttm": null,
     "entity_name": "MONOLITHIC POWER SYSTEMS INC",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:33.952194"
+    "fetched_at": "2026-04-16T18:15:45.214133"
   },
   "MSI": {
     "oe_ttm": 2314000000,
@@ -6106,7 +6106,7 @@
     "cash_ttm": null,
     "entity_name": "Motorola Solutions, Inc.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:34.745281"
+    "fetched_at": "2026-04-16T18:15:46.815017"
   },
   "NXPI": {
     "oe_ttm": 2456000000,
@@ -6139,7 +6139,7 @@
     "cash_ttm": null,
     "entity_name": "NXP Semiconductors N.V.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:35.307105"
+    "fetched_at": "2026-04-16T18:15:48.050053"
   },
   "ON": {
     "oe_ttm": 465800000,
@@ -6184,7 +6184,7 @@
     "cash_ttm": null,
     "entity_name": "ON Semiconductor Corporation",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:36.105572"
+    "fetched_at": "2026-04-16T18:15:49.429483"
   },
   "PTC": {
     "oe_ttm": 909680000,
@@ -6229,7 +6229,7 @@
     "cash_ttm": null,
     "entity_name": "PTC Inc.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:36.804807"
+    "fetched_at": "2026-04-16T18:15:50.971531"
   },
   "Q": {
     "oe_ttm": null,
@@ -6246,7 +6246,7 @@
     "cash_ttm": null,
     "entity_name": "Qnity Electronics, Inc.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:37.284201"
+    "fetched_at": "2026-04-16T18:15:52.143974"
   },
   "SNPS": {
     "oe_ttm": 2000620000,
@@ -6291,7 +6291,7 @@
     "cash_ttm": null,
     "entity_name": "SYNOPSYS INC",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:37.975990"
+    "fetched_at": "2026-04-16T18:15:53.606597"
   },
   "TEL": {
     "oe_ttm": 1986000000,
@@ -6336,7 +6336,7 @@
     "cash_ttm": null,
     "entity_name": "TE CONNECTIVITY PLC",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:18:38.686453"
+    "fetched_at": "2026-04-16T18:15:55.046082"
   },
   "TER": {
     "oe_ttm": 458019000,
@@ -6381,7 +6381,7 @@
     "cash_ttm": null,
     "entity_name": "TERADYNE, INC.",
     "sector": "Healthcare",
-    "fetched_at": "2026-04-16T15:18:39.448784"
+    "fetched_at": "2026-04-16T18:15:56.694557"
   },
   "TTD": {
     "oe_ttm": 362077000,
@@ -6420,7 +6420,7 @@
     "cash_ttm": null,
     "entity_name": "TRADE DESK, INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:39.980661"
+    "fetched_at": "2026-04-16T18:15:57.924790"
   },
   "TXN": {
     "oe_ttm": 2369000000,
@@ -6465,7 +6465,7 @@
     "cash_ttm": null,
     "entity_name": "TEXAS INSTRUMENTS INC",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:40.587851"
+    "fetched_at": "2026-04-16T18:15:59.195260"
   },
   "TYL": {
     "oe_ttm": 437946000,
@@ -6510,7 +6510,7 @@
     "cash_ttm": null,
     "entity_name": "TYLER TECHNOLOGIES, INC",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:41.202653"
+    "fetched_at": "2026-04-16T18:16:00.582108"
   },
   "VRSN": {
     "oe_ttm": 378238000,
@@ -6546,7 +6546,7 @@
     "cash_ttm": null,
     "entity_name": "VERISIGN INC/CA",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:41.955377"
+    "fetched_at": "2026-04-16T18:16:02.060115"
   },
   "WDAY": {
     "oe_ttm": 560765000,
@@ -6583,7 +6583,7 @@
     "cash_ttm": null,
     "entity_name": "WORKDAY, INC.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:42.602418"
+    "fetched_at": "2026-04-16T18:16:03.517078"
   },
   "APD": {
     "oe_ttm": -4921800000,
@@ -6628,7 +6628,7 @@
     "cash_ttm": null,
     "entity_name": "AIR PRODUCTS AND CHEMICALS, INC.",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:18:43.445386"
+    "fetched_at": "2026-04-16T18:16:04.907612"
   },
   "AVY": {
     "oe_ttm": 847200000,
@@ -6672,7 +6672,7 @@
     "cash_ttm": null,
     "entity_name": "AVERY DENNISON CORPORATION",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:18:44.357607"
+    "fetched_at": "2026-04-16T18:16:06.179254"
   },
   "CRH": {
     "oe_ttm": 3196000000,
@@ -6697,7 +6697,7 @@
     "cash_ttm": null,
     "entity_name": "CRH public limited company",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:45.073357"
+    "fetched_at": "2026-04-16T18:16:07.452667"
   },
   "ECL": {
     "oe_ttm": 1741800000,
@@ -6736,7 +6736,7 @@
     "cash_ttm": null,
     "entity_name": "ECOLAB INC.",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:18:45.867278"
+    "fetched_at": "2026-04-16T18:16:08.834708"
   },
   "FSLR": {
     "oe_ttm": 750253000,
@@ -6781,7 +6781,7 @@
     "cash_ttm": null,
     "entity_name": "First Solar, Inc.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:46.582632"
+    "fetched_at": "2026-04-16T18:16:10.189992"
   },
   "LIN": {
     "oe_ttm": 1637000000,
@@ -6816,7 +6816,7 @@
     "cash_ttm": null,
     "entity_name": "LINDE PLC",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:18:47.144802"
+    "fetched_at": "2026-04-16T18:16:11.482987"
   },
   "MLM": {
     "oe_ttm": 967000000,
@@ -6861,7 +6861,7 @@
     "cash_ttm": null,
     "entity_name": "Martin Marietta Materials, Inc.",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:18:47.738311"
+    "fetched_at": "2026-04-16T18:16:13.030281"
   },
   "NUE": {
     "oe_ttm": -452000000,
@@ -6906,7 +6906,7 @@
     "cash_ttm": null,
     "entity_name": "NUCOR CORP",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:48.448921"
+    "fetched_at": "2026-04-16T18:16:14.336776"
   },
   "SHW": {
     "oe_ttm": 2762162000,
@@ -6951,7 +6951,7 @@
     "cash_ttm": null,
     "entity_name": "THE SHERWIN-WILLIAMS COMPANY",
     "sector": "Consumer Cyclical",
-    "fetched_at": "2026-04-16T15:18:49.298052"
+    "fetched_at": "2026-04-16T18:16:15.683294"
   },
   "STLD": {
     "oe_ttm": 788960000,
@@ -6990,7 +6990,7 @@
     "cash_ttm": null,
     "entity_name": "STEEL DYNAMICS, INC.",
     "sector": "Industrials",
-    "fetched_at": "2026-04-16T15:18:49.906937"
+    "fetched_at": "2026-04-16T18:16:17.005661"
   },
   "VMC": {
     "oe_ttm": 1147500000,
@@ -7035,7 +7035,7 @@
     "cash_ttm": null,
     "entity_name": "VULCAN MATERIALS COMPANY",
     "sector": "Basic Materials",
-    "fetched_at": "2026-04-16T15:18:50.630752"
+    "fetched_at": "2026-04-16T18:16:18.581926"
   },
   "AMT": {
     "oe_ttm": 345500000,
@@ -7079,7 +7079,7 @@
     "cash_ttm": null,
     "entity_name": "AMERICAN TOWER CORP /MA/",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:18:51.359212"
+    "fetched_at": "2026-04-16T18:16:20.134239"
   },
   "CSGP": {
     "oe_ttm": -37000000,
@@ -7124,7 +7124,7 @@
     "cash_ttm": null,
     "entity_name": "CoStar Group, Inc.",
     "sector": "Technology",
-    "fetched_at": "2026-04-16T15:18:52.042044"
+    "fetched_at": "2026-04-16T18:16:21.432079"
   },
   "EXR": {
     "oe_ttm": 1127453000,
@@ -7169,7 +7169,7 @@
     "cash_ttm": null,
     "entity_name": "EXTRA SPACE STORAGE INC.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:18:52.798817"
+    "fetched_at": "2026-04-16T18:16:22.793819"
   },
   "PSA": {
     "oe_ttm": 2724388000,
@@ -7214,7 +7214,7 @@
     "cash_ttm": null,
     "entity_name": "Public Storage",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:18:53.465569"
+    "fetched_at": "2026-04-16T18:16:24.197634"
   },
   "SBAC": {
     "oe_ttm": 960613000,
@@ -7256,7 +7256,7 @@
     "cash_ttm": null,
     "entity_name": "SBA Communications Corporation",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:18:54.248249"
+    "fetched_at": "2026-04-16T18:16:25.536740"
   },
   "VICI": {
     "oe_ttm": 2776406000,
@@ -7288,7 +7288,7 @@
     "cash_ttm": null,
     "entity_name": "VICI Properties Inc.",
     "sector": "Financial Services",
-    "fetched_at": "2026-04-16T15:18:54.926288"
+    "fetched_at": "2026-04-16T18:16:26.800991"
   },
   "AEP": {
     "oe_ttm": 5137200000,
@@ -7325,7 +7325,7 @@
     "cash_ttm": null,
     "entity_name": "AMERICAN ELECTRIC POWER COMPANY, INC.",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:18:55.581856"
+    "fetched_at": "2026-04-16T18:16:28.271886"
   },
   "AWK": {
     "oe_ttm": -1121000000,
@@ -7370,7 +7370,7 @@
     "cash_ttm": null,
     "entity_name": "American Water Works Company, Inc.",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:18:56.301896"
+    "fetched_at": "2026-04-16T18:16:29.664355"
   },
   "CEG": {
     "oe_ttm": 337000000,
@@ -7397,7 +7397,7 @@
     "cash_ttm": null,
     "entity_name": "CONSTELLATION ENERGY CORPORATION",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:18:56.879617"
+    "fetched_at": "2026-04-16T18:16:30.936108"
   },
   "D": {
     "oe_ttm": 138000000,
@@ -7442,7 +7442,7 @@
     "cash_ttm": null,
     "entity_name": "DOMINION ENERGY, INC.",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:18:57.600336"
+    "fetched_at": "2026-04-16T18:16:32.384901"
   },
   "DUK": {
     "oe_ttm": -1352000000,
@@ -7487,7 +7487,7 @@
     "cash_ttm": null,
     "entity_name": "DUKE ENERGY CORPORATION",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:18:58.350329"
+    "fetched_at": "2026-04-16T18:16:33.761216"
   },
   "ETR": {
     "oe_ttm": -3022818000,
@@ -7532,7 +7532,7 @@
     "cash_ttm": null,
     "entity_name": "Entergy Corporation",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:18:59.152838"
+    "fetched_at": "2026-04-16T18:16:35.334376"
   },
   "NEE": {
     "oe_ttm": 13415000000,
@@ -7577,7 +7577,7 @@
     "cash_ttm": null,
     "entity_name": "NEXTERA ENERGY, INC.",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:18:59.923814"
+    "fetched_at": "2026-04-16T18:16:36.675855"
   },
   "NRG": {
     "oe_ttm": 1123000000,
@@ -7622,7 +7622,7 @@
     "cash_ttm": null,
     "entity_name": "NRG ENERGY, INC.",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:19:00.736892"
+    "fetched_at": "2026-04-16T18:16:38.104670"
   },
   "PEG": {
     "oe_ttm": 31000000,
@@ -7667,7 +7667,7 @@
     "cash_ttm": null,
     "entity_name": "Public Service Enterprise Group Incorporated",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:19:01.485943"
+    "fetched_at": "2026-04-16T18:16:39.467941"
   },
   "SO": {
     "oe_ttm": -8396000000,
@@ -7700,7 +7700,7 @@
     "cash_ttm": null,
     "entity_name": "The Southern Company",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:19:02.169052"
+    "fetched_at": "2026-04-16T18:16:41.041870"
   },
   "SRE": {
     "oe_ttm": 4224000000,
@@ -7745,7 +7745,7 @@
     "cash_ttm": null,
     "entity_name": "SEMPRA",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:19:02.899614"
+    "fetched_at": "2026-04-16T18:16:42.428146"
   },
   "VST": {
     "oe_ttm": 178000000,
@@ -7778,7 +7778,7 @@
     "cash_ttm": null,
     "entity_name": "Vistra Corp.",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:19:03.520353"
+    "fetched_at": "2026-04-16T18:16:43.679523"
   },
   "XEL": {
     "oe_ttm": 2018000000,
@@ -7823,7 +7823,7 @@
     "cash_ttm": null,
     "entity_name": "XCEL ENERGY INC",
     "sector": "Utilities",
-    "fetched_at": "2026-04-16T15:19:04.194163"
+    "fetched_at": "2026-04-16T18:16:45.011645"
   },
-  "__schema_version__": 6
+  "__schema_version__": 7
 }
