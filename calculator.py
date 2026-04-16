@@ -50,7 +50,8 @@ FRED_DGS10      = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10"
 EDGAR_CACHE          = "edgar_cache.json"
 PRICE_CACHE          = "price_cache.json"
 OE_DATA              = "oe_data.json"
-CACHE_SCHEMA_VERSION = 6   # v6: Tiingo prices, FRED yield, EDGAR-sourced sector/name/debt
+CACHE_SCHEMA_VERSION = 7   # v7: dual price series (adjClose for dates, close for MC)
+PRICE_CACHE_SCHEMA   = 2   # v2: stores {"a": adjClose, "c": close} per date
 
 # Crisis windows — trough is the lowest price inside [start, end].
 # Pre-crisis peak is defined as the 52-week high in the year BEFORE start.
@@ -173,47 +174,90 @@ def _tiingo_ticker(sym: str) -> str:
 def load_price_cache() -> dict:
     try:
         with open(PRICE_CACHE) as f:
-            return json.load(f)
+            data = json.load(f)
+        if data.get("__schema__", 1) < PRICE_CACHE_SCHEMA:
+            print(f"INFO: price_cache.json schema v{data.get('__schema__',1)} < v{PRICE_CACHE_SCHEMA}. Rebuilding.")
+            return {}
+        return data
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
 
 
 def save_price_cache(cache: dict):
+    cache["__schema__"] = PRICE_CACHE_SCHEMA
     with open(PRICE_CACHE, "w") as f:
         json.dump(cache, f)
 
 
-def _price_series_from_cache(prices: dict) -> pd.Series:
-    """Build a tz-naive, sorted pd.Series from {date_str: price} dict."""
+def _adj_series_from_cache(prices: dict) -> pd.Series:
+    """
+    Build tz-naive pd.Series of split-adjusted close prices.
+    New format: {date: {"a": adjClose, "c": close}}
+    Old format: {date: float}  — treated as adjClose for backward compat.
+    """
     if not prices:
         return pd.Series(dtype=float)
-    s = pd.Series({pd.Timestamp(d): float(v) for d, v in prices.items()})
-    return s.sort_index().dropna()
+    data = {}
+    for d, v in prices.items():
+        if d == "__schema__":
+            continue
+        if isinstance(v, dict):
+            val = v.get("a") or v.get("c")
+        else:
+            val = v  # old float format
+        if val is not None:
+            data[pd.Timestamp(d)] = float(val)
+    return pd.Series(data).sort_index().dropna()
 
 
-def fetch_tiingo_prices(sym: str, price_cache: dict) -> pd.Series:
+def _close_series_from_cache(prices: dict) -> pd.Series:
     """
-    Fetch full EOD adjusted-close history from Tiingo with local caching.
-    Returns pd.Series indexed by tz-naive pd.Timestamp, sorted ascending.
+    Build tz-naive pd.Series of UNADJUSTED close prices (for MC calculation).
+    New format: {date: {"a": adjClose, "c": close}}
+    Old format: {date: float} — no unadjusted distinction; treated as close.
+    """
+    if not prices:
+        return pd.Series(dtype=float)
+    data = {}
+    for d, v in prices.items():
+        if d == "__schema__":
+            continue
+        if isinstance(v, dict):
+            val = v.get("c") or v.get("a")
+        else:
+            val = v  # old float format — no distinction available
+        if val is not None:
+            data[pd.Timestamp(d)] = float(val)
+    return pd.Series(data).sort_index().dropna()
+
+
+def fetch_tiingo_prices(sym: str, price_cache: dict) -> tuple:
+    """
+    Fetch full EOD price history from Tiingo with local caching.
+    Stores BOTH adjClose (split-adjusted, for date identification) and
+    close (unadjusted, for MC calculation with EDGAR point-in-time shares).
+
+    Returns (hist_adj, hist_close) — two tz-naive pd.Series sorted ascending.
 
     Incremental strategy: if a cache entry exists, only fetches days after
-    the last cached date.  On first run fetches from 2004-01-01 to capture
-    the full GFC (2007-2009) window needed for crisis metrics.
+    the last cached date.  On first run fetches from 2004-01-01.
 
     price_cache is mutated in-place; caller must call save_price_cache() when done.
     """
     t      = _tiingo_ticker(sym)
     entry  = price_cache.get(sym, {})
-    cached = entry.get("prices", {})   # {date_str: adjClose}
+    cached = entry.get("prices", {})   # {date_str: {"a": adjClose, "c": close}}
 
-    # Determine fetch window
+    # Determine fetch window — skip reserved keys like __schema__
+    date_keys = [k for k in cached if not k.startswith("__")]
+
     start_date = "2004-01-01"
-    if cached:
-        last_str = max(cached.keys())
+    if date_keys:
+        last_str = max(date_keys)
         last_dt  = datetime.strptime(last_str, "%Y-%m-%d")
         if (datetime.now() - last_dt).days < 2:
             # Cache is current — no fetch needed
-            return _price_series_from_cache(cached)
+            return _adj_series_from_cache(cached), _close_series_from_cache(cached)
         start_date = (last_dt + timedelta(days=1)).strftime("%Y-%m-%d")
 
     end_date = datetime.now().strftime("%Y-%m-%d")
@@ -231,10 +275,14 @@ def fetch_tiingo_prices(sym: str, price_cache: dict) -> pd.Series:
             if r.status_code == 200:
                 rows = r.json()
                 for row in rows:
-                    d_str = row["date"][:10]           # "2024-01-02T00:00:00+00:00" → "2024-01-02"
-                    val   = row.get("adjClose") or row.get("close")
-                    if val is not None:
-                        cached[d_str] = float(val)
+                    d_str = row["date"][:10]   # "2024-01-02T00:00:00+00:00" → "2024-01-02"
+                    adj   = row.get("adjClose")
+                    cls   = row.get("close")
+                    if adj is not None or cls is not None:
+                        cached[d_str] = {
+                            "a": float(adj) if adj is not None else float(cls),
+                            "c": float(cls) if cls is not None else float(adj),
+                        }
                 price_cache[sym] = {
                     "prices":     cached,
                     "fetched_at": datetime.now().isoformat(),
@@ -250,7 +298,7 @@ def fetch_tiingo_prices(sym: str, price_cache: dict) -> pd.Series:
         except Exception as e:
             time.sleep(5)
 
-    return _price_series_from_cache(cached)
+    return _adj_series_from_cache(cached), _close_series_from_cache(cached)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -630,11 +678,16 @@ def diff_block(curr, peak):
 # CALCULATION ENGINE
 # ══════════════════════════════════════════════════════════════════════════════
 
-def compute_ticker_result(symbol, financials, ticker_info, hist):
+def compute_ticker_result(symbol, financials, ticker_info, hist_adj, hist_close):
     """
     ticker_info keys used: shortName, sector, sharesOutstanding,
                            totalDebt, totalCash
-    hist: pd.Series of adjusted-close prices, tz-naive DatetimeIndex
+    hist_adj  : pd.Series of ADJUSTED-close prices (split-adjusted) — used to
+                identify peak/trough DATES consistently across time.
+    hist_close: pd.Series of UNADJUSTED close prices — used for all PRICE and
+                MARKET-CAP calculations paired with EDGAR point-in-time share counts.
+                Using close (not adjClose) avoids the split/shares mismatch: EDGAR
+                stores pre-split share counts, so MC = close × EDGAR_shares = correct.
     """
     result = {
         "ticker":        symbol,
@@ -657,7 +710,7 @@ def compute_ticker_result(symbol, financials, ticker_info, hist):
         "dca_signal":            "—",
     }
 
-    if hist.empty:
+    if hist_adj.empty:
         result["error"] = "No price data"
         return result
 
@@ -712,8 +765,9 @@ def compute_ticker_result(symbol, financials, ticker_info, hist):
         return oe_val, cagr, sh
 
     # ── CURRENT ───────────────────────────────────────────────────────────────
-    current_price = float(hist.iloc[-1])
-    today_ts      = hist.index[-1]
+    today_ts      = hist_adj.index[-1]
+    # Use unadjusted close for price (pairs correctly with EDGAR shares)
+    current_price = float(hist_close[today_ts]) if today_ts in hist_close.index else float(hist_adj.iloc[-1])
 
     _, curr_cagr, curr_shares = oe_and_growth_at(today_ts)
     ev_c, mc_c   = ev_mc(current_price, curr_shares)
@@ -725,8 +779,11 @@ def compute_ticker_result(symbol, financials, ticker_info, hist):
     result["current"] = m_c
 
     # ── 52-WEEK PEAK (Block 2 — E through I) ─────────────────────────────────
-    peak52_date, peak52_price = _52w_peak(hist, today_ts)
+    # Use adj series to identify the date of the highest price (handles splits)
+    peak52_date, _ = _52w_peak(hist_adj, today_ts)
     if peak52_date is not None:
+        # Use unadjusted close for the actual price (pairs with EDGAR shares)
+        peak52_price = float(hist_close[peak52_date]) if peak52_date in hist_close.index else float(hist_adj[peak52_date])
         oe_pk, cagr_pk, sh_pk = oe_and_growth_at(peak52_date)
         ev_p,  mc_p    = ev_mc(peak52_price, sh_pk)
         if oe_pk and mc_p:
@@ -747,19 +804,22 @@ def compute_ticker_result(symbol, financials, ticker_info, hist):
         crisis_start_ts = pd.Timestamp(crisis["start"])
         crisis_end_ts   = pd.Timestamp(crisis["end"])
 
-        if crisis_start_ts < hist.index[0]:
+        if crisis_start_ts < hist_adj.index[0]:
             continue
 
         effective_end_str = min(crisis_end_ts, today_ts).strftime("%Y-%m-%d")
 
-        pre_peak_date, pre_peak_price = _52w_peak(hist, crisis_start_ts)
+        # Use adj series to find peak/trough dates (splits-consistent identification)
+        pre_peak_date, _ = _52w_peak(hist_adj, crisis_start_ts)
         if pre_peak_date is None:
             continue
+        # Use unadjusted close for actual prices (pairs with EDGAR point-in-time shares)
+        pre_peak_price = float(hist_close[pre_peak_date]) if pre_peak_date in hist_close.index else float(hist_adj[pre_peak_date])
 
-        trough_date, trough_price = _trough_in_window(
-            hist, crisis["start"], effective_end_str)
+        trough_date, _ = _trough_in_window(hist_adj, crisis["start"], effective_end_str)
         if trough_date is None:
             continue
+        trough_price = float(hist_close[trough_date]) if trough_date in hist_close.index else float(hist_adj[trough_date])
 
         drawdown = (trough_price - pre_peak_price) / pre_peak_price * 100
         if drawdown >= -5:
@@ -956,11 +1016,11 @@ def run_prices_only(tickers, edgar_cache):
 
         for attempt in range(3):
             try:
-                hist = fetch_tiingo_prices(sym, price_cache)
-                if hist.empty:
+                hist_adj, hist_close = fetch_tiingo_prices(sym, price_cache)
+                if hist_adj.empty:
                     raise ValueError("Empty price history from Tiingo")
 
-                results[sym] = compute_ticker_result(sym, fin, ticker_info, hist)
+                results[sym] = compute_ticker_result(sym, fin, ticker_info, hist_adj, hist_close)
                 price_str = results[sym].get("current", {}).get("price", "n/a")
                 print(f"${price_str}")
                 break
