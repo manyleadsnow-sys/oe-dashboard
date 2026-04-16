@@ -59,6 +59,7 @@ jobs:
       - name: Run calculation
         env:
           RUN_MODE: ${{ steps.mode.outputs.mode }}
+          TIINGO_TOKEN: ${{ secrets.TIINGO_TOKEN }}
         run: python calculator.py
 
       - name: Copy dashboard files for Pages
@@ -72,8 +73,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add oe_data.json
-          # Also commit edgar_cache.json if it changed
           git add edgar_cache.json 2>/dev/null || true
+          git add price_cache.json 2>/dev/null || true
           git commit -m "OE update $(date +'%Y-%m-%d %H:%M') [${RUN_MODE}]" || echo "No changes"
           git push origin HEAD:main
         env:
