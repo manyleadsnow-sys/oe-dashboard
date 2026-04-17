@@ -682,12 +682,16 @@ def compute_ticker_result(symbol, financials, ticker_info, hist_adj, hist_close)
     """
     ticker_info keys used: shortName, sector, sharesOutstanding,
                            totalDebt, totalCash
-    hist_adj  : pd.Series of ADJUSTED-close prices (split-adjusted) — used to
-                identify peak/trough DATES consistently across time.
-    hist_close: pd.Series of UNADJUSTED close prices — used for all PRICE and
-                MARKET-CAP calculations paired with EDGAR point-in-time share counts.
-                Using close (not adjClose) avoids the split/shares mismatch: EDGAR
-                stores pre-split share counts, so MC = close × EDGAR_shares = correct.
+    hist_adj  : pd.Series of ADJUSTED-close prices (split-adjusted).
+                Used for ALL price and MC calculations. Correct because EDGAR
+                retroactively restates historical share counts in each 10-K filing
+                (2-3 year lookback), so adjClose × EDGAR_restated_shares = correct MC.
+    hist_close: pd.Series of UNADJUSTED close prices. Stored in cache for reference
+                but NOT used for calculations — using close with EDGAR restated shares
+                would overstate MC by the split factor (e.g. 4× for AAPL post-2020).
+    NOTE: For fiscal years older than EDGAR's restatement window (~3 years before a
+          split), share counts may not be restated, causing OE multiples to be
+          understated for those older crisis periods. This is an EDGAR data limitation.
     """
     result = {
         "ticker":        symbol,
@@ -766,8 +770,7 @@ def compute_ticker_result(symbol, financials, ticker_info, hist_adj, hist_close)
 
     # ── CURRENT ───────────────────────────────────────────────────────────────
     today_ts      = hist_adj.index[-1]
-    # Use unadjusted close for price (pairs correctly with EDGAR shares)
-    current_price = float(hist_close[today_ts]) if today_ts in hist_close.index else float(hist_adj.iloc[-1])
+    current_price = float(hist_adj.iloc[-1])
 
     _, curr_cagr, curr_shares = oe_and_growth_at(today_ts)
     ev_c, mc_c   = ev_mc(current_price, curr_shares)
@@ -779,11 +782,8 @@ def compute_ticker_result(symbol, financials, ticker_info, hist_adj, hist_close)
     result["current"] = m_c
 
     # ── 52-WEEK PEAK (Block 2 — E through I) ─────────────────────────────────
-    # Use adj series to identify the date of the highest price (handles splits)
-    peak52_date, _ = _52w_peak(hist_adj, today_ts)
+    peak52_date, peak52_price = _52w_peak(hist_adj, today_ts)
     if peak52_date is not None:
-        # Use unadjusted close for the actual price (pairs with EDGAR shares)
-        peak52_price = float(hist_close[peak52_date]) if peak52_date in hist_close.index else float(hist_adj[peak52_date])
         oe_pk, cagr_pk, sh_pk = oe_and_growth_at(peak52_date)
         ev_p,  mc_p    = ev_mc(peak52_price, sh_pk)
         if oe_pk and mc_p:
@@ -809,17 +809,13 @@ def compute_ticker_result(symbol, financials, ticker_info, hist_adj, hist_close)
 
         effective_end_str = min(crisis_end_ts, today_ts).strftime("%Y-%m-%d")
 
-        # Use adj series to find peak/trough dates (splits-consistent identification)
-        pre_peak_date, _ = _52w_peak(hist_adj, crisis_start_ts)
+        pre_peak_date, pre_peak_price = _52w_peak(hist_adj, crisis_start_ts)
         if pre_peak_date is None:
             continue
-        # Use unadjusted close for actual prices (pairs with EDGAR point-in-time shares)
-        pre_peak_price = float(hist_close[pre_peak_date]) if pre_peak_date in hist_close.index else float(hist_adj[pre_peak_date])
 
-        trough_date, _ = _trough_in_window(hist_adj, crisis["start"], effective_end_str)
+        trough_date, trough_price = _trough_in_window(hist_adj, crisis["start"], effective_end_str)
         if trough_date is None:
             continue
-        trough_price = float(hist_close[trough_date]) if trough_date in hist_close.index else float(hist_adj[trough_date])
 
         drawdown = (trough_price - pre_peak_price) / pre_peak_price * 100
         if drawdown >= -5:
