@@ -312,57 +312,73 @@ def fetch_tiingo_prices(sym: str, price_cache: dict) -> tuple:
 
 def fetch_10y_yield():
     """
-    Fetch current 10Y Treasury yield from FRED (DGS10).
+    Fetch the current 10Y Treasury yield. Three sources tried in order:
+      1. Treasury.gov XML  — official, no auth, no rate limit
+      2. FRED CSV          — Federal Reserve public endpoint
+      3. Tiingo            — uses existing TIINGO_TOKEN
     Returns (yield_as_percent_float, is_live_bool).
-    Tries two FRED endpoints; falls back to Treasury direct if both fail.
     """
-    endpoints = [
-        # Primary: FRED public CSV
-        "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
-        # Secondary: FRED API observations (no key needed for public series)
-        "https://api.stlouisfed.org/fred/series/observations?series_id=DGS10"
-        "&sort_order=desc&limit=5&file_type=json"
-        "&api_key=e3e9f6e7d7e58f0c2f0f8b9b3e3b3b3b",  # public demo key — rate limited
-    ]
-    for url in endpoints[:1]:  # only FRED CSV — second is just fallback structure
-        try:
-            r = requests.get(url, timeout=20,
-                             headers={"User-Agent": "Mozilla/5.0 (compatible)"})
-            if r.status_code == 200:
-                lines = r.text.strip().split("\n")
-                # CSV: DATE,DGS10 — skip header, scan from end for last non-null row
-                for line in reversed(lines[1:]):
-                    parts = line.strip().split(",")
-                    if len(parts) == 2 and parts[1].strip() not in ("", "."):
-                        yield_val = float(parts[1].strip())
-                        print(f"  FRED DGS10: {yield_val:.2f}% (live)")
-                        return yield_val, True
-        except Exception as e:
-            print(f"  WARNING: FRED endpoint failed ({e}).")
+    import re
 
-    # Last resort: Treasury.gov yield curve API (no auth)
-    try:
-        today = datetime.now()
-        for delta in range(0, 10):
-            d = today - timedelta(days=delta)
-            url = (f"https://home.treasury.gov/resource-center/data-chart-center/"
-                   f"interest-rates/pages/xml?data=daily_treasury_yield_curve"
-                   f"&field_tdr_date_value_month={d.strftime('%Y%m')}")
-            r = requests.get(url, timeout=15,
-                             headers={"User-Agent": "Mozilla/5.0 (compatible)"})
+    hdrs = {"User-Agent": "Gustavo Gonzalez gusqweenglish@gmail.com"}
+
+    # ── 1. Treasury.gov daily yield curve XML ────────────────────────────────
+    today = datetime.now()
+    for delta in range(0, 7):           # try current month then go back if weekend
+        d = today - timedelta(days=delta)
+        url = (
+            "https://home.treasury.gov/resource-center/data-chart-center/"
+            f"interest-rates/pages/xml?data=daily_treasury_yield_curve"
+            f"&field_tdr_date_value_month={d.strftime('%Y%m')}"
+        )
+        try:
+            r = requests.get(url, timeout=20, headers=hdrs)
             if r.status_code == 200 and "BC_10YEAR" in r.text:
-                import re
                 vals = re.findall(r"<BC_10YEAR>([\d.]+)</BC_10YEAR>", r.text)
                 if vals:
                     yield_val = float(vals[-1])
-                    print(f"  Treasury.gov 10Y: {yield_val:.2f}% (live)")
+                    print(f"  10Y yield: {yield_val:.2f}% (Treasury.gov live)")
                     return yield_val, True
-            break  # only try current month
-    except Exception as e:
-        print(f"  WARNING: Treasury.gov fetch also failed ({e}).")
+        except Exception as e:
+            print(f"  Treasury.gov attempt {delta} failed: {e}")
+        break  # one month is enough — contains all recent trading days
 
-    print(f"  WARNING: All 10Y yield sources failed. Using fallback 4.20%.")
-    return 4.2, False
+    # ── 2. FRED DGS10 CSV ────────────────────────────────────────────────────
+    try:
+        r = requests.get(
+            "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+            timeout=20, headers=hdrs
+        )
+        if r.status_code == 200:
+            for line in reversed(r.text.strip().split("\n")[1:]):
+                parts = line.strip().split(",")
+                if len(parts) == 2 and parts[1].strip() not in ("", "."):
+                    yield_val = float(parts[1].strip())
+                    print(f"  10Y yield: {yield_val:.2f}% (FRED live)")
+                    return yield_val, True
+    except Exception as e:
+        print(f"  FRED fetch failed: {e}")
+
+    # ── 3. Tiingo ─────────────────────────────────────────────────────────────
+    try:
+        r = requests.get(
+            "https://api.tiingo.com/tiingo/daily/TNX/prices",
+            params={"startDate": (today - timedelta(days=5)).strftime("%Y-%m-%d"),
+                    "token": TIINGO_TOKEN},
+            timeout=15, headers=hdrs
+        )
+        if r.status_code == 200:
+            rows = r.json()
+            if rows:
+                yield_val = float(rows[-1].get("close", 0))
+                if yield_val > 0:
+                    print(f"  10Y yield: {yield_val:.2f}% (Tiingo live)")
+                    return yield_val, True
+    except Exception as e:
+        print(f"  Tiingo TNX fetch failed: {e}")
+
+    print(f"  WARNING: All 10Y yield sources failed. Using fallback {GLOBAL_10Y_YIELD:.2f}%.")
+    return GLOBAL_10Y_YIELD, False
 
 
 # ══════════════════════════════════════════════════════════════════════════════
