@@ -67,7 +67,7 @@
                    border-bottom: 1px solid var(--bg3); padding-bottom: 5px; }
 
   /* ── discount grid (Block 1) ── */
-  .discount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
+  .discount-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 28px; }
   .discount-box  { background: var(--bg); padding: 15px; border-radius: 8px;
                    text-align: center; border: 1px solid #2a2a3e; }
   .disc-label    { font-size: 11px; color: var(--muted); text-transform: uppercase;
@@ -91,14 +91,6 @@
   
   /* ── diff formatting ── */
   .cmp-diff   { justify-self: end; font-size: 13px; font-weight: 600; }
-  .highlight-diff { 
-    background: rgba(249, 226, 175, 0.15); 
-    color: var(--yellow) !important; 
-    padding: 3px 6px; 
-    border-radius: 4px; 
-    border: 1px solid rgba(249, 226, 175, 0.4);
-    font-size: 12px;
-  }
 </style>
 </head>
 <body>
@@ -180,12 +172,49 @@ const fmt = {
 
 // ── colour helpers ────────────────────────────────────────────────────────────
 const col = {
-  z:   v => v == null ? 'var(--muted)' : v <= -1.5 ? 'var(--green)' : v >= 1 ? 'var(--red)' : 'var(--text)',
-  erp: v => v == null ? 'var(--muted)' : v > 1     ? 'var(--green)'               : 'var(--text)',
+  // Z-score: ≤ 0 green (cheap/average), > +2 red (expensive), else neutral
+  z:   v => v == null ? 'var(--muted)' : v > 2 ? 'var(--red)' : v <= 0 ? 'var(--green)' : 'var(--text)',
+  // ERP: negative = red, ≥ +2% = green, else neutral
+  erp: v => v == null ? 'var(--muted)' : v < 0 ? 'var(--red)' : v >= 2 ? 'var(--green)' : 'var(--text)',
 };
 
+// ── per-metric colour for table values and % DIFF ───────────────────────────
+// Returns green/red/muted based on the RIGHT (current/trough) value hitting its target.
+// opts: { priceFalling, treasuryYield }
+function metricColor(key, rRaw, lRaw, opts = {}) {
+  if (rRaw == null) return 'var(--muted)';
+  const tn = opts.treasuryYield || 4.2;
+  switch (key) {
+    case 'oeps':
+      // Green if OE/sh rising AND price is falling (widening discount)
+      return (rRaw > lRaw && opts.priceFalling) ? 'var(--green)' : 'var(--muted)';
+    case 'oe_multiple':
+      if (rRaw < 15)                       return 'var(--green)';  // gold
+      if (rRaw >= 18 && rRaw <= 22)        return 'var(--green)';  // quality
+      if (rRaw > 30)                       return 'var(--red)';    // avoid
+      return 'var(--muted)';
+    case 'oe_yield':
+      return rRaw >= (tn + 2) ? 'var(--green)' : 'var(--muted)';
+    case 'oe_growth':
+      return rRaw > 10 ? 'var(--green)' : 'var(--muted)';
+    case 'oe_peg':
+      if (rRaw > 0 && rRaw <= 1.5) return 'var(--green)';
+      if (rRaw > 1.5)              return 'var(--red)';
+      return 'var(--muted)';
+    default:
+      return 'var(--muted)';
+  }
+}
+
 // ── comparison table builder ──────────────────────────────────────────────────
-function cmpTable(leftLabel, rightLabel, left, right, isGFC = false) {
+// opts: { isGFC, leftPrice, rightPrice, treasuryYield }
+function cmpTable(leftLabel, rightLabel, left, right, opts = {}) {
+  const isGFC       = opts.isGFC       || false;
+  const leftPrice   = opts.leftPrice   || left.price  || null;
+  const rightPrice  = opts.rightPrice  || right.price || null;
+  const tn          = opts.treasuryYield || 4.2;
+  const priceFalling = (leftPrice != null && rightPrice != null) ? rightPrice < leftPrice : true;
+
   const rows = [
     { key: 'oeps',        label: 'OE per share',     lRaw: left.oeps,        rRaw: right.oeps,        l: fmt.oeps(left.oeps),        r: fmt.oeps(right.oeps) },
     { key: 'oe_multiple', label: 'OE Multiple',      lRaw: left.oe_multiple, rRaw: right.oe_multiple, l: fmt.mult(left.oe_multiple), r: fmt.mult(right.oe_multiple) },
@@ -207,31 +236,19 @@ function cmpTable(leftLabel, rightLabel, left, right, isGFC = false) {
     </div>`;
 
   const body = rows.map(row => {
-    let rHtml = row.r;
-    
-    if (row.key === 'oe_multiple' && rightLabel === 'Current' && row.rRaw != null && Number(row.rRaw) > 0 && Number(row.rRaw) <= 18) {
-        rHtml = `<span style="color:var(--green);">${row.r}</span>`;
-    }
+    // Colour the right-side (current/trough) value per target rules
+    const mc   = metricColor(row.key, row.rRaw, row.lRaw, { priceFalling, treasuryYield: tn });
+    const rHtml = row.rRaw != null
+      ? `<span style="color:${mc};font-weight:700;">${row.r}</span>`
+      : row.r;
 
-    let pctHtml = `<span></span>`; 
+    // % DIFF — plain colored text, no box, no triangle
+    let pctHtml = `<span></span>`;
     if (row.lRaw != null && row.rRaw != null && row.lRaw !== 0) {
-        const diff = ((row.rRaw - row.lRaw) / Math.abs(row.lRaw)) * 100;
-        const sign = diff > 0 ? '+' : '';
-        const diffStr = `${sign}${diff.toFixed(1)}%`;
-        
-        let isHighlight = false;
-        
-        if (row.key === 'oeps' && diff >= 10.0) { isHighlight = true; }
-        if (row.key === 'oe_multiple' && row.rRaw > 0 && row.rRaw <= 18.0) { isHighlight = true; }
-        if (row.key === 'oe_yield' && row.rRaw >= 2.0) { isHighlight = true; }
-        if (row.key === 'oe_growth' && row.rRaw >= 10.0) { isHighlight = true; }
-        if (row.key === 'oe_peg' && row.rRaw > 0 && row.rRaw <= 1.5) { isHighlight = true; }
-
-        if (isHighlight) {
-            pctHtml = `<span class="cmp-diff highlight-diff">${diffStr} ⚠</span>`;
-        } else {
-            pctHtml = `<span class="cmp-diff" style="color:var(--muted)">${diffStr}</span>`;
-        }
+      const diff    = ((row.rRaw - row.lRaw) / Math.abs(row.lRaw)) * 100;
+      const sign    = diff > 0 ? '+' : '';
+      const diffStr = `${sign}${diff.toFixed(1)}%`;
+      pctHtml = `<span class="cmp-diff" style="color:${mc}">${diffStr}</span>`;
     }
 
     return `
@@ -239,11 +256,11 @@ function cmpTable(leftLabel, rightLabel, left, right, isGFC = false) {
       <span class="cmp-label">${row.label}</span>
       <span class="cmp-left">${row.l}</span>
       <span class="cmp-vs">vs</span>
-      <span class="cmp-right">${rHtml}</span>
+      ${rHtml}
       ${pctHtml}
     </div>`;
   }).join('');
-  
+
   return header + body;
 }
 
@@ -263,11 +280,11 @@ function renderCards(data) {
     const bears = r.bear_markets    || [];
 
     const yieldLive = disc.erp_yield_live !== false;
-    const yieldUsed = disc.erp_yield_used != null ? disc.erp_yield_used : '?';
+    const yieldUsed = disc.erp_yield_used != null ? Number(disc.erp_yield_used) : 4.2;
     if (!yieldLive) anyStale = true;
     const erpSub = yieldLive
-      ? `<div class="disc-sub">yield: ${yieldUsed}% (live)</div>`
-      : `<div class="disc-sub" style="color:var(--red)">⚠ fallback ${yieldUsed}%</div>`;
+      ? `<div class="disc-sub">10Y: ${yieldUsed.toFixed(2)}% (live)</div>`
+      : `<div class="disc-sub" style="color:var(--red)">fallback 10Y: ${yieldUsed.toFixed(2)}%</div>`;
 
     const block1 = `
       <div class="section-title">— Statistical Discount Analysis —</div>
@@ -275,10 +292,6 @@ function renderCards(data) {
         <div class="discount-box">
           <div class="disc-label">5Y OE Z-Score</div>
           <div class="disc-val" style="color:${col.z(disc.z_score_5y)}">${fmt.zscore(disc.z_score_5y)}</div>
-        </div>
-        <div class="discount-box">
-          <div class="disc-label">10Y OE Z-Score</div>
-          <div class="disc-val" style="color:${col.z(disc.z_score_10y)}">${fmt.zscore(disc.z_score_10y)}</div>
         </div>
         <div class="discount-box">
           <div class="disc-label">ERP Spread vs 10Y</div>
@@ -303,12 +316,12 @@ function renderCards(data) {
       <div class="section-title">
         — 52-Week Peak ${peakDateStr} (${fmt.price(p.price)}) vs Today (${fmt.price(c.price)}) —
       </div>
-      ${cmpTable('52-W Peak', 'Current', p, c)}`;
+      ${cmpTable('52-W Peak', 'Current', p, c, { leftPrice: p.price, rightPrice: c.price, treasuryYield: yieldUsed })}`;
 
     const block3 = bears.map(b => {
-      const pm = b.peak_metrics || {};
-      const isGFC = b.crisis_name === "2008 GFC"; 
-      
+      const pm    = b.peak_metrics || {};
+      const isGFC = b.crisis_name === "2008 GFC";
+
       return `
         <div class="section-title">
           — ${b.crisis_name} —
@@ -316,7 +329,7 @@ function renderCards(data) {
           vs Trough ${b.trough_date} (${fmt.price(b.price)})
           [▼${b.drawdown_pct}%]
         </div>
-        ${cmpTable('Pre-Crisis Peak', 'Trough', pm, b, isGFC)}`;
+        ${cmpTable('Pre-Crisis Peak', 'Trough', pm, b, { isGFC, leftPrice: b.peak_price, rightPrice: b.price, treasuryYield: yieldUsed })}`;
     }).join('');
 
     return `
