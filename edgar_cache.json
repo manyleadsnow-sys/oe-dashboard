@@ -41,8 +41,8 @@
     "debt_ttm": null,
     "cash_ttm": null,
     "entity_name": "Apple Inc.",
-    "sector": "Industrials",
-    "fetched_at": "2026-04-17T16:41:41.793248"
+    "sector": "Technology",
+    "fetched_at": "2026-04-19T03:46:55.006829"
   },
   "GOOG": {
     "oe_ttm": 61859000000,
