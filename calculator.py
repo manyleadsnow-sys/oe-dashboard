@@ -92,7 +92,7 @@ TICKERS = [
 HARDCODED_CIKS  = {}
 DYNAMIC_CIK_MAP = {}
 
-GLOBAL_10Y_YIELD      = 4.2    # fallback
+GLOBAL_10Y_YIELD      = 4.34   # fallback (Apr 2026 — updated if FRED live fetch fails)
 GLOBAL_10Y_YIELD_LIVE = False  # True only when live FRED fetch succeeded
 
 # ══════════════════════════════════════════════════════════════════════════════
