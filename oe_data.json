@@ -1,7 +1,6 @@
 {
   "AAPL": {
     "ticker": "AAPL",
-<<<<<<< Updated upstream
     "company_name": "Apple Inc.",
     "error": null,
     "sector": "Technology",
@@ -164,12 +163,12 @@
     "discount_metrics": {
       "z_score_5y": 1.87,
       "z_score_10y": 0.83,
-      "erp_spread": -1.57,
-      "erp_yield_used": 4.32,
-      "erp_yield_live": true
+      "erp_spread": -1.45,
+      "erp_yield_used": 4.2,
+      "erp_yield_live": false
     },
-    "last_updated": "2026-04-19T04:07:27.965677",
-    "edgar_fetched_at": "2026-04-19T04:07:26.478321",
+    "last_updated": "2026-04-19T04:35:52.800538",
+    "edgar_fetched_at": "2026-04-19T04:35:36.297561",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
     "vs_peak_diff": {
@@ -181,13 +180,5 @@
       "oe_peg": -10.69,
       "epv": 0.0
     }
-=======
-    "error": "No EDGAR cache",
-    "sector": null,
-    "current": {},
-    "peak_52w": {},
-    "bear_markets": [],
-    "last_updated": "2026-04-19T00:29:54.405298"
->>>>>>> Stashed changes
   }
 }
