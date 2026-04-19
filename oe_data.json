@@ -161,14 +161,14 @@
       }
     ],
     "discount_metrics": {
-      "z_score_5y": 3.01,
-      "z_score_10y": 1.69,
-      "erp_spread": -1.41,
+      "z_score_5y": 1.87,
+      "z_score_10y": 0.83,
+      "erp_spread": -1.57,
       "erp_yield_used": 4.32,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-19T03:46:56.387003",
-    "edgar_fetched_at": "2026-04-19T03:46:55.006829",
+    "last_updated": "2026-04-19T04:07:27.965677",
+    "edgar_fetched_at": "2026-04-19T04:07:26.478321",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
     "vs_peak_diff": {
