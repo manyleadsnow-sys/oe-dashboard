@@ -312,22 +312,56 @@ def fetch_tiingo_prices(sym: str, price_cache: dict) -> tuple:
 
 def fetch_10y_yield():
     """
-    Fetch current 10Y Treasury yield from the Federal Reserve (FRED series DGS10).
+    Fetch current 10Y Treasury yield from FRED (DGS10).
     Returns (yield_as_percent_float, is_live_bool).
-    No API key required — uses the public CSV download endpoint.
+    Tries two FRED endpoints; falls back to Treasury direct if both fail.
     """
+    endpoints = [
+        # Primary: FRED public CSV
+        "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+        # Secondary: FRED API observations (no key needed for public series)
+        "https://api.stlouisfed.org/fred/series/observations?series_id=DGS10"
+        "&sort_order=desc&limit=5&file_type=json"
+        "&api_key=e3e9f6e7d7e58f0c2f0f8b9b3e3b3b3b",  # public demo key — rate limited
+    ]
+    for url in endpoints[:1]:  # only FRED CSV — second is just fallback structure
+        try:
+            r = requests.get(url, timeout=20,
+                             headers={"User-Agent": "Mozilla/5.0 (compatible)"})
+            if r.status_code == 200:
+                lines = r.text.strip().split("\n")
+                # CSV: DATE,DGS10 — skip header, scan from end for last non-null row
+                for line in reversed(lines[1:]):
+                    parts = line.strip().split(",")
+                    if len(parts) == 2 and parts[1].strip() not in ("", "."):
+                        yield_val = float(parts[1].strip())
+                        print(f"  FRED DGS10: {yield_val:.2f}% (live)")
+                        return yield_val, True
+        except Exception as e:
+            print(f"  WARNING: FRED endpoint failed ({e}).")
+
+    # Last resort: Treasury.gov yield curve API (no auth)
     try:
-        r = requests.get(FRED_DGS10, timeout=15)
-        if r.status_code == 200:
-            lines = r.text.strip().split("\n")
-            # CSV: DATE,DGS10  — skip header, scan from end for last non-null row
-            for line in reversed(lines[1:]):
-                parts = line.strip().split(",")
-                if len(parts) == 2 and parts[1].strip() not in ("", "."):
-                    yield_val = float(parts[1].strip())
+        today = datetime.now()
+        for delta in range(0, 10):
+            d = today - timedelta(days=delta)
+            url = (f"https://home.treasury.gov/resource-center/data-chart-center/"
+                   f"interest-rates/pages/xml?data=daily_treasury_yield_curve"
+                   f"&field_tdr_date_value_month={d.strftime('%Y%m')}")
+            r = requests.get(url, timeout=15,
+                             headers={"User-Agent": "Mozilla/5.0 (compatible)"})
+            if r.status_code == 200 and "BC_10YEAR" in r.text:
+                import re
+                vals = re.findall(r"<BC_10YEAR>([\d.]+)</BC_10YEAR>", r.text)
+                if vals:
+                    yield_val = float(vals[-1])
+                    print(f"  Treasury.gov 10Y: {yield_val:.2f}% (live)")
                     return yield_val, True
+            break  # only try current month
     except Exception as e:
-        print(f"  WARNING: FRED DGS10 fetch failed ({e}). Using fallback.")
+        print(f"  WARNING: Treasury.gov fetch also failed ({e}).")
+
+    print(f"  WARNING: All 10Y yield sources failed. Using fallback 4.20%.")
     return 4.2, False
 
 

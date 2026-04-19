@@ -145,7 +145,7 @@
 </div>
 
 <div class="yield-warning" id="yield-warning">
-  ⚠ ERP Spread is using a fallback 10Y yield — live fetch from ^TNX failed.
+  ⚠ ERP Spread is using a fallback 10Y yield — live fetch from FRED DGS10 failed.
   Rerun calculator.py to refresh.
 </div>
 
@@ -386,18 +386,4 @@ async function loadData() {
 
     const sectors = [...new Set(ROWS.map(r => r.sector).filter(s => s && s !== 'default'))].sort();
     sectors.forEach(s => {
-      const o = document.createElement('option');
-      o.value = s; o.textContent = s;
-      document.getElementById('sector-filter').appendChild(o);
-    });
-
-    refresh();
-  } catch (e) {
-    document.getElementById('dossier-container').innerHTML =
-      '<p style="color:var(--muted);font-family:\'DM Mono\',monospace">Run calculator.py to generate oe_data.json.</p>';
-  }
-}
-loadData();
-</script>
-</body>
-</html>
+      const o = document.cre
