@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
   "AAPL": {
     "oe_ttm": 117461000000,
     "oe_by_fiscal_end": {
@@ -7825,5 +7826,7 @@
     "sector": "Utilities",
     "fetched_at": "2026-04-17T16:46:07.315819"
   },
+=======
+>>>>>>> Stashed changes
   "__schema_version__": 7
 }

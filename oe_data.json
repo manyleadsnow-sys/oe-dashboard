@@ -1,6 +1,7 @@
 {
   "AAPL": {
     "ticker": "AAPL",
+<<<<<<< Updated upstream
     "company_name": "Apple Inc.",
     "error": null,
     "sector": "Technology",
@@ -180,5 +181,13 @@
       "oe_peg": -10.69,
       "epv": 0.0
     }
+=======
+    "error": "No EDGAR cache",
+    "sector": null,
+    "current": {},
+    "peak_52w": {},
+    "bear_markets": [],
+    "last_updated": "2026-04-19T00:29:54.405298"
+>>>>>>> Stashed changes
   }
 }
