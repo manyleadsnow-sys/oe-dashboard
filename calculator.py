@@ -1,5 +1,6 @@
 """
 Owner Earnings Dashboard - Core Calculation Engine
+v6: Tiingo prices · FRED 10Y yield · full EDGAR for fundamentals (no yfinance)
 
 Metric definitions (what each block must show):
 ────────────────────────────────────────────────
@@ -21,7 +22,6 @@ BLOCK 3 — Per crisis (J-N):
 """
 
 import os
-import yfinance as yf
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
@@ -31,15 +31,27 @@ import requests
 import warnings
 warnings.filterwarnings("ignore")
 
-# ── constants ──────────────────────────────────────────────────────────────────
+# ── CREDENTIALS & ENDPOINTS ────────────────────────────────────────────────────
+TIINGO_TOKEN   = os.environ.get("TIINGO_TOKEN", "2dfc1e2c3bf907f438a5edfaa94a4a1ee6cd0539")
+TIINGO_HEADERS = {
+    "Content-Type": "application/json",
+    "Authorization": f"Token {TIINGO_TOKEN}",
+}
+
 EDGAR_HEADERS = {
     "User-Agent": "Gustavo Gonzalez gusqweenglish@gmail.com",
     "Accept-Encoding": "gzip, deflate",
 }
+
 EDGAR_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
+EDGAR_SUBS_URL  = "https://data.sec.gov/submissions/CIK{cik}.json"
+FRED_DGS10      = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10"
+
 EDGAR_CACHE          = "edgar_cache.json"
+PRICE_CACHE          = "price_cache.json"
 OE_DATA              = "oe_data.json"
-CACHE_SCHEMA_VERSION = 5   # v5: capex_ttm concept list unified with capex_a
+CACHE_SCHEMA_VERSION = 7   # v7: dual price series (adjClose for dates, close for MC)
+PRICE_CACHE_SCHEMA   = 2   # v2: stores {"a": adjClose, "c": close} per date
 
 # Crisis windows — trough is the lowest price inside [start, end].
 # Pre-crisis peak is defined as the 52-week high in the year BEFORE start.
@@ -50,7 +62,9 @@ CRISIS_PERIODS = [
     {"name": "2020 COVID-19 Crash",     "start": "2020-02-15", "end": "2020-03-23"},
     {"name": "2018 Rate/Trade Selloff", "start": "2018-09-20", "end": "2018-12-26"},
     {"name": "2015-2016 Selloff",       "start": "2015-06-01", "end": "2016-02-11"},
-    {"name": "2008 GFC",                "start": "2007-10-01", "end": "2009-03-09"},
+    # 2008 GFC removed: SEC EDGAR XBRL data does not exist before 2009.
+    # Falling back to current-TTM OE for pre-2009 periods produces nonsensical
+    # multiples and yields. No historical OE data = no crisis entry shown.
 ]
 
 INDUSTRY_WACC = {
@@ -76,7 +90,47 @@ HARDCODED_CIKS  = {}
 DYNAMIC_CIK_MAP = {}
 
 GLOBAL_10Y_YIELD      = 4.2    # fallback
-GLOBAL_10Y_YIELD_LIVE = False  # True only when live fetch succeeded
+GLOBAL_10Y_YIELD_LIVE = False  # True only when live FRED fetch succeeded
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SIC → SECTOR MAPPING (EDGAR SIC codes → GICS-style sector for WACC lookup)
+# ══════════════════════════════════════════════════════════════════════════════
+
+def sic_to_sector(sic) -> str:
+    """Map an EDGAR SIC code (int or str) to a sector string matching INDUSTRY_WACC."""
+    try:
+        s = int(sic)
+    except (TypeError, ValueError):
+        return "default"
+    if   100  <= s <  1000: return "Consumer Defensive"    # Agriculture
+    if  1000  <= s <  1500: return "Basic Materials"       # Mining
+    if  1500  <= s <  1800: return "Industrials"           # Construction
+    if  2000  <= s <  2200: return "Consumer Defensive"    # Food & Tobacco
+    if  2600  <= s <  2700: return "Basic Materials"       # Paper
+    if  2800  <= s <  2900: return "Basic Materials"       # Chemicals
+    if  2900  <= s <  3000: return "Energy"                # Petroleum Refining
+    if  3000  <= s <  3600: return "Industrials"           # Manufacturing
+    if  3600  <= s <  3700: return "Technology"            # Electronic Equipment
+    if  3700  <= s <  3800: return "Consumer Cyclical"     # Motor Vehicles
+    if  3800  <= s <  3900: return "Healthcare"            # Instruments / Med Devices
+    if  4000  <= s <  4600: return "Industrials"           # Rail / Air Transport
+    if  4800  <= s <  4900: return "Communication Services"# Telephone / Cable
+    if  4900  <= s <  5000: return "Utilities"             # Electric, Gas
+    if  5000  <= s <  5300: return "Consumer Cyclical"     # Wholesale Trade
+    if  5300  <= s <  5600: return "Consumer Defensive"    # Retail Food / Drug
+    if  5600  <= s <  6000: return "Consumer Cyclical"     # Retail Other
+    if  6000  <= s <  6300: return "Financial Services"    # Banking
+    if  6300  <= s <  6500: return "Financial Services"    # Insurance
+    if  6500  <= s <  6600: return "Real Estate"
+    if  6700  <= s <  6800: return "Financial Services"    # Investment firms / Holding cos
+    if  7000  <= s <  7370: return "Consumer Cyclical"     # Hotels / Leisure
+    if  7370  <= s <  7380: return "Technology"            # Software / IT services
+    if  7380  <= s <  7400: return "Technology"            # IT & Data Processing
+    if  7400  <= s <  8000: return "Consumer Cyclical"     # Misc Business Services
+    if  8000  <= s <  8100: return "Healthcare"            # Health Services
+    if  8700  <= s <  8800: return "Technology"            # Engineering / Mgmt Consulting
+    return "default"
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PRICE HELPERS
@@ -106,6 +160,171 @@ def _trough_in_window(price_series: pd.Series, start_str: str, end_str: str):
     if window.empty:
         return None, None
     return window.idxmin(), float(window.min())
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TIINGO PRICE LAYER  (replaces yfinance for all price data)
+# ══════════════════════════════════════════════════════════════════════════════
+
+def _tiingo_ticker(sym: str) -> str:
+    """Convert ticker symbol to Tiingo format (BRK.B → BRK-B)."""
+    return sym.upper().replace(".", "-")
+
+
+def load_price_cache() -> dict:
+    try:
+        with open(PRICE_CACHE) as f:
+            data = json.load(f)
+        if data.get("__schema__", 1) < PRICE_CACHE_SCHEMA:
+            print(f"INFO: price_cache.json schema v{data.get('__schema__',1)} < v{PRICE_CACHE_SCHEMA}. Rebuilding.")
+            return {}
+        return data
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def save_price_cache(cache: dict):
+    cache["__schema__"] = PRICE_CACHE_SCHEMA
+    with open(PRICE_CACHE, "w") as f:
+        json.dump(cache, f)
+
+
+def _adj_series_from_cache(prices: dict) -> pd.Series:
+    """
+    Build tz-naive pd.Series of split-adjusted close prices.
+    New format: {date: {"a": adjClose, "c": close}}
+    Old format: {date: float}  — treated as adjClose for backward compat.
+    """
+    if not prices:
+        return pd.Series(dtype=float)
+    data = {}
+    for d, v in prices.items():
+        if d == "__schema__":
+            continue
+        if isinstance(v, dict):
+            val = v.get("a") or v.get("c")
+        else:
+            val = v  # old float format
+        if val is not None:
+            data[pd.Timestamp(d)] = float(val)
+    return pd.Series(data).sort_index().dropna()
+
+
+def _close_series_from_cache(prices: dict) -> pd.Series:
+    """
+    Build tz-naive pd.Series of UNADJUSTED close prices (for MC calculation).
+    New format: {date: {"a": adjClose, "c": close}}
+    Old format: {date: float} — no unadjusted distinction; treated as close.
+    """
+    if not prices:
+        return pd.Series(dtype=float)
+    data = {}
+    for d, v in prices.items():
+        if d == "__schema__":
+            continue
+        if isinstance(v, dict):
+            val = v.get("c") or v.get("a")
+        else:
+            val = v  # old float format — no distinction available
+        if val is not None:
+            data[pd.Timestamp(d)] = float(val)
+    return pd.Series(data).sort_index().dropna()
+
+
+def fetch_tiingo_prices(sym: str, price_cache: dict) -> tuple:
+    """
+    Fetch full EOD price history from Tiingo with local caching.
+    Stores BOTH adjClose (split-adjusted, for date identification) and
+    close (unadjusted, for MC calculation with EDGAR point-in-time shares).
+
+    Returns (hist_adj, hist_close) — two tz-naive pd.Series sorted ascending.
+
+    Incremental strategy: if a cache entry exists, only fetches days after
+    the last cached date.  On first run fetches from 2004-01-01.
+
+    price_cache is mutated in-place; caller must call save_price_cache() when done.
+    """
+    t      = _tiingo_ticker(sym)
+    entry  = price_cache.get(sym, {})
+    cached = entry.get("prices", {})   # {date_str: {"a": adjClose, "c": close}}
+
+    # Determine fetch window — skip reserved keys like __schema__
+    date_keys = [k for k in cached if not k.startswith("__")]
+
+    start_date = "2004-01-01"
+    if date_keys:
+        last_str = max(date_keys)
+        last_dt  = datetime.strptime(last_str, "%Y-%m-%d")
+        if (datetime.now() - last_dt).days < 2:
+            # Cache is current — no fetch needed
+            return _adj_series_from_cache(cached), _close_series_from_cache(cached)
+        start_date = (last_dt + timedelta(days=1)).strftime("%Y-%m-%d")
+
+    end_date = datetime.now().strftime("%Y-%m-%d")
+    url      = f"https://api.tiingo.com/tiingo/daily/{t}/prices"
+    params   = {
+        "startDate":    start_date,
+        "endDate":      end_date,
+        "resampleFreq": "daily",
+        "token":        TIINGO_TOKEN,
+    }
+
+    for attempt in range(3):
+        try:
+            r = requests.get(url, params=params, headers=TIINGO_HEADERS, timeout=45)
+            if r.status_code == 200:
+                rows = r.json()
+                for row in rows:
+                    d_str = row["date"][:10]   # "2024-01-02T00:00:00+00:00" → "2024-01-02"
+                    adj   = row.get("adjClose")
+                    cls   = row.get("close")
+                    if adj is not None or cls is not None:
+                        cached[d_str] = {
+                            "a": float(adj) if adj is not None else float(cls),
+                            "c": float(cls) if cls is not None else float(adj),
+                        }
+                price_cache[sym] = {
+                    "prices":     cached,
+                    "fetched_at": datetime.now().isoformat(),
+                }
+                break
+            elif r.status_code == 404:
+                print(f"    ⚠  {sym} not found on Tiingo")
+                break
+            elif r.status_code == 429:
+                time.sleep(30 * (attempt + 1))
+            else:
+                time.sleep(5 * (attempt + 1))
+        except Exception as e:
+            time.sleep(5)
+
+    return _adj_series_from_cache(cached), _close_series_from_cache(cached)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# FRED 10Y TREASURY YIELD  (replaces yfinance ^TNX)
+# ══════════════════════════════════════════════════════════════════════════════
+
+def fetch_10y_yield():
+    """
+    Fetch current 10Y Treasury yield from the Federal Reserve (FRED series DGS10).
+    Returns (yield_as_percent_float, is_live_bool).
+    No API key required — uses the public CSV download endpoint.
+    """
+    try:
+        r = requests.get(FRED_DGS10, timeout=15)
+        if r.status_code == 200:
+            lines = r.text.strip().split("\n")
+            # CSV: DATE,DGS10  — skip header, scan from end for last non-null row
+            for line in reversed(lines[1:]):
+                parts = line.strip().split(",")
+                if len(parts) == 2 and parts[1].strip() not in ("", "."):
+                    yield_val = float(parts[1].strip())
+                    return yield_val, True
+    except Exception as e:
+        print(f"  WARNING: FRED DGS10 fetch failed ({e}). Using fallback.")
+    return 4.2, False
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # EDGAR DATA LAYER
@@ -231,14 +450,16 @@ def annual_values(facts, *concepts, n=15, unit="USD"):
     return [(e["end"], e["val"]) for e in annual[:n]]
 
 
-def extract_edgar_financials(facts):
+def extract_edgar_financials(facts, sic=None):
     """
-    Pull net income, D&A, capex, and EBIT from EDGAR and compute:
+    Pull net income, D&A, capex, EBIT, debt, cash from EDGAR and compute:
       oe_ttm           : current TTM owner earnings (NI + D&A − CapEx)
       oe_by_fiscal_end : {full_fiscal_year_end_date: annual_OE}
-                         Keyed by full date string (e.g. "2023-09-30"), NOT
-                         just year — enables precise "latest OE before date" lookups.
       avg_ebit         : 5-year average operating income (for EPV)
+      entity_name      : company name from EDGAR entityName
+      sector           : mapped from SIC code via sic_to_sector()
+      debt_ttm         : TTM long-term debt (for net_debt / EV)
+      cash_ttm         : TTM cash & equivalents (for net_debt / EV)
     """
     ni_ttm    = get_ttm(facts,
                         "NetIncomeLoss",
@@ -247,17 +468,11 @@ def extract_edgar_financials(facts):
                         "NetIncomeLossAllocatedToParent")
     # D&A concept list is intentionally identical to da_a below so that TTM
     # and annual series always resolve to the same XBRL concept (priority-first).
-    # DepreciationAmortizationAndAccretionNet and AmortizationOfIntangibleAssets
-    # are excluded: the former can include non-D&A accretion items; the latter
-    # is a subset of total D&A and would undercount if used as the sole figure.
     da_ttm    = get_ttm(facts,
                         "DepreciationDepletionAndAmortization",
                         "DepreciationAndAmortization",
                         "Depreciation")
-    # CapEx concept list is intentionally identical to capex_a below so that TTM
-    # and annual series always resolve to the same XBRL concept (priority-first).
-    # PaymentsToAcquireBusinessesAndPropertyPlantAndEquipment is excluded because
-    # it bundles acquisition payments with CapEx, overstating maintenance/growth capex.
+    # CapEx concept list is intentionally identical to capex_a below.
     capex_ttm = get_ttm(facts,
                         "PaymentsToAcquirePropertyPlantAndEquipment",
                         "PaymentsForCapitalImprovements",
@@ -281,7 +496,6 @@ def extract_edgar_financials(facts):
                             "PaymentsForCapitalImprovements",
                             "PaymentsToAcquireProductiveAssets")
 
-    # Full date-string keys (e.g. "2023-09-30")
     ni_d    = {e[0]: e[1] for e in ni_a}
     da_d    = {e[0]: e[1] for e in da_a}
     capex_d = {e[0]: e[1] for e in capex_a}
@@ -299,31 +513,42 @@ def extract_edgar_financials(facts):
                              "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest")
     avg_ebit = float(np.mean([v for _, v in ebit_a[:5]])) if ebit_a else None
 
-    # Shares from EDGAR: use the most recent 10-K annual figure, NOT a TTM
-    # blend. Shares don't accumulate like income — adding Q YTD deltas produces
-    # a nonsensical interpolated count. The latest fiscal year-end 10-K value
-    # is the correct period-matched denominator for OE per share.
-    # WeightedAverageNumberOfSharesOutstandingBasic is listed first because it
-    # matches the denominator used in EPS computation, making it consistent with
-    # net income as the OE numerator. CommonStockSharesOutstanding is a point-
-    # in-time count at fiscal year-end and can diverge from weighted average
-    # for companies with active buyback programmes like Apple.
+    # Shares: use most recent 10-K annual figure (period-matched, not TTM blend).
+    # WeightedAverageNumberOfSharesOutstandingBasic matches EPS denominator.
     shares_a = annual_values(facts,
                              "WeightedAverageNumberOfSharesOutstandingBasic",
                              "CommonStockSharesOutstanding",
                              unit="shares")
     shares_by_fiscal_end = {e[0]: e[1] for e in shares_a}
-    # shares_ttm = latest annual 10-K share count (first entry after dedup+sort)
     shares_ttm = shares_a[0][1] if shares_a else None
 
+    # Debt and cash for EV calculation — TTM values from EDGAR
+    debt_ttm = get_ttm(facts,
+                       "LongTermDebt",
+                       "LongTermDebtNoncurrent",
+                       "LongTermDebtAndCapitalLeaseObligations",
+                       "DebtAndCapitalLeaseObligations")
+    cash_ttm = get_ttm(facts,
+                       "CashAndCashEquivalentsAtCarryingValue",
+                       "CashAndCashEquivalents",
+                       "Cash")
+
+    # Entity name and sector from EDGAR metadata
+    entity_name = facts.get("entityName", "")
+    sector      = sic_to_sector(sic) if sic is not None else "default"
+
     return {
-        "oe_ttm":              oe_ttm,
-        "oe_by_fiscal_end":    oe_by_fiscal_end,
-        "shares_ttm":          shares_ttm,
+        "oe_ttm":               oe_ttm,
+        "oe_by_fiscal_end":     oe_by_fiscal_end,
+        "shares_ttm":           shares_ttm,
         "shares_by_fiscal_end": shares_by_fiscal_end,
-        "avg_ebit":            avg_ebit,
-        "tax_rate":            0.21,
-        "fetched_at":          datetime.now().isoformat(),
+        "avg_ebit":             avg_ebit,
+        "tax_rate":             0.21,
+        "debt_ttm":             debt_ttm,
+        "cash_ttm":             cash_ttm,
+        "entity_name":          entity_name,
+        "sector":               sector,
+        "fetched_at":           datetime.now().isoformat(),
     }
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -334,10 +559,6 @@ def _latest_oe_before(oe_by_fiscal_end: dict, as_of: pd.Timestamp):
     """
     Return (fiscal_end_date_str, oe_value) for the most recent fiscal year-end
     whose date is strictly ≤ as_of.
-    This guarantees that OE at the "peak" date and OE at the "trough" date
-    will differ whenever those dates straddle a fiscal year-end boundary,
-    and will be the same only when both fall within the same fiscal year
-    (which is correct — no new annual data was published in between).
     Returns (None, None) when no data is available before as_of.
     """
     as_of_str  = as_of.strftime("%Y-%m-%d")
@@ -352,8 +573,7 @@ def _cagr_ending_at(oe_by_fiscal_end: dict, end_date_str: str):
     """
     Trailing CAGR of OE anchored to end_date_str.
     Tries spans of 5, 4, 3, 2 years.  Returns None when not computable.
-    The span is measured between actual fiscal year-end dates in the dict,
-    so it tolerates companies with non-December fiscal year-ends.
+    Returns sentinel "NEGATIVE_OE" when endpoints are found but OE is negative.
     """
     dates = sorted(oe_by_fiscal_end.keys())
     if end_date_str not in dates:
@@ -377,9 +597,6 @@ def _cagr_ending_at(oe_by_fiscal_end: dict, end_date_str: str):
             continue
         if start_val > 0 and end_val > 0:
             return (end_val / start_val) ** (1.0 / actual_years) - 1
-        # Both endpoints found but OE is negative — CAGR is mathematically
-        # undefined. Return a sentinel so the UI can display "Negative OE"
-        # rather than a bare N/A, making the reason explicit to the user.
         if start_val <= 0 or end_val <= 0:
             return "NEGATIVE_OE"
     return None
@@ -403,8 +620,7 @@ def metrics_at_price(oe, ev, mc, oe_growth_decimal, epv_per_share, shares):
 
     OE Multiple and OE Yield both use market-cap (mc) as the price basis so
     that 1 / oe_multiple == oe_yield / 100 (i.e. they are inverses of each
-    other).  Using EV for the multiple but mc for the yield broke that identity
-    and produced inconsistent signals for net-cash companies like Apple.
+    other).
 
     OE-PEG = oe_multiple / (cagr_as_percent)
            = oe_multiple / (oe_growth_decimal × 100)
@@ -412,11 +628,8 @@ def metrics_at_price(oe, ev, mc, oe_growth_decimal, epv_per_share, shares):
     if oe is None or oe == 0:
         return {}
 
-    # Flag negative OE so the frontend can render a warning instead of showing
-    # nonsensical valuation multiples without context.
     oe_is_negative = oe < 0
 
-    # FIX: Do not calculate yield or multiples if Owner Earnings are negative
     if oe_is_negative:
         oe_yield    = None
         oe_multiple = None
@@ -426,19 +639,16 @@ def metrics_at_price(oe, ev, mc, oe_growth_decimal, epv_per_share, shares):
         oe_multiple = (mc / oe)        if mc else None
 
     oe_peg = None
-    # OE-PEG is only meaningful when both the multiple and CAGR are positive.
-    # oe_growth_decimal may be the sentinel string "NEGATIVE_OE" — guard against that.
     if (oe_multiple is not None
             and oe_growth_decimal is not None
             and oe_growth_decimal != "NEGATIVE_OE"
             and not oe_is_negative):
-        growth_pct = oe_growth_decimal * 100     # e.g. 12.0
+        growth_pct = oe_growth_decimal * 100
         if growth_pct != 0:
             oe_peg = oe_multiple / growth_pct
 
     oeps = (oe / shares) if shares else None
 
-    # Coerce CAGR sentinel to None for numeric storage; the flag carries the reason.
     oe_growth_store = None if (oe_growth_decimal is None or oe_growth_decimal == "NEGATIVE_OE") \
                            else oe_growth_decimal
 
@@ -468,13 +678,23 @@ def diff_block(curr, peak):
 # CALCULATION ENGINE
 # ══════════════════════════════════════════════════════════════════════════════
 
-def compute_ticker_result(symbol, financials, yf_info, hist):
+def compute_ticker_result(symbol, financials, ticker_info, hist_adj, hist_close):
+    """
+    ticker_info keys used: shortName, sector, sharesOutstanding,
+                           totalDebt, totalCash
+    hist_adj  : pd.Series of ADJUSTED-close prices (split-adjusted) — used to
+                identify peak/trough DATES consistently across time.
+    hist_close: pd.Series of UNADJUSTED close prices — used for all PRICE and
+                MARKET-CAP calculations paired with EDGAR point-in-time share counts.
+                Using close (not adjClose) avoids the split/shares mismatch: EDGAR
+                stores pre-split share counts, so MC = close × EDGAR_shares = correct.
+    """
     result = {
         "ticker":        symbol,
-        "company_name":  yf_info.get("shortName", symbol),
+        "company_name":  ticker_info.get("shortName", symbol),
         "error":         None,
-        "sector":        yf_info.get("sector", "default"),
-        "data_source":   "SEC EDGAR + Yahoo Finance",
+        "sector":        ticker_info.get("sector", "default"),
+        "data_source":   "SEC EDGAR + Tiingo + FRED",
         "current":       {},
         "peak_52w":      {},
         "bear_markets":  [],
@@ -490,7 +710,7 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         "dca_signal":            "—",
     }
 
-    if hist.empty:
+    if hist_adj.empty:
         result["error"] = "No price data"
         return result
 
@@ -498,26 +718,25 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
     oe_ttm               = financials.get("oe_ttm")
     shares_ttm           = financials.get("shares_ttm")
 
-    # Flag negative TTM OE so the frontend can show a company-wide warning
-    # (e.g. "Owner Earnings are currently negative — multiples are inverted").
     result["oe_negative_warning"] = (oe_ttm is not None and oe_ttm < 0)
 
     shares_by_fiscal_end = financials.get("shares_by_fiscal_end", {})
     avg_ebit             = financials.get("avg_ebit")
     tax_rate             = financials.get("tax_rate", 0.21)
 
-    # Prefer EDGAR shares (period-matched); fall back to yfinance live float.
-    # yfinance fast_info/sharesOutstanding reflects the current market float and
-    # drifts from any specific fiscal period for active buyback programmes.
-    yf_shares = yf_info.get("sharesOutstanding") or yf_info.get("impliedSharesOutstanding")
-    shares    = shares_ttm or yf_shares
-    net_debt = (yf_info.get("totalDebt") or 0) - (yf_info.get("totalCash") or 0)
-    wacc     = get_wacc(result["sector"])
-    epv      = compute_epv_per_share(avg_ebit, tax_rate, wacc, shares)
+    # Prefer EDGAR shares (period-matched); fall back to ticker_info value
+    info_shares = ticker_info.get("sharesOutstanding")
+    shares      = shares_ttm or info_shares
+
+    # Net debt from EDGAR (debt_ttm / cash_ttm); fall back to ticker_info values
+    total_debt = financials.get("debt_ttm") or ticker_info.get("totalDebt") or 0
+    total_cash = financials.get("cash_ttm") or ticker_info.get("totalCash") or 0
+    net_debt   = total_debt - total_cash
+
+    wacc = get_wacc(result["sector"])
+    epv  = compute_epv_per_share(avg_ebit, tax_rate, wacc, shares)
 
     def ev_mc(price, sh=None):
-        """Return (enterprise_value, market_cap) at the given price and share count.
-        Uses period-matched sh when supplied; falls back to the TTM/yf share count."""
         s = sh if sh is not None else shares
         if not s:
             return None, None
@@ -525,10 +744,6 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         return mc + net_debt, mc
 
     def _shares_at(ts: pd.Timestamp) -> float:
-        """
-        Most recent EDGAR fiscal-year-end share count whose date is ≤ ts.
-        Falls back to shares (TTM/yf) when EDGAR has no share history.
-        """
         if not shares_by_fiscal_end:
             return shares
         ts_str     = ts.strftime("%Y-%m-%d")
@@ -538,17 +753,21 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         return max(candidates, key=lambda x: x[0])[1]
 
     def oe_and_growth_at(ts: pd.Timestamp):
-        """OE value + CAGR + period-matched shares at date ts."""
         fend, oe_val = _latest_oe_before(oe_by_fiscal_end, ts)
         if fend is None:
-            return oe_ttm, None, shares
-        cagr    = _cagr_ending_at(oe_by_fiscal_end, fend)
-        sh      = _shares_at(ts)
+            # No EDGAR annual data exists before this date.
+            # Return None so callers skip the metric rather than silently
+            # inheriting the current-TTM OE — which would produce
+            # nonsensical multiples and yields for historical periods.
+            return None, None, shares
+        cagr = _cagr_ending_at(oe_by_fiscal_end, fend)
+        sh   = _shares_at(ts)
         return oe_val, cagr, sh
 
     # ── CURRENT ───────────────────────────────────────────────────────────────
-    current_price = float(hist.iloc[-1])
-    today_ts      = hist.index[-1]
+    today_ts      = hist_adj.index[-1]
+    # Use unadjusted close for price (pairs correctly with EDGAR shares)
+    current_price = float(hist_close[today_ts]) if today_ts in hist_close.index else float(hist_adj.iloc[-1])
 
     _, curr_cagr, curr_shares = oe_and_growth_at(today_ts)
     ev_c, mc_c   = ev_mc(current_price, curr_shares)
@@ -560,9 +779,11 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
     result["current"] = m_c
 
     # ── 52-WEEK PEAK (Block 2 — E through I) ─────────────────────────────────
-    # Peak = highest close in the 52 weeks before today
-    peak52_date, peak52_price = _52w_peak(hist, today_ts)
+    # Use adj series to identify the date of the highest price (handles splits)
+    peak52_date, _ = _52w_peak(hist_adj, today_ts)
     if peak52_date is not None:
+        # Use unadjusted close for the actual price (pairs with EDGAR shares)
+        peak52_price = float(hist_close[peak52_date]) if peak52_date in hist_close.index else float(hist_adj[peak52_date])
         oe_pk, cagr_pk, sh_pk = oe_and_growth_at(peak52_date)
         ev_p,  mc_p    = ev_mc(peak52_price, sh_pk)
         if oe_pk and mc_p:
@@ -583,31 +804,35 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         crisis_start_ts = pd.Timestamp(crisis["start"])
         crisis_end_ts   = pd.Timestamp(crisis["end"])
 
-        # Skip crises before the available price history
-        if crisis_start_ts < hist.index[0]:
+        if crisis_start_ts < hist_adj.index[0]:
             continue
 
-        # Clip ongoing crises to today
         effective_end_str = min(crisis_end_ts, today_ts).strftime("%Y-%m-%d")
 
-        # Pre-crisis peak = 52-week high in the year before crisis start
-        pre_peak_date, pre_peak_price = _52w_peak(hist, crisis_start_ts)
+        # Use adj series to find peak/trough dates (splits-consistent identification)
+        pre_peak_date, _ = _52w_peak(hist_adj, crisis_start_ts)
         if pre_peak_date is None:
             continue
+        # Use unadjusted close for actual prices (pairs with EDGAR point-in-time shares)
+        pre_peak_price = float(hist_close[pre_peak_date]) if pre_peak_date in hist_close.index else float(hist_adj[pre_peak_date])
 
-        # Trough = lowest price inside the crisis window
-        trough_date, trough_price = _trough_in_window(
-            hist, crisis["start"], effective_end_str)
+        trough_date, _ = _trough_in_window(hist_adj, crisis["start"], effective_end_str)
         if trough_date is None:
             continue
+        trough_price = float(hist_close[trough_date]) if trough_date in hist_close.index else float(hist_adj[trough_date])
 
         drawdown = (trough_price - pre_peak_price) / pre_peak_price * 100
-        if drawdown >= -5:      # ignore trivial moves
+        if drawdown >= -5:
             continue
 
-        # OE and CAGR anchored to each date independently
         oe_pk,  cagr_pk, sh_pk = oe_and_growth_at(pre_peak_date)
         oe_tr,  cagr_tr, sh_tr = oe_and_growth_at(trough_date)
+
+        # Skip crisis entirely if EDGAR has no OE data for either date.
+        # This happens when the crisis predates EDGAR XBRL coverage (~2009)
+        # or when the ticker was not yet public / reporting at that time.
+        if oe_pk is None and oe_tr is None:
+            continue
 
         ev_pk,  mc_pk  = ev_mc(pre_peak_price, sh_pk)
         ev_tr,  mc_tr  = ev_mc(trough_price,   sh_tr)
@@ -620,16 +845,12 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         mb["crisis_name"]  = crisis["name"]
         mb["peak_date"]    = str(pre_peak_date.date())
         mb["trough_date"]  = str(trough_date.date())
-        mb["drawdown_pct"] = round(abs(drawdown), 2)  # FIX: Wrapped in abs()
+        mb["drawdown_pct"] = round(abs(drawdown), 2)
         mb["peak_metrics"] = mp
 
         result["bear_markets"].append(mb)
 
     # ── Z-SCORES (Block 1-A/B) ────────────────────────────────────────────────
-    # Z-score the current TTM OE dollar level against the full distribution of
-    # annual OE figures from oe_by_fiscal_end. All fiscal year-ends within the
-    # lookback window are included — the TTM is computed from quarterly filings
-    # and is NOT identical to any single annual value, so no self-comparison issue.
     if oe_by_fiscal_end and oe_ttm is not None:
         now = datetime.now()
         cutoff_5y  = (now - timedelta(days=5  * 365)).strftime("%Y-%m-%d")
@@ -660,9 +881,8 @@ def compute_ticker_result(symbol, financials, yf_info, hist):
         result["discount_metrics"]["erp_yield_live"] = GLOBAL_10Y_YIELD_LIVE
 
     # ── DCA SIGNAL ────────────────────────────────────────────────────────────
-    z5   = result["discount_metrics"].get("z_score_5y")
+    z5 = result["discount_metrics"].get("z_score_5y")
 
-    # FIX: Circuit breaker for cash-burning companies
     if result.get("oe_negative_warning", False):
         result["dca_signal"] = "⚠️ NEGATIVE OE"
     elif (z5 is not None and z5 <= -1.5):
@@ -682,9 +902,6 @@ def load_edgar_cache():
     try:
         with open(EDGAR_CACHE) as f:
             data = json.load(f)
-        # Reject caches built by an older version of extract_edgar_financials.
-        # A v1/v2 cache may lack shares_ttm / shares_by_fiscal_end, or may have
-        # been built with the old merge-all D&A concept fetch.
         if data.get("__schema_version__", 1) < CACHE_SCHEMA_VERSION:
             print(f"WARNING: edgar_cache.json is schema v{data.get('__schema_version__', 1)}, "
                   f"need v{CACHE_SCHEMA_VERSION}. Forcing full EDGAR refresh.")
@@ -705,6 +922,10 @@ def save_edgar_cache(cache):
 
 
 def refresh_edgar_cache(tickers):
+    """
+    Fetch EDGAR company facts + SIC (from submissions) for every ticker.
+    SIC is used to derive sector for WACC; entity name is stored for display.
+    """
     cache = load_edgar_cache()
     total = len(tickers)
     ok, failed = 0, []
@@ -713,44 +934,65 @@ def refresh_edgar_cache(tickers):
         if cik is None:
             failed.append(sym)
             continue
+
         print(f"  [{i+1}/{total}] {sym} (CIK {cik})...", end=" ", flush=True)
+
+        # Fetch SIC from EDGAR submissions endpoint
+        sic = None
+        try:
+            subs_r = requests.get(EDGAR_SUBS_URL.format(cik=cik),
+                                  headers=EDGAR_HEADERS, timeout=30)
+            if subs_r.status_code == 200:
+                sic = subs_r.json().get("sic")
+        except Exception:
+            pass
+        time.sleep(0.4)   # polite pause between submissions and facts calls (SEC rate limit)
+
+        # Fetch company facts
         facts = fetch_edgar_facts(cik)
         if facts is None:
             print("FAILED")
             failed.append(sym)
             continue
         try:
-            fin = extract_edgar_financials(facts)
+            fin = extract_edgar_financials(facts, sic=sic)
             cache[sym] = fin
             ok += 1
-            oe_str = f"${fin['oe_ttm']/1e9:.2f}B" if fin.get("oe_ttm") else "n/a"
-            print(f"OK (OE TTM: {oe_str})")
+            oe_str  = f"${fin['oe_ttm']/1e9:.2f}B" if fin.get("oe_ttm") else "n/a"
+            sec_str = fin.get("sector", "default")
+            print(f"OK  OE={oe_str}  sector={sec_str}")
         except Exception as e:
             print(f"ERROR: {e}")
             failed.append(sym)
-        time.sleep(0.15)
+        time.sleep(0.5)   # ~2 req/sec across submissions + facts calls, well under SEC's 10 req/sec limit
+
     save_edgar_cache(cache)
     print(f"\nEDGAR refresh complete: {ok} ok, {len(failed)} failed")
+    if failed:
+        print(f"  Failed tickers: {failed}")
     return cache
 
 
 def run_prices_only(tickers, edgar_cache):
+    """
+    Compute metrics for all tickers using:
+      - Tiingo   : historical + current prices (with price_cache.json)
+      - FRED     : live 10Y Treasury yield
+      - EDGAR    : all fundamentals (from edgar_cache)
+    """
     global GLOBAL_10Y_YIELD, GLOBAL_10Y_YIELD_LIVE
-    try:
-        tnx     = yf.Ticker("^TNX")
-        fetched = tnx.history(period="5d")["Close"].dropna()
-        if fetched.empty:
-            raise ValueError("Empty TNX series")
-        # ^TNX is quoted in percent already (e.g. 44.4 = 4.44%) — no division needed.
-        GLOBAL_10Y_YIELD      = float(fetched.iloc[-1])
-        GLOBAL_10Y_YIELD_LIVE = True
-        print(f"10Y Treasury Yield: {GLOBAL_10Y_YIELD:.2f}% (live)")
-    except Exception as e:
-        GLOBAL_10Y_YIELD_LIVE = False
-        print(f"WARNING: TNX fetch failed ({e}). Fallback: {GLOBAL_10Y_YIELD:.2f}%")
+
+    # 1. Fetch 10Y yield from FRED
+    GLOBAL_10Y_YIELD, GLOBAL_10Y_YIELD_LIVE = fetch_10y_yield()
+    src = "live (FRED)" if GLOBAL_10Y_YIELD_LIVE else "fallback"
+    print(f"10Y Treasury Yield: {GLOBAL_10Y_YIELD:.2f}% ({src})")
+
+    # 2. Load price cache once; it will be mutated per ticker and saved at end
+    price_cache = load_price_cache()
 
     results = {}
     total   = len(tickers)
+
     for i, sym in enumerate(tickers):
         print(f"  [{i+1}/{total}] {sym}", end=" ", flush=True)
         fin = edgar_cache.get(sym)
@@ -760,50 +1002,27 @@ def run_prices_only(tickers, edgar_cache):
                 "current": {}, "peak_52w": {}, "bear_markets": [],
                 "last_updated": datetime.now().isoformat(),
             }
-            print("(no cache)")
+            print("(no EDGAR cache)")
             continue
+
+        # Build ticker_info entirely from EDGAR cache — no yfinance needed
+        ticker_info = {
+            "shortName":         fin.get("entity_name") or sym,
+            "sector":            fin.get("sector", "default"),
+            "sharesOutstanding": fin.get("shares_ttm"),
+            "totalDebt":         fin.get("debt_ttm") or 0,
+            "totalCash":         fin.get("cash_ttm") or 0,
+        }
 
         for attempt in range(3):
             try:
-                time.sleep(1 + attempt)  # Slightly longer backoff
-                t = yf.Ticker(sym)
-                
-                # 1. Guarantee share count using fast_info (bypasses standard .info rate limits)
-                raw_info = t.info or {}
-                shares = t.fast_info.get("shares") or raw_info.get("sharesOutstanding")
-                
-                # 2. FIX: Pull Enterprise Value Balance Sheet numbers safely
-                bs = t.balance_sheet
-                total_debt = 0.0
-                total_cash = 0.0
-                if bs is not None and not bs.empty:
-                    if "Total Debt" in bs.index:
-                        total_debt = float(bs.loc["Total Debt"].iloc[0]) if pd.notna(bs.loc["Total Debt"].iloc[0]) else 0.0
-                    
-                    if "Cash And Cash Equivalents" in bs.index:
-                        total_cash = float(bs.loc["Cash And Cash Equivalents"].iloc[0]) if pd.notna(bs.loc["Cash And Cash Equivalents"].iloc[0]) else 0.0
-                    elif "Total Cash" in bs.index:
-                        total_cash = float(bs.loc["Total Cash"].iloc[0]) if pd.notna(bs.loc["Total Cash"].iloc[0]) else 0.0
+                hist_adj, hist_close = fetch_tiingo_prices(sym, price_cache)
+                if hist_adj.empty:
+                    raise ValueError("Empty price history from Tiingo")
 
-                info = {
-                    "shortName": raw_info.get("shortName", sym),
-                    "sector": raw_info.get("sector", "default"),
-                    "sharesOutstanding": shares,
-                    "totalDebt": total_debt,
-                    "totalCash": total_cash
-                }
-
-                # 3. Fetch history
-                hist = t.history(period="max", interval="1d")["Close"].dropna()
-                if hist.empty:
-                    raise ValueError("Empty price history")
-                
-                # 4. Safely strip timezones to prevent Pandas TypeError crashes
-                if hist.index.tz is not None:
-                    hist.index = hist.index.tz_convert(None)
-                
-                results[sym] = compute_ticker_result(sym, fin, info, hist)
-                print(f"${results[sym].get('current', {}).get('price', 'n/a')}")
+                results[sym] = compute_ticker_result(sym, fin, ticker_info, hist_adj, hist_close)
+                price_str = results[sym].get("current", {}).get("price", "n/a")
+                print(f"${price_str}")
                 break
             except Exception as e:
                 if attempt == 2:
@@ -816,6 +1035,9 @@ def run_prices_only(tickers, edgar_cache):
                     print(f"ERROR: {e}")
                 else:
                     time.sleep(2)
+
+    # 3. Persist updated price cache
+    save_price_cache(price_cache)
     return results
 
 
@@ -835,9 +1057,10 @@ def save_results(results, path=OE_DATA):
 if __name__ == "__main__":
     run_mode = os.environ.get("RUN_MODE", "prices_only").strip().lower()
     print("=" * 60)
-    print(f"OE Dashboard Calculator — Mode: {run_mode}")
+    print(f"OE Dashboard Calculator v6 — Mode: {run_mode}")
     print("=" * 60)
 
+    # Load CIK mapping from SEC
     print("Fetching official SEC CIK mapping...")
     try:
         r = requests.get("https://www.sec.gov/files/company_tickers.json",
@@ -853,7 +1076,7 @@ if __name__ == "__main__":
     else:
         cache = load_edgar_cache()
         if not cache:
-            print("No cache found — switching to full EDGAR refresh...")
+            print("No EDGAR cache found — switching to full refresh (edgar_and_prices)...")
             results = run_edgar_and_prices(TICKERS)
         else:
             results = run_prices_only(TICKERS, cache)
