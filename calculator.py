@@ -891,32 +891,61 @@ def compute_ticker_result(symbol, financials, ticker_info, hist_adj, hist_close)
         result["bear_markets"].append(mb)
 
     # ── Z-SCORES (Block 1-A/B) ────────────────────────────────────────────────
-    if oe_by_fiscal_end and oe_ttm is not None:
+    # Use PER-SHARE annual OE for Z-scores — two reasons:
+    #   1) Like-for-like: compare annual OE/sh against annual OE/sh history
+    #      (TTM OE includes the latest quarter's uplift vs an annual distribution,
+    #       which systematically overstates the Z-score).
+    #   2) Per-share normalizes for buybacks: AAPL retired ~4B shares over 10Y,
+    #      so total-dollar OE growth overstates per-share improvement.
+    if oe_by_fiscal_end and shares_by_fiscal_end:
         now = datetime.now()
         cutoff_5y  = (now - timedelta(days=5  * 365)).strftime("%Y-%m-%d")
         cutoff_10y = (now - timedelta(days=10 * 365)).strftime("%Y-%m-%d")
 
-        vals_5y  = [v for d, v in oe_by_fiscal_end.items() if d >= cutoff_5y]
-        vals_10y = [v for d, v in oe_by_fiscal_end.items() if d >= cutoff_10y]
+        # Build per-share OE series (period-matched shares)
+        oeps_series = {}
+        for d, oe_val in oe_by_fiscal_end.items():
+            sh = shares_by_fiscal_end.get(d) or shares
+            if sh and sh > 0:
+                oeps_series[d] = oe_val / sh
 
-        if len(vals_5y) >= 2:
-            arr5 = np.array(vals_5y, dtype=float)
-            std5 = arr5.std()
-            if std5 > 0:
-                result["discount_metrics"]["z_score_5y"] = round(
-                    (oe_ttm - arr5.mean()) / std5, 2)
+        # Latest annual OE/share (not TTM) as the "current" reference value
+        if oeps_series:
+            latest_annual_fend = max(oeps_series.keys())
+            latest_annual_oeps = oeps_series[latest_annual_fend]
 
-        if len(vals_10y) >= 2:
-            arr10 = np.array(vals_10y, dtype=float)
-            std10 = arr10.std()
-            if std10 > 0:
-                result["discount_metrics"]["z_score_10y"] = round(
-                    (oe_ttm - arr10.mean()) / std10, 2)
+            vals_5y  = [v for d, v in oeps_series.items() if d >= cutoff_5y]
+            vals_10y = [v for d, v in oeps_series.items() if d >= cutoff_10y]
+
+            if len(vals_5y) >= 2:
+                arr5 = np.array(vals_5y, dtype=float)
+                std5 = arr5.std()
+                if std5 > 0:
+                    result["discount_metrics"]["z_score_5y"] = round(
+                        (latest_annual_oeps - arr5.mean()) / std5, 2)
+
+            if len(vals_10y) >= 2:
+                arr10 = np.array(vals_10y, dtype=float)
+                std10 = arr10.std()
+                if std10 > 0:
+                    result["discount_metrics"]["z_score_10y"] = round(
+                        (latest_annual_oeps - arr10.mean()) / std10, 2)
 
     # ── ERP SPREAD (Block 1-C) ────────────────────────────────────────────────
-    if result["current"].get("oe_yield") is not None:
+    # Use latest ANNUAL OE yield (not TTM) for ERP — consistent with Z-score
+    # methodology and avoids the Q1 partial-year uplift inflating the yield.
+    annual_oe_yield = None
+    if oeps_series and current_price:
+        try:
+            latest_oeps_val = oeps_series[max(oeps_series.keys())]
+            annual_oe_yield = latest_oeps_val / current_price * 100
+        except Exception:
+            pass
+    erp_yield_src = annual_oe_yield if annual_oe_yield is not None \
+                    else result["current"].get("oe_yield")
+    if erp_yield_src is not None:
         result["discount_metrics"]["erp_spread"]     = round(
-            result["current"]["oe_yield"] - GLOBAL_10Y_YIELD, 2)
+            erp_yield_src - GLOBAL_10Y_YIELD, 2)
         result["discount_metrics"]["erp_yield_used"] = round(GLOBAL_10Y_YIELD, 2)
         result["discount_metrics"]["erp_yield_live"] = GLOBAL_10Y_YIELD_LIVE
 
