@@ -83,7 +83,10 @@ INDUSTRY_WACC = {
 }
 
 TICKERS = [
-    "AAPL","GOOG","META","MSFT","NVDA","PLTR","TSLA","EA","NFLX","TMUS","AMZN","CMG","CPRT","GRMN","LEN","MCD","ORLY","POOL","ROST","TSCO","ULTA","BG","COST","HSY","KO","PEP","PG","PM","STZ","SYY","WMT","BKR","CVX","EOG","EPD","EXE","FANG","SLB","TPL","VLO","XOM","BRK.B","ACGL","AIZ","AJG","AON","ARES","AXP","BAC","BLK","BRO","C","CB","CBOE","CBRE","CINF","CME","CPAY","EG","ERIE","FICO","GS","IBKR","ICE","JPM","KKR","MA","MCO","MSCI","NDAQ","PGR","RJF","SPGI","TRV","V","VRSK","WFC","WRB","A","BSX","CI","ABT","COO","HCA","IDXX","IQV","ISRG","JNJ","LLY","MCK","MRK","MTD","REGN","RMD","SYK","TECH","VRTX","WAT","WST","ZTS","WM","MO","ADP","AXON","CAT","CTAS","DE","EME","EMR","ETN","FAST","FIX","GD","GE","GWW","HON","HWM","LMT","NOC","ODFL","OTIS","PH","PWR","ROK","ROL","ROP","TDG","TT","ACN","ADI","ADSK","AMAT","AMD","ANET","APH","CDNS","CSCO","FTNT","IT","KLAC","LRCX","MCHP","MPWR","MSI","NXPI","ON","PTC","Q","SNPS","TEL","TER","TTD","TXN","TYL","VRSN","WDAY","APD","AVY","CRH","ECL","FSLR","LIN","MLM","NUE","SHW","STLD","VMC","AMT","CSGP","EXR","PSA","SBAC","VICI","AEP","AWK","CEG","D","DUK","ETR","NEE","NRG","PEG","SO","SRE","VST","XEL",
+    # ── VERIFICATION MODE: AAPL only ──────────────────────────────────────────
+    # All 186 watchlist tickers commented out until AAPL metrics are corroborated.
+    "AAPL",
+    # "GOOG","META","MSFT","NVDA","PLTR","TSLA","EA","NFLX","TMUS","AMZN","CMG","CPRT","GRMN","LEN","MCD","ORLY","POOL","ROST","TSCO","ULTA","BG","COST","HSY","KO","PEP","PG","PM","STZ","SYY","WMT","BKR","CVX","EOG","EPD","EXE","FANG","SLB","TPL","VLO","XOM","BRK.B","ACGL","AIZ","AJG","AON","ARES","AXP","BAC","BLK","BRO","C","CB","CBOE","CBRE","CINF","CME","CPAY","EG","ERIE","FICO","GS","IBKR","ICE","JPM","KKR","MA","MCO","MSCI","NDAQ","PGR","RJF","SPGI","TRV","V","VRSK","WFC","WRB","A","BSX","CI","ABT","COO","HCA","IDXX","IQV","ISRG","JNJ","LLY","MCK","MRK","MTD","REGN","RMD","SYK","TECH","VRTX","WAT","WST","ZTS","WM","MO","ADP","AXON","CAT","CTAS","DE","EME","EMR","ETN","FAST","FIX","GD","GE","GWW","HON","HWM","LMT","NOC","ODFL","OTIS","PH","PWR","ROK","ROL","ROP","TDG","TT","ACN","ADI","ADSK","AMAT","AMD","ANET","APH","CDNS","CSCO","FTNT","IT","KLAC","LRCX","MCHP","MPWR","MSI","NXPI","ON","PTC","Q","SNPS","TEL","TER","TTD","TXN","TYL","VRSN","WDAY","APD","AVY","CRH","ECL","FSLR","LIN","MLM","NUE","SHW","STLD","VMC","AMT","CSGP","EXR","PSA","SBAC","VICI","AEP","AWK","CEG","D","DUK","ETR","NEE","NRG","PEG","SO","SRE","VST","XEL",
 ]
 
 HARDCODED_CIKS  = {}
@@ -109,7 +112,9 @@ def sic_to_sector(sic) -> str:
     if  2600  <= s <  2700: return "Basic Materials"       # Paper
     if  2800  <= s <  2900: return "Basic Materials"       # Chemicals
     if  2900  <= s <  3000: return "Energy"                # Petroleum Refining
-    if  3000  <= s <  3600: return "Industrials"           # Manufacturing
+    if  3000  <= s <  3570: return "Industrials"           # Manufacturing (excl. computers)
+    if  3570  <= s <  3580: return "Technology"            # Computer/Office Equipment (AAPL=3571)
+    if  3580  <= s <  3600: return "Industrials"           # Industrial Machinery
     if  3600  <= s <  3700: return "Technology"            # Electronic Equipment
     if  3700  <= s <  3800: return "Consumer Cyclical"     # Motor Vehicles
     if  3800  <= s <  3900: return "Healthcare"            # Instruments / Med Devices
@@ -768,6 +773,39 @@ def compute_ticker_result(symbol, financials, ticker_info, hist_adj, hist_close)
         sh   = _shares_at(ts)
         return oe_val, cagr, sh
 
+    def _safe_price(series: pd.Series, ts: pd.Timestamp) -> float:
+        """Get price from series at ts; fall back to nearest prior trading day."""
+        if series.empty:
+            return None
+        if ts in series.index:
+            return float(series[ts])
+        idx = series.index.searchsorted(ts, side="right") - 1
+        return float(series.iloc[max(idx, 0)])
+
+    def _price_at(ts: pd.Timestamp, fiscal_sh: float) -> float:
+        """
+        Hybrid price selection to pair correctly with EDGAR share counts.
+
+        EDGAR retroactively restates historical share counts in each annual 10-K
+        (typically 2-3 comparative years). After a split, restated shares are
+        inflated by the split factor; adjClose is deflated by the same factor,
+        so adjClose × restated_shares = correct MC.
+
+        For fiscal years older than EDGAR's restatement window, share counts are
+        NOT retroactively restated (pre-split counts). Using adjClose (which IS
+        split-adjusted) with non-restated shares understates MC by the split factor.
+
+        Detection: if fiscal_sh / current_shares < 0.5, the fiscal year shares are
+        likely non-restated (pre-split). Use unadjusted close in that case.
+        Otherwise (restated or post-split), use adjClose.
+        """
+        if (shares and shares > 0 and fiscal_sh and fiscal_sh > 0
+                and fiscal_sh / shares < 0.5):
+            # Non-restated shares → use unadjusted close
+            return _safe_price(hist_close, ts)
+        # Restated or post-split shares → use split-adjusted close
+        return _safe_price(hist_adj, ts)
+
     # ── CURRENT ───────────────────────────────────────────────────────────────
     today_ts      = hist_adj.index[-1]
     current_price = float(hist_adj.iloc[-1])
@@ -782,10 +820,11 @@ def compute_ticker_result(symbol, financials, ticker_info, hist_adj, hist_close)
     result["current"] = m_c
 
     # ── 52-WEEK PEAK (Block 2 — E through I) ─────────────────────────────────
-    peak52_date, peak52_price = _52w_peak(hist_adj, today_ts)
+    peak52_date, _ = _52w_peak(hist_adj, today_ts)
     if peak52_date is not None:
         oe_pk, cagr_pk, sh_pk = oe_and_growth_at(peak52_date)
-        ev_p,  mc_p    = ev_mc(peak52_price, sh_pk)
+        peak52_price = _price_at(peak52_date, sh_pk)
+        ev_p,  mc_p  = ev_mc(peak52_price, sh_pk)
         if oe_pk and mc_p:
             m_p = metrics_at_price(oe_pk, ev_p, mc_p, cagr_pk, epv, sh_pk)
         else:
@@ -809,20 +848,25 @@ def compute_ticker_result(symbol, financials, ticker_info, hist_adj, hist_close)
 
         effective_end_str = min(crisis_end_ts, today_ts).strftime("%Y-%m-%d")
 
-        pre_peak_date, pre_peak_price = _52w_peak(hist_adj, crisis_start_ts)
+        pre_peak_date, _ = _52w_peak(hist_adj, crisis_start_ts)
         if pre_peak_date is None:
             continue
 
-        trough_date, trough_price = _trough_in_window(hist_adj, crisis["start"], effective_end_str)
+        trough_date, _ = _trough_in_window(hist_adj, crisis["start"], effective_end_str)
         if trough_date is None:
             continue
+
+        # Get OE + shares first (needed for _price_at split-detection)
+        oe_pk,  cagr_pk, sh_pk = oe_and_growth_at(pre_peak_date)
+        oe_tr,  cagr_tr, sh_tr = oe_and_growth_at(trough_date)
+
+        # Pick price consistent with EDGAR shares (adjClose if restated, close if not)
+        pre_peak_price = _price_at(pre_peak_date, sh_pk)
+        trough_price   = _price_at(trough_date,   sh_tr)
 
         drawdown = (trough_price - pre_peak_price) / pre_peak_price * 100
         if drawdown >= -5:
             continue
-
-        oe_pk,  cagr_pk, sh_pk = oe_and_growth_at(pre_peak_date)
-        oe_tr,  cagr_tr, sh_tr = oe_and_growth_at(trough_date)
 
         # Skip crisis entirely if EDGAR has no OE data for either date.
         # This happens when the crisis predates EDGAR XBRL coverage (~2009)
