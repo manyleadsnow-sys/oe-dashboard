@@ -8,13 +8,13 @@
     "current": {
       "oe": 117.461,
       "oeps": 7.86,
-      "oe_yield": 2.8765,
-      "oe_multiple": 34.7646,
+      "oe_yield": 2.8738,
+      "oe_multiple": 34.7977,
       "oe_growth": 12.6542,
-      "oe_peg": 2.7473,
+      "oe_peg": 2.7499,
       "epv": 70.3412,
       "oe_negative": false,
-      "price": 273.17
+      "price": 273.43
     },
     "peak_52w": {
       "oe": 110.993,
@@ -167,17 +167,17 @@
       "erp_yield_used": 4.3,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-23T16:54:32.311978",
+    "last_updated": "2026-04-24T14:58:46.006997",
     "edgar_fetched_at": "2026-04-19T05:07:12.677962",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
     "vs_peak_diff": {
       "oe": 5.83,
       "oeps": 5.79,
-      "oe_yield": 10.77,
-      "oe_multiple": -9.72,
+      "oe_yield": 10.66,
+      "oe_multiple": -9.63,
       "oe_growth": 0.0,
-      "oe_peg": -9.72,
+      "oe_peg": -9.63,
       "epv": 0.0
     }
   }
