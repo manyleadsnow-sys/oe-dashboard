@@ -8,13 +8,13 @@
     "current": {
       "oe": 117.461,
       "oeps": 7.86,
-      "oe_yield": 2.8989,
-      "oe_multiple": 34.496,
+      "oe_yield": 2.9363,
+      "oe_multiple": 34.057,
       "oe_growth": 12.6542,
-      "oe_peg": 2.7261,
+      "oe_peg": 2.6914,
       "epv": 70.3412,
       "oe_negative": false,
-      "price": 271.06
+      "price": 267.61
     },
     "peak_52w": {
       "oe": 110.993,
@@ -163,21 +163,21 @@
     "discount_metrics": {
       "z_score_5y": 1.87,
       "z_score_10y": 0.83,
-      "erp_spread": -1.6,
-      "erp_yield_used": 4.34,
+      "erp_spread": -1.54,
+      "erp_yield_used": 4.31,
       "erp_yield_live": true
     },
-    "last_updated": "2026-04-27T12:15:38.113193",
+    "last_updated": "2026-04-28T12:20:06.804072",
     "edgar_fetched_at": "2026-04-19T05:07:12.677962",
     "dca_signal": "\ud83d\udd34 WAIT",
     "oe_negative_warning": false,
     "vs_peak_diff": {
       "oe": 5.83,
       "oeps": 5.79,
-      "oe_yield": 11.63,
-      "oe_multiple": -10.42,
+      "oe_yield": 13.07,
+      "oe_multiple": -11.56,
       "oe_growth": 0.0,
-      "oe_peg": -10.42,
+      "oe_peg": -11.56,
       "epv": 0.0
     }
   }
